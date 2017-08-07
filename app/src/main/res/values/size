@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <!-- login_activity-->
+    <dimen name="login_logo_width">71.5dp</dimen>
+    <dimen name="login_logo_height">84.5dp</dimen>
+
+    <dimen name="txt_18">18sp</dimen>
+    <dimen name="txt_14">14sp</dimen>
+    <dimen name="txt_12">12sp</dimen>
+    <dimen name="txt_5dp">5dp</dimen>
+    <dimen name="txt_15dp">15dp</dimen>
+    <dimen name="txt_10dp">10dp</dimen>
+    <dimen name="txt_17dp">17dp</dimen>
+    <dimen name="txt_20dp">20dp</dimen>
+</resources>

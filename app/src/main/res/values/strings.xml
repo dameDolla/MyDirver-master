@@ -35,4 +35,17 @@
     <string name="txt_baojia_hint">输入您的报价</string>
     <string name="txt_weight_hint">输入重量</string>
     <string name="txt_tiji_hint">输入体积</string>
+    <!--release_list-->
+    <string name="fabu_intro">点击发布一条空程车信息，平台帮你匹配合适
+的资源，以消息形式及时推送给您。</string>
+    <!--mine_fragment-->
+    <string name="mine_message">我的消息</string>
+    <string name="mine_wallet">我的钱包</string>
+    <string name="mine_shouzhimingxi">收支明细</string>
+    <string name="mine_bankcard">我的银行卡</string>
+    <string name="mine_baozhengjingdetail">保证金详情</string>
+    <string name="mine_renzheng">实名认证</string>
+    <string name="mine_car">我的车辆</string>
+    <string name="mine_cargroup">车队信息</string>
+    <string name="mine_route">订阅路线</string>
 </resources>

@@ -7,9 +7,13 @@
     <dimen name="txt_18">18sp</dimen>
     <dimen name="txt_14">14sp</dimen>
     <dimen name="txt_12">12sp</dimen>
+    <dimen name="txt_20">20sp</dimen>
+    <dimen name="txt_10">10sp</dimen>
+
     <dimen name="txt_5dp">5dp</dimen>
     <dimen name="txt_15dp">15dp</dimen>
     <dimen name="txt_10dp">10dp</dimen>
     <dimen name="txt_17dp">17dp</dimen>
     <dimen name="txt_20dp">20dp</dimen>
+    <dimen name="txt_39dp">39dp</dimen>
 </resources>

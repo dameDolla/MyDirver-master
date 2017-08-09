@@ -18,6 +18,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--添加回程页面-->
+        <activity android:name=".activities.AddReleaseActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
+
+        <!--设置界面-->
+        <activity android:name=".activities.SettingActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
+
     </application>
 
 </manifest>

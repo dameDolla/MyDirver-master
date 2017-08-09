@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f2">
+
+    <include layout="@layout/top_title"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/txt_39dp"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/txt_20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/black"
+            android:textSize="@dimen/txt_14"
+            android:text="添加支付密码"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/txt_10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=">"
+            android:textSize="@dimen/txt_20"
+            android:paddingRight="@dimen/txt_15dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"/>
+    </RelativeLayout>
+
+    <include layout="@layout/back_line"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/txt_39dp"
+        android:background="@color/white">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/black"
+            android:textSize="@dimen/txt_14"
+            android:text="重置支付密码"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/txt_10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=">"
+            android:textSize="@dimen/txt_20"
+            android:paddingRight="@dimen/txt_15dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"/>
+    </RelativeLayout>
+
+    <include layout="@layout/back_line"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/txt_39dp"
+        android:background="@color/white">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/black"
+            android:textSize="@dimen/txt_14"
+            android:text="有问题？联系客服"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/txt_10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=">"
+            android:textSize="@dimen/txt_20"
+            android:paddingRight="@dimen/txt_15dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"/>
+    </RelativeLayout>
+</LinearLayout>

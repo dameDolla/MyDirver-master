@@ -10,29 +10,9 @@
         android:layout_width="match_parent"
         android:scrollbars="vertical"
         android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
 
-        android:background="@color/shen_blue"
-        android:orientation="horizontal"
-        android:gravity="center">
+        <include layout="@layout/top_title"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/back"
-            android:paddingLeft="@dimen/txt_10dp"
-            android:id="@+id/release_back"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textColor="@color/white"
-            android:textSize="@dimen/txt_18"
-            android:gravity="center"
-            android:text="@string/txt_release_title"/>
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f2">
+
+    <include layout="@layout/top_title"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="99dp"
+        android:background="@color/white">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="请输入***强的身份证号码"
+            android:textColor="#666666"
+            android:textSize="@dimen/txt_14"
+            android:gravity="center"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/txt_18"
+            android:hint="请输入身份证号码"
+            android:layout_marginLeft="@dimen/txt_15dp"
+            android:layout_marginRight="@dimen/txt_15dp"
+            android:background="@drawable/border_gray"/>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="39dp"
+        android:text="下一步"
+        android:textColor="@color/white"
+        android:textSize="@dimen/txt_18"
+        android:background="@drawable/login_bt_"
+        android:layout_marginLeft="@dimen/txt_20dp"
+        android:layout_marginRight="@dimen/txt_20dp"/>
+</LinearLayout>

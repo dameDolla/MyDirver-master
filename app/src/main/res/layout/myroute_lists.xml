@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f2">
+
+    <include layout="@layout/top_title"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_marginTop="@dimen/txt_20dp"
+        android:background="@color/white">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/txt_15dp"
+            android:gravity="center_vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textColor="#666666"
+                android:text="深圳-俄罗斯贝加尔湖"
+                android:textSize="@dimen/txt_14"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textColor="#666666"
+                android:text="箱式\12.5m"
+                android:textSize="@dimen/txt_14"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingRight="@dimen/txt_15dp"
+            android:layout_alignParentRight="true">
+            <com.suke.widget.SwitchButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:id="@+id/is_main"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设为主要路线"
+                android:textColor="#666666"
+                android:textSize="@dimen/txt_12"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/txt_39dp"
+        android:background="@drawable/login_bt_"
+        android:text="添加路线"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="@dimen/txt_20dp"
+        android:layout_marginRight="@dimen/txt_20dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/txt_18"
+        android:gravity="center"/>
+    
+</LinearLayout>

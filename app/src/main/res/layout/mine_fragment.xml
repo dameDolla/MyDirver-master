@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center"
     android:layout_width="match_parent"
@@ -10,7 +11,8 @@
         android:orientation="vertical"
         android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -33,6 +35,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:text="设置"
+                android:id="@+id/mine_setting"
                 android:paddingRight="@dimen/txt_15dp"
                 android:gravity="center_vertical"
                 android:textColor="@color/white"
@@ -44,13 +47,22 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:layout_marginBottom="@dimen/txt_10dp">
-            <ImageView
+            <!--<ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@mipmap/ic_launcher"
                 android:layout_alignParentLeft="true"
                 android:paddingLeft="@dimen/txt_15dp"
-                android:id="@+id/mine_icon"/>
+                android:id="@+id/mine_icon"/>-->
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:id="@+id/mine_icon"
+                android:layout_alignParentLeft="true"
+                android:paddingLeft="@dimen/txt_15dp"
+                fresco:roundAsCircle="true"
+                android:clickable="false"
+                fresco:placeholderImage="@mipmap/head"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -68,6 +80,7 @@
                         android:layout_height="wrap_content"
                         android:text="小时不识月"
                         android:textSize="@dimen/txt_18"
+                        android:clickable="false"
                         android:textColor="@color/white"
                         android:id="@+id/mine_username"/>
                     <ImageView
@@ -133,7 +146,7 @@
                 android:layout_height="match_parent"
                 android:textColor="@color/black_17"
                 android:text="@string/mine_message"
-                android:textSize="@dimen/txt_18"
+                android:textSize="@dimen/txt_14"
                 android:gravity="center_vertical"
                 android:layout_toRightOf="@+id/mine_icon_message"
                 android:paddingLeft="@dimen/txt_10dp"/>
@@ -166,7 +179,7 @@
                 android:layout_height="match_parent"
                 android:textColor="@color/black_17"
                 android:text="@string/mine_wallet"
-                android:textSize="@dimen/txt_18"
+                android:textSize="@dimen/txt_14"
                 android:gravity="center_vertical"
                 android:layout_toRightOf="@+id/mine_icon_wallet"
                 android:paddingLeft="@dimen/txt_10dp"/>
@@ -200,7 +213,7 @@
                 android:layout_height="match_parent"
                 android:textColor="@color/black_17"
                 android:text="@string/mine_shouzhimingxi"
-                android:textSize="@dimen/txt_18"
+                android:textSize="@dimen/txt_14"
                 android:gravity="center_vertical"
                 android:layout_toRightOf="@+id/mine_icon_shouzhi"
                 android:paddingLeft="@dimen/txt_10dp"/>
@@ -234,7 +247,7 @@
                 android:layout_height="match_parent"
                 android:textColor="@color/black_17"
                 android:text="@string/mine_bankcard"
-                android:textSize="@dimen/txt_18"
+                android:textSize="@dimen/txt_14"
                 android:gravity="center_vertical"
                 android:layout_toRightOf="@+id/mine_icon_card"
                 android:paddingLeft="@dimen/txt_10dp"/>
@@ -268,7 +281,7 @@
                 android:layout_height="match_parent"
                 android:textColor="@color/black_17"
                 android:text="@string/mine_baozhengjingdetail"
-                android:textSize="@dimen/txt_18"
+                android:textSize="@dimen/txt_14"
                 android:gravity="center_vertical"
                 android:layout_toRightOf="@+id/mine_icon_baozhengjin"
                 android:paddingLeft="@dimen/txt_10dp"/>
@@ -289,7 +302,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:id="@+id/renzheng_rl">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -301,7 +315,7 @@
                 android:layout_height="match_parent"
                 android:textColor="@color/black_17"
                 android:text="@string/mine_renzheng"
-                android:textSize="@dimen/txt_18"
+                android:textSize="@dimen/txt_14"
                 android:gravity="center_vertical"
                 android:layout_toRightOf="@+id/mine_renzheng"
                 android:paddingLeft="@dimen/txt_10dp"/>
@@ -335,7 +349,7 @@
                 android:layout_height="match_parent"
                 android:textColor="@color/black_17"
                 android:text="@string/mine_car"
-                android:textSize="@dimen/txt_18"
+                android:textSize="@dimen/txt_14"
                 android:gravity="center_vertical"
                 android:layout_toRightOf="@+id/mine_mycar"
                 android:paddingLeft="@dimen/txt_10dp"/>
@@ -369,7 +383,7 @@
                 android:layout_height="match_parent"
                 android:textColor="@color/black_17"
                 android:text="@string/mine_cargroup"
-                android:textSize="@dimen/txt_18"
+                android:textSize="@dimen/txt_14"
                 android:gravity="center_vertical"
                 android:layout_toRightOf="@+id/mine_cargroup"
                 android:paddingLeft="@dimen/txt_10dp"/>
@@ -391,7 +405,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            >
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -403,7 +418,7 @@
                 android:layout_height="match_parent"
                 android:textColor="@color/black_17"
                 android:text="@string/mine_route"
-                android:textSize="@dimen/txt_18"
+                android:textSize="@dimen/txt_14"
                 android:gravity="center_vertical"
                 android:layout_toRightOf="@+id/mine_dingyue"
                 android:paddingLeft="@dimen/txt_5dp"/>

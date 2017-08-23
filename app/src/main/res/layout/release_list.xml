@@ -201,9 +201,8 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="23"
+                android:layout_weight="24"
                 android:layout_marginLeft="@dimen/txt_10dp"
-                android:layout_marginRight="@dimen/txt_10dp"
                 android:text="历史空程发布"
                 android:textColor="#666666"
                 android:textSize="@dimen/txt_14"/>

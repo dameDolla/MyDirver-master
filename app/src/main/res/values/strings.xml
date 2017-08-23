@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FragmentTabHost</string>
+    <string name="app_name">Driver</string>
     <string name="action_settings">Settings</string>
 
     <string name="version_text">司机版 v1.0</string>
@@ -48,4 +48,13 @@
     <string name="mine_car">我的车辆</string>
     <string name="mine_cargroup">车队信息</string>
     <string name="mine_route">订阅路线</string>
+
+    <!--cargroup_renzheng_one-->
+    <string name="cargroup_intro">请按格式填写提交资料</string>
+    
+    <!--renzheng_main-->
+    <string name="renzheng_intro">身份认证可以开启更多功能，接单，发布车源，拨打电话。接收调度等功能不再受限制</string>
+    <string name="renzheng_personnal_txt">请准备好身份证,驾照,车辆信息</string>
+    <string name="renzheng_cargroup_txt">请准备好身份证,公司验证信息</string>
+    <string name="renzheng_diaodu_txt">请准备营业执照,身份证,车辆信息</string>
 </resources>

@@ -1,10 +1,30 @@
 package com.app.gaolonglong.fragmenttabhost.utils;
 
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.app.gaolonglong.fragmenttabhost.config.Config;
+import com.app.gaolonglong.fragmenttabhost.config.Constant;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.StreamCorruptedException;
+import java.security.MessageDigest;
+import java.util.List;
+
 
 /**
  * Created by yanqi on 2017/8/1.
@@ -18,9 +38,26 @@ public class ToolsUtils {
 
     private static final ToolsUtils tools = new ToolsUtils();
 
+    //存储数据需要editor对象，取数据直接首选项对象就好了。
+    private static final String SHARE_PREFER_NAME = "config";
+
+    private static SharedPreferences mSharedPreferences;
+
     public  static ToolsUtils getInstance()
     {
         return tools;
+    }
+
+    /**
+     * 判断用户是否登录
+     */
+    public Boolean isLogin(Context context)
+    {
+        if (ToolsUtils.getString(context, Constant.LOGIN_GUID,"") == null)
+        {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -58,5 +95,189 @@ public class ToolsUtils {
         img.setImageResource(resImg);
         linear.addView(img);
         mToast.show();
+    }
+
+    /**
+     * MD5加密
+     * 请求的参数 json数据 拼接PYLF然后加密
+     */
+    public String getMD5Val(String jsonVal)
+    {
+        String data =  jsonVal+"PYLF";
+        return md5(data);
+    }
+
+    /**
+     * MD5单向加密，32位，用于加密密码，因为明文密码在信道中传输不安全，明文保存在本地也不安全
+     *
+     * @param str
+     * @return
+     */
+    public static String md5(String str) {
+        MessageDigest md5 = null;
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+
+        char[] charArray = str.toCharArray();
+        byte[] byteArray = new byte[charArray.length];
+
+        for (int i = 0; i < charArray.length; i++) {
+            byteArray[i] = (byte) charArray[i];
+        }
+        byte[] md5Bytes = md5.digest(byteArray);
+
+        StringBuffer hexValue = new StringBuffer();
+        for (int i = 0; i < md5Bytes.length; i++) {
+            int val = ((int) md5Bytes[i]) & 0xff;
+            if (val < 16) {
+                hexValue.append("0");
+            }
+            hexValue.append(Integer.toHexString(val));
+        }
+        return hexValue.toString();
+    }
+
+    public static void putBoolean(Context context, String key, boolean value) {
+        if (mSharedPreferences == null) {
+            //私有模式
+            mSharedPreferences = context.getSharedPreferences(SHARE_PREFER_NAME, Context.MODE_PRIVATE);
+        }
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putBoolean(key, value);
+        editor.commit();
+    }
+
+    public static boolean getBoolean(Context context, String key, boolean defaultValue) {
+        if (mSharedPreferences == null) {
+            mSharedPreferences = context.getSharedPreferences(SHARE_PREFER_NAME, Context.MODE_PRIVATE);
+        }
+        //如果获取不到就显示默认值
+        return mSharedPreferences.getBoolean(key, defaultValue);
+    }
+
+    public static void putString(Context context, String key, String value) {
+        if (mSharedPreferences == null) {
+            mSharedPreferences = context.getSharedPreferences(SHARE_PREFER_NAME, Context.MODE_PRIVATE);
+        }
+        SharedPreferences.Editor edit = mSharedPreferences.edit();
+        edit.putString(key, value);
+        edit.commit();
+    }
+
+    public static String getString(Context context, String key, String defaultValue) {
+        if (mSharedPreferences == null) {
+            mSharedPreferences = context.getSharedPreferences(SHARE_PREFER_NAME, Context.MODE_PRIVATE);
+        }
+        //如果获取不到就显示默认值
+        return mSharedPreferences.getString(key, defaultValue);
+    }
+    /**
+     * 将List集合转换成String
+     */
+    public static String SceneList2String(List SceneList)
+            throws IOException {
+        // 实例化一个ByteArrayOutputStream对象，用来装载压缩后的字节文件。
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        // 然后将得到的字符数据装载到ObjectOutputStream
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(
+                byteArrayOutputStream);
+        // writeObject 方法负责写入特定类的对象的状态，以便相应的 readObject 方法可以还原它
+        objectOutputStream.writeObject(SceneList);
+        // 最后，用Base64.encode将字节文件转换成Base64编码保存在String中
+        String SceneListString = new String(Base64.encode(
+                byteArrayOutputStream.toByteArray(), Base64.DEFAULT));
+        // 关闭objectOutputStream
+        objectOutputStream.close();
+        return SceneListString;
+    }
+    /**
+     * 将String转换成List
+     */
+    @SuppressWarnings("unchecked")
+    public static List String2SceneList(String SceneListString)
+            throws StreamCorruptedException, IOException,
+            ClassNotFoundException {
+        byte[] mobileBytes = Base64.decode(SceneListString.getBytes(),
+                Base64.DEFAULT);
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(
+                mobileBytes);
+        ObjectInputStream objectInputStream = new ObjectInputStream(
+                byteArrayInputStream);
+        List SceneList = (List) objectInputStream
+                .readObject();
+        objectInputStream.close();
+        return SceneList;
+    }
+
+    public static String getRealFilePath( final Context context, final Uri uri ) {
+        if ( null == uri ) return null;
+        final String scheme = uri.getScheme();
+        String data = null;
+        if ( scheme == null )
+            data = uri.getPath();
+        else if ( ContentResolver.SCHEME_FILE.equals( scheme ) ) {
+            data = uri.getPath();
+        } else if ( ContentResolver.SCHEME_CONTENT.equals( scheme ) ) {
+            Cursor cursor = context.getContentResolver().query( uri, new String[] { MediaStore.Images.ImageColumns.DATA }, null, null, null );
+            if ( null != cursor ) {
+                if ( cursor.moveToFirst() ) {
+                    int index = cursor.getColumnIndex( MediaStore.Images.ImageColumns.DATA );
+                    if ( index > -1 ) {
+                        data = cursor.getString( index );
+                    }
+                }
+                cursor.close();
+            }
+        }
+        return data;
+    }
+
+    /**
+     * 截取图片中间的一部分
+     */
+    public static Bitmap centerSquareScaleBitmap(Bitmap bitmap, int edgeLength)
+    {
+        if(null == bitmap || edgeLength <= 0)
+        {
+            return  null;
+        }
+
+        Bitmap result = bitmap;
+        int widthOrg = bitmap.getWidth();
+        int heightOrg = bitmap.getHeight();
+
+        if(widthOrg > edgeLength && heightOrg > edgeLength)
+        {
+            //压缩到一个最小长度是edgeLength的bitmap
+            int longerEdge = (int)(edgeLength * Math.max(widthOrg, heightOrg) / Math.min(widthOrg, heightOrg));
+            int scaledWidth = widthOrg > heightOrg ? longerEdge : edgeLength;
+            int scaledHeight = widthOrg > heightOrg ? edgeLength : longerEdge;
+            Bitmap scaledBitmap;
+
+            try{
+                scaledBitmap = Bitmap.createScaledBitmap(bitmap, scaledWidth, scaledHeight, true);
+            }
+            catch(Exception e){
+                return null;
+            }
+
+            //从图中截取正中间的正方形部分。
+            int xTopLeft = (scaledWidth - edgeLength) / 2;
+            int yTopLeft = (scaledHeight - edgeLength) / 2;
+
+            try{
+                result = Bitmap.createBitmap(scaledBitmap, xTopLeft, yTopLeft, edgeLength, edgeLength);
+                scaledBitmap.recycle();
+            }
+            catch(Exception e){
+                return null;
+            }
+        }
+
+        return result;
     }
 }

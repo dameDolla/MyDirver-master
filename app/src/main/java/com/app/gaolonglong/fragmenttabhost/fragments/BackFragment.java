@@ -22,7 +22,7 @@ public class BackFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mRootView == null){
             Log.e("666","MineFragment");
-            mRootView = inflater.inflate(R.layout.mine_fragment,container,false);
+            mRootView = inflater.inflate(R.layout.release_list,container,false);
         }
         ViewGroup parent = (ViewGroup) mRootView.getParent();
         if (parent != null){

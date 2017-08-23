@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <include layout="@layout/top_title"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="身份认证"
+            android:textColor="@color/black"
+            android:textSize="@dimen/txt_18"
+            android:paddingLeft="@dimen/txt_15dp"
+            android:paddingTop="@dimen/txt_39dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/txt_14"
+            android:textColor="#666666"
+            android:text="@string/renzheng_intro"
+            android:layout_marginRight="@dimen/txt_39dp"
+            android:paddingLeft="@dimen/txt_15dp"
+            android:paddingTop="@dimen/txt_15dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/txt_15dp"
+            android:paddingTop="@dimen/txt_39dp"
+            android:id="@+id/rl_personal"
+            android:paddingBottom="@dimen/txt_5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="个体司机认证"
+                android:textSize="@dimen/txt_14"
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=">"
+                android:gravity="center_vertical"
+                android:textSize="14sp"
+                android:paddingRight="@dimen/txt_15dp"
+                android:layout_alignParentRight="true"
+                android:id="@+id/renzheng_main_arrow1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/renzheng_personnal_txt"
+                android:gravity="center_vertical"
+                android:layout_toLeftOf="@+id/renzheng_main_arrow1"
+                android:paddingRight="@dimen/txt_10dp"/>
+        </RelativeLayout>
+
+        <include layout="@layout/back_line"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/txt_15dp"
+            android:paddingTop="@dimen/txt_39dp"
+            android:id="@+id/rl_cargroup"
+            android:paddingBottom="@dimen/txt_5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="车队司机认证"
+                android:textSize="@dimen/txt_14"
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=">"
+                android:gravity="center_vertical"
+                android:textSize="14sp"
+                android:paddingRight="@dimen/txt_15dp"
+                android:layout_alignParentRight="true"
+                android:id="@+id/renzheng_main_arrow2"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/renzheng_personnal_txt"
+                android:gravity="center_vertical"
+                android:layout_toLeftOf="@+id/renzheng_main_arrow2"
+                android:paddingRight="@dimen/txt_10dp"/>
+        </RelativeLayout>
+
+        <include layout="@layout/back_line"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/txt_15dp"
+            android:paddingTop="@dimen/txt_39dp"
+            android:id="@+id/rl_tiaodu"
+            android:paddingBottom="@dimen/txt_5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="调度平台认证"
+                android:textSize="@dimen/txt_14"
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=">"
+                android:gravity="center_vertical"
+                android:textSize="14sp"
+                android:paddingRight="@dimen/txt_15dp"
+                android:layout_alignParentRight="true"
+                android:id="@+id/renzheng_main_arrow3"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/renzheng_personnal_txt"
+                android:gravity="center_vertical"
+                android:layout_toLeftOf="@+id/renzheng_main_arrow3"
+                android:paddingRight="@dimen/txt_10dp"/>
+        </RelativeLayout>
+
+        <include layout="@layout/back_line"/>
+
+    </LinearLayout>
+</LinearLayout>

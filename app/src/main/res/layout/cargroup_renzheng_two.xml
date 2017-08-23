@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_f2">
+
+        <include layout="@layout/top_title"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="@color/red"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/cargroup_intro"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/txt_12"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:orientation="horizontal">
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_alignParentRight="true">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="1"
+                                />
+                            <FrameLayout
+                                android:layout_width="50dp"
+                                android:layout_height="2dp"
+                                android:background="@color/titleColorSelected"/>
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="进行中"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="革新信息和照片"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/txt_39dp"
+                android:text="查找绑定您所属的公司车队:"
+                android:textColor="@color/black"
+                android:textSize="@dimen/txt_14"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/txt_39dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/txt_39dp"
+                android:layout_marginRight="@dimen/txt_39dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/ic_launcher"
+                    android:paddingLeft="@dimen/txt_10dp"/>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="请输入公司名称或id"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/txt_14"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_marginRight="@dimen/txt_39dp"
+                android:layout_marginLeft="@dimen/txt_39dp"
+                android:layout_marginTop="30dp">
+                
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/txt_39dp"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="深圳市东南西北物流有限公司"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/txt_14"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/txt_10dp"/>
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:paddingRight="@dimen/txt_15dp"/>
+                </RelativeLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/color_f2"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text=" 公司法人:"
+                        android:paddingLeft="@dimen/txt_10dp"
+                        android:paddingTop="@dimen/txt_5dp"
+                        android:textSize="@dimen/txt_14"
+                        android:textColor="#666666"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="王二毛"
+                        android:paddingLeft="@dimen/txt_5dp"
+                        android:paddingTop="@dimen/txt_5dp"
+                        android:textSize="@dimen/txt_14"
+                        android:textColor="#666666"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text=" 联系人:"
+                        android:paddingLeft="@dimen/txt_10dp"
+                        android:paddingTop="@dimen/txt_5dp"
+                        android:textSize="@dimen/txt_14"
+                        android:textColor="#666666"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="李三毛"
+                        android:paddingLeft="@dimen/txt_5dp"
+                        android:paddingTop="@dimen/txt_5dp"
+                        android:textSize="@dimen/txt_14"
+                        android:textColor="#666666"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text=" 电话:"
+                        android:paddingLeft="@dimen/txt_10dp"
+                        android:paddingTop="@dimen/txt_5dp"
+                        android:textSize="@dimen/txt_14"
+                        android:textColor="#666666"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="13699990808"
+                        android:paddingLeft="@dimen/txt_5dp"
+                        android:paddingTop="@dimen/txt_5dp"
+                        android:textSize="@dimen/txt_14"
+                        android:textColor="#666666"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text=" 地址:"
+                        android:paddingLeft="@dimen/txt_10dp"
+                        android:paddingTop="@dimen/txt_5dp"
+                        android:textSize="@dimen/txt_14"
+                        android:textColor="#666666"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="深圳市虚拟大学园R3-B 3c物通科技"
+                        android:paddingTop="@dimen/txt_5dp"
+                        android:paddingLeft="@dimen/txt_5dp"
+                        android:paddingRight="@dimen/txt_39dp"
+                        android:paddingBottom="@dimen/txt_15dp"
+                        android:textSize="@dimen/txt_14"
+                        android:textColor="#666666"/>
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/color_f2"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/txt_10dp"
+                    android:paddingBottom="@dimen/txt_10dp"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="该公司以通过审核"
+                        android:textColor="@color/titleColorSelected"
+                        android:textSize="@dimen/txt_14"
+                        android:paddingLeft="@dimen/txt_10dp"
+                        android:gravity="center_vertical"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_alignParentRight="true"
+                        android:paddingRight="@dimen/txt_15dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="id:"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_14"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="89757"
+                            android:textSize="@dimen/txt_14"
+                            android:textColor="@color/black"
+                            android:gravity="center_vertical"/>
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/txt_39dp"
+                android:background="@drawable/login_bt_"
+                android:text="提交绑定"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:textColor="@color/white"
+                android:layout_marginTop="@dimen/txt_39dp"
+                android:layout_marginBottom="@dimen/txt_39dp"
+                android:textSize="@dimen/txt_18"
+                android:gravity="center"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

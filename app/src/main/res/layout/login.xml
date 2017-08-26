@@ -34,7 +34,7 @@
         android:weightSum="1">
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"></FrameLayout>
+            android:layout_height="30dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -57,7 +57,7 @@
                     android:layout_height="45dp"
                     android:layout_weight="4"
                     android:background="@null"
-                    android:textSize="@dimen/txt_14"
+                    android:textSize="@dimen/txt_16"
                     android:id="@+id/login_phone"
                     android:hint="@string/login_username_hint"/>
                 <FrameLayout
@@ -67,11 +67,12 @@
             </LinearLayout>
 
         <TextView
-            android:layout_width="300dp"
-            android:layout_height="0.1dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
             android:gravity="center"
-            android:layout_marginLeft="10dp"
-            android:background="@color/black_6d"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="@dimen/txt_20dp"
+            android:background="@color/color_f2"
             android:layout_marginTop="10dp"/>
 
         <FrameLayout
@@ -100,7 +101,7 @@
                 android:layout_height="45dp"
                 android:layout_weight="4"
                 android:paddingLeft="5dp"
-                android:textSize="@dimen/txt_14"
+                android:textSize="@dimen/txt_16"
                 android:id="@+id/login_code"
                 android:background="@null"
                 android:hint="@string/login_password_hint"/>
@@ -119,11 +120,12 @@
         </LinearLayout>
 
         <TextView
-            android:layout_width="300dp"
-            android:layout_height="0.1dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
             android:gravity="center"
-            android:layout_marginLeft="10dp"
-            android:background="@color/black_6d"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="@dimen/txt_20dp"
+            android:background="@color/color_f2"
             android:layout_marginTop="10dp"/>
 
         <Button
@@ -135,13 +137,15 @@
             android:id="@+id/login_now"
             android:textColor="@color/white"
             android:background="@drawable/login_bt_"/>
+
         <TextView
+            android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/licence_txt"
-            android:gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:textSize="@dimen/txt_12"/>
+            android:gravity="center_horizontal"
+            android:text="@string/licence_txt"
+            android:textSize="@dimen/txt_12" />
 
 
     </LinearLayout>

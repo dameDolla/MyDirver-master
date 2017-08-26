@@ -83,6 +83,7 @@ public class LoginBean {
          * SMSCode : 774325
          * SMSDatetime : 2017-09-21T15:03:24
          * mobilePwd :
+         * SecreKey:
          */
 
         private int userid;
@@ -124,6 +125,7 @@ public class LoginBean {
         private String SMSCode;
         private String SMSDatetime;
         private String mobilePwd;
+        private String SecreKey;
 
         public int getUserid() {
             return userid;
@@ -434,6 +436,14 @@ public class LoginBean {
         }
 
         public void setMobilePwd(String mobilePwd) {
+            this.mobilePwd = mobilePwd;
+        }
+
+        public String getSecreKey() {
+            return mobilePwd;
+        }
+
+        public void setSecreKey(String mobilePwd) {
             this.mobilePwd = mobilePwd;
         }
     }

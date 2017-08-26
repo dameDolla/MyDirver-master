@@ -73,6 +73,11 @@
             android:theme="@style/AppTheme">
 
         </activity>
+        <!--车队司机认证2-->
+        <activity android:name=".activities.CarGroupRenzheng2Activity"
+            android:theme="@style/AppTheme">
+
+        </activity>
 
     </application>
 

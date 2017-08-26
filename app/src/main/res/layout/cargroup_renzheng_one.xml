@@ -39,39 +39,33 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_gravity="center">
+                android:gravity="center_vertical">
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/greenrigntone"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/green_one"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_alignParentRight="true">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="1"
-                            />
-                        <FrameLayout
-                            android:layout_width="50dp"
-                            android:layout_height="2dp"
-                            android:background="@color/titleColorSelected"/>
-                    </LinearLayout>
-
+                    android:gravity="center"
+                    android:layout_marginRight="@dimen/txt_5dp"
+                    android:layout_alignParentRight="true"
+                    android:paddingTop="25dp">
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="进行中"
-                        />
+                        android:gravity="center_horizontal"
+                        android:textColor="@color/titleColorSelected"/>
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="革新信息和照片"/>
-
+                        android:text="个人信息和照片"
+                        android:textColor="@color/titleColorSelected"/>
                 </LinearLayout>
 
             </RelativeLayout>
@@ -79,8 +73,35 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:layout_weight="1">
-
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/graylefttwo"
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/gray_two"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/txt_10dp"
+                    android:layout_marginRight="@dimen/txt_5dp"
+                    android:layout_alignParentLeft="true"
+                    android:paddingTop="25dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="待进行"
+                        android:gravity="center_horizontal"
+                        android:textColor="@color/gray_87"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="绑定调度平台"
+                        android:textColor="@color/gray_87"/>
+                </LinearLayout>
             </RelativeLayout>
 
         </LinearLayout>
@@ -111,7 +132,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@mipmap/ic_launcher"
+                android:src="@mipmap/head"
                 android:id="@+id/renzheng_head"
                 android:layout_toLeftOf="@+id/cargroup_arrow1"
                 android:paddingRight="@dimen/txt_10dp"/>
@@ -210,6 +231,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="合影照片"
+            android:textSize="@dimen/txt_12"
             />
 
         </LinearLayout>
@@ -229,13 +251,16 @@
                 android:gravity="center"
                 android:paddingLeft="@dimen/txt_15dp">
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@mipmap/pic"
+                    android:layout_gravity="center"
+                    android:id="@+id/card_face"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/txt_12"
+                    android:gravity="center"
                     android:text="身份证正面"/>
             </LinearLayout>
 
@@ -246,13 +271,16 @@
                 android:gravity="center"
                 android:paddingLeft="@dimen/txt_39dp">
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@mipmap/pic"
+                    android:layout_gravity="center"
+                    android:id="@+id/card_back"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/txt_12"
+                    android:gravity="center"
                     android:text="身份证反面"/>
             </LinearLayout>
 
@@ -263,13 +291,16 @@
                 android:gravity="center"
                 android:paddingLeft="@dimen/txt_39dp">
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/pic"
+                    android:id="@+id/person_with_card"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/txt_12"
+                    android:gravity="center"
                     android:text="个人持照合影"/>
             </LinearLayout>
 
@@ -283,6 +314,7 @@
             android:textSize="@dimen/txt_18"
             android:textColor="@color/white"
             android:gravity="center"
+            android:id="@+id/cargroup_next"
             android:layout_marginBottom="40dp"
             android:layout_marginRight="@dimen/txt_20dp"
             android:layout_marginLeft="@dimen/txt_20dp"/>

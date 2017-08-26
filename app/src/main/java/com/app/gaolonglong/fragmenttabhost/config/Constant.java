@@ -5,6 +5,7 @@ package com.app.gaolonglong.fragmenttabhost.config;
  */
 
 public class Constant {
+    public static final String GUID = "CEAF52C6F96548F3B0E2BF9713CFA96C";
 
     public static final String LOGIN_GUID = "login_guid";
 

@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.Gravity;
@@ -18,11 +20,16 @@ import com.app.gaolonglong.fragmenttabhost.config.Constant;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -186,7 +193,7 @@ public class ToolsUtils {
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(
                 byteArrayOutputStream);
         // writeObject 方法负责写入特定类的对象的状态，以便相应的 readObject 方法可以还原它
-        objectOutputStream.writeObject(SceneList);
+        objectOutputStream.writeObject(SceneList.get(0));
         // 最后，用Base64.encode将字节文件转换成Base64编码保存在String中
         String SceneListString = new String(Base64.encode(
                 byteArrayOutputStream.toByteArray(), Base64.DEFAULT));
@@ -279,5 +286,101 @@ public class ToolsUtils {
         }
 
         return result;
+    }
+
+    /**
+     * bitmap压缩
+     */
+    public  static Bitmap compress(Bitmap image) {
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        // 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        int options = 100;
+        while (baos.toByteArray().length / 1024 > 100) {
+            // 循环判断如果压缩后图片是否大于100kb,大于继续压缩
+            baos.reset();// 重置baos即清空baos
+            image.compress(Bitmap.CompressFormat.JPEG, options, baos);
+            // 这里压缩options%，把压缩后的数据存放到baos中
+            options -= 10;// 每次都减少10
+            if (options <= 0) {
+                break;
+            }
+        }
+        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());
+        // 把压缩后的数据baos存放到ByteArrayInputStream中
+        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);
+        // 把ByteArrayInputStream数据生成图片
+        return bitmap;
+    }
+
+    /**
+     * 压缩图片（质量压缩）
+     * @param bitmap
+     */
+    public static File compressImage(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        int options = 100;
+        while (baos.toByteArray().length / 1024 > 300) {  //循环判断如果压缩后图片是否大于500kb,大于继续压缩
+            baos.reset();//重置baos即清空baos
+            options -= 10;//每次都减少10
+            bitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
+            long length = baos.toByteArray().length;
+        }
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+        Date date = new Date(System.currentTimeMillis());
+        String filename = format.format(date);
+        File file = new File(Environment.getExternalStorageDirectory(),filename+".jpg");
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            try {
+                fos.write(baos.toByteArray());
+                fos.flush();
+                fos.close();
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
+        } catch (FileNotFoundException e) {
+
+            e.printStackTrace();
+        }
+        recycleBitmap(bitmap);
+        return file;
+    }
+
+    /**
+     * 释放bitmap
+     * @param bitmaps
+     */
+    public static void recycleBitmap(Bitmap... bitmaps) {
+        if (bitmaps==null) {
+            return;
+        }
+        for (Bitmap bm : bitmaps) {
+            if (null != bm && !bm.isRecycled()) {
+                bm.recycle();
+            }
+        }
+    }
+
+    /**
+     * 字符串转换unicode
+     */
+    public static String string2Unicode(String string) {
+
+        StringBuffer unicode = new StringBuffer();
+
+        for (int i = 0; i < string.length(); i++) {
+
+            // 取出每一个字符
+            char c = string.charAt(i);
+
+            // 转换为unicode
+            unicode.append("\\u" + Integer.toHexString(c));
+        }
+
+        return unicode.toString();
     }
 }

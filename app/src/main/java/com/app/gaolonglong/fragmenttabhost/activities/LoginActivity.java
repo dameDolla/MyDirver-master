@@ -4,39 +4,29 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
 import com.app.gaolonglong.fragmenttabhost.bean.LoginBean;
-import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.model.LoginModel;
-import com.app.gaolonglong.fragmenttabhost.service.MyService;
-import com.app.gaolonglong.fragmenttabhost.utils.MyCountDownTimer;
-import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.TooManyListenersException;
 
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.GsonConverterFactory;
-import retrofit.Response;
-import retrofit.Retrofit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by yanqi on 2017/8/16.
@@ -84,7 +74,7 @@ public class LoginActivity extends BaseActivity {
 
         call.enqueue(new Callback<LoginBean>() {
             @Override
-            public void onResponse(final Response<LoginBean> response, Retrofit retrofit) {
+            public void onResponse(Call<LoginBean> call, Response<LoginBean> response) {
                 LoginBean login = response.body();
                 ToolsUtils.getInstance().toastShowStr(LoginActivity.this,login.getErrorMsg());
                 if(login.getData() != null)
@@ -94,8 +84,9 @@ public class LoginActivity extends BaseActivity {
                     List<LoginBean.DataBean> data = login.getData();
                     String guid = data.get(0).getGUID();
                     try {
-                       String userinfo =  ToolsUtils.getInstance().SceneList2String(data);
-                        ToolsUtils.putString(LoginActivity.this,Constant.USRE_INFO,userinfo);
+                        String userinfo =  ToolsUtils.getInstance().SceneList2String(data);
+                        //ToolsUtils.putString(LoginActivity.this,Constant.USRE_INFO,userinfo);
+                        ToolsUtils.getInstance().toastShowStr(LoginActivity.this,userinfo);
 
                     }
                     catch (IOException e)
@@ -107,15 +98,16 @@ public class LoginActivity extends BaseActivity {
                 }
                 else
                 {
-                   ToolsUtils.getInstance().toastShowStr(LoginActivity.this,"登录失败！");
+                    ToolsUtils.getInstance().toastShowStr(LoginActivity.this,"登录失败！");
                 }
-
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<LoginBean> call, Throwable t) {
                 ToolsUtils.getInstance().toastShowStr(LoginActivity.this,t.getMessage());
             }
+
+
         });
     }
 
@@ -142,8 +134,8 @@ public class LoginActivity extends BaseActivity {
         Call<GetCodeBean> codeCall = LoginModel.getInstance().getCode(md5Str,obj.toString(),"Login");
         codeCall.enqueue(new Callback<GetCodeBean>() {
             @Override
-            public void onResponse(Response<GetCodeBean> response, Retrofit retrofit) {
-                if(response.isSuccess())
+            public void onResponse(Call<GetCodeBean> call, Response<GetCodeBean> response) {
+                if(response.isSuccessful())
                 {
                     GetCodeBean code = response.body();
                     ToolsUtils.getInstance().toastShowStr(LoginActivity.this,code.getErrorMsg());
@@ -151,9 +143,11 @@ public class LoginActivity extends BaseActivity {
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<GetCodeBean> call, Throwable t) {
 
             }
+
+
         });
         MyCounDownTimer timer = new MyCounDownTimer(60000,1000);
         timer.start();

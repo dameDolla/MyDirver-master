@@ -39,39 +39,33 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_gravity="center">
+                    android:gravity="center_vertical">
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/grayrightone"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/green_one"/>
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:layout_alignParentRight="true">
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="1"
-                                />
-                            <FrameLayout
-                                android:layout_width="50dp"
-                                android:layout_height="2dp"
-                                android:background="@color/titleColorSelected"/>
-                        </LinearLayout>
-
+                        android:gravity="center"
+                        android:layout_marginRight="@dimen/txt_5dp"
+                        android:layout_alignParentRight="true"
+                        android:paddingTop="25dp">
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="进行中"
-                            />
+                            android:text="已完成"
+                            android:gravity="center_horizontal"
+                            android:textColor="@color/gray_87"/>
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="革新信息和照片"/>
-
+                            android:text="个人信息和照片"
+                            android:textColor="@color/gray_87"/>
                     </LinearLayout>
 
                 </RelativeLayout>
@@ -79,8 +73,35 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:gravity="center_vertical"
                     android:layout_weight="1">
-
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/greentwoleft"
+                        android:layout_alignParentLeft="true"
+                        android:id="@+id/gray_two"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/txt_10dp"
+                        android:layout_marginRight="@dimen/txt_5dp"
+                        android:layout_alignParentLeft="true"
+                        android:paddingTop="25dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="进行中"
+                            android:gravity="center_horizontal"
+                            android:textColor="@color/titleColorSelected"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="绑定调度平台"
+                            android:textColor="@color/titleColorSelected"/>
+                    </LinearLayout>
                 </RelativeLayout>
 
             </LinearLayout>
@@ -106,13 +127,14 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@mipmap/searchhover"
                     android:paddingLeft="@dimen/txt_10dp"/>
 
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@null"
+                    android:id="@+id/renzheng_company_name"
                     android:hint="请输入公司名称或id"
                     android:textColor="#666666"
                     android:textSize="@dimen/txt_14"
@@ -128,167 +150,11 @@
                 android:layout_marginLeft="@dimen/txt_39dp"
                 android:layout_marginTop="30dp">
                 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/txt_39dp"
-                    android:gravity="center_vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="深圳市东南西北物流有限公司"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/txt_14"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/txt_10dp"/>
-                    <CheckBox
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:paddingRight="@dimen/txt_15dp"/>
-                </RelativeLayout>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/color_f2"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text=" 公司法人:"
-                        android:paddingLeft="@dimen/txt_10dp"
-                        android:paddingTop="@dimen/txt_5dp"
-                        android:textSize="@dimen/txt_14"
-                        android:textColor="#666666"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="王二毛"
-                        android:paddingLeft="@dimen/txt_5dp"
-                        android:paddingTop="@dimen/txt_5dp"
-                        android:textSize="@dimen/txt_14"
-                        android:textColor="#666666"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text=" 联系人:"
-                        android:paddingLeft="@dimen/txt_10dp"
-                        android:paddingTop="@dimen/txt_5dp"
-                        android:textSize="@dimen/txt_14"
-                        android:textColor="#666666"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="李三毛"
-                        android:paddingLeft="@dimen/txt_5dp"
-                        android:paddingTop="@dimen/txt_5dp"
-                        android:textSize="@dimen/txt_14"
-                        android:textColor="#666666"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text=" 电话:"
-                        android:paddingLeft="@dimen/txt_10dp"
-                        android:paddingTop="@dimen/txt_5dp"
-                        android:textSize="@dimen/txt_14"
-                        android:textColor="#666666"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="13699990808"
-                        android:paddingLeft="@dimen/txt_5dp"
-                        android:paddingTop="@dimen/txt_5dp"
-                        android:textSize="@dimen/txt_14"
-                        android:textColor="#666666"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text=" 地址:"
-                        android:paddingLeft="@dimen/txt_10dp"
-                        android:paddingTop="@dimen/txt_5dp"
-                        android:textSize="@dimen/txt_14"
-                        android:textColor="#666666"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="深圳市虚拟大学园R3-B 3c物通科技"
-                        android:paddingTop="@dimen/txt_5dp"
-                        android:paddingLeft="@dimen/txt_5dp"
-                        android:paddingRight="@dimen/txt_39dp"
-                        android:paddingBottom="@dimen/txt_15dp"
-                        android:textSize="@dimen/txt_14"
-                        android:textColor="#666666"/>
-                </LinearLayout>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/color_f2"/>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/txt_10dp"
-                    android:paddingBottom="@dimen/txt_10dp"
-                    android:gravity="center_vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="该公司以通过审核"
-                        android:textColor="@color/titleColorSelected"
-                        android:textSize="@dimen/txt_14"
-                        android:paddingLeft="@dimen/txt_10dp"
-                        android:gravity="center_vertical"/>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_alignParentRight="true"
-                        android:paddingRight="@dimen/txt_15dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="id:"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/txt_14"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="89757"
-                            android:textSize="@dimen/txt_14"
-                            android:textColor="@color/black"
-                            android:gravity="center_vertical"/>
-                    </LinearLayout>
-
-                </RelativeLayout>
+               <ListView
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:id="@+id/lv_company_list"
+                   android:drawSelectorOnTop="false"/>
 
             </LinearLayout>
 

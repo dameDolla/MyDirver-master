@@ -46,13 +46,13 @@ public class RenzhengMainActivity extends BaseActivity implements View.OnClickLi
         switch (view.getId())
         {
             case R.id.rl_personal:
-
+                startActivity(new Intent(RenzhengMainActivity.this,PersonalRenzhengActivity.class));
                 break;
             case R.id.rl_cargroup:
                 startActivity(new Intent(RenzhengMainActivity.this,CarGroupRenzhengActivity.class));
                 break;
             case R.id.rl_tiaodu:
-
+                startActivity(new Intent(RenzhengMainActivity.this,DiaoDuRenzhengActivity.class));
                 break;
         }
     }

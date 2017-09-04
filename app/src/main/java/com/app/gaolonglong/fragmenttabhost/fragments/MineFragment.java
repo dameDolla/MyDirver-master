@@ -14,6 +14,11 @@ import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.activities.LoginActivity;
+import com.app.gaolonglong.fragmenttabhost.activities.MyCarTeamActivity;
+import com.app.gaolonglong.fragmenttabhost.activities.MyCardListActivity;
+import com.app.gaolonglong.fragmenttabhost.activities.MyMessageActivity;
+import com.app.gaolonglong.fragmenttabhost.activities.MyRouteListActivity;
+import com.app.gaolonglong.fragmenttabhost.activities.MyWallteActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.RenzhengMainActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.SettingActivity;
 import com.app.gaolonglong.fragmenttabhost.bean.LoginBean;
@@ -41,10 +46,15 @@ public class MineFragment extends Fragment implements View.OnClickListener{
 
     public String login="请先登录";
 
-    @BindViews({R.id.mine_setting,R.id.mine_username})
+    @BindViews({R.id.mine_setting,R.id.mine_username,
+                R.id.mine_tel})
     public List<TextView> mList;
 
-    @BindViews({R.id.renzheng_rl})
+    @BindViews({R.id.renzheng_rl,R.id.mine_rl_message,
+                R.id.mine_rl_card,R.id.mine_rl_car,
+                R.id.mine_rl_bzjxq,R.id.mine_rl_carteam,
+                R.id.mine_rl_wallte,R.id.mine_rl_szmx,
+                R.id.mine_rl_route})
     public List<RelativeLayout> rlList;
 
     @BindView(R.id.mine_icon)
@@ -81,20 +91,33 @@ public class MineFragment extends Fragment implements View.OnClickListener{
     {
         mList.get(0).setOnClickListener(this);
         rlList.get(0).setOnClickListener(this);
-        //获取保存的用户信息
-        userinfo = ToolsUtils.getString(getActivity(), Constant.USRE_INFO,"");
-        if(!TextUtils.isEmpty(userinfo))
-        {
-            isLogin =true;
-            try {
-                List<LoginBean.DataBean> info = ToolsUtils.String2SceneList(userinfo);
-                ToolsUtils.getInstance().toastShowStr(getActivity(),info.get(0).getMobile());
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
+        rlList.get(1).setOnClickListener(this);
+        rlList.get(2).setOnClickListener(this);
+        rlList.get(3).setOnClickListener(this);
+        rlList.get(4).setOnClickListener(this);
+        rlList.get(5).setOnClickListener(this);
+        rlList.get(6).setOnClickListener(this);
+        rlList.get(7).setOnClickListener(this);
+        rlList.get(8).setOnClickListener(this);
 
+        checkInfo();
+    }
+
+    /**
+     * 验证登录 并修改界面信息显示
+     */
+    private void checkInfo()
+    {
+        //获取保存的用户信息
+        String guid = ToolsUtils.getString(getActivity(),Constant.LOGIN_GUID,"");
+        //ToolsUtils.getInstance().toastShowStr(getActivity(),guid);
+        if(!TextUtils.isEmpty(guid))
+        {
+
+            isLogin =true;
+            mList.get(1).setText(ToolsUtils.getString(getActivity(),Constant.MOBILE,""));
+            mList.get(2).setText(ToolsUtils.getString(getActivity(),Constant.MOBILE,""));
+            ToolsUtils.getInstance().toastShowStr(getActivity(),ToolsUtils.getString(getActivity(),Constant.USERNAME,""));
         }
         else
         {
@@ -131,6 +154,30 @@ public class MineFragment extends Fragment implements View.OnClickListener{
 
             case R.id.mine_icon: //登录界面
                 startActivity(new Intent(getActivity(), LoginActivity.class));
+                break;
+            case R.id.mine_rl_message:
+                startActivity(new Intent(getActivity(), MyMessageActivity.class));
+                break;
+            case R.id.mine_rl_wallte:
+                startActivity(new Intent(getActivity(), MyWallteActivity.class));
+                break;
+            case R.id.mine_rl_szmx:
+
+                break;
+            case R.id.mine_rl_card:
+                startActivity(new Intent(getActivity(), MyCardListActivity.class));
+                break;
+            case R.id.mine_rl_bzjxq:
+
+                break;
+            case R.id.mine_rl_car:
+
+                break;
+            case R.id.mine_rl_carteam:
+                startActivity(new Intent(getActivity(), MyCarTeamActivity.class));
+                break;
+            case R.id.mine_rl_route:
+                startActivity(new Intent(getActivity(), MyRouteListActivity.class));
                 break;
         }
     }

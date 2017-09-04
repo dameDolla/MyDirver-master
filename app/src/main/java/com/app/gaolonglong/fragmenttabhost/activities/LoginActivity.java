@@ -1,5 +1,6 @@
 package com.app.gaolonglong.fragmenttabhost.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -47,7 +49,9 @@ public class LoginActivity extends BaseActivity {
     @OnClick(R.id.login_now)
     public void login()
     {
+
         String c = mEditText.get(1).getText().toString().trim();
+        num = mEditText.get(0).getText().toString().trim();
         if(TextUtils.isEmpty(c))
         {
             ToolsUtils.getInstance().toastShowStr(LoginActivity.this,"请填入验证码");
@@ -60,8 +64,9 @@ public class LoginActivity extends BaseActivity {
         }
         JSONObject mJson = new JSONObject();
         try {
-            mJson.put("mobile",num);
+            mJson.put(Constant.MOBILE,num);
             mJson.put("SMSCode",c);
+            mJson.put(Constant.KEY,c);
         }
         catch (JSONException e)
         {
@@ -70,7 +75,7 @@ public class LoginActivity extends BaseActivity {
 
 
         String md5 = ToolsUtils.getInstance().getMD5Val(mJson.toString());
-        Call<LoginBean> call = LoginModel.getInstance().getLoginInfo(md5,mJson.toString(),"Login");
+        Call<LoginBean> call = LoginModel.getInstance().getLoginInfo(mJson.toString(),"Login");
 
         call.enqueue(new Callback<LoginBean>() {
             @Override
@@ -79,26 +84,41 @@ public class LoginActivity extends BaseActivity {
                 ToolsUtils.getInstance().toastShowStr(LoginActivity.this,login.getErrorMsg());
                 if(login.getData() != null)
                 {
-                    ToolsUtils.getInstance().toastShowStr(LoginActivity.this,"登录成功！");
+                   // ToolsUtils.getInstance().toastShowStr(LoginActivity.this,"登录成功！");
                     //跳转页面并自动登录
                     List<LoginBean.DataBean> data = login.getData();
                     String guid = data.get(0).getGUID();
+                   // List<String> list = new ArrayList<String>();
+                    //ToolsUtils.getInstance().toastShowStr(LoginActivity.this,guid);
                     try {
-                        String userinfo =  ToolsUtils.getInstance().SceneList2String(data);
-                        //ToolsUtils.putString(LoginActivity.this,Constant.USRE_INFO,userinfo);
-                        ToolsUtils.getInstance().toastShowStr(LoginActivity.this,userinfo);
+                       /* list.add(guid);
+                        list.add(data.get(0).getMobile());
+                        list.add(data.get(0).getUsername());
+                        list.add(data.get(0).getUsertype());
+                        list.add(data.get(0).getSecreKey());
+                        list.add(data.get(0).getVtruename());//是否认证*/
+
+                        //String userinfo =  ToolsUtils.getInstance().SceneList2String(list);
+                        ToolsUtils.putString(LoginActivity.this,Constant.LOGIN_GUID,guid);
+                        ToolsUtils.putString(LoginActivity.this,Constant.USERNAME,data.get(0).getUsername());
+                        ToolsUtils.putString(LoginActivity.this,Constant.USRE_TYPE,data.get(0).getUsertype());
+                        ToolsUtils.putString(LoginActivity.this,Constant.KEY,data.get(0).getSecreKey());
+                        ToolsUtils.putString(LoginActivity.this,Constant.VTRUENAME,data.get(0).getVtruename());
+                        ToolsUtils.putString(LoginActivity.this,Constant.MOBILE,data.get(0).getMobile());
+
+                        //ToolsUtils.getInstance().toastShowStr(LoginActivity.this,userinfo);
 
                     }
-                    catch (IOException e)
+                    catch (Exception e)
                     {
                         e.printStackTrace();
                     }
-
-                    LoginActivity.this.finish();
+                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                   // LoginActivity.this.finish();
                 }
                 else
                 {
-                    ToolsUtils.getInstance().toastShowStr(LoginActivity.this,"登录失败！");
+                    //ToolsUtils.getInstance().toastShowStr(LoginActivity.this,"登录失败！");
                 }
             }
 
@@ -122,7 +142,7 @@ public class LoginActivity extends BaseActivity {
         }
         JSONObject obj = new JSONObject();
         try {
-            obj.put("mobile",num);
+            obj.put(Constant.MOBILE,num);
 
         }
         catch (JSONException e)
@@ -130,8 +150,8 @@ public class LoginActivity extends BaseActivity {
             e.printStackTrace();
         }
         String md5Str = ToolsUtils.getInstance().getMD5Val(obj.toString());
-        mEditText.get(1).setText(md5Str);
-        Call<GetCodeBean> codeCall = LoginModel.getInstance().getCode(md5Str,obj.toString(),"Login");
+        //mEditText.get(1).setText(md5Str);
+        Call<GetCodeBean> codeCall = LoginModel.getInstance().getCode(obj.toString(),"Login");
         codeCall.enqueue(new Callback<GetCodeBean>() {
             @Override
             public void onResponse(Call<GetCodeBean> call, Response<GetCodeBean> response) {
@@ -144,7 +164,7 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<GetCodeBean> call, Throwable t) {
-
+                ToolsUtils.getInstance().toastShowStr(LoginActivity.this,t.getMessage());
             }
 
 

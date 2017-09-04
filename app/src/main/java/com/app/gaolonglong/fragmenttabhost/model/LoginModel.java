@@ -32,19 +32,19 @@ public class LoginModel {
         return mLoginModel;
     }
 
-    public Call<LoginBean> getLoginInfo(String md5Str, String json, String pageName)
+    public Call<LoginBean> getLoginInfo( String json, String pageName)
     {
         Call<LoginBean> call = RetrofitUtils.getRetrofitService().
-                login(Config.LOGIN_API_URL,md5Str,json,pageName);
+                login(Config.LOGIN_API_URL,json,pageName);
 
         return call;
     }
 
     //获取短信验证码
-    public Call<GetCodeBean> getCode(String md5Str,String json,String pageName)
+    public Call<GetCodeBean> getCode(String json,String pageName)
     {
         Call<GetCodeBean> call = RetrofitUtils.getRetrofitService().
-                getCode(Config.APPLOGIN_SMS,md5Str,json,pageName);
+                getCode(Config.APPLOGIN_SMS,json,pageName);
 
         return call;
     }

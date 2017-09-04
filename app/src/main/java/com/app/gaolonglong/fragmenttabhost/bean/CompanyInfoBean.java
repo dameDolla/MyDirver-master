@@ -3,15 +3,15 @@ package com.app.gaolonglong.fragmenttabhost.bean;
 import java.util.List;
 
 /**
- * Created by yanqi on 2017/8/21.
+ * Created by yanqi on 2017/8/30.
  */
 
-public class LoginBean {
+public class CompanyInfoBean {
 
     /**
      * errorCode : 200
      * errorMsg :
-     * data : [{"userid":3,"GUID":"CEAF52C6F96548F3B0E2BF9713CFA96C","username":"","usertype":"","truename":"","mobile":"15908690321","loginterminal":"","logintime":"2017-08-21 15:20:23","logintimes":2,"wechatid":"","idcard":"","companyGUID":"","company":"","creditlevel":"","cargocount":0,"ownerbill":0,"ownerscore":0,"driverScoreNumber":0,"driverTotalScore":0,"driverbill":0,"driverscore":0,"online":"","credit":0,"money":0,"deposit":0,"bank":"","banktype":"","branch":"","account":"","regtime":"2017-01-01T00:00:00","loginip":"","vtruename":"","vcompany":"","support":"","inviter":"","remark":"","SMSCode":"774325","SMSDatetime":"2017-09-21T15:03:24","mobilePwd":""}]
+     * data : [{"companyID":3,"CompanysGUID":"12345678901234567890123456789001","companyName":"鹏翼良方1号公司","type":"1","companycode":"pylf001","lealperson":"张三","address":"深圳福田区","person":"张三","phone":"13610101010","registertime":"2017-08-30","creditlevel":"1","vcompany":"9","lealpersonIdcard":"1992010101010001","userid":0,"GUID":null,"username":"","usertype":"","truename":"","mobile":"","loginterminal":"","logintime":"","logintimes":0,"wechatid":"","idcard":"","companyGUID":"","company":"","cargocount":0,"ownerbill":0,"ownerscore":0,"driverScoreNumber":0,"driverTotalScore":0,"driverbill":0,"driverscore":0,"online":"","credit":0,"money":0,"deposit":0,"bank":"","banktype":"","branch":"","account":"","regtime":"2017-01-01T00:00:00","loginip":"","vtruename":"","support":"","inviter":"","remark":"","SMSCode":"","SMSDatetime":"2017-01-01T00:00:00","SecreKey":"","SecreKeyDateTime":"0001-01-01T00:00:00"}]
      */
 
     private String errorCode;
@@ -44,20 +44,32 @@ public class LoginBean {
 
     public static class DataBean {
         /**
-         * userid : 3
-         * GUID : CEAF52C6F96548F3B0E2BF9713CFA96C
+         * companyID : 3
+         * CompanysGUID : 12345678901234567890123456789001
+         * companyName : 鹏翼良方1号公司
+         * type : 1
+         * companycode : pylf001
+         * lealperson : 张三
+         * address : 深圳福田区
+         * person : 张三
+         * phone : 13610101010
+         * registertime : 2017-08-30
+         * creditlevel : 1
+         * vcompany : 9
+         * lealpersonIdcard : 1992010101010001
+         * userid : 0
+         * GUID : null
          * username :
          * usertype :
          * truename :
-         * mobile : 15908690321
+         * mobile :
          * loginterminal :
-         * logintime : 2017-08-21 15:20:23
-         * logintimes : 2
+         * logintime :
+         * logintimes : 0
          * wechatid :
          * idcard :
          * companyGUID :
          * company :
-         * creditlevel :
          * cargocount : 0
          * ownerbill : 0
          * ownerscore : 0.0
@@ -76,18 +88,30 @@ public class LoginBean {
          * regtime : 2017-01-01T00:00:00
          * loginip :
          * vtruename :
-         * vcompany :
          * support :
          * inviter :
          * remark :
-         * SMSCode : 774325
-         * SMSDatetime : 2017-09-21T15:03:24
-         * mobilePwd :
-         * SecreKey:
+         * SMSCode :
+         * SMSDatetime : 2017-01-01T00:00:00
+         * SecreKey :
+         * SecreKeyDateTime : 0001-01-01T00:00:00
          */
 
+        private int companyID;
+        private String CompanysGUID;
+        private String companyName;
+        private String type;
+        private String companycode;
+        private String lealperson;
+        private String address;
+        private String person;
+        private String phone;
+        private String registertime;
+        private String creditlevel;
+        private String vcompany;
+        private String lealpersonIdcard;
         private int userid;
-        private String GUID;
+        private Object GUID;
         private String username;
         private String usertype;
         private String truename;
@@ -99,7 +123,6 @@ public class LoginBean {
         private String idcard;
         private String companyGUID;
         private String company;
-        private String creditlevel;
         private int cargocount;
         private int ownerbill;
         private double ownerscore;
@@ -118,14 +141,117 @@ public class LoginBean {
         private String regtime;
         private String loginip;
         private String vtruename;
-        private String vcompany;
         private String support;
         private String inviter;
         private String remark;
         private String SMSCode;
         private String SMSDatetime;
-        private String mobilePwd;
         private String SecreKey;
+        private String SecreKeyDateTime;
+
+        public int getCompanyID() {
+            return companyID;
+        }
+
+        public void setCompanyID(int companyID) {
+            this.companyID = companyID;
+        }
+
+        public String getCompanysGUID() {
+            return CompanysGUID;
+        }
+
+        public void setCompanysGUID(String CompanysGUID) {
+            this.CompanysGUID = CompanysGUID;
+        }
+
+        public String getCompanyName() {
+            return companyName;
+        }
+
+        public void setCompanyName(String companyName) {
+            this.companyName = companyName;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getCompanycode() {
+            return companycode;
+        }
+
+        public void setCompanycode(String companycode) {
+            this.companycode = companycode;
+        }
+
+        public String getLealperson() {
+            return lealperson;
+        }
+
+        public void setLealperson(String lealperson) {
+            this.lealperson = lealperson;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        public String getPerson() {
+            return person;
+        }
+
+        public void setPerson(String person) {
+            this.person = person;
+        }
+
+        public String getPhone() {
+            return phone;
+        }
+
+        public void setPhone(String phone) {
+            this.phone = phone;
+        }
+
+        public String getRegistertime() {
+            return registertime;
+        }
+
+        public void setRegistertime(String registertime) {
+            this.registertime = registertime;
+        }
+
+        public String getCreditlevel() {
+            return creditlevel;
+        }
+
+        public void setCreditlevel(String creditlevel) {
+            this.creditlevel = creditlevel;
+        }
+
+        public String getVcompany() {
+            return vcompany;
+        }
+
+        public void setVcompany(String vcompany) {
+            this.vcompany = vcompany;
+        }
+
+        public String getLealpersonIdcard() {
+            return lealpersonIdcard;
+        }
+
+        public void setLealpersonIdcard(String lealpersonIdcard) {
+            this.lealpersonIdcard = lealpersonIdcard;
+        }
 
         public int getUserid() {
             return userid;
@@ -135,11 +261,11 @@ public class LoginBean {
             this.userid = userid;
         }
 
-        public String getGUID() {
+        public Object getGUID() {
             return GUID;
         }
 
-        public void setGUID(String GUID) {
+        public void setGUID(Object GUID) {
             this.GUID = GUID;
         }
 
@@ -229,14 +355,6 @@ public class LoginBean {
 
         public void setCompany(String company) {
             this.company = company;
-        }
-
-        public String getCreditlevel() {
-            return creditlevel;
-        }
-
-        public void setCreditlevel(String creditlevel) {
-            this.creditlevel = creditlevel;
         }
 
         public int getCargocount() {
@@ -383,14 +501,6 @@ public class LoginBean {
             this.vtruename = vtruename;
         }
 
-        public String getVcompany() {
-            return vcompany;
-        }
-
-        public void setVcompany(String vcompany) {
-            this.vcompany = vcompany;
-        }
-
         public String getSupport() {
             return support;
         }
@@ -431,20 +541,20 @@ public class LoginBean {
             this.SMSDatetime = SMSDatetime;
         }
 
-        public String getMobilePwd() {
-            return mobilePwd;
-        }
-
-        public void setMobilePwd(String mobilePwd) {
-            this.mobilePwd = mobilePwd;
-        }
-
         public String getSecreKey() {
             return SecreKey;
         }
 
-        public void setSecreKey(String secreKey) {
-            this.SecreKey = secreKey;
+        public void setSecreKey(String SecreKey) {
+            this.SecreKey = SecreKey;
+        }
+
+        public String getSecreKeyDateTime() {
+            return SecreKeyDateTime;
+        }
+
+        public void setSecreKeyDateTime(String SecreKeyDateTime) {
+            this.SecreKeyDateTime = SecreKeyDateTime;
         }
     }
 }

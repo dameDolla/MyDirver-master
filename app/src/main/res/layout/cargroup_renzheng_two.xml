@@ -143,26 +143,29 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:orientation="vertical"
                 android:background="@color/white"
                 android:layout_marginRight="@dimen/txt_39dp"
                 android:layout_marginLeft="@dimen/txt_39dp"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="30dp"
+                android:id="@+id/ll_recycler"
+                android:visibility="gone">
                 
-               <ListView
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:id="@+id/lv_company_list"
-                   android:drawSelectorOnTop="false"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/rcv_cominfo"/>
 
             </LinearLayout>
 
-            <TextView
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/txt_39dp"
                 android:background="@drawable/login_bt_"
                 android:text="提交绑定"
+                android:id="@+id/submit_info"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:textColor="@color/white"

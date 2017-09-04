@@ -55,12 +55,15 @@
                 android:gravity="center_vertical">
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_launcher"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.5"
+                    android:paddingTop="@dimen/txt_5dp"
+                    android:src="@mipmap/gold"
                     />
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:text="充值"
                     android:gravity="center"
                     android:textColor="@color/black"
@@ -75,13 +78,16 @@
                 android:gravity="center_vertical">
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_launcher"
+                    android:layout_height="0dp"
+                    android:paddingTop="@dimen/txt_5dp"
+                    android:layout_weight="1.5"
+                    android:src="@mipmap/goldbag"
                     />
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="充值"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="提现"
                     android:gravity="center"
                     android:textColor="@color/black"
                     android:textSize="@dimen/txt_14"/>
@@ -95,13 +101,16 @@
                 android:gravity="center_vertical">
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_launcher"
+                    android:layout_height="0dp"
+                    android:paddingTop="@dimen/txt_5dp"
+                    android:layout_weight="1.5"
+                    android:src="@mipmap/cautionmoney"
                     />
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="充值"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="保证金"
                     android:gravity="center"
                     android:textColor="@color/black"
                     android:textSize="@dimen/txt_14"/>
@@ -111,17 +120,22 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:id="@+id/wallte_to_coupon"
                 android:orientation="vertical"
-                android:gravity="center_vertical">
+                android:gravity="center">
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_launcher"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1.5"
+                    android:paddingTop="@dimen/txt_5dp"
+                    android:src="@mipmap/coupon"
                     />
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="充值"
+                    android:layout_height="0dp"
+                    android:text="优惠券"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:textColor="@color/black"
                     android:textSize="@dimen/txt_14"/>

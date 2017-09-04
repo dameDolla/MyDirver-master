@@ -6,13 +6,18 @@ import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
+import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 import rx.Observable;
 
+import com.app.gaolonglong.fragmenttabhost.bean.CompanyInfoBean;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
 import com.app.gaolonglong.fragmenttabhost.bean.LoginBean;
 import com.app.gaolonglong.fragmenttabhost.bean.RequestPostBody;
+import com.app.gaolonglong.fragmenttabhost.bean.RouteListBean;
+import com.app.gaolonglong.fragmenttabhost.bean.UpdateIdCardBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
+import com.app.gaolonglong.fragmenttabhost.config.Constant;
 
 import java.util.HashMap;
 
@@ -39,17 +44,15 @@ public interface MyService {
      */
     @GET(Config.host)
     Call<LoginBean> login(@Query("MethodName") String method,
-                          @Query("MDSValue") String md5,
                           @Query("JsonValue") String val,
                           @Query("PageName") String page
-                          );
+    );
 
     /**
      * 获取短信验证码接口
      */
     @GET(Config.host)
     Call<GetCodeBean> getCode(@Query("MethodName") String method,
-                              @Query("MDSValue") String md5,
                               @Query("JsonValue") String val,
                               @Query("PageName") String page);
 
@@ -62,30 +65,62 @@ public interface MyService {
     /**
      * 车队司机认证提交姓名 身份证号码
      */
+    @FormUrlEncoded
     @POST(Config.host)
-    Observable<GetCodeBean> upload_cargoupinfo_one(@Body RequestPostBody body);
+    Observable<GetCodeBean> upload_cargoupinfo_one(/*@Body UpdateIdCardBean body,*/
+                                                   @Field(Constant.PAGENAME) String page,
+                                                   @Field(Constant.METHOD) String method,
+                                                   @Field("JsonValue") String json);
 
     /**
      * 获取车队公司信息
      */
-    @Headers({"Content-type:application/json","Content-Length:59"})
+    @FormUrlEncoded
     @POST(Config.host)
-    Observable<GetCodeBean> getConpanyInfo(@Body RequestPostBody body);
-
-    @Headers({"Content-type:application/json","Content-Length:59"})
-    @POST(Config.host)
-    Call<GetCodeBean> getConpanyInfos(@Field("MethodName") String name,
-                                      @Field("PageName") String page,
-                                      @Field("JsonValue") String json,
-                                      @Field("MDSValue") String md5);
+    Observable<CompanyInfoBean> getConpanyInfo(@Field(Constant.PAGENAME) String page,
+                                               @Field(Constant.METHOD) String method,
+                                               @Field("JsonValue") String json);
 
     /**
-     * 获取公司信息
+     * 提交绑定公司
      */
-    @GET(Config.host)
-    Call<GetCodeBean> getCompany(@Query("MethodName") String method,
-                              @Query("MDSValue") String md5,
-                              @Query("JsonValue") String val,
-                              @Query("PageName") String page);
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> bindCompany(@Field(Constant.PAGENAME) String page,
+                                               @Field(Constant.METHOD) String method,
+                                               @Field("JsonValue") String json);
 
+    /**
+     * 个体司机认证提交车辆信息
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> setCarsInfo(@Field("MethodName") String method,
+                                        @Field("PageName") String page,
+                                        @Field("JsonValue") String json);
+
+    /**
+     * 调度公司验证
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean>  setDiaoduInfo(@Field(Constant.PAGENAME) String page,
+                                           @Field(Constant.METHOD) String method,
+                                           @Field("JsonValue") String json);
+    /**
+     * 获取个人的订阅路线
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<RouteListBean>  getMyRouteList(@Field(Constant.PAGENAME) String page,
+                                              @Field(Constant.METHOD) String method,
+                                              @Field("JsonValue") String json);
+    /**
+     * 发布空程
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> addRelease(@Field(Constant.PAGENAME) String page,
+                                       @Field(Constant.METHOD) String method,
+                                       @Field("JsonValue") String json);
 }

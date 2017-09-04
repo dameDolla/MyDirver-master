@@ -5,7 +5,17 @@ package com.app.gaolonglong.fragmenttabhost.config;
  */
 
 public class Constant {
-    public static final String GUID = "CEAF52C6F96548F3B0E2BF9713CFA96C";
+
+    //获取个人信息的PageName
+    public static final String MYINFO_PAGENAME = "MyInfo";
+
+    public static final String KEY = "SecreKey";
+
+    public static final String PAGENAME = "PageName";
+
+    public static final String METHOD = "MethodName";
+
+   // public static final String GUID = "CEAF52C6F96548F3B0E2BF9713CFA96C";
 
     public static final String LOGIN_GUID = "login_guid";
 
@@ -20,4 +30,6 @@ public class Constant {
     public static final String USRE_INFO = "user_info";
 
     public static final String APPLICATION_ID = "com.driver";
+
+    public static final String VTRUENAME = "vtruename";
 }

@@ -94,7 +94,8 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:text="15908680321"
-                    android:textSize="@dimen/txt_14"/>
+                    android:textSize="@dimen/txt_14"
+                    android:id="@+id/mine_tel"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -134,7 +135,8 @@
         android:orientation="vertical">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:id="@+id/mine_rl_message">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -167,7 +169,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:id="@+id/mine_rl_wallte">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -201,7 +204,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:id="@+id/mine_rl_szmx">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -235,7 +239,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:id="@+id/mine_rl_card">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -269,7 +274,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:id="@+id/mine_rl_bzjxq">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -337,7 +343,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:id="@+id/mine_rl_car">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -371,7 +378,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:id="@+id/mine_rl_carteam">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -406,7 +414,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            >
+            android:id="@+id/mine_rl_route">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

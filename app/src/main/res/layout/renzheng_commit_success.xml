@@ -28,11 +28,13 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:text="提交成功"
+               android:textSize="@dimen/txt_18"
                android:gravity="center"/>
            <TextView
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:text="提交成功"
+               android:textSize="@dimen/txt_14"
+               android:text="请等待后台进行审核"
                android:gravity="center"/>
        </LinearLayout>
 

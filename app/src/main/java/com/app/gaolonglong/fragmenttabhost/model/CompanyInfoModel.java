@@ -1,6 +1,7 @@
 package com.app.gaolonglong.fragmenttabhost.model;
 
 
+import com.app.gaolonglong.fragmenttabhost.bean.CompanyInfoBean;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
 import com.app.gaolonglong.fragmenttabhost.bean.RequestPostBody;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
@@ -45,10 +46,10 @@ public class CompanyInfoModel {
         body.setMDSValue(md5);
         body.setJsonValue(jsonVal);*/
         RetrofitUtils.getRetrofitService()
-                .getConpanyInfo(body)
+                .getConpanyInfo("","","")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<GetCodeBean>() {
+                .subscribe(new Subscriber<CompanyInfoBean>() {
                     @Override
                     public void onCompleted() {
 
@@ -61,7 +62,7 @@ public class CompanyInfoModel {
                     }
 
                     @Override
-                    public void onNext(final GetCodeBean getCodeBean) {
+                    public void onNext(final CompanyInfoBean getCodeBean) {
                         list.add(getCodeBean.getErrorCode());
                         list.add(getCodeBean.getErrorMsg());
                         if (getCodeBean.getErrorCode() == "200")

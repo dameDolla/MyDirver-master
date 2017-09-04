@@ -29,11 +29,9 @@ import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
-import com.app.gaolonglong.fragmenttabhost.bean.RequestPostBody;
 import com.app.gaolonglong.fragmenttabhost.bean.UpdateIdCardBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
-import com.app.gaolonglong.fragmenttabhost.service.MyService;
 import com.app.gaolonglong.fragmenttabhost.utils.LoadingDialog;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
@@ -43,7 +41,6 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -53,19 +50,17 @@ import butterknife.OnClick;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Callback;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-import rx.Subscriber;
 
 /**
- * Created by yanqi on 2017/8/22.
+ * Created by yanqi on 2017/8/29.
  */
 
-public class CarGroupRenzhengActivity extends BaseActivity implements View.OnClickListener{
+public class DiaoDuRenzhengActivity extends BaseActivity implements View.OnClickListener{
 
     //请求相机
     private static final int REQUEST_CAPTURE = 100;
@@ -113,7 +108,7 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cargroup_renzheng_one);
+        setContentView(R.layout.diaodu_renzheng_one);
         ButterKnife.bind(this);
         init();
     }
@@ -124,18 +119,18 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
 
     private void initView()
     {
-        mText.get(0).setText("车队司机认证");
+        mText.get(0).setText("调度平台认证");
         upload_head.setOnClickListener(this);
         icon.get(1).setOnClickListener(this);
         icon.get(2).setOnClickListener(this);
         icon.get(3).setOnClickListener(this);
         mText.get(1).setOnClickListener(this);
 
-        dialog = LoadingDialog.showDialog(CarGroupRenzhengActivity.this);
+        dialog = LoadingDialog.showDialog(DiaoDuRenzhengActivity.this);
 
-        guid = ToolsUtils.getString(CarGroupRenzhengActivity.this, Constant.LOGIN_GUID,"");
-        key = ToolsUtils.getString(CarGroupRenzhengActivity.this, Constant.KEY,"");
-        mobile = ToolsUtils.getString(CarGroupRenzhengActivity.this, Constant.MOBILE,"");
+        guid = ToolsUtils.getString(DiaoDuRenzhengActivity.this, Constant.LOGIN_GUID,"");
+        key = ToolsUtils.getString(DiaoDuRenzhengActivity.this, Constant.KEY,"");
+        mobile = ToolsUtils.getString(DiaoDuRenzhengActivity.this, Constant.MOBILE,"");
     }
 
     @Override
@@ -159,7 +154,7 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
                 position=3;
                 break;
             case R.id.cargroup_next:
-                startActivity(new Intent(CarGroupRenzhengActivity.this,CarGroupRenzheng2Activity.class));
+                startActivity(new Intent(DiaoDuRenzhengActivity.this,DiaoduRenzheng2Activity.class));
                 //next();
                 break;
         }
@@ -171,32 +166,32 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
     private void next()
     {
         //dialog.show();
-       String name = mEdit.get(0).getText().toString();
-       String num = mEdit.get(1).getText().toString();
-       // startActivity(new Intent(CarGroupRenzhengActivity.this,CarGroupRenzheng2Activity.class));
+        String name = mEdit.get(0).getText().toString();
+        String num = mEdit.get(1).getText().toString();
+        // startActivity(new Intent(DiaoDuRenzhengActivity.this,CarGroupRenzheng2Activity.class));
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(num))
         {
-            ToolsUtils.getInstance().toastShowStr(CarGroupRenzhengActivity.this,"请填写完整的信息");
+            ToolsUtils.getInstance().toastShowStr(DiaoDuRenzhengActivity.this,"请填写完整的信息");
         }
         else
         {
 
-           try {
-               mJson = new JSONObject();
-               mJson.put("GUID",guid);
-               mJson.put("mobile","15908690321");
-               mJson.put("idcard",num);
-               mJson.put("truename",name);
-               mJson.put(Constant.KEY,key);
-               mJson.put("usertype","3");
-           }
-           catch (Exception e)
-           {
+            try {
+                mJson = new JSONObject();
+                mJson.put("GUID",guid);
+                mJson.put("mobile",mobile);
+                mJson.put("idcard",num);
+                mJson.put("truename",name);
+                mJson.put(Constant.KEY,key);
+                mJson.put("usertype","4");
+            }
+            catch (Exception e)
+            {
 
-           }
+            }
             UpdateIdCardBean bodys = new UpdateIdCardBean(mobile,guid,num,key,name,"3");
             RetrofitUtils.getRetrofitService()
-                    .upload_cargoupinfo_one(/*bodys,*/"YZ",Config.CARGROUP_ONE,mJson.toString())
+                    .upload_cargoupinfo_one(/*bodys,*/"YZ", Config.CARGROUP_ONE,mJson.toString())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Subscriber<GetCodeBean>() {
@@ -207,19 +202,19 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
 
                         @Override
                         public void onError(Throwable e) {
-                           // dialog.dismiss();
-                            ToolsUtils.getInstance().toastShowStr(CarGroupRenzhengActivity.this,e.getMessage());
+                            // dialog.dismiss();
+                            ToolsUtils.getInstance().toastShowStr(DiaoDuRenzhengActivity.this,e.getMessage());
                         }
 
                         @Override
                         public void onNext(GetCodeBean s) {
                             //dialog.dismiss();
-                            ToolsUtils.getInstance().toastShowStr(CarGroupRenzhengActivity.this,s.getErrorCode());
+                            ToolsUtils.getInstance().toastShowStr(DiaoDuRenzhengActivity.this,s.getErrorCode());
                             String code = s.getErrorCode();
                             if(code.equals("200") )
                             {
 
-                                startActivity(new Intent(CarGroupRenzhengActivity.this,CarGroupRenzheng2Activity.class));
+                                startActivity(new Intent(DiaoDuRenzhengActivity.this,CarGroupRenzheng2Activity.class));
                             }
                         }
                     });
@@ -255,10 +250,10 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
             @Override
             public void onClick(View v) {
                 //权限判断
-                if (ContextCompat.checkSelfPermission(CarGroupRenzhengActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                if (ContextCompat.checkSelfPermission(DiaoDuRenzhengActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED) {
                     //申请WRITE_EXTERNAL_STORAGE权限
-                    ActivityCompat.requestPermissions(CarGroupRenzhengActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    ActivityCompat.requestPermissions(DiaoDuRenzhengActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                             WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
                 } else {
                     //跳转到调用系统相机
@@ -271,10 +266,10 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
             @Override
             public void onClick(View v) {
                 //权限判断
-                if (ContextCompat.checkSelfPermission(CarGroupRenzhengActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                if (ContextCompat.checkSelfPermission(DiaoDuRenzhengActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED) {
                     //申请READ_EXTERNAL_STORAGE权限
-                    ActivityCompat.requestPermissions(CarGroupRenzhengActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    ActivityCompat.requestPermissions(DiaoDuRenzhengActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                             READ_EXTERNAL_STORAGE_REQUEST_CODE);
                 } else {
                     //跳转到相册
@@ -315,7 +310,7 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             //设置7.0中共享文件，分享路径定义在xml/file_paths.xml
             intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            Uri contentUri = FileProvider.getUriForFile(CarGroupRenzhengActivity.this, Constant.APPLICATION_ID + ".fileProvider", tempFile);
+            Uri contentUri = FileProvider.getUriForFile(DiaoDuRenzhengActivity.this, Constant.APPLICATION_ID + ".fileProvider", tempFile);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
         } else {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));
@@ -341,7 +336,7 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
             case REQUEST_CAPTURE: //调用系统相机返回
                 if (resultCode == RESULT_OK) {
 
-                    String path = ToolsUtils.getRealFilePath(CarGroupRenzhengActivity.this,Uri.fromFile(tempFile));
+                    String path = ToolsUtils.getRealFilePath(DiaoDuRenzhengActivity.this,Uri.fromFile(tempFile));
                     Bitmap bitmap=BitmapFactory.decodeFile(path,getBitmapOption(2));
                     if(position != 0)
                     {
@@ -357,7 +352,7 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
 
                     if(file.exists())
                     {
-                        upload(position);
+                        upload();
                     }
 
                 }
@@ -365,7 +360,7 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
             case REQUEST_PICK:  //调用系统相册返回
                 if (resultCode == RESULT_OK) {
                     Uri uri = intent.getData();
-                    String picPath = ToolsUtils.getRealFilePath(CarGroupRenzhengActivity.this,uri);
+                    String picPath = ToolsUtils.getRealFilePath(DiaoDuRenzhengActivity.this,uri);
                     Bitmap bitmap=BitmapFactory.decodeFile(picPath,getBitmapOption(2));
                     if(position != 0)
                     {
@@ -378,7 +373,7 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
                     file = ToolsUtils.compressImage(BitmapFactory.decodeFile(picPath));
                     if(file.exists())
                     {
-                        upload(position);
+                        upload();
                     }
                 }
                 break;
@@ -389,24 +384,13 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
     /**
      * 图片上传的方法
      */
-    private void upload(int position)
+    private void upload()
     {
 
         MultipartBody.Builder builder =  new MultipartBody.Builder().setType(MultipartBody.FORM);
         builder.addFormDataPart("MemberGUID",guid);
-
+        builder.addFormDataPart("ImgType","1");
         builder.addFormDataPart("headimgurl", "avatar", RequestBody.create(MediaType.parse("image/png/jpg; charset=utf-8"), file));
-        if(position == 0)
-        {
-            builder.addFormDataPart("ImgType","1");
-        }
-        else if(position == 1)
-        {
-            builder.addFormDataPart("ImgType","2");
-        }else if(position == 2)
-        {
-            builder.addFormDataPart("ImgType","3");
-        }
         RetrofitUtils.getRetrofitService().
                 upload_avatar(builder.build())
                 .subscribeOn(Schedulers.io())
@@ -414,12 +398,12 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
                 .subscribe(new Subscriber<ResponseBody>() {
                     @Override
                     public void onCompleted() {
-                        //ToolsUtils.getInstance().toastShowStr(CarGroupRenzhengActivity.this,"上传完成");
+                        //ToolsUtils.getInstance().toastShowStr(DiaoDuRenzhengActivity.this,"上传完成");
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                         ToolsUtils.getInstance().toastShowStr(CarGroupRenzhengActivity.this,e.getMessage());
+                        ToolsUtils.getInstance().toastShowStr(DiaoDuRenzhengActivity.this,e.getMessage());
                     }
 
                     @Override
@@ -430,7 +414,7 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
                             try {
                                 JSONObject json = new JSONObject(info);
                                 String str = json.get("errorMsg").toString();
-                                ToolsUtils.getInstance().toastShowStr(CarGroupRenzhengActivity.this,str);
+                                ToolsUtils.getInstance().toastShowStr(DiaoDuRenzhengActivity.this,str);
                             }
                             catch (Exception e)
                             {

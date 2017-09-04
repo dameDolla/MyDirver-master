@@ -1,10 +1,7 @@
 package com.app.gaolonglong.fragmenttabhost.activities;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
@@ -13,23 +10,27 @@ import java.util.List;
 
 import butterknife.BindViews;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
- * Created by yanqi on 2017/8/7.
+ * Created by yanqi on 2017/8/29.
  */
 
-public class AddReleaseActivity extends BaseActivity implements View.OnClickListener{
+public class MyCarTeamActivity extends BaseActivity {
 
     @BindViews({R.id.top_title})
     public List<TextView> mText;
 
-    @BindViews({R.id.title_back})
-    public List<ImageView> mImage;
+    @OnClick(R.id.title_back)
+    public void back()
+    {
+        finish();
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.release_return);
+        setContentView(R.layout.my_cargroup);
         ButterKnife.bind(this);
         init();
     }
@@ -39,16 +40,6 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
     }
     private void initView()
     {
-        mText.get(0).setText("发布空程");
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId())
-        {
-            case R.id.title_back:
-                finish();
-                break;
-        }
+        mText.get(0).setText("车队信息");
     }
 }

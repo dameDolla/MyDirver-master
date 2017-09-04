@@ -1,6 +1,7 @@
 package com.app.gaolonglong.fragmenttabhost.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
+import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by yanqi on 2017/8/9.
@@ -20,10 +26,24 @@ public class SettingActivity extends Activity {
     private TextView title;
     private RelativeLayout rl;
 
+    @OnClick(R.id.exit_account)
+    public void exit()
+    {
+        ToolsUtils.putString(SettingActivity.this, Constant.LOGIN_GUID,"");
+        ToolsUtils.putString(SettingActivity.this,Constant.USERNAME,"");
+        ToolsUtils.putString(SettingActivity.this,Constant.USRE_TYPE,"");
+        ToolsUtils.putString(SettingActivity.this,Constant.KEY,"");
+        ToolsUtils.putString(SettingActivity.this,Constant.VTRUENAME,"");
+        ToolsUtils.putString(SettingActivity.this,Constant.MOBILE,"");
+
+        startActivity(new Intent(SettingActivity.this,MainActivity.class));
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setting_content);
+        ButterKnife.bind(this);
         init();
     }
     private void init()

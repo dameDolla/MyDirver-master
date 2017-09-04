@@ -20,6 +20,16 @@ public class Config {
     public static final String CARGROUP_ONE = "UpdateIdcard";
     //获取公司信息
     public static final String GET_COMPANYINFO = "SelectByCompanyOrID";
+    //绑定公司
+    public static final String BIND_COMPANY = "BindingCompany";
+    //绑定车辆信息
+    public static final String BIND_TRUCK = "UpdateTruck";
+    //调度公司验证
+    public static final String DIAODU_INFO = "DDCompany";
+    //获取订阅线路
+    public static final String MYROUTE_LIST = "SelectLineByGUID";
+    //添加空程
+    public static final String ADD_RELEASE = "AddTruckplan";
 
 
 }

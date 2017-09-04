@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.view.Gravity;
 import android.widget.ImageView;
@@ -205,7 +206,7 @@ public class ToolsUtils {
      * 将String转换成List
      */
     @SuppressWarnings("unchecked")
-    public static List String2SceneList(String SceneListString)
+    public static List<String> String2SceneList(String SceneListString)
             throws StreamCorruptedException, IOException,
             ClassNotFoundException {
         byte[] mobileBytes = Base64.decode(SceneListString.getBytes(),
@@ -214,7 +215,7 @@ public class ToolsUtils {
                 mobileBytes);
         ObjectInputStream objectInputStream = new ObjectInputStream(
                 byteArrayInputStream);
-        List SceneList = (List) objectInputStream
+        List<String> SceneList = (List) objectInputStream
                 .readObject();
         objectInputStream.close();
         return SceneList;
@@ -382,5 +383,19 @@ public class ToolsUtils {
         }
 
         return unicode.toString();
+    }
+
+    /**
+     * 检查文件是否存在
+     */
+    public static String checkDirPath(String dirPath) {
+        if (TextUtils.isEmpty(dirPath)) {
+            return "";
+        }
+        File dir = new File(dirPath);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        return dirPath;
     }
 }

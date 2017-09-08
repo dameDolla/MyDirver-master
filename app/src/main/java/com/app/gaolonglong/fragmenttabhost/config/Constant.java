@@ -32,4 +32,10 @@ public class Constant {
     public static final String APPLICATION_ID = "com.driver";
 
     public static final String VTRUENAME = "vtruename";
+
+    public static final String RELEASE_CANCLE = "cancle";
+
+    public static final String RELEASE_EDIT = "edit";
+
+    public static final String RELEASE_DEL = "del";
 }

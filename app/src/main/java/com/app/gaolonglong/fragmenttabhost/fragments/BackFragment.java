@@ -1,9 +1,12 @@
 package com.app.gaolonglong.fragmenttabhost.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +15,29 @@ import android.widget.RelativeLayout;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.activities.AddReleaseActivity;
+import com.app.gaolonglong.fragmenttabhost.adapter.ReleaseAdapter;
+import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
+import com.app.gaolonglong.fragmenttabhost.bean.ReleaseBean;
+import com.app.gaolonglong.fragmenttabhost.config.Config;
+import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.utils.LoadingDialog;
+import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by yanqi on 2017/8/2.
@@ -27,6 +48,19 @@ public class BackFragment extends Fragment implements View.OnClickListener{
 
     @BindView(R.id.rl_toaddrelease)
     public RelativeLayout rl;
+
+    @BindViews({R.id.rcv_have_fabu})
+    public List<RecyclerView> rcv;
+
+    private String guid;
+    private String mobile;
+    private String key;
+    private LoadingDialog dialog;
+    private  List<ReleaseBean.DataBean> list = new ArrayList<ReleaseBean.DataBean>();
+    private ReleaseAdapter adapter;
+    private JSONObject mJson;
+    private int positon = 0;
+
 
     @OnClick(R.id.rl_toaddrelease)
     public void release()
@@ -54,15 +88,168 @@ public class BackFragment extends Fragment implements View.OnClickListener{
         super.onActivityCreated(savedInstanceState);
         init();
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        //getData();
+    }
+
     private void init()
     {
         initView();
+        getData();
     }
     private void initView()
     {
        // rl.setOnClickListener(this);
+        //ReleaseAdapter adapter = new ReleaseAdapter()
+        dialog = LoadingDialog.showDialog(getContext());
+        dialog.show();
+        guid = ToolsUtils.getString(getActivity(), Constant.LOGIN_GUID,"");
+        mobile = ToolsUtils.getString(getActivity(), Constant.MOBILE,"");
+        key = ToolsUtils.getString(getActivity(), Constant.KEY,"");
+        mJson = new JSONObject();
+        try {
+            mJson.put("GUID",guid);
+            mJson.put(Constant.KEY,key);
+            mJson.put(Constant.MOBILE,mobile);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        adapter = new ReleaseAdapter(getContext(),list);
+        MyLinearLayoutManager manager = new MyLinearLayoutManager(getContext());
+        rcv.get(0).setNestedScrollingEnabled(false);
+        rcv.get(0).setLayoutManager(manager);
+        rcv.get(0).setAdapter(adapter);
+        adapter.TextSetOnclick(new ReleaseAdapter.TextInterface() {
+            @Override
+            public void onclick(int  position, String flag,String id) {
+                positon = position;
+                if(flag.equals(Constant.RELEASE_CANCLE))
+                {
+                    try {
+                        mJson.put("TruckplanStatus",1);
+                        mJson.put("TruckplansGUID",id);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                     cancle(mJson.toString());
+                    // ToolsUtils.getInstance().toastShowStr(getContext(),id);
+
+                }else if (flag.equals(Constant.RELEASE_EDIT))
+                {
+
+                    ToolsUtils.getInstance().toastShowStr(getContext(),Constant.RELEASE_EDIT);
+                }else if (flag.equals(Constant.RELEASE_DEL))
+                {
+                    try {
+                        mJson.put("TruckplansGUID",id);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    del(mJson.toString());
+                }
+
+            }
+        });
+
     }
 
+    private void getData()
+    {
+
+        RetrofitUtils.getRetrofitService()
+                .getFabuRelease(Constant.MYINFO_PAGENAME, Config.RELEASE_FABU,mJson.toString())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ReleaseBean>() {
+                    @Override
+                    public void onCompleted() {
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onNext(ReleaseBean releaseBean) {
+                        ToolsUtils.getInstance().toastShowStr(getContext(),releaseBean.getErrorMsg());
+                        dialog.dismiss();
+                        list.clear();
+                        list.addAll(releaseBean.getData());
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+    }
+
+    /**
+     * 删除空程
+     * @param json
+     */
+    private void del(String json)
+    {
+        RetrofitUtils.getRetrofitService()
+                .delRelease(Constant.MYINFO_PAGENAME,Config.RELEASE_DEL,json)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<GetCodeBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(GetCodeBean getCodeBean) {
+                        ToolsUtils.getInstance().toastShowStr(getContext(),getCodeBean.getErrorMsg());
+                        if(getCodeBean.getErrorCode().equals("200"))
+                        {
+                            list.remove(positon);
+                            adapter.notifyItemRemoved(positon);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 取消空程计划
+     * @param json
+     */
+    private void cancle(String json)
+    {
+        RetrofitUtils.getRetrofitService()
+                .cancleRelease(Constant.MYINFO_PAGENAME,Config.RELEASE_UPDATE,json)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<GetCodeBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(GetCodeBean getCodeBean) {
+                        ToolsUtils.getInstance().toastShowStr(getContext(),getCodeBean.getErrorMsg());
+                        if(getCodeBean.getErrorCode().equals("200"))
+                        {
+                            list.remove(positon);
+                            adapter.notifyItemRemoved(positon);
+                        }
+                    }
+                });
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId())

@@ -9,6 +9,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:scrollbars="vertical"
+        android:id="@+id/release_parent"
         android:layout_height="match_parent">
 
         <include layout="@layout/top_title"/>
@@ -17,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9"
+
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,6 +44,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="47dp"
+            android:id="@+id/release_begin_addr"
            android:gravity="center_vertical" >
             <ImageView
                 android:layout_width="wrap_content"
@@ -61,9 +64,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/release_arrow4"
+                android:text=""
+                android:gravity="center_vertical"
+                android:textSize="14sp"
+                android:id="@+id/release_start_tv"
+                android:paddingRight="@dimen/txt_5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:layout_alignParentRight="true"
                 android:text=">"
+                android:id="@+id/release_arrow4"
                 android:textSize="20sp"
                 android:paddingRight="@dimen/txt_17dp"/>
         </RelativeLayout>
@@ -78,6 +91,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="47dp"
+            android:id="@+id/release_finish_addr"
             android:gravity="center_vertical">
             <ImageView
                 android:layout_width="wrap_content"
@@ -91,13 +105,23 @@
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/txt_17dp"
                 android:layout_toRightOf="@+id/iv_mu"
-                android:text="@string/select_shi"
+                android:text="@string/select_mu"
                 android:textSize="@dimen/txt_14"
                 android:textColor="@color/black_263"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/release_arrow3"
+                android:text=""
                 android:gravity="center_vertical"
+                android:textSize="14sp"
+                android:id="@+id/release_finish_tv"
+                android:paddingRight="@dimen/txt_5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:id="@+id/release_arrow3"
                 android:layout_alignParentRight="true"
                 android:text=">"
                 android:textSize="20dp"
@@ -114,6 +138,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="47dp"
+            android:id="@+id/release_rl_emptytime"
             android:gravity="center_vertical">
             <ImageView
                 android:layout_width="wrap_content"
@@ -126,7 +151,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/txt_17dp"
-                android:text="@string/select_shi"
+                android:text="选择空车时间"
                 android:textSize="@dimen/txt_14"
                 android:textColor="@color/black_263"
                 android:layout_alignParentTop="true"
@@ -135,8 +160,68 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/release_arrow2"
+                android:text="2017-9-8"
+                android:gravity="center_vertical"
+                android:textSize="14sp"
+                android:id="@+id/release_rl_emptytime_tv"
+                android:paddingRight="@dimen/txt_5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:text=">"
+                android:id="@+id/release_arrow2"
+                android:gravity="center_vertical"
+                android:textSize="20sp"
+                android:paddingRight="@dimen/txt_17dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="@dimen/txt_15dp"
+            android:background="@color/color_f2"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:id="@+id/release_rl_backtime"
+            android:gravity="center_vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/time"
+                android:paddingLeft="@dimen/txt_10dp"
+                android:id="@+id/iv_release_backtime"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/txt_17dp"
+                android:text="选择返程时间"
+                android:textSize="@dimen/txt_14"
+                android:textColor="@color/black_263"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/iv_release_backtime"
+                android:layout_toEndOf="@+id/iv_release_backtime"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/release_arrow1"
+                android:text="2017-9-8"
+                android:gravity="center_vertical"
+                android:textSize="14sp"
+                android:id="@+id/release_backtime_tv"
+                android:paddingRight="@dimen/txt_5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:text=">"
+                android:id="@+id/release_arrow1"
                 android:gravity="center_vertical"
                 android:textSize="20sp"
                 android:paddingRight="@dimen/txt_17dp"/>
@@ -201,6 +286,7 @@
                 android:gravity="center_vertical"
                 android:paddingRight="@dimen/txt_15dp"
                 android:textSize="@dimen/txt_14"
+                android:id="@+id/car_type"
                 android:textColor="@color/black_263"
                 android:layout_toLeftOf="@+id/logo_arrow_right"/>
         </RelativeLayout>
@@ -215,6 +301,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="47dp"
+            android:id="@+id/release_rl_carstatus"
             android:gravity="center_vertical">
             <ImageView
                 android:layout_width="wrap_content"
@@ -235,8 +322,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
+                android:layout_toLeftOf="@+id/car_status_arrow"
+                android:text="空车"
+                android:id="@+id/car_status"
+                android:textSize="@dimen/txt_14"
+                android:paddingRight="@dimen/txt_17dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:layout_alignParentRight="true"
                 android:text=">"
+                android:id="@+id/car_status_arrow"
                 android:textSize="20sp"
                 android:paddingRight="@dimen/txt_17dp"/>
         </RelativeLayout>
@@ -407,15 +504,16 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="@dimen/txt_15dp"
             android:background="@drawable/edittext_selector"
-            android:focusable="false"
+            android:focusable="true"
             android:id="@+id/et_leave_message"/>
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="@dimen/txt_39dp"
             android:textColor="@color/white"
             android:textSize="@dimen/txt_18"
             android:text="@string/txt_bt_fabu"
+            android:id="@+id/fabu_now"
             android:layout_marginBottom="@dimen/txt_39dp"
             android:layout_marginTop="@dimen/txt_15dp"
             android:layout_marginLeft="@dimen/txt_15dp"

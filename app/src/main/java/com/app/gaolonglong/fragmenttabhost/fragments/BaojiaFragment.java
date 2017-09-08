@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
+import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 
 import java.util.List;
 
@@ -54,6 +55,13 @@ public class BaojiaFragment extends Fragment {
     private void init()
     {
         initView();
+        if (ToolsUtils.getInstance().isLogin(getContext()))
+        {
+            //ToolsUtils.getInstance().toastShowStr(getContext(),"success");
+        }else
+        {
+            //ToolsUtils.getInstance().toastShowStr(getContext(),"fail");
+        }
     }
     private void initView()
     {

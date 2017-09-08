@@ -16,7 +16,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.gaolonglong.fragmenttabhost.R;
+import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
+import com.app.gaolonglong.fragmenttabhost.bean.GetSRCBean;
+import com.app.gaolonglong.fragmenttabhost.config.Config;
+import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by yanqi on 2017/8/2.
@@ -30,6 +42,9 @@ public class FindFragment extends Fragment implements View.OnClickListener{
     private PopupWindow popMenu;
     private TextView allSrc,pipei,emptyPipei,shifadi,mudidi,carType,tv_time,username,renzheng,xie,zhuang,type,time,car_type;
     private ImageView icon,phone;
+    private String guid;
+    private String mobile;
+    private String key;
 
 
     @Nullable
@@ -73,7 +88,13 @@ public class FindFragment extends Fragment implements View.OnClickListener{
         emptyPipei.setOnClickListener(this);
         shifadi.setOnClickListener(this);
 
+        guid = ToolsUtils.getString(getContext(), Constant.LOGIN_GUID,"");
+        mobile = ToolsUtils.getString(getContext(), Constant.MOBILE,"");
+        key = ToolsUtils.getString(getContext(), Constant.KEY,"");
+
+
         initPopwindow();
+       // getSrcFromside();
     }
     private  void initPopwindow()
     {
@@ -93,6 +114,42 @@ public class FindFragment extends Fragment implements View.OnClickListener{
         });
     }
 
+    /**
+     * 根据始发地查找货源
+     */
+   private void getSrcFromside()
+   {
+       JSONObject json = new JSONObject();
+       try {
+           json.put("GUID",guid);
+           json.put(Constant.MOBILE,mobile);
+           json.put(Constant.KEY,key);
+           json.put("fromSite","深圳");
+       } catch (JSONException e) {
+           e.printStackTrace();
+       }
+       RetrofitUtils.getRetrofitService()
+               .getSRCWithFromside(Constant.MYINFO_PAGENAME, Config.SRC_FROMSIDE,json.toString())
+               .subscribeOn(Schedulers.io())
+               .observeOn(AndroidSchedulers.mainThread())
+               .subscribe(new Subscriber<GetSRCBean>() {
+                   @Override
+                   public void onCompleted() {
+
+                   }
+
+                   @Override
+                   public void onError(Throwable e) {
+
+                   }
+
+                   @Override
+                   public void onNext(GetSRCBean getSRCBean) {
+                        ToolsUtils.getInstance().toastShowStr(getContext(),getSRCBean.getErrorMsg());
+                   }
+               });
+
+   }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

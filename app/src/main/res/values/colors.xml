@@ -15,6 +15,11 @@
     <color name="red">#f00</color>
     <color name="black_263">#26303b</color>
     <color name="black_17">#171717</color>
+    <color name="alpha_gray">#CC646464</color>
+    <color name="gray_deep">#5c5c5c</color>
+    <color name="divider">#E5E5E5</color>
+    <color name="gray">#8c8c8c</color>
+    <color name="content_bg">#F3F3F3</color>
 
     <color name="titleColor">#757575</color>
     <color name="titleColorSelected">#3bbe79</color>

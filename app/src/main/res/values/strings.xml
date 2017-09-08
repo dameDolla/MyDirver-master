@@ -57,4 +57,8 @@
     <string name="renzheng_personnal_txt">请准备好身份证,驾照,车辆信息</string>
     <string name="renzheng_cargroup_txt">请准备好身份证,公司验证信息</string>
     <string name="renzheng_diaodu_txt">请准备营业执照,身份证,车辆信息</string>
+
+    <string name="locating">正在定位…</string>
+    <string name="located_failed">定位失败</string>
+    <string name="hot_city">热门城市</string>
 </resources>

@@ -14,6 +14,8 @@ public class Config {
     public static  final String UPLOAD_URL = "/Handler/img.ashx";
     //登录接口
     public static final String LOGIN_API_URL = "appLogin";
+    //检查登录接口
+    public static final String CHECK_LOGIN = "Login";
     //获取短信验证码
     public static final String APPLOGIN_SMS = "appLoginSMS";
     //车队司机认证的姓名身份证的提交
@@ -30,6 +32,23 @@ public class Config {
     public static final String MYROUTE_LIST = "SelectLineByGUID";
     //添加空程
     public static final String ADD_RELEASE = "AddTruckplan";
+    //获取空程计划 已发布
+    public static final String RELEASE_FABU = "SelectByTruckplanStatus_1";
+    //获取空程计划  已取消和已完成
+    public static final String RELEASE_CANCEL = "SelectByTruckplanStatus_02";
+    //修改空车计划
+    public static final String RELEASE_UPDATE = "UpdateTruckplan";
+    //删除空程计划
+    public static final String RELEASE_DEL = "DeleteTruckplan";
+    //添加订阅路线
+    public static final String ROUTE_ADD = "AddLineInfo";
+    //修改订阅路线
+    public static final String ROUTE_UPDATE = "UpdateLineMainLineState";
+    //删除订阅路线
+    public static final String ROUTE_DEL = "DeleteLineInfo";
+    //根据始发地查询货源信息
+    public static final String SRC_FROMSIDE = "SelectCargoInfo";
+
 
 
 }

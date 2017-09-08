@@ -142,8 +142,22 @@
         <activity android:name=".activities.MyRouteListActivity"
             android:theme="@style/AppTheme">
 
+    </activity>
+
+        <!--地址选择界面-->
+        <activity android:name=".activities.SearchAddrActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
+        <!--添加订阅路线-->
+        <activity android:name=".activities.AddRouteActivity">
+
         </activity>
 
+        <!--启动页面-->
+        <activity android:name=".activities.SplashActivity">
+
+        </activity>
     </application>
 
 </manifest>

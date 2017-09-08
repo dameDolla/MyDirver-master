@@ -1,5 +1,6 @@
 package com.app.gaolonglong.fragmenttabhost.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -130,7 +131,8 @@ public class MyRouteListActivity extends BaseActivity implements View.OnClickLis
         {
             case R.id.myroute_submit:
                 Map<Integer,String> map = adapter.getMap();
-                ToolsUtils.getInstance().toastShowStr(MyRouteListActivity.this,map.get(0));
+                //ToolsUtils.getInstance().toastShowStr(MyRouteListActivity.this,map.get(0));
+                startActivity(new Intent(MyRouteListActivity.this,AddRouteActivity.class));
                 break;
         }
     }

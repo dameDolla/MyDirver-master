@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.app.gaolonglong.fragmenttabhost.activities.SettingActivity;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
 
@@ -30,8 +31,10 @@ import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 
 /**
@@ -61,11 +64,23 @@ public class ToolsUtils {
      */
     public Boolean isLogin(Context context)
     {
-        if (ToolsUtils.getString(context, Constant.LOGIN_GUID,"") == null)
+        if (ToolsUtils.getString(context, Constant.LOGIN_GUID,"") == "")
         {
             return false;
         }
         return true;
+    }
+    /**
+     * 退出登录
+     */
+    public void loginOut(Context context)
+    {
+        ToolsUtils.putString(context, Constant.LOGIN_GUID,"");
+        ToolsUtils.putString(context,Constant.USERNAME,"");
+        ToolsUtils.putString(context,Constant.USRE_TYPE,"");
+        ToolsUtils.putString(context,Constant.KEY,"");
+        ToolsUtils.putString(context,Constant.VTRUENAME,"");
+        ToolsUtils.putString(context,Constant.MOBILE,"");
     }
 
     /**
@@ -398,4 +413,18 @@ public class ToolsUtils {
         }
         return dirPath;
     }
+    public static String StringData(int n) {
+
+
+        final Calendar c = Calendar.getInstance();
+        c.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        String mYear = String.valueOf(c.get(Calendar.YEAR));// 获取当前年份
+        String mMonth = String.valueOf(c.get(Calendar.MONTH) + 1);// 获取当前月份
+        String mDay = String.valueOf(c.get(Calendar.DAY_OF_MONTH)+n);// 获取当前月份的日期号码
+        /*if(Integer.parseInt(mDay) > MaxDayFromDay_OF_MONTH(Integer.parseInt(mYear),(Integer.parseInt(mMonth)))){
+            mDay = String.valueOf(MaxDayFromDay_OF_MONTH(Integer.parseInt(mYear),(Integer.parseInt(mMonth))));
+        }*/
+        return mYear + "-" + (mMonth.length()==1?"0"+mMonth:mMonth) + "-" + (mDay.length()==1?"0"+mDay:mDay);
+    }
+
 }

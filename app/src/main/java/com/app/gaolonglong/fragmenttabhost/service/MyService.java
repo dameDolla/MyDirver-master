@@ -12,7 +12,9 @@ import rx.Observable;
 
 import com.app.gaolonglong.fragmenttabhost.bean.CompanyInfoBean;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
+import com.app.gaolonglong.fragmenttabhost.bean.GetSRCBean;
 import com.app.gaolonglong.fragmenttabhost.bean.LoginBean;
+import com.app.gaolonglong.fragmenttabhost.bean.ReleaseBean;
 import com.app.gaolonglong.fragmenttabhost.bean.RequestPostBody;
 import com.app.gaolonglong.fragmenttabhost.bean.RouteListBean;
 import com.app.gaolonglong.fragmenttabhost.bean.UpdateIdCardBean;
@@ -47,6 +49,15 @@ public interface MyService {
                           @Query("JsonValue") String val,
                           @Query("PageName") String page
     );
+
+    /**
+     * 检查登录
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> checkLogin(@Field(Constant.PAGENAME) String page,
+                                              @Field(Constant.METHOD) String method,
+                                              @Field("JsonValue") String json);
 
     /**
      * 获取短信验证码接口
@@ -123,4 +134,44 @@ public interface MyService {
     Observable<GetCodeBean> addRelease(@Field(Constant.PAGENAME) String page,
                                        @Field(Constant.METHOD) String method,
                                        @Field("JsonValue") String json);
+    /**
+     * 添加线路
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> addRoute(@Field(Constant.PAGENAME) String page,
+                                     @Field(Constant.METHOD) String method,
+                                     @Field("JsonValue") String json);
+    /**
+     * 获取个人发布的空程
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<ReleaseBean> getFabuRelease(@Field(Constant.PAGENAME) String page,
+                                           @Field(Constant.METHOD) String method,
+                                           @Field("JsonValue") String json);
+    /**
+     * 取消空程计划
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> cancleRelease(@Field(Constant.PAGENAME) String page,
+                                           @Field(Constant.METHOD) String method,
+                                           @Field("JsonValue") String json);
+    /**
+     * 删除空程
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> delRelease(@Field(Constant.PAGENAME) String page,
+                                          @Field(Constant.METHOD) String method,
+                                          @Field("JsonValue") String json);
+    /**
+     * 根据始发地查询货源信息
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetSRCBean> getSRCWithFromside(@Field(Constant.PAGENAME) String page,
+                                              @Field(Constant.METHOD) String method,
+                                              @Field("JsonValue") String json);
 }

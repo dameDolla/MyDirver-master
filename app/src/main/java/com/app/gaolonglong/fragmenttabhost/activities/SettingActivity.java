@@ -29,13 +29,8 @@ public class SettingActivity extends Activity {
     @OnClick(R.id.exit_account)
     public void exit()
     {
-        ToolsUtils.putString(SettingActivity.this, Constant.LOGIN_GUID,"");
-        ToolsUtils.putString(SettingActivity.this,Constant.USERNAME,"");
-        ToolsUtils.putString(SettingActivity.this,Constant.USRE_TYPE,"");
-        ToolsUtils.putString(SettingActivity.this,Constant.KEY,"");
-        ToolsUtils.putString(SettingActivity.this,Constant.VTRUENAME,"");
-        ToolsUtils.putString(SettingActivity.this,Constant.MOBILE,"");
 
+        ToolsUtils.getInstance().loginOut(SettingActivity.this);
         startActivity(new Intent(SettingActivity.this,MainActivity.class));
     }
 

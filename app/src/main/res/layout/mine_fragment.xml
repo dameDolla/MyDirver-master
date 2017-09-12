@@ -106,13 +106,13 @@
                         android:text="已接单0次"
                         android:textColor="@color/white"
                         android:textSize="@dimen/txt_14"/>
-                    <TextView
+                    <!--<TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="违约0次"
                         android:paddingLeft="@dimen/txt_15dp"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/txt_14"/>
+                        android:textSize="@dimen/txt_14"/>-->
                 </LinearLayout>
 
             </LinearLayout>
@@ -303,7 +303,7 @@
         
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="25dp"
+            android:layout_height="@dimen/txt_15dp"
             android:background="@color/color_f2"/>
 
         <RelativeLayout

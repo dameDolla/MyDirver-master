@@ -23,4 +23,12 @@
 
     <color name="titleColor">#757575</color>
     <color name="titleColorSelected">#3bbe79</color>
+
+    <!--刷新控件的颜色-->
+    <color name="google_red">#d62d20</color>
+    <color name="google_blue">#0057e7</color>
+    <color name="google_green">#008744</color>
+    <color name="google_yellow">#ffa700</color>
+
+    <color name="tab">#90d7ec</color>
 </resources>

@@ -126,6 +126,7 @@ public class LoginBean {
         private String SMSDatetime;
         private String mobilePwd;
         private String SecreKey;
+        private String AvatarAddress;
 
         public int getUserid() {
             return userid;
@@ -445,6 +446,15 @@ public class LoginBean {
 
         public void setSecreKey(String secreKey) {
             this.SecreKey = secreKey;
+        }
+
+        public String getAvatarAddress(){
+            return AvatarAddress;
+        }
+
+        public void setAvatarAddress(String avatarAddress)
+        {
+            this.AvatarAddress = avatarAddress;
         }
     }
 }

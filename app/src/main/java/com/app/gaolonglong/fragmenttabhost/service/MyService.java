@@ -55,7 +55,7 @@ public interface MyService {
      */
     @FormUrlEncoded
     @POST(Config.host)
-    Observable<GetCodeBean> checkLogin(@Field(Constant.PAGENAME) String page,
+    Observable<LoginBean> checkLogin(@Field(Constant.PAGENAME) String page,
                                               @Field(Constant.METHOD) String method,
                                               @Field("JsonValue") String json);
 
@@ -151,6 +151,14 @@ public interface MyService {
                                            @Field(Constant.METHOD) String method,
                                            @Field("JsonValue") String json);
     /**
+     * 获取个人取消或者完成的空程
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<ReleaseBean> getCancleRelease(@Field(Constant.PAGENAME) String page,
+                                           @Field(Constant.METHOD) String method,
+                                           @Field("JsonValue") String json);
+    /**
      * 取消空程计划
      */
     @FormUrlEncoded
@@ -172,6 +180,14 @@ public interface MyService {
     @FormUrlEncoded
     @POST(Config.host)
     Observable<GetSRCBean> getSRCWithFromside(@Field(Constant.PAGENAME) String page,
+                                              @Field(Constant.METHOD) String method,
+                                              @Field("JsonValue") String json);
+    /**
+     * 修改订阅线路的默认线路
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetSRCBean> setRouteMain(@Field(Constant.PAGENAME) String page,
                                               @Field(Constant.METHOD) String method,
                                               @Field("JsonValue") String json);
 }

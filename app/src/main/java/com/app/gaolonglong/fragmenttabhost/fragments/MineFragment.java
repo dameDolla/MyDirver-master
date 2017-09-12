@@ -1,6 +1,7 @@
 package com.app.gaolonglong.fragmenttabhost.fragments;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -57,6 +58,7 @@ public class MineFragment extends Fragment implements View.OnClickListener{
                 R.id.mine_rl_route})
     public List<RelativeLayout> rlList;
 
+
     @BindView(R.id.mine_icon)
     public SimpleDraweeView logo;
     private String userinfo;
@@ -108,6 +110,7 @@ public class MineFragment extends Fragment implements View.OnClickListener{
      */
     private void checkInfo()
     {
+       // ToolsUtils.getInstance().toastShowStr(getContext(),Too);
         //获取保存的用户信息
         String guid = ToolsUtils.getString(getActivity(),Constant.LOGIN_GUID,"");
         //ToolsUtils.getInstance().toastShowStr(getActivity(),guid);
@@ -118,6 +121,8 @@ public class MineFragment extends Fragment implements View.OnClickListener{
             mList.get(1).setText(ToolsUtils.getString(getActivity(),Constant.MOBILE,""));
             mList.get(2).setText(ToolsUtils.getString(getActivity(),Constant.MOBILE,""));
             ToolsUtils.getInstance().toastShowStr(getActivity(),ToolsUtils.getString(getActivity(),Constant.USERNAME,""));
+            String url = ToolsUtils.getString(getContext(),Constant.HEADLOGO,"");
+            logo.setImageURI(Uri.parse(url));
         }
         else
         {

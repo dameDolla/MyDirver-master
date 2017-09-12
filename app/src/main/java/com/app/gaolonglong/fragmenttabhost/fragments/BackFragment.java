@@ -23,7 +23,9 @@ import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.LoadingDialog;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.app.gaolonglong.fragmenttabhost.view.EmptyLayout;
 import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
+import com.app.gaolonglong.fragmenttabhost.view.RecycleViewDivider;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,23 +51,28 @@ public class BackFragment extends Fragment implements View.OnClickListener{
     @BindView(R.id.rl_toaddrelease)
     public RelativeLayout rl;
 
-    @BindViews({R.id.rcv_have_fabu})
+    @BindViews({R.id.rcv_have_fabu,R.id.rcv_have_cancle})
     public List<RecyclerView> rcv;
+
+    @BindView(R.id.back_empty_view)
+    public EmptyLayout emptyLayout;
 
     private String guid;
     private String mobile;
     private String key;
     private LoadingDialog dialog;
     private  List<ReleaseBean.DataBean> list = new ArrayList<ReleaseBean.DataBean>();
+    private  List<ReleaseBean.DataBean> canclelist = new ArrayList<ReleaseBean.DataBean>();
     private ReleaseAdapter adapter;
     private JSONObject mJson;
     private int positon = 0;
+    private ReleaseAdapter cancleAdapter;
 
 
     @OnClick(R.id.rl_toaddrelease)
     public void release()
     {
-        startActivity(new Intent(getActivity(),AddReleaseActivity.class));
+        startActivityForResult(new Intent(getActivity(),AddReleaseActivity.class),1);
     }
 
     @Nullable
@@ -86,7 +93,7 @@ public class BackFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        init();
+       // init();
     }
 
     @Override
@@ -95,14 +102,21 @@ public class BackFragment extends Fragment implements View.OnClickListener{
         //getData();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        init();
+    }
+
     private void init()
     {
         initView();
         getData();
+        getCancleData();
     }
     private void initView()
     {
-       // rl.setOnClickListener(this);
+        // rl.setOnClickListener(this);
         //ReleaseAdapter adapter = new ReleaseAdapter()
         dialog = LoadingDialog.showDialog(getContext());
         dialog.show();
@@ -117,25 +131,49 @@ public class BackFragment extends Fragment implements View.OnClickListener{
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        ToolsUtils.getInstance().toastShowStr(getContext(),canclelist.size()+"");
         adapter = new ReleaseAdapter(getContext(),list);
+        cancleAdapter = new ReleaseAdapter(getContext(),canclelist);
         MyLinearLayoutManager manager = new MyLinearLayoutManager(getContext());
+        //manager.setScrollEnabled(false);
         rcv.get(0).setNestedScrollingEnabled(false);
         rcv.get(0).setLayoutManager(manager);
+        rcv.get(0).addItemDecoration(new RecycleViewDivider(getContext(),LinearLayoutManager.VERTICAL));
         rcv.get(0).setAdapter(adapter);
-        adapter.TextSetOnclick(new ReleaseAdapter.TextInterface() {
+
+        rcv.get(1).setLayoutManager(new LinearLayoutManager(getContext()));
+        rcv.get(1).setAdapter(cancleAdapter);
+        rcv.get(1).addItemDecoration(new RecycleViewDivider(getContext(), LinearLayoutManager.VERTICAL));
+
+        cancleAdapter.TextSetOnclick(new ReleaseAdapter.TextInterface() {
             @Override
-            public void onclick(int  position, String flag,String id) {
-                positon = position;
-                if(flag.equals(Constant.RELEASE_CANCLE))
+            public void onclick(int position, String flag, String id, String status) {
+                if(flag.equals(Constant.RELEASE_DEL))
                 {
                     try {
-                        mJson.put("TruckplanStatus",1);
                         mJson.put("TruckplansGUID",id);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                     cancle(mJson.toString());
-                    // ToolsUtils.getInstance().toastShowStr(getContext(),id);
+                    del(mJson.toString(),"cancle",position);
+                }
+            }
+        });
+        adapter.TextSetOnclick(new ReleaseAdapter.TextInterface() {
+            @Override
+            public void onclick(int  position, String flag,String id,String status) {
+                //positon = position;
+
+                if(flag.equals(Constant.RELEASE_CANCLE))
+                {
+                    try {
+                        mJson.put("TruckplanStatus","0");
+                        mJson.put("TruckplansGUID",id);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    cancle(mJson.toString());
+                    //ToolsUtils.getInstance().toastShowStr(getContext(),status);
 
                 }else if (flag.equals(Constant.RELEASE_EDIT))
                 {
@@ -148,7 +186,7 @@ public class BackFragment extends Fragment implements View.OnClickListener{
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    del(mJson.toString());
+                    del(mJson.toString(),"fabu",position);
                 }
 
             }
@@ -176,11 +214,46 @@ public class BackFragment extends Fragment implements View.OnClickListener{
 
                     @Override
                     public void onNext(ReleaseBean releaseBean) {
-                        ToolsUtils.getInstance().toastShowStr(getContext(),releaseBean.getErrorMsg());
+                        //ToolsUtils.getInstance().toastShowStr(getContext(),releaseBean.getErrorMsg());
                         dialog.dismiss();
                         list.clear();
                         list.addAll(releaseBean.getData());
                         adapter.notifyDataSetChanged();
+                    }
+                });
+    }
+    private void getCancleData()
+    {
+        RetrofitUtils.getRetrofitService()
+                .getFabuRelease(Constant.MYINFO_PAGENAME, Config.RELEASE_CANCEL,mJson.toString())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ReleaseBean>() {
+                    @Override
+                    public void onCompleted() {
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onNext(ReleaseBean releaseBean) {
+                        //ToolsUtils.getInstance().toastShowStr(getContext(),releaseBean.getErrorMsg());
+                        if(releaseBean.getData().size() == 0)
+                        {
+                            emptyLayout.setErrorType(EmptyLayout.NODATA);
+                        }
+                        else {
+                            canclelist.clear();
+                            canclelist.addAll(releaseBean.getData());
+                            cancleAdapter.notifyDataSetChanged();
+                        }
+                        dialog.dismiss();
+
+
                     }
                 });
     }
@@ -189,8 +262,9 @@ public class BackFragment extends Fragment implements View.OnClickListener{
      * 删除空程
      * @param json
      */
-    private void del(String json)
+    private void del(String json, final String flag, final int po)
     {
+       // ToolsUtils.getInstance().toastShowStr(getContext(),po+"");
         RetrofitUtils.getRetrofitService()
                 .delRelease(Constant.MYINFO_PAGENAME,Config.RELEASE_DEL,json)
                 .subscribeOn(Schedulers.io())
@@ -211,8 +285,18 @@ public class BackFragment extends Fragment implements View.OnClickListener{
                         ToolsUtils.getInstance().toastShowStr(getContext(),getCodeBean.getErrorMsg());
                         if(getCodeBean.getErrorCode().equals("200"))
                         {
-                            list.remove(positon);
-                            adapter.notifyItemRemoved(positon);
+                            if(flag.equals("fabu"))
+                            {
+                                list.remove(po);
+                                adapter.notifyItemRemoved(positon);
+                                getCancleData();
+                            }else if (flag.equals("cancle"))
+                            {
+                                canclelist.remove(po);
+                                cancleAdapter.notifyDataSetChanged();
+                            }
+
+
                         }
                     }
                 });
@@ -246,6 +330,7 @@ public class BackFragment extends Fragment implements View.OnClickListener{
                         {
                             list.remove(positon);
                             adapter.notifyItemRemoved(positon);
+                           getCancleData();
                         }
                     }
                 });

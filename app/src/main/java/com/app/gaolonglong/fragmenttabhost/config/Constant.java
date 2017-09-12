@@ -38,4 +38,8 @@ public class Constant {
     public static final String RELEASE_EDIT = "edit";
 
     public static final String RELEASE_DEL = "del";
+
+    public static final String EXIT_STR = "再点击一次退出程序";
+
+    public static final String HEADLOGO = "AvatarAddress";
 }

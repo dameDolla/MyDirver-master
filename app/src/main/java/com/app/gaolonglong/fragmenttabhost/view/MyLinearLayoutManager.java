@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 
 public class MyLinearLayoutManager extends LinearLayoutManager {
 
+    private boolean isScrollEnabled = true;
+
     private static final String TAG = MyLinearLayoutManager.class.getSimpleName();
 
     public MyLinearLayoutManager(Context context) {
@@ -93,5 +95,11 @@ public class MyLinearLayoutManager extends LinearLayoutManager {
         } finally {
         }
     }
-
+    public void setScrollEnabled(boolean flag) {
+        this.isScrollEnabled = flag;
+    }
+    @Override
+    public boolean canScrollVertically() {
+        return isScrollEnabled && super.canScrollVertically();
+    }
 }

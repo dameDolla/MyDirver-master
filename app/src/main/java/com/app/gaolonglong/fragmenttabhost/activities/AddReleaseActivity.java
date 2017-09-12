@@ -194,6 +194,8 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void onNext(GetCodeBean getCodeBean) {
                         ToolsUtils.getInstance().toastShowStr(AddReleaseActivity.this,getCodeBean.getErrorMsg());
+                        setResult(2);
+                        AddReleaseActivity.this.finish();
                     }
                 });
     }

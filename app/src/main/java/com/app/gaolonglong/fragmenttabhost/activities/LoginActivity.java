@@ -105,6 +105,7 @@ public class LoginActivity extends BaseActivity {
                         ToolsUtils.putString(LoginActivity.this,Constant.KEY,data.get(0).getSecreKey());
                         ToolsUtils.putString(LoginActivity.this,Constant.VTRUENAME,data.get(0).getVtruename());
                         ToolsUtils.putString(LoginActivity.this,Constant.MOBILE,data.get(0).getMobile());
+                        ToolsUtils.putString(LoginActivity.this,Constant.HEADLOGO,data.get(0).getAvatarAddress());
 
                         //ToolsUtils.getInstance().toastShowStr(LoginActivity.this,userinfo);
 
@@ -158,6 +159,7 @@ public class LoginActivity extends BaseActivity {
                 if(response.isSuccessful())
                 {
                     GetCodeBean code = response.body();
+                    String msg= code.getErrorMsg();
                     ToolsUtils.getInstance().toastShowStr(LoginActivity.this,code.getErrorMsg());
                 }
             }

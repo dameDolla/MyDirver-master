@@ -5,6 +5,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,16 +17,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.gaolonglong.fragmenttabhost.R;
+import com.app.gaolonglong.fragmenttabhost.adapter.FindSrcAdapter;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
 import com.app.gaolonglong.fragmenttabhost.bean.GetSRCBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.app.gaolonglong.fragmenttabhost.view.EmptyLayout;
+import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -45,7 +54,15 @@ public class FindFragment extends Fragment implements View.OnClickListener{
     private String guid;
     private String mobile;
     private String key;
+    private RecyclerView rcl;
+    private List<GetSRCBean.DataBean> list = new ArrayList<GetSRCBean.DataBean>();
+    private FindSrcAdapter adapter;
 
+    @BindView(R.id.find_src_rlv)
+    public RecyclerView find_rcl;
+
+    @BindView(R.id.find_empty_view)
+    public EmptyLayout emptyLayout;
 
     @Nullable
     @Override
@@ -58,17 +75,21 @@ public class FindFragment extends Fragment implements View.OnClickListener{
         if (parent != null){
             parent.removeView(mRootView);
         }
+        ButterKnife.bind(this,mRootView);
         return mRootView;
     }
     private void init()
     {
+
         initView();
+        initData();
+
     }
     private void  initView()
     {
         allSrc = (TextView) mRootView.findViewById(R.id.find_all_src);        //全部商品
-        pipei = (TextView)mRootView.findViewById(R.id.find_pipei);            //匹配商品
-        emptyPipei = (TextView)mRootView.findViewById(R.id.find_empty_pipei); //空程匹配
+        pipei = (TextView)mRootView.findViewById(R.id.find_xianlu_pipei);            //匹配商品
+        emptyPipei = (TextView)mRootView.findViewById(R.id.find_kongcheng); //空程匹配
         shifadi = (TextView)mRootView.findViewById(R.id.find_tv_origin);      //始发地
         mudidi = (TextView)mRootView.findViewById(R.id.find_tv_destination);  //目的地
         carType = (TextView)mRootView.findViewById(R.id.find_tv_cartype);     //车型
@@ -82,6 +103,9 @@ public class FindFragment extends Fragment implements View.OnClickListener{
         time = (TextView)mRootView.findViewById(R.id.find_time);              //货主想要的装车时间
         car_type = (TextView)mRootView.findViewById(R.id.find_car_type);      //货主想要的车型
         phone = (ImageView)mRootView.findViewById(R.id.find_iv_phone);        //打电话图标
+        allSrc.setBackgroundResource(R.drawable.border_content_white);
+        allSrc.setTextColor(Color.parseColor("#878787"));
+             //显示列表
 
         allSrc.setOnClickListener(this);
         pipei.setOnClickListener(this);
@@ -94,7 +118,20 @@ public class FindFragment extends Fragment implements View.OnClickListener{
 
 
         initPopwindow();
-       // getSrcFromside();
+
+    }
+    private void initData()
+    {
+        adapter = new FindSrcAdapter(getContext(),list);
+        MyLinearLayoutManager manager = new MyLinearLayoutManager(getContext());
+        find_rcl.setLayoutManager(manager);
+        find_rcl.setAdapter(adapter);
+        getSrcFromside();
+        //ToolsUtils.getInstance().toastShowStr(getContext(),list.size()+"");
+
+       // rcl = (RecyclerView)mRootView.findViewById(R.id.find_src_rlv);
+
+
     }
     private  void initPopwindow()
     {
@@ -145,7 +182,16 @@ public class FindFragment extends Fragment implements View.OnClickListener{
 
                    @Override
                    public void onNext(GetSRCBean getSRCBean) {
-                        ToolsUtils.getInstance().toastShowStr(getContext(),getSRCBean.getErrorMsg());
+                       if(getSRCBean.getData().size() == 0)
+                       {
+                            emptyLayout.setErrorType(EmptyLayout.NODATA);
+                       }else
+                       {
+                           list.clear();
+                           list.addAll(getSRCBean.getData());
+                           adapter.notifyDataSetChanged();
+                       }
+                       // ToolsUtils.getInstance().toastShowStr(getContext(),list.size()+"");
                    }
                });
 
@@ -162,28 +208,34 @@ public class FindFragment extends Fragment implements View.OnClickListener{
         switch (view.getId())
         {
             case R.id.find_all_src:
-                allSrc.setBackgroundResource(R.drawable.border_content_white);
+               /* allSrc.setBackgroundResource(R.drawable.border_content_white);
                 allSrc.setTextColor(Color.parseColor("#878787"));
                 pipei.setBackgroundResource(R.drawable.border_white);
                 pipei.setTextColor(Color.parseColor("#ffffff"));
                 emptyPipei.setBackgroundResource(R.drawable.border_white);
-                emptyPipei.setTextColor(Color.parseColor("#ffffff"));
+                emptyPipei.setTextColor(Color.parseColor("#ffffff"));*/
+                allSrc.setTextColor(getResources().getColor(R.color.shen_blue));
+                pipei.setTextColor(Color.WHITE);
+                emptyPipei.setTextColor(Color.WHITE);
+                allSrc.setBackgroundResource(R.drawable.left_bold);
+                pipei.setBackgroundResource(R.drawable.right_transparent);
+                emptyPipei.setBackgroundResource(R.drawable.right_transparent);
                 break;
-            case R.id.find_pipei:
-                allSrc.setBackgroundResource(R.drawable.border_white);
-                allSrc.setTextColor(Color.parseColor("#ffffff"));
-                pipei.setBackgroundResource(R.drawable.border_content_white);
-                pipei.setTextColor(Color.parseColor("#878787"));
-                emptyPipei.setBackgroundResource(R.drawable.border_white);
-                emptyPipei.setTextColor(Color.parseColor("#ffffff"));
+            case R.id.find_xianlu_pipei:
+                pipei.setTextColor(getResources().getColor(R.color.shen_blue));
+                allSrc.setTextColor(Color.WHITE);
+                emptyPipei.setTextColor(Color.WHITE);
+                pipei.setBackgroundResource(R.drawable.left_bold);
+                allSrc.setBackgroundResource(R.drawable.left_transparent);
+                emptyPipei.setBackgroundResource(R.drawable.right_transparent);
                 break;
-            case R.id.find_empty_pipei:
-                allSrc.setBackgroundResource(R.drawable.border_white);
-                allSrc.setTextColor(Color.parseColor("#ffffff"));
-                pipei.setBackgroundResource(R.drawable.border_white);
-                pipei.setTextColor(Color.parseColor("#ffffff"));
-                emptyPipei.setBackgroundResource(R.drawable.border_content_white);
-                emptyPipei.setTextColor(Color.parseColor("#878787"));
+            case R.id.find_kongcheng:
+                emptyPipei.setTextColor(getResources().getColor(R.color.shen_blue));
+                allSrc.setTextColor(Color.WHITE);
+                pipei.setTextColor(Color.WHITE);
+                emptyPipei.setBackgroundResource(R.drawable.right_bold);
+                allSrc.setBackgroundResource(R.drawable.left_transparent);
+                pipei.setBackgroundResource(R.drawable.left_transparent);
                 break;
             case R.id.find_tv_origin:
                 popMenu.showAsDropDown(shifadi,0,2);

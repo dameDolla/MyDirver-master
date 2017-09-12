@@ -14,13 +14,25 @@
         >
         <include layout="@layout/top_title"/>
 
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/route_refresh">
+
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/recycler_route"
             android:layout_marginTop="@dimen/txt_20dp"
             />
+            <com.app.gaolonglong.fragmenttabhost.view.EmptyLayout
+                android:id="@+id/empty_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
+
+
 
     <Button
         android:layout_width="match_parent"

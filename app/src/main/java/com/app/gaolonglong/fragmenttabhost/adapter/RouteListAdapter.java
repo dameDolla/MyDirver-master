@@ -31,6 +31,8 @@ public class RouteListAdapter extends RecyclerView.Adapter {
 
     private Context context;
 
+    private CheckBoxInterface checkBoxInterface;
+
     public static interface OnRecyclerViewListener {
         void onItemClick(int position);
 
@@ -51,6 +53,23 @@ public class RouteListAdapter extends RecyclerView.Adapter {
         this.context = context;
     }
 
+    /**
+     * chexkbox的点击切换状态接口
+     */
+    public interface CheckBoxInterface
+    {
+        public void change(int position, String lineGuid ,Map<Integer,String> map);
+    }
+
+    /**
+     * checkBox切换的方法
+     * @param checkBoxInterface
+     */
+    public void checkBoxCheckChange(CheckBoxInterface checkBoxInterface)
+    {
+        this.checkBoxInterface = checkBoxInterface;
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int type) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.myroute_listview, null);
@@ -62,7 +81,7 @@ public class RouteListAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, final int i) {
-        RouteListAdapter.RouteViewHolder holder = (RouteListAdapter.RouteViewHolder) viewHolder;
+        final RouteListAdapter.RouteViewHolder holder = (RouteListAdapter.RouteViewHolder) viewHolder;
         final RouteListBean.DataBean route = list.get(i);
         String addrs = route.getFromSite()+"-"+route.getToSite();
         String carInfos = route.getTrucktype()+"\\"+route.getTrucklength();
@@ -72,17 +91,22 @@ public class RouteListAdapter extends RecyclerView.Adapter {
         if(route.getMainLin() == "1")
         {
             holder.isMain.setChecked(true);
+            ischeck.put(i,route.getLinesGUID());
         }
         holder.isMain.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                if(ischeck.size() != 0)
+                /*if(ischeck.size() != 0)
                 {
                     ToolsUtils.getInstance().toastShowStr(context,"只能订阅一条路线");
-                }
+                    return;
+                }*/
+
                 if (isChecked)
                 {
-                    ischeck.put(i,route.getLinesGUID());
+                    checkBoxInterface.change(i,route.getLinesGUID(),ischeck);
+                    /*ischeck.put(i,route.getLinesGUID());
+                    ToolsUtils.getInstance().toastShowStr(context,route.getLinesGUID());*/
                 }
 
             }

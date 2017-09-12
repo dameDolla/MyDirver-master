@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.KeyEvent;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,7 +21,7 @@ import butterknife.OnClick;
  * Created by yanqi on 2017/8/9.
  */
 
-public class SettingActivity extends Activity {
+public class SettingActivity extends BaseActivity {
 
     private ImageView back;
     private TextView title;
@@ -55,4 +56,6 @@ public class SettingActivity extends Activity {
         title.setText("设置");
         title.setTextColor(Color.parseColor("#000000"));
     }
+
+
 }

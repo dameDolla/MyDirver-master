@@ -3,6 +3,7 @@ package com.app.gaolonglong.fragmenttabhost.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,17 +13,21 @@ import android.widget.TextView;
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.adapter.RouteListAdapter;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
+import com.app.gaolonglong.fragmenttabhost.bean.GetSRCBean;
 import com.app.gaolonglong.fragmenttabhost.bean.RouteListBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.LoadingDialog;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.app.gaolonglong.fragmenttabhost.view.EmptyLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +52,12 @@ public class MyRouteListActivity extends BaseActivity implements View.OnClickLis
 
     @BindView(R.id.recycler_route)
     public RecyclerView recyclerView;
+
+    @BindView(R.id.route_refresh)
+    public SwipeRefreshLayout refresh;
+
+    @BindView(R.id.empty_view)
+    public EmptyLayout mEmptylayout;
 
     private String mobile;
     private String key;
@@ -86,9 +97,38 @@ public class MyRouteListActivity extends BaseActivity implements View.OnClickLis
         adapter = new RouteListAdapter(list,MyRouteListActivity.this);
         recyclerView.setAdapter(adapter);
         getRouteListInfo();
-
+        refresh.setColorSchemeResources(R.color.google_blue,
+                R.color.google_green,
+                R.color.google_red,
+                R.color.google_yellow);
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                list.clear();
+                getRouteListInfo();
+                adapter.notifyDataSetChanged();
+                refresh.setRefreshing(false);
+            }
+        });
+        adapter.checkBoxCheckChange(new RouteListAdapter.CheckBoxInterface() {
+            @Override
+            public void change(int position, String lineGuid,Map<Integer,String> map) {
+                for (int i:map.keySet())
+                {
+                    //ToolsUtils.getInstance().toastShowStr(MyRouteListActivity.this,map.get(i));
+                    list.get(i).setMainLin("0");
+                    adapter.notifyDataSetChanged();
+                }
+                //ToolsUtils.getInstance().toastShowStr(MyRouteListActivity.this,lineGuid);
+                setMain(lineGuid);
+            }
+        });
 
     }
+
+    /**
+     *获取线路信息
+     */
 
     private void getRouteListInfo()
     {
@@ -118,21 +158,56 @@ public class MyRouteListActivity extends BaseActivity implements View.OnClickLis
 
                     @Override
                     public void onNext(RouteListBean routeListBean) {
-                        //ToolsUtils.getInstance().toastShowStr(MyRouteListActivity.this,routeListBean.getErrorCode());
-                        dialog.dismiss();
-                        list.addAll(routeListBean.getData());
-                        adapter.notifyDataSetChanged();
+
+                            dialog.dismiss();
+                            list.addAll(routeListBean.getData());
+                            adapter.notifyDataSetChanged();
+
                     }
                 });
     }
+
+    /**
+     * 设置主线路
+     * @param lguid
+     */
+   private void setMain(String lguid)
+   {
+       Map<String,String> map = new HashMap<String,String>();
+       map.put("GUID",guid);
+       map.put(Constant.MOBILE,mobile);
+       map.put(Constant.KEY,key);
+       map.put("LinesGUID",lguid);
+       String json = JsonUtils.getInstance().getJsonStr(map);
+       RetrofitUtils.getRetrofitService()
+               .setRouteMain(Constant.MYINFO_PAGENAME,Config.ROUTE_UPDATE,json)
+               .subscribeOn(Schedulers.io())
+               .observeOn(AndroidSchedulers.mainThread())
+               .subscribe(new Subscriber<GetSRCBean>() {
+                   @Override
+                   public void onCompleted() {
+
+                   }
+
+                   @Override
+                   public void onError(Throwable e) {
+
+                   }
+
+                   @Override
+                   public void onNext(GetSRCBean getSRCBean) {
+                        ToolsUtils.getInstance().toastShowStr(MyRouteListActivity.this,getSRCBean.getErrorMsg());
+                   }
+               });
+   }
     @Override
     public void onClick(View view) {
         switch (view.getId())
         {
             case R.id.myroute_submit:
                 Map<Integer,String> map = adapter.getMap();
-                //ToolsUtils.getInstance().toastShowStr(MyRouteListActivity.this,map.get(0));
-                startActivity(new Intent(MyRouteListActivity.this,AddRouteActivity.class));
+                ToolsUtils.getInstance().toastShowStr(MyRouteListActivity.this,map.get(0));
+               // startActivity(new Intent(MyRouteListActivity.this,AddRouteActivity.class));
                 break;
         }
     }

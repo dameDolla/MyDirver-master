@@ -1,14 +1,16 @@
 package com.app.gaolonglong.fragmenttabhost.activities;
 
+import android.content.Intent;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
@@ -17,15 +19,14 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.app.gaolonglong.fragmenttabhost.DiverApplication;
 import com.app.gaolonglong.fragmenttabhost.R;
+import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.fragments.BackFragment;
 import com.app.gaolonglong.fragmenttabhost.fragments.BaojiaFragment;
 import com.app.gaolonglong.fragmenttabhost.fragments.FindFragment;
-import com.app.gaolonglong.fragmenttabhost.fragments.HomeFragment;
-import com.app.gaolonglong.fragmenttabhost.fragments.MessageFragment;
 import com.app.gaolonglong.fragmenttabhost.fragments.MineFragment;
 import com.app.gaolonglong.fragmenttabhost.fragments.MissionFragment;
-import com.app.gaolonglong.fragmenttabhost.fragments.ReportFragment;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private DiverApplication mApplication;
     private FragmentTabHost mTabHost;
     private ViewPager mViewPager;
     private List<Fragment> mFragmentList;
@@ -65,20 +67,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-
+        initExit();
         initView();
 
         initEvent();
     }
-
+    private void initExit()
+    {
+        if(mApplication == null)
+        {
+            mApplication = (DiverApplication) getApplication();
+        }
+        mApplication.addActivity(MainActivity.this);
+    }
     private void initView() {
         mCenter = (ImageView) findViewById(R.id.main_image_center);
         mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
 
         mFragmentList = new ArrayList<Fragment>();
-
-        mTabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
+        mTabHost.setup(this,getSupportFragmentManager(), android.R.id.tabcontent);
         mTabHost.getTabWidget().setDividerDrawable(null);
 
         for (int i = 0;i < mFragment.length;i++){
@@ -108,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         title = (TextView) view.findViewById(R.id.title);
         if(index == 2)
         {
-            
+
         }
         image.setImageResource(mImages[index]);
         title.setText(mTitles[index]);
@@ -126,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (tabId)
                 {
                     case "找货":
-                        ToolsUtils.getInstance().toastShowStr(MainActivity.this,tabId);
+                       // ToolsUtils.getInstance().toastShowStr(MainActivity.this,tabId);
                         mCenter.setImageResource(R.drawable.tab_find_light);
                         //title.setTextColor(Color.parseColor("#ffd38a"));
                         break;
@@ -177,5 +185,38 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * 双击退出
+     */
+    private long  time = 0;
+    private void  exits()
+    {
+        if(System.currentTimeMillis() - time >2000)
+        {
+            time = System.currentTimeMillis();
+            ToolsUtils.getInstance().toastShowStr(MainActivity.this,Constant.EXIT_STR);
+        }
+        else
+        {
+            mApplication.removeAllActivity();
+        }
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == event.KEYCODE_BACK) exits();
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1 && resultCode == 2)
+        {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(android.R.id.tabcontent,new BackFragment())
+                    .commit();
+        }
     }
 }

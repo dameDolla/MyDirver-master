@@ -1,24 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="87dp"
-        android:gravity="center_vertical">
-        <ImageView
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="87dp"
+    android:paddingBottom="@dimen/txt_10dp"
+    android:paddingTop="@dimen/txt_10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center">
+        <!--<ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@mipmap/schedule"
             android:paddingRight="@dimen/txt_10dp"
             android:paddingLeft="@dimen/txt_10dp"
+            android:id="@+id/kong_progress"/>-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:id="@+id/draw">
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="@dimen/txt_10dp"
+            android:paddingLeft="@dimen/txt_10dp"
+            app:placeholderImage="@mipmap/schedule"
+            app:roundAsCircle="true"
             android:id="@+id/kong_progress"/>
+    </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/txt_10dp"
-            android:layout_toRightOf="@+id/kong_progress">
+            android:layout_toRightOf="@+id/draw">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -90,13 +107,16 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:orientation="vertical"
+
             android:layout_alignParentRight="true" >
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="@dimen/txt_10dp"
+                android:layout_marginLeft="@dimen/txt_10dp"
+                android:layout_marginRight="@dimen/txt_10dp"
+                android:layout_marginBottom="@dimen/txt_10dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="4dp"
@@ -112,6 +132,7 @@
                 android:textColor="@color/shen_blue"
                 android:background="@drawable/blue_stroke"
                 android:textSize="@dimen/txt_10"
+                android:padding="4dp"
                 android:id="@+id/release_fabuitem_del"
                 android:layout_margin="@dimen/txt_10dp"
                 android:gravity="center"

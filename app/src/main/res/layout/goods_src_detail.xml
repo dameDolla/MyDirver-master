@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:orientation="vertical"
@@ -20,12 +20,12 @@
             android:gravity="center">
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/bluecompass"/>
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_weight="6">
 
@@ -34,12 +34,15 @@
                     android:layout_height="wrap_content"
                     android:text="广东省深圳市南山区高兴南四道虚拟大学园R3-b 3c"
                     android:textSize="@dimen/txt_14"
+                    android:singleLine="true"
+                    android:id="@+id/src_detail_fromsite"
                     android:textColor="@color/black"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="距离卸货地点约10w公里"
                     android:textSize="@dimen/txt_12"
+                    android:id="@+id/src_detail_juli"
                     android:textColor="#666666"/>
             </LinearLayout>
             <TextView
@@ -76,12 +79,12 @@
             android:gravity="center">
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/greencompass"/>
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_weight="6">
 
@@ -90,12 +93,15 @@
                     android:layout_height="wrap_content"
                     android:text="广东省深圳市南山区高兴南四道虚拟大学园R3-b 3c"
                     android:textSize="@dimen/txt_14"
+                    android:singleLine="true"
+                    android:id="@+id/src_detail_tosite"
                     android:textColor="@color/black"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="距离卸货地点约10w公里"
                     android:textSize="@dimen/txt_12"
+                    android:id="@+id/src_detail_to_juli"
                     android:textColor="#666666"/>
             </LinearLayout>
             <TextView
@@ -166,6 +172,7 @@
                 android:layout_height="match_parent"
                 android:text="2017-09-21  全天"
                 android:textColor="#666666"
+                android:id="@+id/src_detail_time"
                 android:textSize="@dimen/txt_12"
                 android:paddingLeft="@dimen/txt_39dp"/>
         </LinearLayout>
@@ -188,6 +195,7 @@
                 android:text="家具/棉花"
                 android:textColor="#666666"
                 android:textSize="@dimen/txt_12"
+                android:id="@+id/src_detail_srctype"
                 android:paddingLeft="@dimen/txt_39dp"/>
         </LinearLayout>
 
@@ -209,6 +217,7 @@
                 android:text="1吨/5方"
                 android:textColor="#666666"
                 android:textSize="@dimen/txt_12"
+                android:id="@+id/src_detail_guige"
                 android:paddingLeft="@dimen/txt_39dp"/>
         </LinearLayout>
 
@@ -230,6 +239,7 @@
                 android:text="9.6m/高栏车均可"
                 android:textColor="#666666"
                 android:textSize="@dimen/txt_12"
+                android:id="@+id/src_detail_cartype"
                 android:paddingLeft="@dimen/txt_39dp"/>
         </LinearLayout>
 
@@ -251,6 +261,7 @@
                 android:text="需要装车服务/卸车服务"
                 android:textColor="#666666"
                 android:textSize="@dimen/txt_12"
+                android:id="@+id/src_detail_other"
                 android:paddingLeft="@dimen/txt_39dp"/>
         </LinearLayout>
 
@@ -272,6 +283,7 @@
                 android:text="我要去贝加尔湖畔看海"
                 android:textColor="#666666"
                 android:textSize="@dimen/txt_12"
+                android:id="@+id/src_detail_message"
                 android:paddingLeft="@dimen/txt_39dp"/>
         </LinearLayout>
 
@@ -287,10 +299,12 @@
                 android:paddingTop="@dimen/txt_10dp"
                 android:paddingLeft="@dimen/txt_15dp"
                 android:paddingBottom="@dimen/txt_15dp">
-                <ImageView
+                <com.facebook.drawee.view.SimpleDraweeView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    app:roundAsCircle="true"
+                    android:id="@+id/src_detail_logo"
                     android:src="@mipmap/ic_launcher"/>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -301,6 +315,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="王二毛"
+                        android:id="@+id/src_detail_ownername"
                         android:textColor="@color/black"
                         android:textSize="@dimen/txt_14"/>
                     <TextView
@@ -308,6 +323,7 @@
                         android:layout_height="wrap_content"
                         android:text="15908690321"
                         android:paddingTop="@dimen/txt_5dp"
+                        android:id="@+id/src_detail_tel"
                         android:textColor="@color/black"
                         android:textSize="@dimen/txt_14"/>
 
@@ -315,15 +331,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="@dimen/txt_5dp"
+                        android:id="@+id/src_detail_info"
                         android:text="已下单0次 接单0次 违约0次"/>
 
 
                 </LinearLayout>
-                <ImageView
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:gravity="center"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/src_detail_phone"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/phone"/>
+
+                </LinearLayout>
             </LinearLayout>
 
         <FrameLayout
@@ -339,7 +364,8 @@
             android:layout_marginBottom="@dimen/txt_20dp"
             android:background="@drawable/red_bt_bg"
             android:layout_marginRight="@dimen/txt_20dp"
-            android:layout_marginLeft="@dimen/txt_20dp">
+            android:layout_marginLeft="@dimen/txt_20dp"
+            android:id="@+id/src_detail_submit">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

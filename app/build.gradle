@@ -42,4 +42,9 @@ dependencies {
 
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
+
+    /*高德地图定位*/
+    compile 'com.amap.api:location:latest.integration'
+
+    compile 'org.greenrobot:eventbus:3.0.0'
 }

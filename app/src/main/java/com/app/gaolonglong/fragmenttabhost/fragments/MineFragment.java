@@ -37,25 +37,25 @@ import butterknife.ButterKnife;
 /**
  * Created by donglinghao on 2016-01-28.
  */
-public class MineFragment extends Fragment implements View.OnClickListener{
+public class MineFragment extends Fragment implements View.OnClickListener {
 
     private View mRootView;
 
-    private Intent intent,intent1;
+    private Intent intent, intent1;
 
     private Boolean isLogin = false;
 
-    public String login="请先登录";
+    public String login = "请先登录";
 
-    @BindViews({R.id.mine_setting,R.id.mine_username,
-                R.id.mine_tel})
+    @BindViews({R.id.mine_setting, R.id.mine_username,
+            R.id.mine_tel})
     public List<TextView> mList;
 
-    @BindViews({R.id.renzheng_rl,R.id.mine_rl_message,
-                R.id.mine_rl_card,R.id.mine_rl_car,
-                R.id.mine_rl_bzjxq,R.id.mine_rl_carteam,
-                R.id.mine_rl_wallte,R.id.mine_rl_szmx,
-                R.id.mine_rl_route})
+    @BindViews({R.id.renzheng_rl, R.id.mine_rl_message,
+            R.id.mine_rl_card, R.id.mine_rl_car,
+            R.id.mine_rl_bzjxq, R.id.mine_rl_carteam,
+            R.id.mine_rl_wallte, R.id.mine_rl_szmx,
+            R.id.mine_rl_route})
     public List<RelativeLayout> rlList;
 
 
@@ -67,15 +67,15 @@ public class MineFragment extends Fragment implements View.OnClickListener{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (mRootView == null){
-            Log.e("666","MineFragment");
-            mRootView = inflater.inflate(R.layout.mine_fragment,container,false);
+        if (mRootView == null) {
+            Log.e("666", "MineFragment");
+            mRootView = inflater.inflate(R.layout.mine_fragment, container, false);
         }
         ViewGroup parent = (ViewGroup) mRootView.getParent();
-        if (parent != null){
+        if (parent != null) {
             parent.removeView(mRootView);
         }
-        ButterKnife.bind(this,mRootView);
+        ButterKnife.bind(this, mRootView);
         return mRootView;
     }
 
@@ -84,13 +84,12 @@ public class MineFragment extends Fragment implements View.OnClickListener{
         super.onActivityCreated(savedInstanceState);
         init();
     }
-    public void init()
-    {
+
+    public void init() {
         initView();
     }
 
-    public void initView()
-    {
+    public void initView() {
         mList.get(0).setOnClickListener(this);
         rlList.get(0).setOnClickListener(this);
         rlList.get(1).setOnClickListener(this);
@@ -108,24 +107,20 @@ public class MineFragment extends Fragment implements View.OnClickListener{
     /**
      * 验证登录 并修改界面信息显示
      */
-    private void checkInfo()
-    {
-       // ToolsUtils.getInstance().toastShowStr(getContext(),Too);
+    private void checkInfo() {
+        // ToolsUtils.getInstance().toastShowStr(getContext(),Too);
         //获取保存的用户信息
-        String guid = ToolsUtils.getString(getActivity(),Constant.LOGIN_GUID,"");
+        String guid = ToolsUtils.getString(getActivity(), Constant.LOGIN_GUID, "");
         //ToolsUtils.getInstance().toastShowStr(getActivity(),guid);
-        if(!TextUtils.isEmpty(guid))
-        {
+        if (!TextUtils.isEmpty(guid)) {
 
-            isLogin =true;
-            mList.get(1).setText(ToolsUtils.getString(getActivity(),Constant.MOBILE,""));
-            mList.get(2).setText(ToolsUtils.getString(getActivity(),Constant.MOBILE,""));
-            ToolsUtils.getInstance().toastShowStr(getActivity(),ToolsUtils.getString(getActivity(),Constant.USERNAME,""));
-            String url = ToolsUtils.getString(getContext(),Constant.HEADLOGO,"");
+            isLogin = true;
+            mList.get(1).setText(ToolsUtils.getString(getActivity(), Constant.MOBILE, ""));
+            mList.get(2).setText(ToolsUtils.getString(getActivity(), Constant.MOBILE, ""));
+            ToolsUtils.getInstance().toastShowStr(getActivity(), ToolsUtils.getString(getActivity(), Constant.USERNAME, ""));
+            String url = ToolsUtils.getString(getContext(), Constant.HEADLOGO, "");
             logo.setImageURI(Uri.parse(url));
-        }
-        else
-        {
+        } else {
             mList.get(1).setText("请点击登录");
             mList.get(1).setEnabled(true);
             logo.setEnabled(true);
@@ -137,8 +132,7 @@ public class MineFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        switch (view.getId())
-        {
+        switch (view.getId()) {
             case R.id.mine_setting: //设置界面
                 intent = new Intent(getActivity(), SettingActivity.class);
                 startActivity(intent);
@@ -147,8 +141,8 @@ public class MineFragment extends Fragment implements View.OnClickListener{
             case R.id.renzheng_rl:  //认证界面
                 /*if (isLogin)
                 {*/
-                    intent1 =new Intent(getActivity(), RenzhengMainActivity.class);
-                    startActivity(intent1);
+                intent1 = new Intent(getActivity(), RenzhengMainActivity.class);
+                startActivity(intent1);
                /* }
                 else{ToolsUtils.getInstance().toastShowStr(getActivity(),login);}*/
                 break;

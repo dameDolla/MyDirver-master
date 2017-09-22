@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/txt_39dp"
         android:background="@color/white"
-        android:layout_marginTop="@dimen/txt_20dp">
+        android:layout_marginTop="@dimen/txt_20dp"
+        android:id="@+id/main_paycode_add">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

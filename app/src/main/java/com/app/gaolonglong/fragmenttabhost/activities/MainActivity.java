@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.DiverApplication;
 import com.app.gaolonglong.fragmenttabhost.R;
+import com.app.gaolonglong.fragmenttabhost.bean.LocationInfo;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.fragments.BackFragment;
 import com.app.gaolonglong.fragmenttabhost.fragments.BaojiaFragment;
@@ -28,6 +29,8 @@ import com.app.gaolonglong.fragmenttabhost.fragments.FindFragment;
 import com.app.gaolonglong.fragmenttabhost.fragments.MineFragment;
 import com.app.gaolonglong.fragmenttabhost.fragments.MissionFragment;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +84,9 @@ public class MainActivity extends AppCompatActivity {
         mApplication.addActivity(MainActivity.this);
     }
     private void initView() {
+       // toFindFragment();
+       // EventBus.getDefault().register(MainActivity.this);
+        //EventBus.getDefault().post(new LocationInfo("测试","","",""));
         mCenter = (ImageView) findViewById(R.id.main_image_center);
         mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
@@ -185,6 +191,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    private void toFindFragment() {
+        String flag = getIntent().getStringExtra("flag");
+        if(flag.equals("splash"))
+        {
+            mTabHost.setCurrentTab(2);
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        toFindFragment();
     }
 
     /**

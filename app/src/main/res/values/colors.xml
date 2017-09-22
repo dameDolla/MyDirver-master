@@ -31,4 +31,7 @@
     <color name="google_yellow">#ffa700</color>
 
     <color name="tab">#90d7ec</color>
+    <color name="commom_background">#f3f3f3</color>
+    <color name="font_common_2">#a1a1a1</color>
+    <color name="font_blue">#42369a</color>
 </resources>

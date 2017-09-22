@@ -43,6 +43,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/txt_18"
             android:gravity="center"
+            android:id="@+id/remember_forget"
             android:layout_marginRight="@dimen/txt_20dp"
             android:background="#3bbe79"/>
         <TextView
@@ -52,6 +53,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/txt_18"
             android:gravity="center"
+            android:id="@+id/remember_jide"
             android:layout_marginLeft="@dimen/txt_20dp"
             android:background="@color/shen_blue"/>
     </LinearLayout>

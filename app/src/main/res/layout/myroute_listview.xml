@@ -56,6 +56,25 @@
             android:text="设为主要路线"
             android:textColor="#666666"
             android:textSize="@dimen/txt_12"/>
+
     </LinearLayout>
+
     </RelativeLayout>
+    <TextView
+        android:id="@+id/item_delete"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:background="#88ff0000"
+        android:gravity="center"
+        android:text="删除"
+        android:visibility="gone"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:background="#55000000"
+        android:id="@+id/view" />
 </RelativeLayout>

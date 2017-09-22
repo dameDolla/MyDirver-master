@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_f2"
+    android:orientation="vertical">
+
+    <include layout="@layout/top_title" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/txt_15dp"
+        android:layout_marginRight="@dimen/txt_15dp"
+        android:layout_marginTop="@dimen/txt_20dp"
+        android:background="@drawable/baojia_edit_bg"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/txt_10dp"
+            android:paddingTop="@dimen/txt_10dp"
+            android:text="货主信息"
+            android:textColor="@color/black_6d"
+            android:textSize="@dimen/txt_18" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/baojia_logo"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:roundAsCircle="true"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/baojia_ownwename"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="货主:王小毛"
+                android:textSize="@dimen/txt_14" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/txt_39dp"
+            android:layout_marginRight="@dimen/txt_39dp"
+            android:layout_marginTop="@dimen/txt_20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="请输入报价金额 没有请留空"
+                android:textSize="@dimen/txt_12" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/txt_39dp"
+                android:layout_marginTop="@dimen/txt_5dp"
+                android:background="@drawable/border_gray">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/txt_10dp"
+                    android:text="运输费:"
+                    android:textSize="@dimen/txt_14" />
+
+                <EditText
+                    android:id="@+id/baojia_yunshu_fee"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:background="@null"
+                    android:hint="0.00"
+                    android:textColor="@color/black_6d"
+                    android:textSize="@dimen/txt_14" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/txt_5dp"
+                android:paddingTop="@dimen/txt_5dp"
+                android:text="平台指导价:1230000"
+                android:textSize="@dimen/txt_12" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/txt_39dp"
+                android:layout_marginTop="@dimen/txt_5dp"
+                android:background="@drawable/border_gray">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/txt_10dp"
+                    android:text="装车费:"
+                    android:textSize="@dimen/txt_14" />
+
+                <EditText
+                    android:id="@+id/baojia_zhuang_fee"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:background="@null"
+                    android:hint="0.00"
+                    android:textColor="@color/black_6d"
+                    android:textSize="@dimen/txt_14" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/txt_39dp"
+                android:layout_marginTop="@dimen/txt_5dp"
+                android:background="@drawable/border_gray">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/txt_10dp"
+                    android:text="卸车费:"
+                    android:textSize="@dimen/txt_14" />
+
+                <EditText
+                    android:id="@+id/baojia_xie_fee"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:background="@null"
+                    android:hint="0.00"
+                    android:textColor="@color/black_6d"
+                    android:textSize="@dimen/txt_14" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/txt_39dp"
+                android:layout_marginTop="@dimen/txt_15dp"
+                android:background="@drawable/border_gray">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/txt_10dp"
+                    android:text="其他费用:"
+                    android:textSize="@dimen/txt_14" />
+
+                <EditText
+                    android:id="@+id/baojia_other_fee"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:background="@null"
+                    android:hint="0.00"
+                    android:textColor="@color/black_6d"
+                    android:textSize="@dimen/txt_14" />
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/txt_5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/baojia_sum_fee"
+                    android:text="报价总计:" />
+
+                <TextView
+                    android:id="@+id/baojia_sum_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="0.00元"
+                    android:textColor="@color/red" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/txt_5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/baojia_shuijin"
+                    android:text="预计税金:" />
+
+                <TextView
+                    android:id="@+id/baojia_shuijin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/baojia_txt_fuwu"
+                    android:text="0.00元"
+                    android:textColor="@color/red" />
+
+                <TextView
+                    android:id="@+id/baojia_txt_fuwu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/baojia_fuwu_fee"
+                    android:text="服务费:" />
+
+                <TextView
+                    android:id="@+id/baojia_fuwu_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="0.00元"
+                    android:textColor="@color/red" />
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/txt_39dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/txt_15dp">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border_gray"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="信息费:"
+                        android:gravity="center"
+                        android:textSize="@dimen/txt_14"
+                        android:paddingLeft="@dimen/txt_10dp"/>
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:hint="0.00"
+                        android:background="@null"
+                        android:id="@+id/baojia_et_xinxi"
+                        android:textSize="@dimen/txt_14"
+                        android:textColor="@color/red"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border_gray"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="保证金:"
+                        android:gravity="center"
+                        android:textSize="@dimen/txt_14"
+                        android:paddingLeft="@dimen/txt_10dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/baojia_et_baozheng"
+                        android:background="@null"
+                        android:text="0.00"
+                        android:gravity="center"
+                        android:textSize="@dimen/txt_14"
+                        android:textColor="@color/red"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:id="@+id/baojia_needpay_rl">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="380元"
+                    android:textSize="@dimen/txt_14"
+                    android:textColor="@color/red"
+                    android:id="@+id/baojia_need_pay"
+                    android:layout_alignParentRight="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="需支付:"
+                    android:textSize="@dimen/txt_14"
+                    android:layout_toLeftOf="@+id/baojia_need_pay"/>
+            </RelativeLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/txt_39dp"
+                android:layout_marginLeft="@dimen/txt_20dp"
+                android:layout_marginRight="@dimen/txt_20dp"
+                android:background="@drawable/login_bt_"
+                android:text="确认报价"
+                android:layout_marginTop="@dimen/txt_10dp"
+                android:textSize="@dimen/txt_18"
+                android:textColor="@color/white"
+                android:id="@+id/baojia_submit"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="货主同意报价即可锁定订单"
+                android:gravity="center"
+                android:textSize="@dimen/txt_14"
+                android:layout_marginBottom="@dimen/txt_39dp"
+                android:paddingTop="@dimen/txt_10dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -8,6 +8,8 @@ public class Constant {
 
     //获取个人信息的PageName
     public static final String MYINFO_PAGENAME = "MyInfo";
+    //获取报价 PageName
+    public static final String PRICE_PAGENAME = "Prices";
 
     public static final String KEY = "SecreKey";
 
@@ -40,6 +42,16 @@ public class Constant {
     public static final String RELEASE_DEL = "del";
 
     public static final String EXIT_STR = "再点击一次退出程序";
-
+    //用户头像
     public static final String HEADLOGO = "AvatarAddress";
+
+    public static final String CITY = "city";
+
+    public static final String ADDRESS = "address";
+
+    public static final String LAT = "lat";
+
+    public static final String LNG = "lng";
+    //账户余额
+    public static final String COUNT = "money";
 }

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.bean.City;
+import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class ResultListAdapter extends BaseAdapter {
             mCities.clear();
             mCities.addAll(list);
         }
-        notifyDataSetChanged();
+        this.notifyDataSetChanged();
     }
 
     @Override
@@ -53,6 +54,7 @@ public class ResultListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         ResultViewHolder holder;
+
         if (view == null){
             view = LayoutInflater.from(mContext).inflate(R.layout.item_search_result_listview, parent, false);
             holder = new ResultViewHolder();
@@ -61,6 +63,7 @@ public class ResultListAdapter extends BaseAdapter {
         }else{
             holder = (ResultViewHolder) view.getTag();
         }
+       // ToolsUtils.getInstance().toastShowStr(mContext,mCities.get(position).getName());
         holder.name.setText(mCities.get(position).getName());
         return view;
     }

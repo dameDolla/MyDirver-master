@@ -131,7 +131,6 @@ public class BackFragment extends Fragment implements View.OnClickListener{
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        ToolsUtils.getInstance().toastShowStr(getContext(),canclelist.size()+"");
         adapter = new ReleaseAdapter(getContext(),list);
         cancleAdapter = new ReleaseAdapter(getContext(),canclelist);
         MyLinearLayoutManager manager = new MyLinearLayoutManager(getContext());
@@ -282,7 +281,6 @@ public class BackFragment extends Fragment implements View.OnClickListener{
 
                     @Override
                     public void onNext(GetCodeBean getCodeBean) {
-                        ToolsUtils.getInstance().toastShowStr(getContext(),getCodeBean.getErrorMsg());
                         if(getCodeBean.getErrorCode().equals("200"))
                         {
                             if(flag.equals("fabu"))
@@ -325,7 +323,6 @@ public class BackFragment extends Fragment implements View.OnClickListener{
 
                     @Override
                     public void onNext(GetCodeBean getCodeBean) {
-                        ToolsUtils.getInstance().toastShowStr(getContext(),getCodeBean.getErrorMsg());
                         if(getCodeBean.getErrorCode().equals("200"))
                         {
                             list.remove(positon);

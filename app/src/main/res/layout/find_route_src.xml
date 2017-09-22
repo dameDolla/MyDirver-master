@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/find_route_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/find_route_origin"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/txt_origin"
+                    android:enabled="false"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_12" />
+
+                <ImageView
+                    android:id="@+id/d"
+                    android:layout_width="@dimen/txt_10dp"
+                    android:layout_height="@dimen/txt_10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/find_route_origin"
+                    android:src="@mipmap/arrow_high" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="15dp"
+                android:background="@color/color_f2" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/find_route_destination"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/txt_destination"
+                    android:singleLine="true"
+                    android:enabled="false"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_12" />
+
+                <ImageView
+                    android:layout_width="@dimen/txt_10dp"
+                    android:layout_height="@dimen/txt_10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/find_route_destination"
+                    android:src="@mipmap/arrow_high" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="15dp"
+                android:background="@color/color_f2" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/find_route_cartype"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/txt_cartype"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_12" />
+
+                <ImageView
+                    android:layout_width="@dimen/txt_10dp"
+                    android:layout_height="@dimen/txt_10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/find_route_cartype"
+                    android:src="@mipmap/arrow_high" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="15dp"
+                android:background="@color/color_f2" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/find_route_changeroute"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="更改线路"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_12" />
+
+                <ImageView
+                    android:id="@+id/iv"
+                    android:layout_width="@dimen/txt_10dp"
+                    android:layout_height="@dimen/txt_10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/find_route_changeroute"
+                    android:src="@mipmap/arrow_high" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/find_route_rlv"/>
+
+        <!--<com.app.gaolonglong.fragmenttabhost.view.EmptyLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/find_empty_view"/>-->
+    </LinearLayout>
+</LinearLayout>

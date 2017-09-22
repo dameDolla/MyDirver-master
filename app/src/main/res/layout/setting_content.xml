@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:gravity="center_vertical"
+        android:id="@+id/setting_icon_rl"
         android:background="@color/white">
         <TextView
             android:layout_width="wrap_content"
@@ -34,10 +36,12 @@
             android:layout_alignParentRight="true"
             android:id="@+id/setting_arrow1"
             android:paddingRight="@dimen/txt_15dp"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@mipmap/ic_launcher"
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/setting_icon"
+            app:placeholderImage="@mipmap/head"
+            app:roundAsCircle="true"
             android:layout_toLeftOf="@+id/setting_arrow1"
             android:paddingRight="@dimen/txt_15dp"/>
     </RelativeLayout>
@@ -95,6 +99,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="39dp"
+        android:id="@+id/setting_set_paycode"
         android:background="@color/white">
         <TextView
             android:layout_width="wrap_content"

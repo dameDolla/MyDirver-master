@@ -10,6 +10,7 @@ import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 import rx.Observable;
 
+import com.app.gaolonglong.fragmenttabhost.bean.BaojiaListBean;
 import com.app.gaolonglong.fragmenttabhost.bean.CompanyInfoBean;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
 import com.app.gaolonglong.fragmenttabhost.bean.GetSRCBean;
@@ -190,4 +191,36 @@ public interface MyService {
     Observable<GetSRCBean> setRouteMain(@Field(Constant.PAGENAME) String page,
                                               @Field(Constant.METHOD) String method,
                                               @Field("JsonValue") String json);
+    /**
+     * 添加报价
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetSRCBean> AddBaojia(@Field(Constant.PAGENAME) String page,
+                                        @Field(Constant.METHOD) String method,
+                                        @Field("JsonValue") String json);
+    /**
+     * 设置支付密码
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> setPayCode(@Field(Constant.PAGENAME) String page,
+                                     @Field(Constant.METHOD) String method,
+                                     @Field("JsonValue") String json);
+    /**
+     * 获取报价列表
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<BaojiaListBean> getBaojiaList(@Field(Constant.PAGENAME) String page,
+                                             @Field(Constant.METHOD) String method,
+                                             @Field("JsonValue") String json);
+    /**
+     * 修改报价
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> updateBaojia(@Field(Constant.PAGENAME) String page,
+                                             @Field(Constant.METHOD) String method,
+                                             @Field("JsonValue") String json);
 }

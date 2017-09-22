@@ -1,68 +1,53 @@
 package com.app.gaolonglong.fragmenttabhost.fragments;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.app.gaolonglong.fragmenttabhost.R;
-import com.app.gaolonglong.fragmenttabhost.adapter.FindSrcAdapter;
-import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
-import com.app.gaolonglong.fragmenttabhost.bean.GetSRCBean;
-import com.app.gaolonglong.fragmenttabhost.config.Config;
-import com.app.gaolonglong.fragmenttabhost.config.Constant;
-import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
-import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
-import com.app.gaolonglong.fragmenttabhost.view.EmptyLayout;
-import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by yanqi on 2017/8/2.
  */
 
-public class FindFragment extends Fragment implements View.OnClickListener{
+public class FindFragment extends ForResultNestedCompatFragment implements View.OnClickListener{
 
 
     private  View mRootView;
     private View contentView;
     private PopupWindow popMenu;
-    private TextView allSrc,pipei,emptyPipei,shifadi,mudidi,carType,tv_time,username,renzheng,xie,zhuang,type,time,car_type;
-    private ImageView icon,phone;
-    private String guid;
-    private String mobile;
-    private String key;
-    private RecyclerView rcl;
-    private List<GetSRCBean.DataBean> list = new ArrayList<GetSRCBean.DataBean>();
-    private FindSrcAdapter adapter;
+    private TextView allSrc,pipei,emptyPipei;
+    public static final int ALLSRC = 1;
+    public static final int ROUTESRC = 2;
+    public static final int KCSRC = 3;
+    private FindAllSrcFragment all;
+    private FindRouteSrcFragment routeSrc;
+    private FindKCSrcFragment kcSrc;
+    public int currentFragmentType = -1;
 
-    @BindView(R.id.find_src_rlv)
-    public RecyclerView find_rcl;
+    /*@BindView(R.id.find_src_rlv)
+    public RecyclerView find_rcl;*/
 
-    @BindView(R.id.find_empty_view)
-    public EmptyLayout emptyLayout;
+    @BindView(R.id.find_fl_content)
+    public FrameLayout fl_content;
 
     @Nullable
     @Override
@@ -78,6 +63,8 @@ public class FindFragment extends Fragment implements View.OnClickListener{
         ButterKnife.bind(this,mRootView);
         return mRootView;
     }
+
+
     private void init()
     {
 
@@ -90,117 +77,109 @@ public class FindFragment extends Fragment implements View.OnClickListener{
         allSrc = (TextView) mRootView.findViewById(R.id.find_all_src);        //全部商品
         pipei = (TextView)mRootView.findViewById(R.id.find_xianlu_pipei);            //匹配商品
         emptyPipei = (TextView)mRootView.findViewById(R.id.find_kongcheng); //空程匹配
-        shifadi = (TextView)mRootView.findViewById(R.id.find_tv_origin);      //始发地
-        mudidi = (TextView)mRootView.findViewById(R.id.find_tv_destination);  //目的地
-        carType = (TextView)mRootView.findViewById(R.id.find_tv_cartype);     //车型
-        tv_time = (TextView)mRootView.findViewById(R.id.find_tv_time);        //装车时间
-        icon = (ImageView)getActivity().findViewById(R.id.find_iv_icon);          //头像
-        username = (TextView)mRootView.findViewById(R.id.find_tv_name);       //货主姓名
-        renzheng = (TextView)mRootView.findViewById(R.id.find_is_renzheng);   //是否是认证用户
-        zhuang = (TextView)mRootView.findViewById(R.id.find_addr_zhuang);     //装货地点
-        xie = (TextView)mRootView.findViewById(R.id.find_addr_xie);           //卸货地点
-        type = (TextView)mRootView.findViewById(R.id.find_type);              //货物类型
-        time = (TextView)mRootView.findViewById(R.id.find_time);              //货主想要的装车时间
-        car_type = (TextView)mRootView.findViewById(R.id.find_car_type);      //货主想要的车型
-        phone = (ImageView)mRootView.findViewById(R.id.find_iv_phone);        //打电话图标
-        allSrc.setBackgroundResource(R.drawable.border_content_white);
-        allSrc.setTextColor(Color.parseColor("#878787"));
-             //显示列表
 
         allSrc.setOnClickListener(this);
         pipei.setOnClickListener(this);
         emptyPipei.setOnClickListener(this);
-        shifadi.setOnClickListener(this);
-
-        guid = ToolsUtils.getString(getContext(), Constant.LOGIN_GUID,"");
-        mobile = ToolsUtils.getString(getContext(), Constant.MOBILE,"");
-        key = ToolsUtils.getString(getContext(), Constant.KEY,"");
-
-
-        initPopwindow();
+        //loadFragment(ALLSRC);
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        Fragment mainFragment = fragmentManager.findFragmentByTag("message");
+        if (mainFragment != null) {
+            transaction.replace(R.id.fl_content, mainFragment);
+            transaction.commit();
+        } else {
+            loadFragment(ALLSRC);
+        }
 
     }
     private void initData()
     {
-        adapter = new FindSrcAdapter(getContext(),list);
-        MyLinearLayoutManager manager = new MyLinearLayoutManager(getContext());
-        find_rcl.setLayoutManager(manager);
-        find_rcl.setAdapter(adapter);
-        getSrcFromside();
-        //ToolsUtils.getInstance().toastShowStr(getContext(),list.size()+"");
-
-       // rcl = (RecyclerView)mRootView.findViewById(R.id.find_src_rlv);
-
 
     }
-    private  void initPopwindow()
-    {
-        contentView=  getActivity().getLayoutInflater().inflate(R.layout.find_poplist,null);
-        popMenu = new PopupWindow(contentView,
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        popMenu.setOutsideTouchable(true);
-        popMenu.setBackgroundDrawable(new BitmapDrawable());
-        popMenu.setFocusable(true);
-        popMenu.setAnimationStyle(R.style.find_popwin_style);
-        popMenu.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
 
-            }
-        });
-    }
 
-    /**
-     * 根据始发地查找货源
-     */
-   private void getSrcFromside()
-   {
-       JSONObject json = new JSONObject();
-       try {
-           json.put("GUID",guid);
-           json.put(Constant.MOBILE,mobile);
-           json.put(Constant.KEY,key);
-           json.put("fromSite","深圳");
-       } catch (JSONException e) {
-           e.printStackTrace();
-       }
-       RetrofitUtils.getRetrofitService()
-               .getSRCWithFromside(Constant.MYINFO_PAGENAME, Config.SRC_FROMSIDE,json.toString())
-               .subscribeOn(Schedulers.io())
-               .observeOn(AndroidSchedulers.mainThread())
-               .subscribe(new Subscriber<GetSRCBean>() {
-                   @Override
-                   public void onCompleted() {
 
-                   }
 
-                   @Override
-                   public void onError(Throwable e) {
-
-                   }
-
-                   @Override
-                   public void onNext(GetSRCBean getSRCBean) {
-                       if(getSRCBean.getData().size() == 0)
-                       {
-                            emptyLayout.setErrorType(EmptyLayout.NODATA);
-                       }else
-                       {
-                           list.clear();
-                           list.addAll(getSRCBean.getData());
-                           adapter.notifyDataSetChanged();
-                       }
-                       // ToolsUtils.getInstance().toastShowStr(getContext(),list.size()+"");
-                   }
-               });
-
-   }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        init();
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        init();
+    }
+
+    private void switchFragment(int type) {
+        switch (type) {
+            case ALLSRC:
+                loadFragment(ALLSRC);
+                break;
+            case ROUTESRC:
+                loadFragment(ROUTESRC);
+                break;
+            case KCSRC:
+                loadFragment(KCSRC);
+                break;
+
+        }
+
+    }
+
+    private void loadFragment(int type) {
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        if (type == ALLSRC) {
+            if (all == null) {
+                all = new FindAllSrcFragment();
+
+                transaction.add(R.id.find_fl_content, all, "all");
+            } else {
+                transaction.show(all);
+            }
+            if (routeSrc != null) {
+                transaction.hide(routeSrc);
+            }
+            if (kcSrc != null)
+            {
+                transaction.hide(kcSrc);
+            }
+            currentFragmentType = ALLSRC;
+        } else if (type == ROUTESRC) {
+            if (all != null) {
+                transaction.hide(all);
+            }
+            if ( kcSrc != null){
+                transaction.hide(kcSrc);
+            }
+            if (routeSrc == null) {
+                routeSrc = new FindRouteSrcFragment();
+                transaction.add(R.id.find_fl_content, routeSrc, "routeSrc");
+            } else {
+                transaction.show(routeSrc);
+            }
+
+            currentFragmentType = ROUTESRC;
+        } else if (type == KCSRC) {
+            if (all != null) {
+                transaction.hide(all);
+            }
+            if (routeSrc != null){
+                transaction.hide(routeSrc);
+            }
+            if (kcSrc == null) {
+                kcSrc = new FindKCSrcFragment();
+                transaction.add(R.id.find_fl_content, kcSrc, "cancle");
+            } else {
+                transaction.show(kcSrc);
+            }
+
+            currentFragmentType = KCSRC;
+        }
+        transaction.commitAllowingStateLoss();
     }
 
     @Override
@@ -208,18 +187,14 @@ public class FindFragment extends Fragment implements View.OnClickListener{
         switch (view.getId())
         {
             case R.id.find_all_src:
-               /* allSrc.setBackgroundResource(R.drawable.border_content_white);
-                allSrc.setTextColor(Color.parseColor("#878787"));
-                pipei.setBackgroundResource(R.drawable.border_white);
-                pipei.setTextColor(Color.parseColor("#ffffff"));
-                emptyPipei.setBackgroundResource(R.drawable.border_white);
-                emptyPipei.setTextColor(Color.parseColor("#ffffff"));*/
+
                 allSrc.setTextColor(getResources().getColor(R.color.shen_blue));
                 pipei.setTextColor(Color.WHITE);
                 emptyPipei.setTextColor(Color.WHITE);
                 allSrc.setBackgroundResource(R.drawable.left_bold);
                 pipei.setBackgroundResource(R.drawable.right_transparent);
                 emptyPipei.setBackgroundResource(R.drawable.right_transparent);
+                switchFragment(ALLSRC);
                 break;
             case R.id.find_xianlu_pipei:
                 pipei.setTextColor(getResources().getColor(R.color.shen_blue));
@@ -228,6 +203,8 @@ public class FindFragment extends Fragment implements View.OnClickListener{
                 pipei.setBackgroundResource(R.drawable.left_bold);
                 allSrc.setBackgroundResource(R.drawable.left_transparent);
                 emptyPipei.setBackgroundResource(R.drawable.right_transparent);
+               // getSrcFromside(initJsonData(-1,""),Config.SRC_ROUTE);
+                switchFragment(ROUTESRC);
                 break;
             case R.id.find_kongcheng:
                 emptyPipei.setTextColor(getResources().getColor(R.color.shen_blue));
@@ -236,10 +213,13 @@ public class FindFragment extends Fragment implements View.OnClickListener{
                 emptyPipei.setBackgroundResource(R.drawable.right_bold);
                 allSrc.setBackgroundResource(R.drawable.left_transparent);
                 pipei.setBackgroundResource(R.drawable.left_transparent);
+                switchFragment(KCSRC);
                 break;
-            case R.id.find_tv_origin:
-                popMenu.showAsDropDown(shifadi,0,2);
-                break;
+
+
+
     }
     }
+
+
 }

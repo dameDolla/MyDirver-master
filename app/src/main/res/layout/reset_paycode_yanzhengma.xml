@@ -25,6 +25,7 @@
             android:text="185******03"
             android:textColor="#666666"
             android:textSize="@dimen/txt_14"
+            android:id="@+id/setpaycode_yzm_tel"
             android:gravity="center"
             android:paddingBottom="@dimen/txt_15dp"
             android:layout_alignParentBottom="true"
@@ -44,18 +45,42 @@
         <EditText
             android:layout_width="0dp"
             android:layout_height="40dp"
+            android:textSize="@dimen/txt_18"
+            android:gravity="center"
+            android:id="@+id/yzm_one"
+            android:maxLength="2"
+            android:cursorVisible="false"
+            android:inputType="number"
             android:layout_weight="1"/>
         <EditText
             android:layout_width="0dp"
             android:layout_height="40dp"
+            android:gravity="center"
+            android:id="@+id/yzm_two"
+            android:textSize="@dimen/txt_18"
+            android:maxLength="2"
+            android:cursorVisible="false"
+            android:inputType="number"
             android:layout_weight="1"/>
         <EditText
             android:layout_width="0dp"
             android:layout_height="40dp"
+            android:gravity="center"
+            android:id="@+id/yzm_three"
+            android:textSize="@dimen/txt_18"
+            android:cursorVisible="false"
+            android:maxLength="2"
+            android:inputType="number"
             android:layout_weight="1"/>
         <EditText
             android:layout_width="0dp"
             android:layout_height="40dp"
+            android:gravity="center"
+            android:id="@+id/yzm_four"
+            android:textSize="@dimen/txt_18"
+            android:cursorVisible="false"
+            android:maxLength="2"
+            android:inputType="number"
             android:layout_weight="1"/>
         <FrameLayout
             android:layout_width="0dp"
@@ -64,7 +89,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/yzm_time"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:gravity="center"
@@ -90,6 +115,7 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:text="重新发送"
+            android:id="@+id/yzm_resend"
             android:textColor="@color/shen_blue"
             android:textSize="@dimen/txt_12"/>
     </LinearLayout>

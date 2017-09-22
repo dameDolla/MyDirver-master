@@ -20,9 +20,14 @@ import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.adapter.CityListAdapter;
 import com.app.gaolonglong.fragmenttabhost.adapter.ResultListAdapter;
 import com.app.gaolonglong.fragmenttabhost.bean.City;
+import com.app.gaolonglong.fragmenttabhost.bean.LocationInfo;
+import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.DBManager;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 import com.app.gaolonglong.fragmenttabhost.view.SideLetterBar;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -54,7 +59,7 @@ public class SearchAddrActivity extends BaseActivity implements View.OnClickList
     @BindView(R.id.empty_view)
     public ViewGroup emptyView;
 
-    @BindView(R.id.listview_search_result)
+   // @BindView(R.id.listview_search_result)
     public ListView searchResult;
 
     @BindView(R.id.top_title)
@@ -85,6 +90,7 @@ public class SearchAddrActivity extends BaseActivity implements View.OnClickList
     }
     private void initData()
     {
+       // EventBus.getDefault().register(SearchAddrActivity.this);
         manager = new DBManager(this);
         manager.copyDBFile();
         mAllCities = manager.getAllCities();
@@ -104,10 +110,13 @@ public class SearchAddrActivity extends BaseActivity implements View.OnClickList
             }
         });
         mResultListAdapter = new ResultListAdapter(this,null);
+        setResult(0,new Intent());
     }
     private void initView()
     {
         title.setText("选择地址");
+        mCityAdapter.updateLocateState(888,ToolsUtils.getString(SearchAddrActivity.this,Constant.CITY,""));
+
         listView.setAdapter(mCityAdapter);
         letter_bar.setOverlay(overlay);
         letter_bar.setOnLetterChangedListener(new SideLetterBar.OnLetterChangedListener() {
@@ -118,6 +127,7 @@ public class SearchAddrActivity extends BaseActivity implements View.OnClickList
             }
         });
         search.addTextChangedListener(new TextWatcher() {
+
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -147,12 +157,14 @@ public class SearchAddrActivity extends BaseActivity implements View.OnClickList
                     }
                     else
                     {
-                        emptyView.setVisibility(View.GONE);
-                        mResultListAdapter.changeData(result);
-                    }
+                    ToolsUtils.getInstance().toastShowStr(SearchAddrActivity.this,result.get(0).getName()+"");
+                    emptyView.setVisibility(View.GONE);
+                    mResultListAdapter.changeData(result);
+                }
                 }
             }
         });
+        searchResult =(ListView) findViewById(R.id.listview_search_result);
         searchResult.setAdapter(mResultListAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -175,5 +187,11 @@ public class SearchAddrActivity extends BaseActivity implements View.OnClickList
                 searchResult.setVisibility(View.GONE);
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 }

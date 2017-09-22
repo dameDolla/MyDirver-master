@@ -1,5 +1,6 @@
 package com.app.gaolonglong.fragmenttabhost.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,6 +22,7 @@ import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.LoadingDialog;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.app.gaolonglong.fragmenttabhost.view.CommomDialog;
 import com.app.gaolonglong.fragmenttabhost.view.EmptyLayout;
 
 import org.json.JSONException;
@@ -124,6 +126,8 @@ public class MyRouteListActivity extends BaseActivity implements View.OnClickLis
             }
         });
 
+
+
     }
 
     /**
@@ -206,8 +210,9 @@ public class MyRouteListActivity extends BaseActivity implements View.OnClickLis
         {
             case R.id.myroute_submit:
                 Map<Integer,String> map = adapter.getMap();
-                ToolsUtils.getInstance().toastShowStr(MyRouteListActivity.this,map.get(0));
-               // startActivity(new Intent(MyRouteListActivity.this,AddRouteActivity.class));
+                //ToolsUtils.getInstance().toastShowStr(MyRouteListActivity.this,map.get(0));
+                startActivity(new Intent(MyRouteListActivity.this,AddRouteActivity.class));
+
                 break;
         }
     }

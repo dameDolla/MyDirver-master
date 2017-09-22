@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
  * Created by yanqi on 2017/8/2.
  */
 
-public class MissionFragment extends Fragment implements View.OnClickListener{
+public class MissionFragment extends Fragment implements View.OnClickListener {
 
     private View mRootView;
     public static final int MISSION_DOING = 1;
@@ -34,21 +34,21 @@ public class MissionFragment extends Fragment implements View.OnClickListener{
     private MissionCancle cancle;
     public int currentFragmentType = -1;
 
-    @BindViews({R.id.commission_doing,R.id.commission_done,R.id.commission_cancle})
+    @BindViews({R.id.commission_doing, R.id.commission_done, R.id.commission_cancle})
     public List<Button> top_tab;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (mRootView == null){
-            Log.e("666","MineFragment");
-            mRootView = inflater.inflate(R.layout.mission_fragment,container,false);
+        if (mRootView == null) {
+            Log.e("666", "MineFragment");
+            mRootView = inflater.inflate(R.layout.mission_fragment, container, false);
         }
         ViewGroup parent = (ViewGroup) mRootView.getParent();
-        if (parent != null){
+        if (parent != null) {
             parent.removeView(mRootView);
         }
-        ButterKnife.bind(this,mRootView);
+        ButterKnife.bind(this, mRootView);
         return mRootView;
     }
 
@@ -63,17 +63,17 @@ public class MissionFragment extends Fragment implements View.OnClickListener{
         init();
     }
 
-    private void init()
-    {
+    private void init() {
         initView();
     }
-    private void initView()
-    {
+
+    private void initView() {
         top_tab.get(0).setOnClickListener(this);
         top_tab.get(1).setOnClickListener(this);
         top_tab.get(2).setOnClickListener(this);
         loadFragment(MISSION_DOING);
     }
+
     private void switchFragment(int type) {
         switch (type) {
             case MISSION_DOING:
@@ -106,7 +106,7 @@ public class MissionFragment extends Fragment implements View.OnClickListener{
                 transaction.hide(cancle);
             }
             currentFragmentType = MISSION_DOING;
-        } else if (type == MISSION_DONE){
+        } else if (type == MISSION_DONE) {
             if (done == null) {
                 done = new MissionDone();
                 transaction.add(R.id.fl_content, done, "done");
@@ -118,7 +118,7 @@ public class MissionFragment extends Fragment implements View.OnClickListener{
                 transaction.hide(doing);
             }
             currentFragmentType = MISSION_DONE;
-        }else if (type == MISSION_CANCLE){
+        } else if (type == MISSION_CANCLE) {
             if (cancle == null) {
                 cancle = new MissionCancle();
                 transaction.add(R.id.fl_content, cancle, "cancle");
@@ -136,8 +136,7 @@ public class MissionFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        switch (view.getId())
-        {
+        switch (view.getId()) {
             case R.id.commission_doing:
                 top_tab.get(0).setTextColor(getResources().getColor(R.color.shen_blue));
                 top_tab.get(1).setTextColor(Color.WHITE);

@@ -64,7 +64,7 @@ public class ToolsUtils {
      */
     public Boolean isLogin(Context context)
     {
-        if (ToolsUtils.getString(context, Constant.LOGIN_GUID,"") == "")
+        if (ToolsUtils.getString(context, Constant.LOGIN_GUID,"").equals(""))
         {
             return false;
         }
@@ -81,6 +81,9 @@ public class ToolsUtils {
         ToolsUtils.putString(context,Constant.KEY,"");
         ToolsUtils.putString(context,Constant.VTRUENAME,"");
         ToolsUtils.putString(context,Constant.MOBILE,"");
+        ToolsUtils.putString(context,Constant.HEADLOGO,"");
+        ToolsUtils.putString(context,Constant.COUNT,"");
+
     }
 
     /**

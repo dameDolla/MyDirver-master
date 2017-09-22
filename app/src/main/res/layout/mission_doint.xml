@@ -46,7 +46,7 @@
                 android:textSize="@dimen/txt_12"
                 android:textColor="@color/white"
                 android:layout_marginTop="@dimen/txt_5dp"
-                android:background="@color/google_green"/>
+                android:background="@color/titleColorSelected"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/txt_39dp"
-        android:background="@color/google_green"
+        android:background="@color/titleColorSelected"
         android:orientation="horizontal">
         <TextView
             android:layout_width="0dp"
@@ -111,7 +111,7 @@
             android:text="取消订单"
             android:id="@+id/mission_order_cancle"
             android:textColor="@color/white"
-            android:textSize="@dimen/txt_16"
+            android:textSize="@dimen/txt_14"
             android:gravity="center"/>
         <FrameLayout
             android:layout_width="1dp"
@@ -125,7 +125,7 @@
             android:text="运单操作"
             android:id="@+id/mission_order_caozuo"
             android:textColor="@color/white"
-            android:textSize="@dimen/txt_16"
+            android:textSize="@dimen/txt_14"
             android:gravity="center"/>
     </LinearLayout>
 </LinearLayout>

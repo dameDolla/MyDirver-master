@@ -33,7 +33,7 @@ public class Config {
     //添加空程
     public static final String ADD_RELEASE = "AddTruckplan";
     //获取空程计划 已发布
-    public static final String RELEASE_FABU = "SelectByTruckplanStatus_1";
+    public static final String RELEASE_FABU = "SelectByTruckplanStatus_1_7";
     //获取空程计划  已取消和已完成
     public static final String RELEASE_CANCEL = "SelectByTruckplanStatus_02";
     //修改空车计划
@@ -48,7 +48,16 @@ public class Config {
     public static final String ROUTE_DEL = "DeleteLineInfo";
     //根据始发地查询货源信息
     public static final String SRC_FROMSIDE = "SelectCargoInfo";
-
+    //根据空程GUID查询货源信息
+    public static final String SRC_KONGCHENG = "SelectCargoXQBytruckplansGUID";
+    //根据订阅线路查询货源信息
+    public static final String SRC_ROUTE = "SelectCargoXQBXL";
+    //根据司机（车队）GUID查询所有的报价信息
+    public static final String GET_BAOJIALIST = "SelectCargoprice";
+    //根据添加报价信息
+    public static final String ADD_BAOJIA = "AddCargoprice";
+    //根据司机修改报价
+    public static final String UPDATE_BAOJIA = "UpdateCargoprice";
 
 
 }

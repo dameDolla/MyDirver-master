@@ -81,6 +81,11 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/txt_15dp"
             android:background="@color/color_f2"/>
+        <com.app.gaolonglong.fragmenttabhost.view.EmptyLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/back_empty_view"
+            android:visibility="gone"/>
         <!--此处应是一个ListView-->
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
@@ -129,14 +134,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/rcv_have_cancle"/>
-            <com.app.gaolonglong.fragmenttabhost.view.EmptyLayout
-                android:id="@+id/back_empty_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+
 
     </LinearLayout>
 
     </LinearLayout>
+
 
 </LinearLayout>
 </ScrollView>

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -32,6 +33,7 @@ import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.app.gaolonglong.fragmenttabhost.view.MyGridView;
 import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
 
 import java.util.ArrayList;
@@ -79,6 +81,9 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
     private String key;
     private String location;
     private String time;
+    private View popView;
+    private PopupWindow typePopmenu;
+    private WindowManager.LayoutParams param;
 
     @Nullable
     @Override
@@ -118,6 +123,7 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
     {
         initView();
         initPopwindow();
+        initCartypePopwindow();
     }
     private void initView()
     {
@@ -142,8 +148,7 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
                 //ToolsUtils.getInstance().toastShowStr(getContext(),bean.getTo());
                 Intent intent = new Intent(getContext(), FindDetailActivity.class);
                 intent.putExtra("findSrc",bean);
-                //startActivity(intent);
-                ToolsUtils.getInstance().toastShowStr(getContext(),bean.getBillsGUID());
+                startActivity(intent);
             }
         });
 
@@ -161,6 +166,110 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
         popMenu.setFocusable(true);
         popMenu.setTouchable(true);
         popMenu.setAnimationStyle(R.style.mypopwindow_anim_style);
+
+    }
+    private void initCartypePopwindow()
+    {
+        popView = getActivity().getLayoutInflater().inflate(R.layout.find_cartype_gridview,null);
+        typePopmenu = new PopupWindow(popView,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        ColorDrawable dw = new ColorDrawable(0xb0000000);
+        typePopmenu.setOutsideTouchable(true);
+        typePopmenu.setBackgroundDrawable(dw);
+        typePopmenu.setFocusable(true);
+        typePopmenu.setTouchable(true);
+        typePopmenu.setAnimationStyle(R.style.mypopwindow_anim_style);
+    }
+
+    String lenStr = null;
+    String typeStr = null;
+    private void showCarPop()
+    {
+
+        List<Map<String,String>> typeList = new ArrayList<Map<String,String>>();
+        List<Map<String,String>> lengthList = new ArrayList<Map<String,String>>();
+        String[] length = { "不限", "4.2米", "4.5米", "5米", "5.2米", "6.2米", "6.8米",
+                "7.2米", "11.7米", "12.5米", "13米", "13.5米","14米","15米","16米","17米" };
+
+        final String[] type = {"不限","冷藏车","平板","高栏","箱式","保温","危险品","高低板"};
+
+        for (int j=0;j<type.length;j++)
+        {
+            Map<String,String> maps = new HashMap<String, String>();
+            maps.put("type",type[j]);
+            typeList.add(maps);
+        }
+
+        for (int i= 0;i<length.length;i++)
+        {
+            Map<String,String> map = new HashMap<String,String>();
+            map.put("length",length[i]);
+            lengthList.add(map);
+        }
+        final MyGridView lenthGrid = (MyGridView) popView.findViewById(R.id.gridview);
+        SimpleAdapter lenthAdapter = new SimpleAdapter(getContext(),lengthList,R.layout.find_cartype_pop_item,new String[]{"length"},
+                new int[]{R.id.gv_item_text});
+        lenthGrid.setAdapter(lenthAdapter);
+
+        final MyGridView typeGrid = (MyGridView) popView.findViewById(R.id.gridview_2);
+        SimpleAdapter typeAdapter = new SimpleAdapter(getContext(),typeList,R.layout.find_cartype_pop_item,new String[]{"type"},
+                new int[]{R.id.gv_item_text});
+        typeGrid.setAdapter(typeAdapter);
+
+        typePopmenu.showAtLocation(parent, Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0,0);
+
+        param = getActivity().getWindow().getAttributes();
+        param.alpha=0.7f;
+        getActivity().getWindow().setAttributes(param);
+        typePopmenu.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                param = getActivity().getWindow().getAttributes();
+                param.alpha=1f;
+                getActivity().getWindow().setAttributes(param);
+            }
+        });
+        lenthGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                CharSequence len = ((TextView) lenthGrid.getChildAt(i).findViewById(R.id.gv_item_text)).getText();
+                lenStr = len.toString();
+                for(int m=0;m<adapterView.getCount();m++){
+                    TextView item = (TextView) lenthGrid.getChildAt(m).findViewById(R.id.gv_item_text);
+
+                    if (i == m) {//当前选中的Item改变背景颜色
+                        item.setBackgroundResource(R.drawable.cartype_unselect);
+                    } else {
+                        item.setBackgroundResource(R.drawable.cartype_select);
+                    }
+                }
+            }
+        });
+        typeGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                CharSequence type = ((TextView) typeGrid.getChildAt(i).findViewById(R.id.gv_item_text)).getText();
+                typeStr = type.toString();
+                for(int m=0;m<adapterView.getCount();m++){
+                    TextView item = (TextView) typeGrid.getChildAt(m).findViewById(R.id.gv_item_text);
+                    typeStr = (String)item.getText();
+                    if (i == m) {//当前选中的Item改变背景颜色
+                        item.setBackgroundResource(R.drawable.cartype_unselect);
+                    } else {
+                        item.setBackgroundResource(R.drawable.cartype_select);
+                    }
+                }
+            }
+        });
+        TextView sure = (TextView)popView.findViewById(R.id.cartype_grid_sure);
+        sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mText.get(2).setText(lenStr+"/"+typeStr);
+                typePopmenu.dismiss();
+            }
+        });
 
     }
     /**
@@ -245,7 +354,7 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
                 startActivityForResult(new Intent(getContext(), SearchAddrActivity.class),MUDIDI);
                 break;
             case R.id.find_tv_cartype:
-
+                showCarPop();
                 break;
             case R.id.find_tv_time:
                 List<String> strs = new ArrayList<String>();

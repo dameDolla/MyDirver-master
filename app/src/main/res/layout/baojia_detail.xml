@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginBottom="@dimen/txt_39dp"
-        >
+        android:background="@color/white">
         <!--<ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
             android:orientation="horizontal">
             <com.facebook.drawee.view.SimpleDraweeView
                 android:layout_width="0dp"
-                android:layout_height="70dp"
+                android:layout_height="80dp"
                 android:layout_weight="1"
                 android:padding="@dimen/txt_10dp"
                 app:placeholderImage="@mipmap/head"
@@ -164,7 +164,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/txt_5dp"
-            android:layout_marginLeft="@dimen/txt_20dp">
+            android:layout_marginLeft="@dimen/txt_39dp">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -183,17 +183,25 @@
                 android:layout_height="match_parent"
                 android:text="￥500元"
                 android:id="@+id/baojia_detail_hzyun"
-                android:paddingLeft="@dimen/txt_39dp"
+                android:paddingLeft="50dp"
                 android:textSize="@dimen/txt_16"
                 android:textColor="@color/red"
                 android:gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="元"
+                android:gravity="center"
+                android:paddingLeft="@dimen/txt_5dp"
+                android:textSize="@dimen/txt_14"
+                android:textColor="@color/black_6d"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/txt_5dp"
-            android:layout_marginLeft="@dimen/txt_20dp">
+            android:layout_marginTop="@dimen/txt_10dp"
+            android:layout_marginLeft="@dimen/txt_39dp">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -212,17 +220,26 @@
                 android:layout_height="match_parent"
                 android:text="￥500元"
                 android:id="@+id/baojia_detail_hzzhuang"
-                android:paddingLeft="@dimen/txt_39dp"
+                android:paddingLeft="50dp"
                 android:textSize="@dimen/txt_16"
                 android:textColor="@color/red"
                 android:gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="元"
+                android:gravity="center"
+                android:paddingLeft="@dimen/txt_5dp"
+                android:textSize="@dimen/txt_14"
+                android:textColor="@color/black_6d"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/txt_5dp"
-            android:layout_marginLeft="@dimen/txt_20dp">
+            android:layout_marginBottom="@dimen/txt_10dp"
+            android:layout_marginTop="@dimen/txt_10dp"
+            android:layout_marginLeft="@dimen/txt_39dp">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -241,17 +258,61 @@
                 android:layout_height="match_parent"
                 android:text="￥500元"
                 android:id="@+id/baojia_detail_hzxie"
-                android:paddingLeft="@dimen/txt_39dp"
+                android:paddingLeft="50dp"
                 android:textSize="@dimen/txt_16"
                 android:textColor="@color/red"
                 android:gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="元"
+                android:gravity="center"
+                android:paddingLeft="@dimen/txt_5dp"
+                android:textSize="@dimen/txt_14"
+                android:textColor="@color/black_6d"/>
         </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/txt_39dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:src="@drawable/juhao"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="总费用:"
+                    android:paddingLeft="@dimen/txt_10dp"
+                    android:textSize="@dimen/txt_16"
+                    android:textColor="@color/black_6d"
+                    android:gravity="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="￥500元"
+                    android:id="@+id/baojia_detail_hztotal"
+                    android:paddingLeft="50dp"
+                    android:textSize="@dimen/txt_16"
+                    android:textColor="@color/red"
+                    android:gravity="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="元"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/txt_5dp"
+                    android:textSize="@dimen/txt_14"
+                    android:textColor="@color/black_6d"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_marginTop="@dimen/txt_5dp"
-                android:layout_marginLeft="@dimen/txt_20dp">
+                android:layout_marginLeft="@dimen/txt_39dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -266,6 +327,12 @@
                     android:textColor="@color/color_4a"
                     android:text="我的留言你有没有看到啊 价格好商量"/>
             </LinearLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/txt_10dp"
+                android:layout_marginTop="@dimen/txt_10dp"
+                android:layout_marginBottom="@dimen/txt_5dp"
+                android:background="@color/color_f2"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -279,7 +346,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="@dimen/txt_5dp"
-                android:layout_marginLeft="@dimen/txt_20dp">
+                android:layout_marginLeft="@dimen/txt_39dp">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -293,22 +360,30 @@
                     android:textSize="@dimen/txt_16"
                     android:textColor="@color/black_6d"
                     android:gravity="center"/>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/baojia_detail_czyun"
+                    android:textSize="@dimen/txt_16"
+                    android:layout_gravity="center"
+                    android:inputType="number"
+                    android:layout_marginLeft="50dp"
+                    android:textColor="@color/red"
+                    android:gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="￥500元"
-                    android:id="@+id/baojia_detail_czyun"
-                    android:paddingLeft="@dimen/txt_39dp"
-                    android:textSize="@dimen/txt_16"
-                    android:textColor="@color/red"
-                    android:gravity="center"/>
+                    android:text="元"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/txt_5dp"
+                    android:textSize="@dimen/txt_14"
+                    android:textColor="@color/black_6d"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/txt_5dp"
-                android:layout_marginLeft="@dimen/txt_20dp">
+                android:layout_marginLeft="@dimen/txt_39dp">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -322,22 +397,30 @@
                     android:textSize="@dimen/txt_16"
                     android:textColor="@color/black_6d"
                     android:gravity="center"/>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/baojia_detail_czzhuang"
+                    android:textSize="@dimen/txt_16"
+                    android:layout_gravity="center"
+                    android:inputType="number"
+                    android:layout_marginLeft="50dp"
+                    android:textColor="@color/red"
+                    android:gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="￥500元"
-                    android:id="@+id/baojia_detail_czzhuang"
-                    android:paddingLeft="@dimen/txt_39dp"
-                    android:textSize="@dimen/txt_16"
-                    android:textColor="@color/red"
-                    android:gravity="center"/>
+                    android:text="元"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/txt_5dp"
+                    android:textSize="@dimen/txt_14"
+                    android:textColor="@color/black_6d"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/txt_5dp"
-                android:layout_marginLeft="@dimen/txt_20dp">
+                android:layout_marginLeft="@dimen/txt_39dp">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -351,35 +434,119 @@
                     android:textSize="@dimen/txt_16"
                     android:textColor="@color/black_6d"
                     android:gravity="center"/>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/baojia_detail_czxie"
+                    android:textSize="@dimen/txt_16"
+                    android:layout_gravity="center"
+                    android:textColor="@color/red"
+                    android:inputType="number"
+                    android:layout_marginLeft="50dp"
+                    android:gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="￥500元"
-                    android:id="@+id/baojia_detail_czxie"
-                    android:paddingLeft="@dimen/txt_39dp"
+                    android:text="元"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/txt_5dp"
+                    android:textSize="@dimen/txt_14"
+                    android:textColor="@color/black_6d"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/txt_39dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:src="@drawable/juhao"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="其它费:"
+                    android:paddingLeft="@dimen/txt_10dp"
                     android:textSize="@dimen/txt_16"
-                    android:textColor="@color/red"
+                    android:textColor="@color/black_6d"
                     android:gravity="center"/>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/baojia_detail_czother"
+                    android:textSize="@dimen/txt_16"
+                    android:layout_gravity="center"
+                    android:textColor="@color/red"
+                    android:inputType="number"
+                    android:layout_marginLeft="50dp"
+                    android:gravity="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="元"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/txt_5dp"
+                    android:textSize="@dimen/txt_14"
+                    android:textColor="@color/black_6d"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="@dimen/txt_5dp"
-                android:layout_marginLeft="@dimen/txt_20dp">
+                android:layout_marginLeft="@dimen/txt_39dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:src="@drawable/juhao"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="总费用:"
+                    android:paddingLeft="@dimen/txt_10dp"
+                    android:textSize="@dimen/txt_16"
+                    android:textColor="@color/black_6d"
+                    android:gravity="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/baojia_detail_cztotal"
+                    android:textSize="@dimen/txt_16"
+                    android:layout_gravity="center"
+                    android:textColor="@color/red"
+                    android:layout_marginLeft="50dp"
+                    android:gravity="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="元"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/txt_5dp"
+                    android:textSize="@dimen/txt_14"
+                    android:textColor="@color/black_6d"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/txt_5dp"
+                android:layout_marginLeft="@dimen/txt_39dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="报价留言:"
                     android:textColor="@color/black_6d"
                     android:textSize="@dimen/txt_16"/>
-                <TextView
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/baojia_detail_czmsg"
+                    android:gravity="center"
                     android:paddingLeft="@dimen/txt_5dp"
                     android:textColor="@color/color_4a"
-                    android:text="我的留言你有没有看到啊 价格好商量"/>
+                    />
             </LinearLayout>
         <TextView
             android:layout_width="match_parent"
@@ -394,7 +561,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/txt_5dp"
-            android:layout_marginLeft="@dimen/txt_20dp">
+            android:layout_marginLeft="@dimen/txt_39dp">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -423,7 +590,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/txt_5dp"
-            android:layout_marginLeft="@dimen/txt_20dp">
+            android:layout_marginLeft="@dimen/txt_39dp">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -447,26 +614,7 @@
                 android:textColor="@color/red"
                 android:gravity="center"/>
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/txt_5dp"
-            android:layout_marginLeft="@dimen/txt_20dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="报价留言:"
-                android:textColor="@color/black_6d"
-                android:textSize="@dimen/txt_16"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/baojia_detail_msg"
-                android:paddingLeft="@dimen/txt_5dp"
-                android:textColor="@color/color_4a"
-                android:text="我的留言你有没有看到啊 价格好商量"/>
-        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -485,32 +633,52 @@
                 android:paddingLeft="@dimen/txt_10dp"/>
 
         </LinearLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/txt_10dp"
+                android:background="@color/color_f2"
+                android:layout_marginTop="@dimen/txt_20dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/txt_39dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/txt_20dp">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_gravity="center">
+                    android:id="@+id/baojia_detail_tijiao"
+                    android:gravity="center">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:background="@color/red"
-                        android:text="提交意甲"/>
+                        android:background="@color/google_green"
+                        android:text="提交议价"
+                        android:paddingLeft="@dimen/txt_20dp"
+                        android:paddingRight="@dimen/txt_20dp"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/txt_18"
+                        android:gravity="center"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:id="@+id/baojia_detail_queren"
+                    android:gravity="center">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:background="@color/red"
-                        android:text="提交意甲"/>
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/txt_18"
+                        android:paddingLeft="@dimen/txt_20dp"
+                        android:paddingRight="@dimen/txt_20dp"
+                        android:gravity="center"
+                        android:text="提交议价"/>
                 </LinearLayout>
             </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>

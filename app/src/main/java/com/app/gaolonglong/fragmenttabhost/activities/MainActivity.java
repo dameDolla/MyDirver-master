@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         mApplication.addActivity(MainActivity.this);
     }
     private void initView() {
-       // toFindFragment();
+
        // EventBus.getDefault().register(MainActivity.this);
         //EventBus.getDefault().post(new LocationInfo("测试","","",""));
         mCenter = (ImageView) findViewById(R.id.main_image_center);
@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 return mFragmentList.size();
             }
         });
+        //toFindFragment();
     }
 
     private View getTabView(int index) {
@@ -197,6 +198,9 @@ public class MainActivity extends AppCompatActivity {
         if(flag.equals("splash"))
         {
             mTabHost.setCurrentTab(2);
+        }
+        if (flag.equals("baojiaEdit")){
+            mTabHost.setCurrentTab(0);
         }
     }
 

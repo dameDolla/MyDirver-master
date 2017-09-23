@@ -34,4 +34,7 @@
     <color name="commom_background">#f3f3f3</color>
     <color name="font_common_2">#a1a1a1</color>
     <color name="font_blue">#42369a</color>
+    
+    <color name="cartype_unselect">#bbdefb</color>
+    <color name="cartype_select">#3bbe79</color>
 </resources>

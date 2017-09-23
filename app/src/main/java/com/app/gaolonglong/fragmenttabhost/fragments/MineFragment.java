@@ -43,9 +43,10 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 
     private Intent intent, intent1;
 
-    private Boolean isLogin = false;
+    private Boolean isLogin = ToolsUtils.getInstance().isLogin(getContext());
 
     public String login = "请先登录";
+
 
     @BindViews({R.id.mine_setting, R.id.mine_username,
             R.id.mine_tel})
@@ -139,12 +140,12 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.renzheng_rl:  //认证界面
-                /*if (isLogin)
-                {*/
+                if (isLogin)
+                {
                 intent1 = new Intent(getActivity(), RenzhengMainActivity.class);
                 startActivity(intent1);
-               /* }
-                else{ToolsUtils.getInstance().toastShowStr(getActivity(),login);}*/
+                }
+                else{ToolsUtils.getInstance().toastShowStr(getActivity(),login);}
                 break;
 
             case R.id.mine_username: //登录界面
@@ -155,28 +156,59 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), LoginActivity.class));
                 break;
             case R.id.mine_rl_message:
-                startActivity(new Intent(getActivity(), MyMessageActivity.class));
+                if(isLogin)
+                {
+                    startActivity(new Intent(getActivity(), MyMessageActivity.class));
+                }else{
+                    ToolsUtils.getInstance().toastShowStr(getActivity(),login);
+                }
+
                 break;
             case R.id.mine_rl_wallte:
-                startActivity(new Intent(getActivity(), MyWallteActivity.class));
+                if (isLogin){
+                    startActivity(new Intent(getActivity(), MyWallteActivity.class));
+                }else{
+                    ToolsUtils.getInstance().toastShowStr(getActivity(),login);
+                }
+
                 break;
             case R.id.mine_rl_szmx:
 
                 break;
             case R.id.mine_rl_card:
-                startActivity(new Intent(getActivity(), MyCardListActivity.class));
+                if (isLogin){
+                    startActivity(new Intent(getActivity(), MyCardListActivity.class));
+                }else {
+                    ToolsUtils.getInstance().toastShowStr(getActivity(),login);
+                }
+
                 break;
             case R.id.mine_rl_bzjxq:
 
                 break;
             case R.id.mine_rl_car:
+                if (isLogin){
 
+                }else {
+
+                }
                 break;
             case R.id.mine_rl_carteam:
-                startActivity(new Intent(getActivity(), MyCarTeamActivity.class));
+                if (isLogin)
+                {
+                    startActivity(new Intent(getActivity(), MyCarTeamActivity.class));
+                }else {
+                    ToolsUtils.getInstance().toastShowStr(getActivity(),login);
+                }
+
                 break;
             case R.id.mine_rl_route:
-                startActivity(new Intent(getActivity(), MyRouteListActivity.class));
+                if(isLogin){
+                    startActivity(new Intent(getActivity(), MyRouteListActivity.class));
+                }else {
+                    ToolsUtils.getInstance().toastShowStr(getActivity(),login);
+                }
+
                 break;
         }
     }

@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        >
+        android:id="@+id/myroute_parent">
         <include layout="@layout/top_title"/>
 
         <android.support.v4.widget.SwipeRefreshLayout
@@ -25,14 +25,15 @@
             android:id="@+id/recycler_route"
             android:layout_marginTop="@dimen/txt_20dp"
             />
-            <com.app.gaolonglong.fragmenttabhost.view.EmptyLayout
-                android:id="@+id/empty_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
 
-
+    <com.app.gaolonglong.fragmenttabhost.view.EmptyLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/myroutelist_empty"
+        android:visibility="gone"/>
 
     <Button
         android:layout_width="match_parent"

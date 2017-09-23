@@ -58,6 +58,10 @@ public class Config {
     public static final String ADD_BAOJIA = "AddCargoprice";
     //根据司机修改报价
     public static final String UPDATE_BAOJIA = "UpdateCargoprice";
+    //取消报价
+    public static final String CANCEL_BAOJIA = "CancelCargoPrice";
+    //确认报价
+    public static final String AGREE_BAOJIA = "OKCargoprice";
 
 
 }

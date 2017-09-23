@@ -71,7 +71,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:layout_marginRight="@dimen/txt_15dp"
                     android:paddingTop="@dimen/txt_5dp">
                     <TextView
                         android:layout_width="wrap_content"
@@ -91,27 +90,30 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginRight="@dimen/txt_39dp"
+                    android:layout_marginLeft="@dimen/txt_39dp">
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@mipmap/schedule"
                         android:gravity="center"
-                        />
+                        android:visibility="gone"
+                        android:id="@+id/baojia_item_status_logo"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:textSize="3sp"
                         android:text="目前报价"
-                        />
+                        android:id="@+id/baojia_item_status_txt"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:paddingTop="@dimen/txt_5dp"
-                    android:layout_marginLeft="@dimen/txt_15dp"
+
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="wrap_content"
@@ -125,7 +127,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:textSize="10sp"
-                        android:text="目前报价"
+                        android:text="货主报价"
                         />
                 </LinearLayout>
             </LinearLayout>
@@ -147,7 +149,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/txt_39dp"
         android:background="@color/titleColorSelected"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/baojia_item_ll">
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -172,5 +175,14 @@
             android:textSize="@dimen/txt_14"
             android:gravity="center"/>
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/txt_39dp"
+        android:text="进入运单查看"
+        android:background="@color/color_f2"
+        android:textSize="@dimen/txt_16"
+        android:textColor="@color/black_6d"
+        android:gravity="center"
+        android:id="@+id/baojia_item_caozuo_gray"/>
 
 </LinearLayout>

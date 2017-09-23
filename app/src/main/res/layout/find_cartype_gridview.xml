@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="车长"
+        android:layout_marginBottom="@dimen/txt_10dp"
+        android:paddingLeft="10dp"
+        android:textColor="#000000"
+        android:textSize="16sp"/>
+    <com.app.gaolonglong.fragmenttabhost.view.MyGridView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnWidth="80dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
+        android:id="@+id/gridview"/>
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="请输入自定义车长"
+        android:layout_marginLeft="20dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="车型"
+        android:layout_marginBottom="@dimen/txt_10dp"
+        android:paddingLeft="10dp"
+        android:textColor="#000000"
+        android:textSize="16sp"/>
+    <com.app.gaolonglong.fragmenttabhost.view.MyGridView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnWidth="80dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
+        android:id="@+id/gridview_2"
+        android:layout_marginBottom="@dimen/txt_39dp"/>
+    <include layout="@layout/back_line"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/txt_39dp"
+        android:layout_marginBottom="@dimen/txt_20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="不限制车型"
+            android:id="@+id/cartype_grid_nocartype"
+            android:layout_alignParentLeft="true"
+            android:paddingLeft="@dimen/txt_10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="确定"
+            android:textColor="@color/titleColorSelected"
+            android:textSize="@dimen/txt_16"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:paddingRight="@dimen/txt_10dp"
+            android:id="@+id/cartype_grid_sure"/>
+    </RelativeLayout>
+</LinearLayout>
+</ScrollView>

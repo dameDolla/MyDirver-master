@@ -18,8 +18,10 @@ import com.app.gaolonglong.fragmenttabhost.activities.BaojiaDetailActivity;
 import com.app.gaolonglong.fragmenttabhost.adapter.BaojiaListAdapter;
 import com.app.gaolonglong.fragmenttabhost.bean.BaojiaInfoBean;
 import com.app.gaolonglong.fragmenttabhost.bean.BaojiaListBean;
+import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
@@ -28,7 +30,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.BindViews;
@@ -54,6 +58,9 @@ public class BaojiaFragment extends Fragment {
 
     private List<BaojiaListBean.DataBean> list = new ArrayList<BaojiaListBean.DataBean>();
     private BaojiaListAdapter adapter;
+    private String guid;
+    private String mobile;
+    private String key;
 
     @Nullable
     @Override
@@ -88,14 +95,17 @@ public class BaojiaFragment extends Fragment {
     }
     private void initView()
     {
+        guid = ToolsUtils.getString(getContext(), Constant.LOGIN_GUID,"");
+        mobile = ToolsUtils.getString(getContext(), Constant.MOBILE,"");
+        key = ToolsUtils.getString(getContext(), Constant.KEY,"");
         mTextView.get(0).setVisibility(View.INVISIBLE);
         back.setVisibility(View.INVISIBLE);
         mTextView.get(1).setText("报价");
         JSONObject json = new JSONObject();
         try {
-            json.put("GUID",ToolsUtils.getString(getContext(),Constant.LOGIN_GUID,""));
-            json.put(Constant.MOBILE,ToolsUtils.getString(getContext(),Constant.MOBILE,""));
-            json.put(Constant.KEY,ToolsUtils.getString(getContext(),Constant.KEY,""));
+            json.put("GUID",guid);
+            json.put(Constant.MOBILE,mobile);
+            json.put(Constant.KEY,key);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -107,9 +117,29 @@ public class BaojiaFragment extends Fragment {
 
         adapter.setOnclick(new BaojiaListAdapter.OnClickListener() {
             @Override
-            public void onOlick(int postion, String tel) {
-                Intent dialIntent =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + tel));//跳转到拨号界面，同时传递电话号码
-                startActivity(dialIntent);
+            public void onOlick(int postion, String tel, String caragoGUID, String time, String flag) {
+                if(flag.equals("phone"))
+                {
+                    Intent dialIntent =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + tel));//跳转到拨号界面，同时传递电话号码
+                    startActivity(dialIntent);
+                }else if (flag.equals("caozuo")){
+                    Map<String,String> map = new HashMap<String,String>();
+                    map.put("GUID",guid);
+                    map.put(Constant.MOBILE,mobile);
+                    map.put(Constant.KEY,key);
+                    map.put("cargopricesGUID",caragoGUID);
+                    map.put("UpdatePriceTime",time);
+                    cazuo(JsonUtils.getInstance().getJsonStr(map));
+                }else if (flag.equals("cancel")){
+                    Map<String,String> map = new HashMap<String,String>();
+                    map.put("GUID",guid);
+                    map.put(Constant.MOBILE,mobile);
+                    map.put(Constant.KEY,key);
+                    map.put("cargopricesGUID",caragoGUID);
+                    map.put("UpdatePriceTime",time);
+                    //cancel(JsonUtils.getInstance().getJsonStr(map));
+                    ToolsUtils.getInstance().toastShowStr(getContext(),caragoGUID);
+                }
             }
         });
         adapter.setItemClick(new BaojiaListAdapter.OnItemClickListener() {
@@ -118,9 +148,56 @@ public class BaojiaFragment extends Fragment {
                 Intent intent = new Intent(getContext(), BaojiaDetailActivity.class);
                 intent.putExtra("baojaiInfo",bean);
                 startActivity(intent);
-                //ToolsUtils.getInstance().toastShowStr(getContext(),bean.getTotalchargeM());
+                //ToolsUtils.getInstance().toastShowStr(getContext(),bean.getCargopricesGUID());
             }
         });
+    }
+    private void cazuo(String json)
+    {
+        RetrofitUtils.getRetrofitService()
+                .agreeBaojia(Constant.PRICE_PAGENAME,Config.AGREE_BAOJIA,json)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<GetCodeBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(GetCodeBean getCodeBean) {
+                        ToolsUtils.getInstance().toastShowStr(getContext(),getCodeBean.getErrorMsg());
+                    }
+                });
+    }
+    private void cancel(String json)
+    {
+        RetrofitUtils.getRetrofitService()
+                .cancelBaojia(Constant.PRICE_PAGENAME,Config.CANCEL_BAOJIA,json)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<GetCodeBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(GetCodeBean getCodeBean) {
+                        ToolsUtils.getInstance().toastShowStr(getContext(),getCodeBean.getErrorMsg());
+                    }
+                });
+
     }
     private void getBaojiaList(String json)
     {
@@ -141,7 +218,6 @@ public class BaojiaFragment extends Fragment {
 
                     @Override
                     public void onNext(BaojiaListBean baojiaListBean) {
-                        Log.e("999999999999999999",baojiaListBean.getErrorMsg());
                         ToolsUtils.getInstance().toastShowStr(getContext(),baojiaListBean.getErrorMsg());
                         list.clear();
                         list.addAll(baojiaListBean.getData());

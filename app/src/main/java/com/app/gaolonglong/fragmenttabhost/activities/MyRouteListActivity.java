@@ -2,13 +2,21 @@ package com.app.gaolonglong.fragmenttabhost.activities;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
@@ -24,6 +32,7 @@ import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 import com.app.gaolonglong.fragmenttabhost.view.CommomDialog;
 import com.app.gaolonglong.fragmenttabhost.view.EmptyLayout;
+import com.app.gaolonglong.fragmenttabhost.view.MyGridView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,12 +70,19 @@ public class MyRouteListActivity extends BaseActivity implements View.OnClickLis
     @BindView(R.id.empty_view)
     public EmptyLayout mEmptylayout;
 
+    @BindView(R.id.myroute_parent)
+    public LinearLayout parent;
+
+    @BindView(R.id.myroutelist_empty)
+    public EmptyLayout emptylayout;
+
     private String mobile;
     private String key;
     private String guid;
     List<RouteListBean.DataBean> list = new ArrayList<RouteListBean.DataBean>();
     private RouteListAdapter adapter;
     private LoadingDialog dialog;
+
 
     @OnClick(R.id.title_back)
     public void back()
@@ -127,7 +143,6 @@ public class MyRouteListActivity extends BaseActivity implements View.OnClickLis
         });
 
 
-
     }
 
     /**
@@ -162,10 +177,15 @@ public class MyRouteListActivity extends BaseActivity implements View.OnClickLis
 
                     @Override
                     public void onNext(RouteListBean routeListBean) {
-
+                        if(routeListBean.getData().size() == 0)
+                        {
+                            emptylayout.setNoDataContent("无订阅线路信息");
+                        }else {
                             dialog.dismiss();
                             list.addAll(routeListBean.getData());
                             adapter.notifyDataSetChanged();
+                        }
+
 
                     }
                 });

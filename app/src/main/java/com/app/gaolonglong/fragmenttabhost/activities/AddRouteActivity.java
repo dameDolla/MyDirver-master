@@ -24,6 +24,7 @@ import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.app.gaolonglong.fragmenttabhost.view.MyGridView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,13 +48,11 @@ import rx.schedulers.Schedulers;
 
 public class AddRouteActivity extends BaseActivity implements AdapterView.OnItemClickListener,View.OnClickListener{
 
-    private ListView popListView;
-    private SimpleAdapter adapter;
-    private WindowManager.LayoutParams params;
-    private List<Map<String, String>> list;
+
     private List<String> strs = null;
-    private View contentView;
-    private PopupWindow popMenu;
+    private View popView;
+    private PopupWindow typePopmenu;
+    private WindowManager.LayoutParams param;
 
     @BindView(R.id.top_title)
     public TextView title;
@@ -88,7 +87,7 @@ public class AddRouteActivity extends BaseActivity implements AdapterView.OnItem
     private void init()
     {
         initView();
-        initPopwindow();
+        initCartypePopwindow();
     }
     private void initView()
     {
@@ -102,55 +101,108 @@ public class AddRouteActivity extends BaseActivity implements AdapterView.OnItem
         mobile = ToolsUtils.getString(AddRouteActivity.this, Constant.MOBILE,"");
         key = ToolsUtils.getString(AddRouteActivity.this, Constant.KEY,"");
     }
-    private  void initPopwindow()
+    private void initCartypePopwindow()
     {
-        //initPopData();
-        contentView = getLayoutInflater().inflate(R.layout.find_poplist, null);
-        popMenu = new PopupWindow(contentView,
+        popView = getLayoutInflater().inflate(R.layout.find_cartype_gridview, null);
+        typePopmenu = new PopupWindow(popView,
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         ColorDrawable dw = new ColorDrawable(0xb0000000);
-        popMenu.setOutsideTouchable(true);
-        popMenu.setBackgroundDrawable(dw);
-        popMenu.setFocusable(true);
-        popMenu.setTouchable(true);
-        popMenu.setAnimationStyle(R.style.mypopwindow_anim_style);
+        typePopmenu.setOutsideTouchable(true);
+        typePopmenu.setBackgroundDrawable(dw);
+        typePopmenu.setFocusable(true);
+        typePopmenu.setTouchable(true);
+        typePopmenu.setAnimationStyle(R.style.mypopwindow_anim_style);
+    }
+    String lenStr = null;
+    String typeStr = null;
+    private void showCarPop()
+    {
 
-    }
-    private List<Map<String,String>> initPopData(List<String> str)
-    {
-        List<Map<String, String>> menuData1 = new ArrayList<Map<String, String>>();
-        List<String> menuStr1 = str;
-        Map<String, String> map1;
-        for (int i = 0, len = menuStr1.size(); i < len; ++i) {
-            map1 = new HashMap<String, String>();
-            map1.put("name", menuStr1.get(i));
-            menuData1.add(map1);
+        List<Map<String,String>> typeList = new ArrayList<Map<String,String>>();
+        List<Map<String,String>> lengthList = new ArrayList<Map<String,String>>();
+        String[] length = { "不限", "4.2米", "4.5米", "5米", "5.2米", "6.2米", "6.8米",
+                "7.2米", "11.7米", "12.5米", "13米", "13.5米","14米","15米","16米","17米" };
+
+        final String[] type = {"不限","冷藏车","平板","高栏","箱式","保温","危险品","高低板"};
+
+        for (int j=0;j<type.length;j++)
+        {
+            Map<String,String> maps = new HashMap<String, String>();
+            maps.put("type",type[j]);
+            typeList.add(maps);
         }
-        return menuData1;
-    }
-    private void showPop(List<Map<String,String>> l)
-    {
-        list = l;
-        popListView = (ListView) contentView.findViewById(R.id.find_pop_listview);
-        popListView.setOnItemClickListener(this);
-        adapter = new SimpleAdapter(AddRouteActivity.this,list, R.layout.item_listview_popwin,
-                new String[]{"name"},new int[]{R.id.listview_popwind_tv});
-        popListView.setAdapter(adapter);
-        popMenu.showAtLocation(content_ll, Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0,0);
-        params = getWindow().getAttributes();
-        //当弹出Popupwindow时，背景变半透明
-        params.alpha=0.7f;
-        getWindow().setAttributes(params);
-        //设置Popupwindow关闭监听，当Popupwindow关闭，背景恢复1f
-        popMenu.setOnDismissListener(new PopupWindow.OnDismissListener() {
+
+        for (int i= 0;i<length.length;i++)
+        {
+            Map<String,String> map = new HashMap<String,String>();
+            map.put("length",length[i]);
+            lengthList.add(map);
+        }
+        final MyGridView lenthGrid = (MyGridView) popView.findViewById(R.id.gridview);
+        SimpleAdapter lenthAdapter = new SimpleAdapter(AddRouteActivity.this,lengthList,R.layout.find_cartype_pop_item,new String[]{"length"},
+                new int[]{R.id.gv_item_text});
+        lenthGrid.setAdapter(lenthAdapter);
+
+        final MyGridView typeGrid = (MyGridView) popView.findViewById(R.id.gridview_2);
+        SimpleAdapter typeAdapter = new SimpleAdapter(AddRouteActivity.this,typeList,R.layout.find_cartype_pop_item,new String[]{"type"},
+                new int[]{R.id.gv_item_text});
+        typeGrid.setAdapter(typeAdapter);
+
+        typePopmenu.showAtLocation(content_ll, Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0,0);
+
+        param = getWindow().getAttributes();
+        param.alpha=0.7f;
+        getWindow().setAttributes(param);
+        typePopmenu.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                params = getWindow().getAttributes();
-                params.alpha=1f;
-                getWindow().setAttributes(params);
+                param = getWindow().getAttributes();
+                param.alpha=1f;
+                getWindow().setAttributes(param);
             }
         });
+        lenthGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                CharSequence len = ((TextView) lenthGrid.getChildAt(i).findViewById(R.id.gv_item_text)).getText();
+                lenStr = len.toString();
+                for(int m=0;m<adapterView.getCount();m++){
+                    TextView item = (TextView) lenthGrid.getChildAt(m).findViewById(R.id.gv_item_text);
+
+                    if (i == m) {//当前选中的Item改变背景颜色
+                        item.setBackgroundResource(R.drawable.cartype_unselect);
+                    } else {
+                        item.setBackgroundResource(R.drawable.cartype_select);
+                    }
+                }
+            }
+        });
+        typeGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                CharSequence type = ((TextView) typeGrid.getChildAt(i).findViewById(R.id.gv_item_text)).getText();
+                typeStr = type.toString();
+                for(int m=0;m<adapterView.getCount();m++){
+                    TextView item = (TextView) typeGrid.getChildAt(m).findViewById(R.id.gv_item_text);
+                    typeStr = (String)item.getText();
+                    if (i == m) {//当前选中的Item改变背景颜色
+                        item.setBackgroundResource(R.drawable.cartype_unselect);
+                    } else {
+                        item.setBackgroundResource(R.drawable.cartype_select);
+                    }
+                }
+            }
+        });
+        TextView sure = (TextView)popView.findViewById(R.id.cartype_grid_sure);
+        sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mText.get(2).setText(lenStr+"/"+typeStr);
+                typePopmenu.dismiss();
+            }
+        });
+
     }
 
     private  void submit()
@@ -188,6 +240,7 @@ public class AddRouteActivity extends BaseActivity implements AdapterView.OnItem
                     @Override
                     public void onNext(GetCodeBean getCodeBean) {
                         ToolsUtils.getInstance().toastShowStr(AddRouteActivity.this,getCodeBean.getErrorMsg());
+                        startActivity(new Intent(AddRouteActivity.this,MyRouteListActivity.class));
                     }
                 });
     }
@@ -212,10 +265,12 @@ public class AddRouteActivity extends BaseActivity implements AdapterView.OnItem
                 strs.add("空仓");
                 strs.add("余仓");
 
-                showPop(initPopData(strs));
                 break;
             case R.id.bt_add_route:
                 submit();
+                break;
+            case R.id.add_route_rl_type:
+                showCarPop();
                 break;
         }
     }

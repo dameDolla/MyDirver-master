@@ -88,7 +88,7 @@ public class RouteListAdapter extends RecyclerView.Adapter {
         holder.addr.setText(addrs);
         holder.carInfo.setText(carInfos);
 
-        if(route.getMainLin() == "1")
+        if(route.getMainLin().equals("1"))
         {
             holder.isMain.setChecked(true);
             ischeck.put(i,route.getLinesGUID());

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="39dp"
+        android:background="@drawable/cartype_select"
+        android:text="2.3m"
+        android:textColor="@color/black_6d"
+        android:textSize="16sp"
+        android:id="@+id/gv_item_text"
+        android:gravity="center"/>
+</LinearLayout>

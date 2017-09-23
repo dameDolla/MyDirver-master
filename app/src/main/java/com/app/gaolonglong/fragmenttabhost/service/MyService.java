@@ -223,4 +223,20 @@ public interface MyService {
     Observable<GetCodeBean> updateBaojia(@Field(Constant.PAGENAME) String page,
                                              @Field(Constant.METHOD) String method,
                                              @Field("JsonValue") String json);
+    /**
+     * 确认报价
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> agreeBaojia(@Field(Constant.PAGENAME) String page,
+                                         @Field(Constant.METHOD) String method,
+                                         @Field("JsonValue") String json);
+    /**
+     * 取消报价
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> cancelBaojia(@Field(Constant.PAGENAME) String page,
+                                        @Field(Constant.METHOD) String method,
+                                        @Field("JsonValue") String json);
 }

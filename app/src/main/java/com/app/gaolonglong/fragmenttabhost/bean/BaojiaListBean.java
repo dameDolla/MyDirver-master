@@ -161,21 +161,21 @@ public class BaojiaListBean {
         private Object truckno;
         private Object trucklength;
         private Object trucktype;
-        private double price;
+        private String price;
         private Object loadfee;
         private Object unloadfee;
         private Object otherfee;
-        private double totalcharge;
+        private String totalcharge;
         private Object feeremark;
         private Object imforfee;
         private Object UpdatePriceTimeP;
         private String Bidder;
-        private double priceM;
-        private double loadfeeM;
-        private double unloadfeeM;
-        private double otherfeeM;
-        private double totalchargeM;
-        private double feeremarkM;
+        private String priceM;
+        private String loadfeeM;
+        private String unloadfeeM;
+        private String otherfeeM;
+        private String totalchargeM;
+        private String feeremarkM;
         private String cargoPriceState;
         private String UpdatePriceTime;
         private int billid;
@@ -331,11 +331,11 @@ public class BaojiaListBean {
             this.trucktype = trucktype;
         }
 
-        public double getPrice() {
+        public String getPrice() {
             return price;
         }
 
-        public void setPrice(double price) {
+        public void setPrice(String price) {
             this.price = price;
         }
 
@@ -363,11 +363,11 @@ public class BaojiaListBean {
             this.otherfee = otherfee;
         }
 
-        public double getTotalcharge() {
+        public String getTotalcharge() {
             return totalcharge;
         }
 
-        public void setTotalcharge(double totalcharge) {
+        public void setTotalcharge(String totalcharge) {
             this.totalcharge = totalcharge;
         }
 
@@ -403,51 +403,51 @@ public class BaojiaListBean {
             this.Bidder = Bidder;
         }
 
-        public double getPriceM() {
+        public String getPriceM() {
             return priceM;
         }
 
-        public void setPriceM(double priceM) {
+        public void setPriceM(String priceM) {
             this.priceM = priceM;
         }
 
-        public double getLoadfeeM() {
+        public String getLoadfeeM() {
             return loadfeeM;
         }
 
-        public void setLoadfeeM(double loadfeeM) {
+        public void setLoadfeeM(String loadfeeM) {
             this.loadfeeM = loadfeeM;
         }
 
-        public double getUnloadfeeM() {
+        public String getUnloadfeeM() {
             return unloadfeeM;
         }
 
-        public void setUnloadfeeM(double unloadfeeM) {
+        public void setUnloadfeeM(String unloadfeeM) {
             this.unloadfeeM = unloadfeeM;
         }
 
-        public double getOtherfeeM() {
+        public String getOtherfeeM() {
             return otherfeeM;
         }
 
-        public void setOtherfeeM(double otherfeeM) {
+        public void setOtherfeeM(String otherfeeM) {
             this.otherfeeM = otherfeeM;
         }
 
-        public double getTotalchargeM() {
+        public String getTotalchargeM() {
             return totalchargeM;
         }
 
-        public void setTotalchargeM(double totalchargeM) {
+        public void setTotalchargeM(String totalchargeM) {
             this.totalchargeM = totalchargeM;
         }
 
-        public double getFeeremarkM() {
+        public String getFeeremarkM() {
             return feeremarkM;
         }
 
-        public void setFeeremarkM(double feeremarkM) {
+        public void setFeeremarkM(String feeremarkM) {
             this.feeremarkM = feeremarkM;
         }
 

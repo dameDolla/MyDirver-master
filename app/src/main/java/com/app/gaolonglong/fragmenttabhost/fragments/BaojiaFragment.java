@@ -213,12 +213,12 @@ public class BaojiaFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        ToolsUtils.getInstance().toastShowStr(getContext(),e.getMessage());
                     }
 
                     @Override
                     public void onNext(BaojiaListBean baojiaListBean) {
-                        ToolsUtils.getInstance().toastShowStr(getContext(),baojiaListBean.getErrorMsg());
+                        ToolsUtils.getInstance().toastShowStr(getContext(),baojiaListBean.getErrorCode());
                         list.clear();
                         list.addAll(baojiaListBean.getData());
                         adapter.notifyDataSetChanged();

@@ -239,4 +239,12 @@ public interface MyService {
     Observable<GetCodeBean> cancelBaojia(@Field(Constant.PAGENAME) String page,
                                         @Field(Constant.METHOD) String method,
                                         @Field("JsonValue") String json);
+    /**
+     * 添加支付密码 获取验证码
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> getMSG(@Field(Constant.PAGENAME) String page,
+                                         @Field(Constant.METHOD) String method,
+                                         @Field("JsonValue") String json);
 }

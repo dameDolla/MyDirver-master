@@ -11,6 +11,8 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by yanqi on 2017/8/1.
  */
@@ -28,6 +30,8 @@ public class DiverApplication extends Application {
         }
         mList = new ArrayList<Activity>();
         Fresco.initialize(this);
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
 
     /**

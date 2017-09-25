@@ -94,7 +94,9 @@ public class LoginActivity extends BaseActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("flag","splash");
+                    startActivity(intent);
                 } else {
 
                 }

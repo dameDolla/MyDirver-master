@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -137,6 +138,7 @@ public class BaojiaEditActivity extends BaseActivity {
         map.put("otherfeeM",other);
         map.put("totalchargeM",sum);
         map.put("trucktype","火车");
+        map.put("feeremarkM","");
 
         map.put("price","0");
         map.put("loadfee","0");
@@ -168,6 +170,7 @@ public class BaojiaEditActivity extends BaseActivity {
 
                     @Override
                     public void onNext(GetSRCBean getSRCBean) {
+                        Log.e("baojia222",getSRCBean.getErrorMsg());
                         ToolsUtils.getInstance().toastShowStr(BaojiaEditActivity.this,getSRCBean.getErrorMsg());
                         if (getSRCBean.getErrorCode().equals("200"))
                         {

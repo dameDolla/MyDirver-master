@@ -113,10 +113,7 @@ public class BackFragment extends Fragment implements View.OnClickListener{
         initView();
         getData();
         getCancleData();
-        if (list.size() == 0 && canclelist.size()  == 0)
-        {
-            //emptyLayout.setErrorType(EmptyLayout.NODATA);
-        }
+
     }
     private void initView()
     {
@@ -217,12 +214,19 @@ public class BackFragment extends Fragment implements View.OnClickListener{
 
                     @Override
                     public void onNext(ReleaseBean releaseBean) {
-                        Log.e("backfragment",releaseBean.getErrorCode());
-                       // ToolsUtils.getInstance().toastShowStr(getContext(),releaseBean.getErrorMsg());
+                       // Log.e("backfragment",releaseBean.getErrorCode());
+                        //ToolsUtils.getInstance().toastShowStr(getContext(),releaseBean.getErrorMsg());
                         dialog.dismiss();
                         list.clear();
                         list.addAll(releaseBean.getData());
                         adapter.notifyDataSetChanged();
+                        if (list.size() == 0 )
+                        {
+                            emptyLayout.setErrorType(EmptyLayout.NODATA);
+                        }
+                        else{
+                            emptyLayout.setVisibility(View.GONE);
+                        }
                     }
                 });
     }

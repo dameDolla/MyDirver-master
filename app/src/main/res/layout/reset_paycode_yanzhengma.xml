@@ -82,6 +82,26 @@
             android:maxLength="2"
             android:inputType="number"
             android:layout_weight="1"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:id="@+id/yzm_five"
+            android:textSize="@dimen/txt_18"
+            android:cursorVisible="false"
+            android:maxLength="2"
+            android:inputType="number"
+            android:layout_weight="1"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:id="@+id/yzm_six"
+            android:textSize="@dimen/txt_18"
+            android:cursorVisible="false"
+            android:maxLength="2"
+            android:inputType="number"
+            android:layout_weight="1"/>
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="40dp"

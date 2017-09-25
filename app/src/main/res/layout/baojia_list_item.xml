@@ -91,17 +91,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:gravity="center"
                     android:layout_marginRight="@dimen/txt_39dp"
                     android:layout_marginLeft="@dimen/txt_39dp">
                     <ImageView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:src="@mipmap/schedule"
                         android:gravity="center"
                         android:visibility="gone"
                         android:id="@+id/baojia_item_status_logo"/>
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:textSize="3sp"

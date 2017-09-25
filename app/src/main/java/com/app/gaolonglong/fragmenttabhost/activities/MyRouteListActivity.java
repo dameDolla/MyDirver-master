@@ -67,8 +67,7 @@ public class MyRouteListActivity extends BaseActivity implements View.OnClickLis
     @BindView(R.id.route_refresh)
     public SwipeRefreshLayout refresh;
 
-    @BindView(R.id.empty_view)
-    public EmptyLayout mEmptylayout;
+
 
     @BindView(R.id.myroute_parent)
     public LinearLayout parent;
@@ -179,13 +178,14 @@ public class MyRouteListActivity extends BaseActivity implements View.OnClickLis
                     public void onNext(RouteListBean routeListBean) {
                         if(routeListBean.getData().size() == 0)
                         {
-                            emptylayout.setNoDataContent("无订阅线路信息");
+                            emptylayout.setErrorType(EmptyLayout.NODATA);
                         }else {
+                            emptylayout.setVisibility(View.GONE);
                             dialog.dismiss();
+                            list.clear();
                             list.addAll(routeListBean.getData());
                             adapter.notifyDataSetChanged();
                         }
-
 
                     }
                 });
@@ -221,6 +221,7 @@ public class MyRouteListActivity extends BaseActivity implements View.OnClickLis
                    @Override
                    public void onNext(GetSRCBean getSRCBean) {
                         ToolsUtils.getInstance().toastShowStr(MyRouteListActivity.this,getSRCBean.getErrorMsg());
+                       getRouteListInfo();
                    }
                });
    }

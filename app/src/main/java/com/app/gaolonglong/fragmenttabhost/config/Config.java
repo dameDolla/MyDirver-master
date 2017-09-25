@@ -7,7 +7,8 @@ package com.app.gaolonglong.fragmenttabhost.config;
 public class Config {
 
     //服务器根地址
-    public static final String baseURL ="http://192.168.1.102:8013";
+    //public static final String baseURL ="http://192.168.1.102:8013";
+    public static final String baseURL ="http://120.78.77.63:8023";
     //服务器路径
     public static final String host = "/Handler/App.ashx";
     //上传图片
@@ -62,6 +63,9 @@ public class Config {
     public static final String CANCEL_BAOJIA = "CancelCargoPrice";
     //确认报价
     public static final String AGREE_BAOJIA = "OKCargoprice";
-
+    //添加支付密码获取验证码
+    public static final String GET_MSG = "GetSMS";
+    //添加支付密码
+    public static final String ADD_PSW = "AddPwdBySMS";
 
 }

@@ -73,7 +73,7 @@ public class BaojiaListAdapter extends RecyclerView.Adapter implements View.OnCl
         mHolder.phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onOlick(position, data.getMobile(),"","","phone");
+                listener.onOlick(position, data.getOwnerphone(),"","","phone");
             }
         });
         mHolder.caozuo.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +90,8 @@ public class BaojiaListAdapter extends RecyclerView.Adapter implements View.OnCl
         });
         if (data.getCargoPriceState().equals("0")){
             mHolder.status_txt.setText("议价中");
+            mHolder.status_txt.setTextSize(12);
+            mHolder.status_logo.setVisibility(View.VISIBLE);
             mHolder.status_logo.setImageResource(R.drawable.baojiaing);
             mHolder.caozuo_gray.setVisibility(View.GONE);
         }else if (data.getCargoPriceState().equals("1")){

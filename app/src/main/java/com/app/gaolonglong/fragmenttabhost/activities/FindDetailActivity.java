@@ -78,6 +78,6 @@ public class FindDetailActivity extends BaseActivity {
         mText.get(10).setText(bean.getOwnername());
         mText.get(11).setText(bean.getTel());
         logo.setImageURI(Uri.parse(bean.getAvatarAddress()));
-        ToolsUtils.getInstance().toastShowStr(FindDetailActivity.this,bean.getOwnerguid());
+        ToolsUtils.getInstance().toastShowStr(FindDetailActivity.this,bean.getCaragoGUID());
     }
 }

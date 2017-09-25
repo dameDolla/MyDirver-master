@@ -145,7 +145,7 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
         adapter.setOnItemClickListener(new FindSrcAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, ToSrcDetailBean bean) {
-                //ToolsUtils.getInstance().toastShowStr(getContext(),bean.getTo());
+                //ToolsUtils.getInstance().toastShowStr(getContext(),bean.getOwnerguid());
                 Intent intent = new Intent(getContext(), FindDetailActivity.class);
                 intent.putExtra("findSrc",bean);
                 startActivity(intent);

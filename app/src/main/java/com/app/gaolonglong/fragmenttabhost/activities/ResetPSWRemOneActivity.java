@@ -5,55 +5,58 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 import com.app.gaolonglong.fragmenttabhost.view.PasswordInputView;
 
-import java.util.List;
-
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by yanqi on 2017/9/18.
+ * Created by yanqi on 2017/9/26.
  */
 
-public class ImportPayCodeActivity extends BaseActivity implements View.OnClickListener{
-
+public class ResetPSWRemOneActivity extends BaseActivity implements View.OnClickListener{
+    @BindView(R.id.reset_psw_txt1)
+    public TextView txt;
+    @BindView(R.id.top_title)
+    public TextView title;
+    @BindView(R.id.passwordInputView)
+    public PasswordInputView inputView;
     @BindView(R.id.import_paycode_submit)
     public Button submit;
 
-   @BindView(R.id.passwordInputView)
-   public PasswordInputView password;
-    @BindView(R.id.top_title)
-    public TextView title;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reset_import_password);
         ButterKnife.bind(this);
+        init();
+    }
+    private void init()
+    {
         initView();
     }
     private void initView()
     {
-        title.setText("设置支付密码");
+        txt.setText("输入原支付密码");
+        title.setText("重置支付密码");
         submit.setText("下一步");
         submit.setOnClickListener(this);
     }
-    private void submits()
+    private void submit()
     {
-        Intent intent = new Intent(ImportPayCodeActivity.this,RetypePayCodeActivity.class);
-        intent.putExtra("password",password.getText().toString());
+        //ToolsUtils.getInstance().toastShowStr(ResetPSWRemOneActivity.this,inputView.getText().toString());
+        Intent intent = new Intent(ResetPSWRemOneActivity.this,ResetPSWRemTwoActivity.class);
+        intent.putExtra("password",inputView.getText().toString());
         startActivity(intent);
     }
 
     @Override
     public void onClick(View view) {
-        submits();
+        submit();
     }
 }

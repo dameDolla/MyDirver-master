@@ -102,6 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/txt_39dp"
                 android:layout_marginTop="@dimen/txt_5dp"
+                android:id="@+id/baojia_edit_load_ll"
                 android:background="@drawable/border_gray">
 
                 <TextView
@@ -128,6 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/txt_39dp"
                 android:layout_marginTop="@dimen/txt_5dp"
+                android:id="@+id/baojia_edit_unload_ll"
                 android:background="@drawable/border_gray">
 
                 <TextView
@@ -154,6 +156,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/txt_39dp"
                 android:layout_marginTop="@dimen/txt_15dp"
+                android:id="@+id/baojia_edit_other_ll"
                 android:background="@drawable/border_gray">
 
                 <TextView
@@ -236,7 +239,7 @@
                 android:layout_height="@dimen/txt_39dp"
                 android:orientation="horizontal"
                 android:layout_marginTop="@dimen/txt_15dp">
-                <LinearLayout
+                <!--<LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/border_gray"
@@ -256,7 +259,7 @@
                         android:id="@+id/baojia_et_xinxi"
                         android:textSize="@dimen/txt_14"
                         android:textColor="@color/red"/>
-                </LinearLayout>
+                </LinearLayout>-->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"

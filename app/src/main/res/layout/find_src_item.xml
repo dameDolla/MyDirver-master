@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/txt_15dp"
@@ -198,6 +199,7 @@
                     android:layout_marginRight="@dimen/txt_10dp"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:id="@+id/find_iv_tel_ll"
                     android:orientation="vertical">
 
                     <ImageView

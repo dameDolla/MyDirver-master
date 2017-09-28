@@ -8,7 +8,9 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
@@ -74,11 +76,12 @@ public class BaojiaEditActivity extends BaseActivity {
                 R.id.baojia_ownwename,R.id.baojia_shuijin,R.id.baojia_sum_fee,})
     public List<TextView> mText;
 
-    @BindViews({ R.id.baojia_yunshu_fee,R.id.baojia_zhuang_fee,R.id.baojia_xie_fee,R.id.baojia_other_fee,
-                R.id.baojia_et_xinxi})
+    @BindViews({ R.id.baojia_yunshu_fee,R.id.baojia_zhuang_fee,R.id.baojia_xie_fee,R.id.baojia_other_fee})
     public List<EditText> mEdit;
     @BindView(R.id.baojia_logo)
     public SimpleDraweeView logo;
+    @BindViews({R.id.baojia_edit_load_ll,R.id.baojia_edit_unload_ll,R.id.baojia_edit_other_ll})
+    public List<LinearLayout> ll;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +102,15 @@ public class BaojiaEditActivity extends BaseActivity {
        // initJsonData();
         logo.setImageURI(Uri.parse(bean.getAvatarAddress()));
         mText.get(5).setText("货主: "+bean.getOwnername());
-
+        ll.get(2).setVisibility(View.GONE);
+        if (bean.getLoad().equals("0"))
+        {
+            ll.get(0).setVisibility(View.GONE);
+        }
+        if (bean.getUnload().equals("0"))
+        {
+            ll.get(1).setVisibility(View.GONE);
+        }
         textWatch();
 
     }
@@ -112,8 +123,8 @@ public class BaojiaEditActivity extends BaseActivity {
         xie = mEdit.get(2).getText().toString();
         // String needPay = mText.get(3).getText().toString();
 
-        float total = Float.parseFloat(yunshu)+Float.parseFloat(zhuang)+Float.parseFloat(xie)+Float.parseFloat(other);
-        mText.get(5).setText(total+"");
+        //float total = Float.parseFloat(yunshu)+Float.parseFloat(zhuang)+Float.parseFloat(xie)+Float.parseFloat(other);
+        //mText.get(5).setText(total+"");
         sum = mText.get(5).getText().toString();
         userguid = ToolsUtils.getString(BaojiaEditActivity.this, Constant.LOGIN_GUID,"");
         mobile = ToolsUtils.getString(BaojiaEditActivity.this, Constant.MOBILE,"");
@@ -133,9 +144,7 @@ public class BaojiaEditActivity extends BaseActivity {
         map.put("cargoGUID",bean.getBillsGUID());
         map.put("imforfeeM","0");
         map.put("priceM",yunshu);
-        map.put("loadfeeM",zhuang);
-        map.put("unloadfeeM",xie);
-        map.put("otherfeeM",other);
+        map.put("otherfeeM","0");
         map.put("totalchargeM",sum);
         map.put("trucktype","火车");
         map.put("feeremarkM","");
@@ -146,6 +155,17 @@ public class BaojiaEditActivity extends BaseActivity {
         map.put("otherfee","0");
         map.put("totalcharge","0");
         map.put("feeremark","");
+
+        if (bean.getLoad().equals("1")){
+            map.put("loadfeeM",zhuang);
+        }else{
+            map.put("loadfeeM","0");
+        }
+        if (bean.getUnload().equals("1")){
+            map.put("unloadfeeM",xie);
+        }else{
+            map.put("unloadfeeM","0");
+        }
         return JsonUtils.getInstance().getJsonStr(map);
     }
     /**
@@ -266,8 +286,15 @@ public class BaojiaEditActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String sum = Float.parseFloat(mEdit.get(0).getText()+"")+Float.parseFloat(mEdit.get(1).getText()+"")+Float.parseFloat(mEdit.get(2).getText()+"")+
-                        Float.parseFloat(mEdit.get(3).getText()+"")+"";
+                if ((Float.parseFloat(mEdit.get(1).getText()+"")+"").equals(""))
+                {
+                    String sum = Float.parseFloat(mEdit.get(0).getText()+"")+Float.parseFloat(mEdit.get(2).getText()+"")+
+                            Float.parseFloat(mEdit.get(3).getText()+"")+"";
+                }
+                if ((Float.parseFloat(mEdit.get(2).getText()+"")+"").equals(""))
+                {
+                    String sum = Float.parseFloat(mEdit.get(0).getText()+"")+Float.parseFloat(mEdit.get(3).getText()+"")+"";
+                }
                 mText.get(5).setText(sum);
             }
         });

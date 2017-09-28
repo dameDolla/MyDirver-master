@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.bean.ToSrcDetailBean;
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 
 import java.util.List;
@@ -23,7 +26,7 @@ import butterknife.OnClick;
  * Created by yanqi on 2017/9/13.
  */
 
-public class FindDetailActivity extends BaseActivity {
+public class FindDetailActivity extends BaseActivity implements View.OnClickListener{
 
     @BindView(R.id.top_title)
     public TextView title;
@@ -44,17 +47,17 @@ public class FindDetailActivity extends BaseActivity {
                 R.id.src_detail_info})
     public List<TextView> mText;
 
-    @OnClick(R.id.src_detail_submit)
-    public void submit()
+    @BindView(R.id.src_detail_submit)
+    public LinearLayout submit;
+    @OnClick(R.id.src_detail_phone)
+    public void calls()
     {
-        Intent intent = new Intent(FindDetailActivity.this,BaojiaEditActivity.class);
-        intent.putExtra("srcdetail",bean);
+        Intent intent = new Intent(Intent.ACTION_DIAL,Uri.parse("tel:"+bean.getTel()));
         startActivity(intent);
     }
 
     @BindView(R.id.src_detail_logo)
     public ImageView logo;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,13 +74,25 @@ public class FindDetailActivity extends BaseActivity {
     {
         title.setText("货源详情");
         bean = (ToSrcDetailBean) getIntent().getSerializableExtra("findSrc");
-        mText.get(0).setText(bean.getFromSite());
-        mText.get(1).setText(bean.getToSite());
+        mText.get(0).setText(bean.getFromDetailedAddress());
+        mText.get(1).setText(bean.getToDetailedAddress());
         mText.get(4).setText(bean.getPreloadtime());
         mText.get(5).setText(bean.getCargotype());
+        mText.get(7).setText(bean.getTrucklengthHZ()+"/"+bean.getTrucktypeHZ());
         mText.get(10).setText(bean.getOwnername());
         mText.get(11).setText(bean.getTel());
+        submit.setOnClickListener(this);
         logo.setImageURI(Uri.parse(bean.getAvatarAddress()));
-        ToolsUtils.getInstance().toastShowStr(FindDetailActivity.this,bean.getCaragoGUID());
+        if (GetUserInfoUtils.getUserType(FindDetailActivity.this).equals("3"))
+        {
+            submit.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(FindDetailActivity.this,BaojiaEditActivity.class);
+        intent.putExtra("srcdetail",bean);
+        startActivity(intent);
     }
 }

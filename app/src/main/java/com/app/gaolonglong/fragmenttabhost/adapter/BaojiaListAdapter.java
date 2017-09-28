@@ -70,7 +70,7 @@ public class BaojiaListAdapter extends RecyclerView.Adapter implements View.OnCl
         mHolder.czBaojia.setText(data.getTotalchargeM()+"");
         mHolder.mBaojia.setText(data.getTotalcharge()+"");
         mHolder.itemView.setTag(position);
-        mHolder.phone.setOnClickListener(new View.OnClickListener() {
+        mHolder.tel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listener.onOlick(position, data.getOwnerphone(),"","","phone");
@@ -162,7 +162,7 @@ public class BaojiaListAdapter extends RecyclerView.Adapter implements View.OnCl
         private final ImageView status_logo;
         private final TextView status_txt;
         private final TextView caozuo_gray;
-        private final LinearLayout ll;
+        private final LinearLayout ll,tel;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -178,6 +178,7 @@ public class BaojiaListAdapter extends RecyclerView.Adapter implements View.OnCl
             status_txt = (TextView)itemView.findViewById(R.id.baojia_item_status_txt);
             caozuo_gray = (TextView)itemView.findViewById(R.id.baojia_item_caozuo_gray);
             ll = (LinearLayout)itemView.findViewById(R.id.baojia_item_ll);
+            tel = (LinearLayout)itemView.findViewById(R.id.baojia_item_tel_ll);
         }
     }
 }

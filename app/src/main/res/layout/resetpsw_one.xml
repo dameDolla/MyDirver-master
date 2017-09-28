@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f2">
+    <include layout="@layout/top_title"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="99dp"
+        android:background="@color/white">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="您是否还记得手机 159****0321"
+            android:textColor="#666666"
+            android:textSize="@dimen/txt_14"
+            android:gravity="center"
+            android:layout_centerInParent="true"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="所使用的支付密码"
+            android:textColor="#666666"
+            android:textSize="@dimen/txt_14"
+            android:gravity="center"
+            android:paddingBottom="@dimen/txt_15dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="@dimen/txt_10dp"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="39dp"
+                android:background="@color/titleColorSelected">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="忘记"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/txt_18"
+                    android:gravity="center"
+                    android:id="@+id/resetpsw_one_forget"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="39dp"
+                android:background="@color/shen_blue">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="记得"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/txt_18"
+                    android:gravity="center"
+                    android:id="@+id/resetpsw_one_remember"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

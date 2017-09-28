@@ -27,9 +27,16 @@ public class ToSrcDetailBean implements Serializable {
     private String truckno;
     private String trucklength;
     private String caragoGUID;
+    private String load;
+    private String unload;
+    private String FromDetailedAddress;
+    private String ToDetailedAddress;
+    private String trucklengthHZ;
+    private String trucktypeHZ;
 
     public ToSrcDetailBean(String fromSite,String toSite,String ownername,String cargotype,String preloadtime,String avatarAddress,String creditlevel,String qty,String unit,String tel,String driverdeposit,
-                           String ownerguid,String billsGUID,String driverGUID,String drivername,String companyGUID,String company,String truckno,String trucklength)
+                           String ownerguid,String billsGUID,String driverGUID,String drivername,String companyGUID,String company,String truckno,String trucklength,String load,String unload,String FromDetailedAddress,
+                           String ToDetailedAddress,String trucklengthHZ,String trucktypeHZ)
     {
         this.fromSite = fromSite;
         this.toSite = toSite;
@@ -50,6 +57,20 @@ public class ToSrcDetailBean implements Serializable {
         this.truckno = truckno;
         this.trucklength = trucklength;
         this.driverdeposit = driverdeposit;
+        this.load = load;
+        this.unload = unload;
+        this.FromDetailedAddress = FromDetailedAddress;
+        this.ToDetailedAddress = ToDetailedAddress;
+        this.trucklengthHZ = trucklengthHZ;
+        this.trucktypeHZ = trucktypeHZ;
+    }
+
+    public String getTrucktypeHZ() {
+        return trucktypeHZ;
+    }
+
+    public String getTrucklengthHZ() {
+        return trucklengthHZ;
     }
 
     public String getFromSite() {
@@ -130,5 +151,21 @@ public class ToSrcDetailBean implements Serializable {
 
     public String getCaragoGUID() {
         return caragoGUID;
+    }
+
+    public String getLoad() {
+        return load;
+    }
+
+    public String getUnload() {
+        return unload;
+    }
+
+    public String getFromDetailedAddress() {
+        return FromDetailedAddress;
+    }
+
+    public String getToDetailedAddress() {
+        return ToDetailedAddress;
     }
 }

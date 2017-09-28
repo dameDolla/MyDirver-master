@@ -19,7 +19,11 @@ public class SetPayCodeMainActivity extends BaseActivity {
     {
         startActivity(new Intent(SetPayCodeMainActivity.this,ImportPayCodeActivity.class));
     }
-
+    @OnClick(R.id.main_paycode_reset)
+    public void reset()
+    {
+        startActivity(new Intent(SetPayCodeMainActivity.this,ResetPSWOneActivity.class));
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -95,11 +95,32 @@ public class MyLinearLayoutManager extends LinearLayoutManager {
         } finally {
         }
     }
+
+    @Override
+    public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+        try {
+            super.onLayoutChildren(recycler, state);
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+
+        }
+    }
+
     public void setScrollEnabled(boolean flag) {
         this.isScrollEnabled = flag;
     }
     @Override
     public boolean canScrollVertically() {
         return isScrollEnabled && super.canScrollVertically();
+    }
+
+    @Override
+    public int scrollVerticallyBy(int dy, RecyclerView.Recycler recycler, RecyclerView.State state) {
+        try {
+            return super.scrollVerticallyBy(dy, recycler, state);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

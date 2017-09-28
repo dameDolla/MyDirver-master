@@ -24,6 +24,7 @@ import com.app.gaolonglong.fragmenttabhost.activities.RenzhengMainActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.SettingActivity;
 import com.app.gaolonglong.fragmenttabhost.bean.LoginBean;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -109,9 +110,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
      * 验证登录 并修改界面信息显示
      */
     private void checkInfo() {
-        // ToolsUtils.getInstance().toastShowStr(getContext(),Too);
         //获取保存的用户信息
-        String guid = ToolsUtils.getString(getActivity(), Constant.LOGIN_GUID, "");
+        String guid = GetUserInfoUtils.getGuid(getContext());
         //ToolsUtils.getInstance().toastShowStr(getActivity(),guid);
         if (!TextUtils.isEmpty(guid)) {
 
@@ -131,6 +131,16 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * 根据用户的角色显示或者隐藏一些选项
+     */
+    private void showItem()
+    {
+        String usertype = GetUserInfoUtils.getUserType(getContext());
+        if (usertype.equals("2")){//个体司机
+            rlList.get(5).setVisibility(View.GONE);
+        }
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {

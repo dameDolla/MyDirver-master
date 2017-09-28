@@ -3,12 +3,15 @@ package com.app.gaolonglong.fragmenttabhost.utils;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.view.Gravity;
@@ -20,15 +23,23 @@ import com.app.gaolonglong.fragmenttabhost.activities.SettingActivity;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -129,7 +140,7 @@ public class ToolsUtils {
      */
     public String getMD5Val(String jsonVal)
     {
-        String data =  jsonVal+"PYLF";
+        String data =  jsonVal;
         return md5(data);
     }
 
@@ -429,5 +440,58 @@ public class ToolsUtils {
         }*/
         return mYear + "-" + (mMonth.length()==1?"0"+mMonth:mMonth) + "-" + (mDay.length()==1?"0"+mDay:mDay);
     }
+
+    /**
+     * 获取当前版本号
+     */
+    public static int getApkVersionCode(Context context)
+    {
+        int versionCode = 0;
+        PackageManager manager = context.getPackageManager();
+        try {
+            PackageInfo info = manager.getPackageInfo(context.getPackageName(),0);
+             versionCode = info.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return versionCode;
+    }
+    /**
+     * 获取最新版本信息
+     * @return
+     * @throws IOException
+     * @throws JSONException
+     */
+    private String getVersion(String serverUrl) throws IOException, JSONException {
+        URL url = new URL(serverUrl);
+        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+        httpURLConnection.setDoInput(true);
+        httpURLConnection.setDoOutput(true);
+        httpURLConnection.setReadTimeout(8 * 1000);
+        InputStream inputStream = httpURLConnection.getInputStream();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        String string;
+        string = bufferedReader.readLine();
+        //对json数据进行解析
+        JSONObject jsonObject = new JSONObject(string);
+        String strings = jsonObject.getString("code");
+        return strings;
+    }
+    /**
+     * 弹出对话框
+     */
+   /* protected void showUpdataDialog() {
+        AlertDialog.Builder builer = new AlertDialog.Builder(this) ;
+        builer.setTitle("版本升级");
+        builer.setMessage("软件更新");
+        //当点确定按钮时从服务器上下载 新的apk 然后安装
+        builer.setPositiveButton("确定", (dialog, which) -> downLoadApk());
+        //当点取消按钮时不做任何举动
+        builer.setNegativeButton("取消", (dialogInterface, i) -> {});
+        AlertDialog dialog = builer.create();
+        dialog.show();
+    }*/
+
+
 
 }

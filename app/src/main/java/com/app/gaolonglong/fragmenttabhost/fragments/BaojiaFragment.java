@@ -101,7 +101,7 @@ public class BaojiaFragment extends Fragment {
         mTextView.get(0).setVisibility(View.INVISIBLE);
         back.setVisibility(View.INVISIBLE);
         mTextView.get(1).setText("报价");
-        JSONObject json = new JSONObject();
+        final JSONObject json = new JSONObject();
         try {
             json.put("GUID",guid);
             json.put(Constant.MOBILE,mobile);
@@ -115,30 +115,31 @@ public class BaojiaFragment extends Fragment {
         rcl.setAdapter(adapter);
         getBaojiaList(json.toString());
 
+
         adapter.setOnclick(new BaojiaListAdapter.OnClickListener() {
             @Override
             public void onOlick(int postion, String tel, String caragoGUID, String time, String flag) {
                 if(flag.equals("phone"))
                 {
-                    Intent dialIntent =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + tel));//跳转到拨号界面，同时传递电话号码
+                    Intent dialIntent =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + list.get(postion).getOwnerphone()));//跳转到拨号界面，同时传递电话号码
                     startActivity(dialIntent);
                 }else if (flag.equals("caozuo")){
                     Map<String,String> map = new HashMap<String,String>();
                     map.put("GUID",guid);
                     map.put(Constant.MOBILE,mobile);
                     map.put(Constant.KEY,key);
-                    map.put("cargopricesGUID",caragoGUID);
-                    map.put("UpdatePriceTime",time);
+                    map.put("cargopricesGUID",list.get(postion).getCargoPricesGUID()+"");
+                    map.put("UpdatePriceTime",list.get(postion).getUpdatePriceTime());
                     cazuo(JsonUtils.getInstance().getJsonStr(map));
                 }else if (flag.equals("cancel")){
                     Map<String,String> map = new HashMap<String,String>();
                     map.put("GUID",guid);
                     map.put(Constant.MOBILE,mobile);
                     map.put(Constant.KEY,key);
-                    map.put("cargopricesGUID",caragoGUID);
-                    map.put("UpdatePriceTime",time);
-                    //cancel(JsonUtils.getInstance().getJsonStr(map));
-                    ToolsUtils.getInstance().toastShowStr(getContext(),caragoGUID);
+                    map.put("cargopricesGUID",list.get(postion).getCargoPricesGUID()+"");
+                    map.put("UpdatePriceTime",list.get(postion).getUpdatePriceTime());
+                    //cancel(JsonUtils.getInstance().getJsonStr(map),postion);
+                    ToolsUtils.getInstance().toastShowStr(getContext(),list.get(postion).getCargoPricesGUID()+"");
                 }
             }
         });
@@ -172,58 +173,76 @@ public class BaojiaFragment extends Fragment {
                     @Override
                     public void onNext(GetCodeBean getCodeBean) {
                         ToolsUtils.getInstance().toastShowStr(getContext(),getCodeBean.getErrorMsg());
+
                     }
                 });
     }
-    private void cancel(String json)
+    private void cancel(final String json, final int position)
     {
-        RetrofitUtils.getRetrofitService()
-                .cancelBaojia(Constant.PRICE_PAGENAME,Config.CANCEL_BAOJIA,json)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<GetCodeBean>() {
-                    @Override
-                    public void onCompleted() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                RetrofitUtils.getRetrofitService()
+                        .cancelBaojia(Constant.PRICE_PAGENAME,Config.CANCEL_BAOJIA,json)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Subscriber<GetCodeBean>() {
+                            @Override
+                            public void onCompleted() {
 
-                    }
+                            }
 
-                    @Override
-                    public void onError(Throwable e) {
+                            @Override
+                            public void onError(Throwable e) {
 
-                    }
+                            }
 
-                    @Override
-                    public void onNext(GetCodeBean getCodeBean) {
-                        ToolsUtils.getInstance().toastShowStr(getContext(),getCodeBean.getErrorMsg());
-                    }
-                });
+                            @Override
+                            public void onNext(GetCodeBean getCodeBean) {
+                                ToolsUtils.getInstance().toastShowStr(getContext(),getCodeBean.getErrorMsg());
+                                if(getCodeBean.getErrorCode().equals("200"))
+                                {
+                                    //getBaojiaList();
+                                    list.get(position).setCargoPriceState("2");
+                                    adapter.notifyDataSetChanged();
+                                }
+                            }
+                        });
+            }
+        }).start();
+
 
     }
-    private void getBaojiaList(String json)
+    private void getBaojiaList(final String json)
     {
-        RetrofitUtils.getRetrofitService()
-                .getBaojiaList(Constant.PRICE_PAGENAME, Config.GET_BAOJIALIST,json)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<BaojiaListBean>() {
-                    @Override
-                    public void onCompleted() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                RetrofitUtils.getRetrofitService()
+                        .getBaojiaList(Constant.PRICE_PAGENAME, Config.GET_BAOJIALIST,json)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Subscriber<BaojiaListBean>() {
+                            @Override
+                            public void onCompleted() {
 
-                    }
+                            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        ToolsUtils.getInstance().toastShowStr(getContext(),e.getMessage());
-                    }
+                            @Override
+                            public void onError(Throwable e) {
 
-                    @Override
-                    public void onNext(BaojiaListBean baojiaListBean) {
-                        ToolsUtils.getInstance().toastShowStr(getContext(),baojiaListBean.getErrorCode());
-                        list.clear();
-                        list.addAll(baojiaListBean.getData());
-                        adapter.notifyDataSetChanged();
-                    }
-                });
+                            }
+
+                            @Override
+                            public void onNext(BaojiaListBean baojiaListBean) {
+                                list.clear();
+                                list.addAll(baojiaListBean.getData());
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
+            }
+        }).start();
+
 
     }
 }

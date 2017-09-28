@@ -28,7 +28,7 @@ public class CommomDialog extends Dialog implements View.OnClickListener{
     private String negativeName;
     private String title;
 
-    public CommomDialog(Context context) {
+    public CommomDialog(Context context, String s) {
         super(context);
         this.mContext = context;
     }

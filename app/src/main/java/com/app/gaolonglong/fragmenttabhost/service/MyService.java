@@ -10,6 +10,7 @@ import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 import rx.Observable;
 
+import com.app.gaolonglong.fragmenttabhost.adapter.MissionListBean;
 import com.app.gaolonglong.fragmenttabhost.bean.BaojiaListBean;
 import com.app.gaolonglong.fragmenttabhost.bean.CompanyInfoBean;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
@@ -247,4 +248,13 @@ public interface MyService {
     Observable<GetCodeBean> getMSG(@Field(Constant.PAGENAME) String page,
                                          @Field(Constant.METHOD) String method,
                                          @Field("JsonValue") String json);
+    /**
+     *
+     * 获取运单列表
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<MissionListBean> getMissionList(@Field(Constant.PAGENAME) String page,
+                                               @Field(Constant.METHOD) String method,
+                                               @Field("JsonValue") String json);
 }

@@ -71,7 +71,15 @@ public class MissionFragment extends Fragment implements View.OnClickListener {
         top_tab.get(0).setOnClickListener(this);
         top_tab.get(1).setOnClickListener(this);
         top_tab.get(2).setOnClickListener(this);
-        loadFragment(MISSION_DOING);
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        Fragment mainFragment = fragmentManager.findFragmentByTag("message");
+        if (mainFragment != null) {
+            transaction.replace(R.id.fl_content, mainFragment);
+            transaction.commit();
+        } else {
+            loadFragment(MISSION_DOING);
+        }
     }
 
     private void switchFragment(int type) {
@@ -101,8 +109,11 @@ public class MissionFragment extends Fragment implements View.OnClickListener {
             } else {
                 transaction.show(doing);
             }
-            if (done != null && cancle != null) {
+            if (done != null) {
                 transaction.hide(done);
+            }
+            if (cancle != null)
+            {
                 transaction.hide(cancle);
             }
             currentFragmentType = MISSION_DOING;
@@ -113,9 +124,12 @@ public class MissionFragment extends Fragment implements View.OnClickListener {
             } else {
                 transaction.show(done);
             }
-            if (doing != null && cancle != null) {
-                transaction.hide(cancle);
+            if (doing != null ) {
                 transaction.hide(doing);
+            }
+            if (cancle != null)
+            {
+                transaction.hide(cancle);
             }
             currentFragmentType = MISSION_DONE;
         } else if (type == MISSION_CANCLE) {
@@ -125,9 +139,12 @@ public class MissionFragment extends Fragment implements View.OnClickListener {
             } else {
                 transaction.show(cancle);
             }
-            if (doing != null && done != null) {
-                transaction.hide(done);
+            if (doing != null) {
                 transaction.hide(doing);
+            }
+            if (done != null)
+            {
+                transaction.hide(done);
             }
             currentFragmentType = MISSION_CANCLE;
         }

@@ -53,7 +53,7 @@ public class BaojiaUpdateActivity extends BaseActivity implements View.OnClickLi
     {
         finish();
     }
-    @BindViews({R.id.baojia_et_baozheng,R.id.baojia_et_xinxi,R.id.baojia_fuwu_fee,R.id.baojia_need_pay,
+    @BindViews({R.id.baojia_et_baozheng,R.id.baojia_fuwu_fee,R.id.baojia_need_pay,
             R.id.baojia_other_fee,R.id.baojia_ownwename,R.id.baojia_shuijin,R.id.baojia_sum_fee,
             R.id.baojia_yunshu_fee,R.id.baojia_zhuang_fee,R.id.baojia_xie_fee})
     public List<TextView> mText;

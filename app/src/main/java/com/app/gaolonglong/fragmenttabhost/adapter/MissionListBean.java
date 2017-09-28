@@ -1,17 +1,17 @@
-package com.app.gaolonglong.fragmenttabhost.bean;
+package com.app.gaolonglong.fragmenttabhost.adapter;
 
 import java.util.List;
 
 /**
- * Created by yanqi on 2017/9/7.
+ * Created by yanqi on 2017/9/27.
  */
 
-public class GetSRCBean {
+public class MissionListBean {
 
     /**
      * errorCode : 200
      * errorMsg :
-     * data : [{"billid":0,"billsGUID":null,"iscargo":null,"owneridGUID":null,"ownername":null,"ownerphone":null,"fromSite":"深圳","toSite":"广州","cargotype":"1","qty":null,"unit":null,"companyGUID":null,"company":null,"driverGUID":null,"drivername":null,"driverphone":null,"truckno":null,"trucklength":null,"trucktype":null,"dealprice":null,"deposit":null,"imforfee":null,"remark":null,"load":null,"loadfee":null,"unload":null,"unloadfee":null,"waitfee":null,"otherfee":null,"feeremark":null,"totalcharge":null,"preloadtime":"2017/9/14 星期四 下午 12:00:00","loadtime":null,"loadadd":null,"prearrivetime":null,"arrivedtime":null,"arrivedadd":null,"signby":null,"signtime":null,"signadd":null,"loadwaittime":null,"unloadwaittime":null,"status":null,"trucktypea":"3.5米","trucktypeb":"4米","trucktypec":"","trucktyped":"","trucktypef":"","ownerprice":null,"driverdeposit":null,"ReleaseTime":null,"TypeKCLX":null,"userid":0,"GUID":null,"username":"","usertype":"","truename":"","mobile":"15908690321","loginterminal":"","logintime":"","logintimes":0,"wechatid":"","idcard":"","creditlevel":"0","cargocount":0,"ownerbill":0,"ownerscore":0,"driverScoreNumber":0,"driverTotalScore":0,"driverbill":0,"driverscore":0,"online":"","credit":0,"money":0,"bank":"","banktype":"","branch":"","account":"","regtime":"2017-01-01 00:00:00","loginip":"","vtruename":"","vcompany":"","support":"","inviter":"","SMSCode":"","SMSDatetime":"2017-01-01 00:00:00","SecreKey":"","SecreKeyDateTime":"0001-01-01T00:00:00","AvatarAddress":"http://192.168.1.102:8013/uploadA\\2017\\9\\12\\46560782C299458389969A0DA76B12BE20170912190656362.jpg","PageNum":0},{"billid":0,"billsGUID":null,"iscargo":null,"owneridGUID":null,"ownername":null,"ownerphone":null,"fromSite":"深圳","toSite":"广州","cargotype":"1","qty":null,"unit":null,"companyGUID":null,"company":null,"driverGUID":null,"drivername":null,"driverphone":null,"truckno":null,"trucklength":null,"trucktype":null,"dealprice":null,"deposit":null,"imforfee":null,"remark":null,"load":null,"loadfee":null,"unload":null,"unloadfee":null,"waitfee":null,"otherfee":null,"feeremark":null,"totalcharge":null,"preloadtime":"2017/9/15 星期五 下午 12:00:00","loadtime":null,"loadadd":null,"prearrivetime":null,"arrivedtime":null,"arrivedadd":null,"signby":null,"signtime":null,"signadd":null,"loadwaittime":null,"unloadwaittime":null,"status":null,"trucktypea":"3.5米","trucktypeb":"4.5米","trucktypec":"","trucktyped":"","trucktypef":"","ownerprice":null,"driverdeposit":null,"ReleaseTime":null,"TypeKCLX":null,"userid":0,"GUID":null,"username":"","usertype":"","truename":"","mobile":"18820930217","loginterminal":"","logintime":"","logintimes":0,"wechatid":"","idcard":"","creditlevel":"0","cargocount":0,"ownerbill":0,"ownerscore":0,"driverScoreNumber":0,"driverTotalScore":0,"driverbill":0,"driverscore":0,"online":"","credit":0,"money":0,"bank":"","banktype":"","branch":"","account":"","regtime":"2017-01-01 00:00:00","loginip":"","vtruename":"","vcompany":"","support":"","inviter":"","SMSCode":"","SMSDatetime":"2017-01-01 00:00:00","SecreKey":"","SecreKeyDateTime":"0001-01-01T00:00:00","AvatarAddress":"http://192.168.1.102:8013/uploadA\\2017\\9\\12\\20170912104757.jpg","PageNum":0}]
+     * data : [{"billid":0,"billsGUID":null,"iscargo":null,"owneridGUID":null,"ownername":null,"ownerphone":"13823793863","fromSite":"深圳市","toSite":"广州市","cargotype":"家具/10吨/5方/","qty":10,"unit":"5","companyGUID":null,"company":null,"driverGUID":null,"drivername":null,"driverphone":null,"truckno":"null","trucklength":null,"trucktype":null,"dealprice":null,"deposit":null,"imforfee":null,"remark":null,"load":null,"loadfee":null,"unload":null,"unloadfee":null,"waitfee":null,"otherfee":null,"feeremark":null,"totalcharge":null,"preloadtime":null,"loadtime":null,"loadadd":null,"prearrivetime":null,"arrivedtime":null,"arrivedadd":null,"signby":null,"signtime":null,"signadd":null,"loadwaittime":null,"unloadwaittime":null,"status":"0","trucktypea":null,"trucktypeb":null,"trucktypec":null,"trucktyped":null,"trucktypef":null,"ownerprice":null,"driverdeposit":null,"ReleaseTime":null,"trucklengthHZ":null,"trucktypeHZ":null,"loadaddHZ":null,"arrivedaddHZ":null,"TypeKCLX":null,"userid":0,"GUID":null,"username":"","usertype":"","truename":"","mobile":"","loginterminal":"","logintime":"","logintimes":0,"wechatid":"","idcard":"","creditlevel":"","cargocount":0,"ownerbill":0,"ownerscore":0,"driverScoreNumber":0,"driverTotalScore":0,"driverbill":0,"driverscore":0,"online":"","credit":0,"money":0,"bank":"","banktype":"","branch":"","account":"","regtime":"2017-01-01 00:00:00","loginip":"","vtruename":"","vcompany":"","support":"","inviter":"","SMSCode":"","SMSDatetime":"2017-01-01 00:00:00","SecreKey":"","SecreKeyDateTime":"0001-01-01T00:00:00","AvatarAddress":null,"PageNum":0}]
      */
 
     private String errorCode;
@@ -49,12 +49,12 @@ public class GetSRCBean {
          * iscargo : null
          * owneridGUID : null
          * ownername : null
-         * ownerphone : null
-         * fromSite : 深圳
-         * toSite : 广州
-         * cargotype : 1
-         * qty : null
-         * unit : null
+         * ownerphone : 13823793863
+         * fromSite : 深圳市
+         * toSite : 广州市
+         * cargotype : 家具/10吨/5方/
+         * qty : 10
+         * unit : 5
          * companyGUID : null
          * company : null
          * driverGUID : null
@@ -75,7 +75,7 @@ public class GetSRCBean {
          * otherfee : null
          * feeremark : null
          * totalcharge : null
-         * preloadtime : 2017/9/14 星期四 下午 12:00:00
+         * preloadtime : null
          * loadtime : null
          * loadadd : null
          * prearrivetime : null
@@ -86,28 +86,32 @@ public class GetSRCBean {
          * signadd : null
          * loadwaittime : null
          * unloadwaittime : null
-         * status : null
-         * trucktypea : 3.5米
-         * trucktypeb : 4米
-         * trucktypec :
-         * trucktyped :
-         * trucktypef :
+         * status : 0
+         * trucktypea : null
+         * trucktypeb : null
+         * trucktypec : null
+         * trucktyped : null
+         * trucktypef : null
          * ownerprice : null
          * driverdeposit : null
          * ReleaseTime : null
+         * trucklengthHZ : null
+         * trucktypeHZ : null
+         * loadaddHZ : null
+         * arrivedaddHZ : null
          * TypeKCLX : null
          * userid : 0
          * GUID : null
          * username :
          * usertype :
          * truename :
-         * mobile : 15908690321
+         * mobile :
          * loginterminal :
          * logintime :
          * logintimes : 0
          * wechatid :
          * idcard :
-         * creditlevel : 0
+         * creditlevel :
          * cargocount : 0
          * ownerbill : 0
          * ownerscore : 0.0
@@ -132,7 +136,7 @@ public class GetSRCBean {
          * SMSDatetime : 2017-01-01 00:00:00
          * SecreKey :
          * SecreKeyDateTime : 0001-01-01T00:00:00
-         * AvatarAddress : http://192.168.1.102:8013/uploadA\2017\9\12\46560782C299458389969A0DA76B12BE20170912190656362.jpg
+         * AvatarAddress : null
          * PageNum : 0
          */
 
@@ -141,18 +145,18 @@ public class GetSRCBean {
         private Object iscargo;
         private Object owneridGUID;
         private Object ownername;
-        private Object ownerphone;
+        private String ownerphone;
         private String fromSite;
         private String toSite;
         private String cargotype;
-        private Object qty;
-        private Object unit;
+        private int qty;
+        private String unit;
         private Object companyGUID;
         private Object company;
         private Object driverGUID;
         private Object drivername;
         private Object driverphone;
-        private Object truckno;
+        private String truckno;
         private Object trucklength;
         private Object trucktype;
         private Object dealprice;
@@ -167,7 +171,7 @@ public class GetSRCBean {
         private Object otherfee;
         private Object feeremark;
         private Object totalcharge;
-        private String preloadtime;
+        private Object preloadtime;
         private Object loadtime;
         private Object loadadd;
         private Object prearrivetime;
@@ -178,14 +182,19 @@ public class GetSRCBean {
         private Object signadd;
         private Object loadwaittime;
         private Object unloadwaittime;
-        private Object status;
-        private String trucktypea;
-        private String trucktypeb;
-        private String trucktypec;
-        private String trucktyped;
-        private String trucktypef;
+        private String status;
+        private Object trucktypea;
+        private Object trucktypeb;
+        private Object trucktypec;
+        private Object trucktyped;
+        private Object trucktypef;
         private Object ownerprice;
+        private Object driverdeposit;
         private Object ReleaseTime;
+        private Object trucklengthHZ;
+        private Object trucktypeHZ;
+        private Object loadaddHZ;
+        private Object arrivedaddHZ;
         private Object TypeKCLX;
         private int userid;
         private Object GUID;
@@ -223,30 +232,8 @@ public class GetSRCBean {
         private String SMSDatetime;
         private String SecreKey;
         private String SecreKeyDateTime;
-        private String AvatarAddress;
+        private Object AvatarAddress;
         private int PageNum;
-        private String driverdeposit;
-        private String FromDetailedAddress;
-        private String ToDetailedAddress;
-        private String trucklengthHZ;
-        private String trucktypeHZ;
-
-
-        public String getTrucklengthHZ() {
-            return trucklengthHZ;
-        }
-
-        public void setTrucklengthHZ(String trucklengthHZ) {
-            this.trucklengthHZ = trucklengthHZ;
-        }
-
-        public String getTrucktypeHZ() {
-            return trucktypeHZ;
-        }
-
-        public void setTrucktypeHZ(String trucktypeHZ) {
-            this.trucktypeHZ = trucktypeHZ;
-        }
 
         public int getBillid() {
             return billid;
@@ -288,11 +275,11 @@ public class GetSRCBean {
             this.ownername = ownername;
         }
 
-        public Object getOwnerphone() {
+        public String getOwnerphone() {
             return ownerphone;
         }
 
-        public void setOwnerphone(Object ownerphone) {
+        public void setOwnerphone(String ownerphone) {
             this.ownerphone = ownerphone;
         }
 
@@ -320,19 +307,19 @@ public class GetSRCBean {
             this.cargotype = cargotype;
         }
 
-        public Object getQty() {
+        public int getQty() {
             return qty;
         }
 
-        public void setQty(Object qty) {
+        public void setQty(int qty) {
             this.qty = qty;
         }
 
-        public Object getUnit() {
+        public String getUnit() {
             return unit;
         }
 
-        public void setUnit(Object unit) {
+        public void setUnit(String unit) {
             this.unit = unit;
         }
 
@@ -376,11 +363,11 @@ public class GetSRCBean {
             this.driverphone = driverphone;
         }
 
-        public Object getTruckno() {
+        public String getTruckno() {
             return truckno;
         }
 
-        public void setTruckno(Object truckno) {
+        public void setTruckno(String truckno) {
             this.truckno = truckno;
         }
 
@@ -496,11 +483,11 @@ public class GetSRCBean {
             this.totalcharge = totalcharge;
         }
 
-        public String getPreloadtime() {
+        public Object getPreloadtime() {
             return preloadtime;
         }
 
-        public void setPreloadtime(String preloadtime) {
+        public void setPreloadtime(Object preloadtime) {
             this.preloadtime = preloadtime;
         }
 
@@ -584,51 +571,51 @@ public class GetSRCBean {
             this.unloadwaittime = unloadwaittime;
         }
 
-        public Object getStatus() {
+        public String getStatus() {
             return status;
         }
 
-        public void setStatus(Object status) {
+        public void setStatus(String status) {
             this.status = status;
         }
 
-        public String getTrucktypea() {
+        public Object getTrucktypea() {
             return trucktypea;
         }
 
-        public void setTrucktypea(String trucktypea) {
+        public void setTrucktypea(Object trucktypea) {
             this.trucktypea = trucktypea;
         }
 
-        public String getTrucktypeb() {
+        public Object getTrucktypeb() {
             return trucktypeb;
         }
 
-        public void setTrucktypeb(String trucktypeb) {
+        public void setTrucktypeb(Object trucktypeb) {
             this.trucktypeb = trucktypeb;
         }
 
-        public String getTrucktypec() {
+        public Object getTrucktypec() {
             return trucktypec;
         }
 
-        public void setTrucktypec(String trucktypec) {
+        public void setTrucktypec(Object trucktypec) {
             this.trucktypec = trucktypec;
         }
 
-        public String getTrucktyped() {
+        public Object getTrucktyped() {
             return trucktyped;
         }
 
-        public void setTrucktyped(String trucktyped) {
+        public void setTrucktyped(Object trucktyped) {
             this.trucktyped = trucktyped;
         }
 
-        public String getTrucktypef() {
+        public Object getTrucktypef() {
             return trucktypef;
         }
 
-        public void setTrucktypef(String trucktypef) {
+        public void setTrucktypef(Object trucktypef) {
             this.trucktypef = trucktypef;
         }
 
@@ -640,11 +627,11 @@ public class GetSRCBean {
             this.ownerprice = ownerprice;
         }
 
-        public String getDriverdeposit() {
+        public Object getDriverdeposit() {
             return driverdeposit;
         }
 
-        public void setDriverdeposit(String driverdeposit) {
+        public void setDriverdeposit(Object driverdeposit) {
             this.driverdeposit = driverdeposit;
         }
 
@@ -654,6 +641,38 @@ public class GetSRCBean {
 
         public void setReleaseTime(Object ReleaseTime) {
             this.ReleaseTime = ReleaseTime;
+        }
+
+        public Object getTrucklengthHZ() {
+            return trucklengthHZ;
+        }
+
+        public void setTrucklengthHZ(Object trucklengthHZ) {
+            this.trucklengthHZ = trucklengthHZ;
+        }
+
+        public Object getTrucktypeHZ() {
+            return trucktypeHZ;
+        }
+
+        public void setTrucktypeHZ(Object trucktypeHZ) {
+            this.trucktypeHZ = trucktypeHZ;
+        }
+
+        public Object getLoadaddHZ() {
+            return loadaddHZ;
+        }
+
+        public void setLoadaddHZ(Object loadaddHZ) {
+            this.loadaddHZ = loadaddHZ;
+        }
+
+        public Object getArrivedaddHZ() {
+            return arrivedaddHZ;
+        }
+
+        public void setArrivedaddHZ(Object arrivedaddHZ) {
+            this.arrivedaddHZ = arrivedaddHZ;
         }
 
         public Object getTypeKCLX() {
@@ -952,11 +971,11 @@ public class GetSRCBean {
             this.SecreKeyDateTime = SecreKeyDateTime;
         }
 
-        public String getAvatarAddress() {
+        public Object getAvatarAddress() {
             return AvatarAddress;
         }
 
-        public void setAvatarAddress(String AvatarAddress) {
+        public void setAvatarAddress(Object AvatarAddress) {
             this.AvatarAddress = AvatarAddress;
         }
 
@@ -966,22 +985,6 @@ public class GetSRCBean {
 
         public void setPageNum(int PageNum) {
             this.PageNum = PageNum;
-        }
-
-        public String getToDetailedAddress() {
-            return ToDetailedAddress;
-        }
-
-        public void setToDetailedAddress(String toDetailedAddress) {
-            ToDetailedAddress = toDetailedAddress;
-        }
-
-        public String getFromDetailedAddress() {
-            return FromDetailedAddress;
-        }
-
-        public void setFromDetailedAddress(String fromDetailedAddress) {
-            FromDetailedAddress = fromDetailedAddress;
         }
     }
 }

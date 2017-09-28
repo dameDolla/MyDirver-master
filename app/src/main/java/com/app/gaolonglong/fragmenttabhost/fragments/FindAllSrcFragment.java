@@ -3,6 +3,7 @@ package com.app.gaolonglong.fragmenttabhost.fragments;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -105,12 +106,14 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         init();
+
+        getSrcFromside(initJsonData(flag,addrs));
     }
 
     @Override
     public void onStart() {
         super.onStart();
-       getSrcFromside(initJsonData(flag,addrs));
+
 
     }
 
@@ -131,7 +134,7 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
         mobile = ToolsUtils.getString(getContext(), Constant.MOBILE, "");
         key = ToolsUtils.getString(getContext(), Constant.KEY, "");
         location = ToolsUtils.getString(getContext(), Constant.CITY, "");
-
+        ToolsUtils.getInstance().toastShowStr(getContext(),ToolsUtils.getString(getContext(),Constant.CITY,""));
         mText.get(0).setOnClickListener(this);
         mText.get(1).setOnClickListener(this);
         mText.get(2).setOnClickListener(this);
@@ -148,6 +151,13 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
                 //ToolsUtils.getInstance().toastShowStr(getContext(),bean.getOwnerguid());
                 Intent intent = new Intent(getContext(), FindDetailActivity.class);
                 intent.putExtra("findSrc",bean);
+                startActivity(intent);
+            }
+        });
+        adapter.setOnFindClickListener(new FindSrcAdapter.OnFindClickListener() {
+            @Override
+            public void onFindClick(int position, String tel) {
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+list.get(position).getOwnerphone()));
                 startActivity(intent);
             }
         });
@@ -313,32 +323,37 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
     /**
      * 根据始发地查找货源
      */
-    private void getSrcFromside(String json)
+    private void getSrcFromside(final String json)
     {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                RetrofitUtils.getRetrofitService()
+                        .getSRCWithFromside(Constant.MYINFO_PAGENAME, Config.SRC_FROMSIDE,json)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Subscriber<GetSRCBean>() {
+                            @Override
+                            public void onCompleted() {
 
-        RetrofitUtils.getRetrofitService()
-                .getSRCWithFromside(Constant.MYINFO_PAGENAME, Config.SRC_FROMSIDE,json)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<GetSRCBean>() {
-                    @Override
-                    public void onCompleted() {
+                            }
 
-                    }
+                            @Override
+                            public void onError(Throwable e) {
+                                //ToolsUtils.getInstance().toastShowStr(getContext(),e.getMessage());
+                            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        //ToolsUtils.getInstance().toastShowStr(getContext(),e.getMessage());
-                    }
+                            @Override
+                            public void onNext(GetSRCBean getSRCBean) {
 
-                    @Override
-                    public void onNext(GetSRCBean getSRCBean) {
+                                list.clear();
+                                list.addAll(getSRCBean.getData());
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
+            }
+        }).start();
 
-                        list.clear();
-                        list.addAll(getSRCBean.getData());
-                        adapter.notifyDataSetChanged();
-                    }
-                });
 
     }
 

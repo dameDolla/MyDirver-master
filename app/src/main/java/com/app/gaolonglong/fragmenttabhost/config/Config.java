@@ -67,5 +67,16 @@ public class Config {
     public static final String GET_MSG = "GetSMS";
     //添加支付密码
     public static final String ADD_PSW = "AddPwdBySMS";
-
+    //验证是否设置支付密码是否正确
+    public static final String CHECK_PAYCODE = "YZPwdKey";
+    //根据短信验证码修改密码
+    public static final String YZM_UPDATE_PAYCODE = "UpdateNewPwdBySMS";
+    //根据旧密码修改密码
+    public static final String OLD_UPDATE_PAYCODE = "UpdateNewPwd";
+    //查询已完成的运单
+    public static final String MISSION_DONE = "GetBillsByComplete";
+    //查询取消的运单
+    public static final String MISSION_CANCEL = "GetBillsByCancel";
+    //查询执行中的运单
+    public static final String MISSION_DOING = "GetBillsByProcess";
 }

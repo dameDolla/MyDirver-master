@@ -331,7 +331,14 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         switch (view.getId())
         {
             case R.id.setting_icon_rl:
-                uploadImage();
+                if (ToolsUtils.getInstance().isLogin(SettingActivity.this))
+                {
+                    uploadImage();
+                }
+                else
+                {
+                    ToolsUtils.getInstance().toastShowStr(SettingActivity.this,"请先登录");
+                }
                 break;
             case R.id.setting_icon:
 

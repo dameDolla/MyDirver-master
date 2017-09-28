@@ -42,6 +42,7 @@
                     android:layout_height="wrap_content"
                     android:text="距离卸货地点约10w公里"
                     android:textSize="@dimen/txt_12"
+                    android:visibility="gone"
                     android:id="@+id/src_detail_juli"
                     android:textColor="#666666"/>
             </LinearLayout>
@@ -101,6 +102,7 @@
                     android:layout_height="wrap_content"
                     android:text="距离卸货地点约10w公里"
                     android:textSize="@dimen/txt_12"
+                    android:visibility="gone"
                     android:id="@+id/src_detail_to_juli"
                     android:textColor="#666666"/>
             </LinearLayout>
@@ -136,6 +138,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="投诉"
+                android:visibility="invisible"
                 android:textColor="@color/red"
                 android:textSize="@dimen/txt_12"
                 android:layout_alignParentRight="true"
@@ -148,6 +151,7 @@
                 android:layout_marginLeft="@dimen/txt_15dp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/txt_12"
+                android:visibility="invisible"
                 android:paddingTop="@dimen/txt_5dp"
                 android:paddingBottom="@dimen/txt_5dp"
                 android:paddingRight="@dimen/txt_10dp"
@@ -280,7 +284,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="我要去贝加尔湖畔看海"
+                android:text="货主没有留言"
                 android:textColor="#666666"
                 android:textSize="@dimen/txt_12"
                 android:id="@+id/src_detail_message"
@@ -369,11 +373,12 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/querenyijia"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="我要报价"
+                android:paddingLeft="@dimen/txt_10dp"
                 android:gravity="center_vertical"
                 android:textColor="@color/white"
                 android:textSize="@dimen/txt_18"/>

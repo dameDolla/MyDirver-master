@@ -36,6 +36,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/txt_39dp"
+        android:id="@+id/main_paycode_reset"
         android:background="@color/white">
         <TextView
             android:layout_width="wrap_content"

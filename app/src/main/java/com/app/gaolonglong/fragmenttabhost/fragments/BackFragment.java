@@ -20,9 +20,11 @@ import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
 import com.app.gaolonglong.fragmenttabhost.bean.ReleaseBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.LoadingDialog;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.app.gaolonglong.fragmenttabhost.view.CommomDialog;
 import com.app.gaolonglong.fragmenttabhost.view.EmptyLayout;
 import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
 import com.app.gaolonglong.fragmenttabhost.view.RecycleViewDivider;
@@ -72,7 +74,15 @@ public class BackFragment extends Fragment implements View.OnClickListener{
     @OnClick(R.id.rl_toaddrelease)
     public void release()
     {
-        startActivityForResult(new Intent(getActivity(),AddReleaseActivity.class),1);
+        String usertype = GetUserInfoUtils.getUserType(getContext());
+        if(usertype.equals("3"))
+        {
+            new CommomDialog(getContext(),"对不起,您的权限不够").setTitle("友情提示").show();
+        }
+        else
+        {
+            startActivityForResult(new Intent(getActivity(),AddReleaseActivity.class),1);
+        }
     }
 
     @Nullable

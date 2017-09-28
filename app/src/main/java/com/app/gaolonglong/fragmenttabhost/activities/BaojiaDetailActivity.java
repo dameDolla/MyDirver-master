@@ -78,7 +78,7 @@ public class BaojiaDetailActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.baojia_detail);
+        setContentView(R.layout.baojia_details);
         ButterKnife.bind(this);
         init();
     }

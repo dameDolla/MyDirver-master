@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/find_all_parent">
+    android:id="@+id/find_all_parent"
+    android:background="@color/color_f2">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,7 +13,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/white">
 
             <RelativeLayout
                 android:layout_width="0dp"
@@ -129,16 +131,27 @@
 
         </LinearLayout>
 
-
-
-        <android.support.v7.widget.RecyclerView
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/find_src_rlv"/>
+            >
 
-        <!--<com.app.gaolonglong.fragmenttabhost.view.EmptyLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/find_empty_view"/>-->
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/find_src_rlv"
+                />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/color_f2"/>
+        </LinearLayout>
+
+        </ScrollView>
+
     </LinearLayout>
 </LinearLayout>

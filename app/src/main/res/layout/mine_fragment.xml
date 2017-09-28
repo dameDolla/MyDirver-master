@@ -86,14 +86,14 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/vtruename"
                         android:paddingLeft="@dimen/txt_20dp"/>
                 </LinearLayout>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:text="15908680321"
+                    android:text=""
                     android:textSize="@dimen/txt_14"
                     android:id="@+id/mine_tel"/>
                 <LinearLayout

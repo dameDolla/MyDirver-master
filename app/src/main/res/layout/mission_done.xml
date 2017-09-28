@@ -3,116 +3,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <FrameLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/txt_20dp"
-        android:background="@color/color_f2"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:paddingTop="@dimen/txt_10dp"
-            android:paddingLeft="@dimen/txt_10dp"
-            android:paddingRight="@dimen/txt_5dp"
-            android:src="@drawable/bluecompass"
-            />
+            android:id="@+id/mission_done_rcv"/>
+    </ScrollView>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="11"
-            android:paddingTop="@dimen/txt_5dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="深圳南山科技园-俄罗斯贝加尔湖"
-                android:textColor="@color/black"
-                android:id="@+id/mission_item_addr"
-                android:textSize="@dimen/txt_16" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="货单信息|家具\10.0吨\高箱车"
-                android:padding="@dimen/txt_5dp"
-                android:id="@+id/mission_item_carinfo"
-                android:textSize="@dimen/txt_12"
-                android:textColor="@color/white"
-                android:layout_marginTop="@dimen/txt_5dp"
-                android:background="@color/google_green"/>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/txt_5dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="装车时间:2017-7-31 6:32"
-                    android:id="@+id/mission_item_time"
-                    android:textColor="@color/black_6d"
-                    android:textSize="@dimen/txt_12"/>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="状态:"
-                        android:textSize="@dimen/txt_14"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="以装货"
-                        android:id="@+id/mission_item_status"
-                        android:textColor="@color/red"
-                        android:textSize="@dimen/txt_14"/>
-                </LinearLayout>
-
-            </RelativeLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="车牌号:粤B 12112"
-                android:id="@+id/mission_item_carnum"
-                android:layout_marginTop="@dimen/txt_5dp"
-                android:textColor="@color/black_6d"
-                android:textSize="@dimen/txt_12"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@mipmap/phone"
-                android:id="@+id/mission_item_phone"
-                android:paddingLeft="@dimen/txt_15dp"/>
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/txt_39dp"
-        android:background="@color/color_f2"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="查看订单"
-            android:id="@+id/mission_order_cancle"
-            android:textColor="@color/black_6d"
-            android:textSize="@dimen/txt_16"
-            android:gravity="center"/>
-
-    </LinearLayout>
 </LinearLayout>

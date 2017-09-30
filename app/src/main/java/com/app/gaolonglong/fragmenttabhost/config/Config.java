@@ -79,4 +79,14 @@ public class Config {
     public static final String MISSION_CANCEL = "GetBillsByCancel";
     //查询执行中的运单
     public static final String MISSION_DOING = "GetBillsByProcess";
+    //获取所有的参数
+    public static final String GET_PARAMETERS = "GetParameterByModel";
+    //运单修改状态为已预报
+    public static final String MISSION_STATUS_YUBAO = "UpdateStatus1";
+    //运单修改状态为已执行
+    public static final String MISSION_STATUS_ZHIXING = "UpdateStatus2";
+    //运单修改状态为已卸货
+    public static final String MISSION_STATUS_XIEHUO = "UpdateStatus3";
+    //运单修改状态为已签收
+    public static final String MISSION_STATUS_QIANSHOU = "UpdateStatus4";
 }

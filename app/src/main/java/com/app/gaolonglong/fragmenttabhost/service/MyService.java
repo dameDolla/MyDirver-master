@@ -1,39 +1,27 @@
 package com.app.gaolonglong.fragmenttabhost.service;
 
-import okhttp3.Response;
 import retrofit2.http.Body;
-import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.Header;
-import retrofit2.http.Headers;
-import retrofit2.http.Path;
-import retrofit2.http.QueryMap;
 import rx.Observable;
 
-import com.app.gaolonglong.fragmenttabhost.adapter.MissionListBean;
+import com.app.gaolonglong.fragmenttabhost.bean.MissionListBean;
 import com.app.gaolonglong.fragmenttabhost.bean.BaojiaListBean;
 import com.app.gaolonglong.fragmenttabhost.bean.CompanyInfoBean;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
 import com.app.gaolonglong.fragmenttabhost.bean.GetSRCBean;
 import com.app.gaolonglong.fragmenttabhost.bean.LoginBean;
+import com.app.gaolonglong.fragmenttabhost.bean.ParametersBean;
 import com.app.gaolonglong.fragmenttabhost.bean.ReleaseBean;
-import com.app.gaolonglong.fragmenttabhost.bean.RequestPostBody;
 import com.app.gaolonglong.fragmenttabhost.bean.RouteListBean;
-import com.app.gaolonglong.fragmenttabhost.bean.UpdateIdCardBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
 
-import java.util.HashMap;
-
-import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.GET;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 /**
@@ -108,8 +96,8 @@ public interface MyService {
      */
     @FormUrlEncoded
     @POST(Config.host)
-    Observable<GetCodeBean> setCarsInfo(@Field("MethodName") String method,
-                                        @Field("PageName") String page,
+    Observable<GetCodeBean> setCarsInfo(@Field(Constant.PAGENAME) String page,
+                                        @Field(Constant.METHOD) String method,
                                         @Field("JsonValue") String json);
 
     /**
@@ -257,4 +245,20 @@ public interface MyService {
     Observable<MissionListBean> getMissionList(@Field(Constant.PAGENAME) String page,
                                                @Field(Constant.METHOD) String method,
                                                @Field("JsonValue") String json);
+    /**
+     * 获取所有的参数
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<ParametersBean> getParameters(@Field(Constant.PAGENAME) String page,
+                                             @Field(Constant.METHOD) String method,
+                                             @Field("JsonValue") String json);
+    /**
+     * 改变运单状态
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> changeMissionStatus(@Field(Constant.PAGENAME) String page,
+                                             @Field(Constant.METHOD) String method,
+                                             @Field("JsonValue") String json);
 }

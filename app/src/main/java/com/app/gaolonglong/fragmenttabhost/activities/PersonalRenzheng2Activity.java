@@ -27,9 +27,9 @@ import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
-import com.app.gaolonglong.fragmenttabhost.bean.RequestPostBody;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.LoadingDialog;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
@@ -40,7 +40,9 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindViews;
 import butterknife.ButterKnife;
@@ -52,7 +54,6 @@ import okhttp3.ResponseBody;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-
 /**
  * Created by yanqi on 2017/8/28.
  */
@@ -105,7 +106,7 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
     @OnClick(R.id.person2_next)
     public void next() {
         dialog.show();
-        toNext();
+        toNext(initJsonData());
     }
 
     @Override
@@ -133,44 +134,44 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
         mobile = ToolsUtils.getString(PersonalRenzheng2Activity.this, Constant.MOBILE, "");
         key = ToolsUtils.getString(PersonalRenzheng2Activity.this, Constant.KEY, "");
     }
+    private String initJsonData()
+    {
+        Map<String,String> map  = new HashMap<>();
+        map.put("GUID",guid);
+        map.put(Constant.KEY,key);
+        map.put(Constant.MOBILE,mobile);
+        map.put("truckno", mEdit.get(0).getText().toString());
+        map.put("trucklicence", mEdit.get(1).getText().toString());
+        map.put("trucktype", mEdit.get(3).getText().toString());
+        map.put("trucklength", mEdit.get(4).getText().toString());
+        map.put("boardingtime", mEdit.get(2).getText().toString());
 
-    private void toNext() {
+        return JsonUtils.getInstance().getJsonStr(map);
+    }
+    private void toNext(String json) {
 
-        JSONObject json = new JSONObject();
-        try {
-            json.put("GUID", guid);
-            json.put(Constant.KEY, key);
-            json.put(Constant.MOBILE, mobile);
-            json.put("truckno", mEdit.get(0).getText());
-            json.put("trucklicence", mEdit.get(1).getText());
-            json.put("trucktype", mEdit.get(3).getText());
-            json.put("trucklength", mEdit.get(4).getText());
-            json.put("boardingtime", mEdit.get(2).getText());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        RetrofitUtils.getRetrofitService().setCarsInfo(
-                "YZ",
-                Config.BIND_TRUCK,
-                json.toString())
+        RetrofitUtils.getRetrofitService()
+                .setCarsInfo("YZ",Config.BIND_TRUCK,json)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<GetCodeBean>() {
                     @Override
                     public void onCompleted() {
-                        dialog.dismiss();
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        dialog.dismiss();
+                        Log.e("personerror",e.getMessage());
                     }
 
                     @Override
                     public void onNext(GetCodeBean getCodeBean) {
-                        dialog.dismiss();
-                        ToolsUtils.getInstance().toastShowStr(PersonalRenzheng2Activity.this,getCodeBean.getErrorMsg());
+                        Log.e("personinfo",getCodeBean.getErrorMsg());
+                        if (getCodeBean.getErrorCode().equals("200"))
+                        {
+                            startActivity(new Intent(PersonalRenzheng2Activity.this,CommitSuccessActivity.class));
+                        }
                     }
                 });
 

@@ -99,7 +99,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="绑定调度平台"
+                            android:text="车辆信息填写"
                             android:textColor="@color/gray_87"/>
                     </LinearLayout>
                 </RelativeLayout>

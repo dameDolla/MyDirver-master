@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -197,11 +198,12 @@ public class CarGroupRenzheng2Activity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.e("cargrouperror",e.getMessage());
                     }
 
                     @Override
                     public void onNext(GetCodeBean response) {
+                        Log.e("cargroutpinfo",response.getErrorMsg());
                        ToolsUtils.getInstance().toastShowStr(CarGroupRenzheng2Activity.this,response.getErrorMsg());
                     }
                 });

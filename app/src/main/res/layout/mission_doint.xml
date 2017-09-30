@@ -12,4 +12,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/mission_doing_rcv"/>
         </ScrollView>
+    <com.app.gaolonglong.fragmenttabhost.view.EmptyLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/mission_doing_empty"/>
 </LinearLayout>

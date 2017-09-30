@@ -20,6 +20,25 @@ public class GetUserInfoUtils {
     }
 
     /**
+     * 是否认证
+     * @param context
+     * @return
+     */
+    public static String getVtrueName(Context context)
+    {
+        return ToolsUtils.getString(context,Constant.VTRUENAME,"");
+    }
+
+    /**
+     * 公司是否认证
+     * @param context
+     * @return
+     */
+    public static String getVcompany(Context context)
+    {
+        return ToolsUtils.getString(context,Constant.VCOMPANY,"");
+    }
+    /**
      * 获取guid
      * @param context
      * @return

@@ -61,8 +61,8 @@
                     android:layout_weight="1"
                     android:gravity="center">
                     <com.facebook.drawee.view.SimpleDraweeView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
                         app:roundAsCircle="true"
                         android:padding="@dimen/txt_10dp"
                         android:id="@+id/mission_detail_icon"/>
@@ -81,14 +81,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text="收货人:"
-                            android:textSize="@dimen/txt_16"
+                            android:textSize="@dimen/txt_14"
                             android:textColor="@color/black"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text="王先生"
                             android:id="@+id/missison_detail_name"
-                            android:textSize="@dimen/txt_16"
+                            android:textSize="@dimen/txt_14"
                             android:textColor="@color/black"
                             android:paddingLeft="@dimen/txt_10dp"/>
                     </LinearLayout>
@@ -102,15 +102,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text="收货地址:"
-                            android:textSize="@dimen/txt_16"
+                            android:textSize="@dimen/txt_14"
                             android:textColor="@color/black"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text="深圳市虚拟大学园"
                             android:singleLine="true"
+                            android:ellipsize="marquee"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:marqueeRepeatLimit="marquee_forever"
                             android:id="@+id/mission_detail_addr"
-                            android:textSize="@dimen/txt_16"
+                            android:textSize="@dimen/txt_14"
                             android:textColor="@color/black"
                             android:paddingLeft="@dimen/txt_10dp"/>
                     </LinearLayout>
@@ -167,7 +171,7 @@
                         android:text="已接单,等待下一步操作"
                         android:textColor="@color/black"
                         android:paddingTop="@dimen/txt_10dp"
-                        android:textSize="@dimen/txt_16"/>
+                        android:textSize="@dimen/txt_14"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -178,12 +182,12 @@
                             android:layout_height="wrap_content"
                             android:text="装货地址:"
                             android:textColor="@color/gray_87"
-                            android:textSize="@dimen/txt_14"/>
+                            android:textSize="@dimen/txt_12"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="深圳市虚拟大学园R3-b"
-                            android:textSize="@dimen/txt_14"
+                            android:textSize="@dimen/txt_12"
                             android:textColor="@color/gray_87"
                             android:paddingLeft="@dimen/txt_5dp"
                             android:id="@+id/mission_detail_step_addr"/>
@@ -200,7 +204,7 @@
                         android:layout_height="wrap_content"
                         android:text="等待去装货地点进行装车"
                         android:textColor="@color/gray_87"
-                        android:textSize="@dimen/txt_16"/>
+                        android:textSize="@dimen/txt_14"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -211,12 +215,12 @@
                             android:layout_height="wrap_content"
                             android:text="目前地址:"
                             android:textColor="@color/gray_87"
-                            android:textSize="@dimen/txt_14"/>
+                            android:textSize="@dimen/txt_12"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="深圳市虚拟大学园R3-b"
-                            android:textSize="@dimen/txt_14"
+                            android:textSize="@dimen/txt_12"
                             android:textColor="@color/gray_87"
                             android:paddingLeft="@dimen/txt_5dp"
                             android:id="@+id/mission_detail_step_nowaddr"/>
@@ -233,7 +237,7 @@
                         android:layout_height="wrap_content"
                         android:text="装货成功正在运往目的地"
                         android:textColor="@color/gray_87"
-                        android:textSize="@dimen/txt_16"/>
+                        android:textSize="@dimen/txt_14"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -243,12 +247,12 @@
                             android:layout_height="wrap_content"
                             android:text="目的地:"
                             android:textColor="@color/gray_87"
-                            android:textSize="@dimen/txt_14"/>
+                            android:textSize="@dimen/txt_12"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="俄罗斯贝加尔湖"
-                            android:textSize="@dimen/txt_14"
+                            android:textSize="@dimen/txt_12"
                             android:textColor="@color/gray_87"
                             android:paddingLeft="@dimen/txt_5dp"
                             android:id="@+id/mission_detail_step_tosite"/>
@@ -265,14 +269,13 @@
                         android:layout_height="wrap_content"
                         android:text="到达目的地,正在卸货"
                         android:textColor="@color/gray_87"
-                        android:textSize="@dimen/txt_16"/>
+                        android:textSize="@dimen/txt_14"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="等待货主验收货物，支付相应费用"
-                            android:textSize="@dimen/txt_14"
+                            android:textSize="@dimen/txt_12"
                             android:textColor="@color/gray_87"
-                            android:paddingLeft="@dimen/txt_5dp"
                             android:id="@+id/mission_detail_stepfour_txt"/>
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -286,14 +289,13 @@
                         android:layout_height="wrap_content"
                         android:text="运单完成"
                         android:textColor="@color/gray_87"
-                        android:textSize="@dimen/txt_16"/>
+                        android:textSize="@dimen/txt_14"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="货主已支付相关费用，保证金已退回"
-                        android:textSize="@dimen/txt_14"
+                        android:textSize="@dimen/txt_12"
                         android:textColor="@color/gray_87"
-                        android:paddingLeft="@dimen/txt_5dp"
                         android:id="@+id/mission_detail_stepfive_txt"/>
 
                 </LinearLayout>

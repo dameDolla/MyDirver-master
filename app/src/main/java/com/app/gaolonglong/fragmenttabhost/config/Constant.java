@@ -6,6 +6,8 @@ package com.app.gaolonglong.fragmenttabhost.config;
 
 public class Constant {
 
+    //获取所有参数的PageName
+    public static final String PARAMETER_PAGENAME = "Parameter";
     //获取个人信息的PageName
     public static final String MYINFO_PAGENAME = "MyInfo";
     //获取报价 PageName
@@ -35,6 +37,8 @@ public class Constant {
 
     public static final String VTRUENAME = "vtruename";
 
+    public static final String VCOMPANY = "vcompany";
+
     public static final String RELEASE_CANCLE = "cancle";
 
     public static final String RELEASE_EDIT = "edit";
@@ -54,4 +58,6 @@ public class Constant {
     public static final String LNG = "lng";
     //账户余额
     public static final String COUNT = "money";
+
+
 }

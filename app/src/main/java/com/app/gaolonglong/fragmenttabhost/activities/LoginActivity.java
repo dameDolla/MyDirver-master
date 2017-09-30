@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -44,7 +45,8 @@ public class LoginActivity extends BaseActivity {
     @BindViews({R.id.login_phone, R.id.login_code})
     public List<EditText> mEditText;
     private String result;
-
+    @BindView(R.id.login_versionname)
+    public TextView versionname;
 
     @OnClick(R.id.login_now)
     public void login() {
@@ -134,13 +136,14 @@ public class LoginActivity extends BaseActivity {
                 if (response.isSuccessful()) {
                     GetCodeBean code = response.body();
                     String msg = code.getErrorMsg();
-                    ToolsUtils.getInstance().toastShowStr(LoginActivity.this, code.getErrorMsg());
+                    //ToolsUtils.getInstance().toastShowStr(LoginActivity.this, code.getErrorMsg());
+                    Log.e("getCodeInfo",code.getErrorMsg());
                 }
             }
 
             @Override
             public void onFailure(Call<GetCodeBean> call, Throwable t) {
-                ToolsUtils.getInstance().toastShowStr(LoginActivity.this, t.getMessage());
+                //ToolsUtils.getInstance().toastShowStr(LoginActivity.this, t.getMessage());
             }
 
 
@@ -162,7 +165,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void initView() {
-
+        versionname.setText("司机版 "+ToolsUtils.getVersionName(LoginActivity.this));
     }
 
     private class MyCounDownTimer extends CountDownTimer {

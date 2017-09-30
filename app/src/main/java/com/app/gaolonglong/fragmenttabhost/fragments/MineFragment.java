@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
+import com.app.gaolonglong.fragmenttabhost.activities.CarInfoActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.LoginActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.MyCarTeamActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.MyCardListActivity;
@@ -50,7 +51,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 
 
     @BindViews({R.id.mine_setting, R.id.mine_username,
-            R.id.mine_tel})
+            R.id.mine_tel,R.id.mine_is_renzheng})
     public List<TextView> mList;
 
     @BindViews({R.id.renzheng_rl, R.id.mine_rl_message,
@@ -89,6 +90,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 
     public void init() {
         initView();
+        showItem();
     }
 
     public void initView() {
@@ -102,7 +104,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         rlList.get(6).setOnClickListener(this);
         rlList.get(7).setOnClickListener(this);
         rlList.get(8).setOnClickListener(this);
-
+       // if (GetUserInfoUtils.getUserType(getContext()).equals(""))
         checkInfo();
     }
 
@@ -112,13 +114,13 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     private void checkInfo() {
         //获取保存的用户信息
         String guid = GetUserInfoUtils.getGuid(getContext());
-        //ToolsUtils.getInstance().toastShowStr(getActivity(),guid);
+        ToolsUtils.getInstance().toastShowStr(getActivity(),guid);
         if (!TextUtils.isEmpty(guid)) {
 
             isLogin = true;
             mList.get(1).setText(ToolsUtils.getString(getActivity(), Constant.MOBILE, ""));
             mList.get(2).setText(ToolsUtils.getString(getActivity(), Constant.MOBILE, ""));
-            ToolsUtils.getInstance().toastShowStr(getActivity(), ToolsUtils.getString(getActivity(), Constant.USERNAME, ""));
+            //ToolsUtils.getInstance().toastShowStr(getActivity(), GetUserInfoUtils.getVtrueName(getContext()));
             String url = ToolsUtils.getString(getContext(), Constant.HEADLOGO, "");
             logo.setImageURI(Uri.parse(url));
         } else {
@@ -139,6 +141,16 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         String usertype = GetUserInfoUtils.getUserType(getContext());
         if (usertype.equals("2")){//个体司机
             rlList.get(5).setVisibility(View.GONE);
+        }
+        if (GetUserInfoUtils.getVtrueName(getContext()).equals("0"))
+        {
+            mList.get(3).setText("未认证");
+        }else if (GetUserInfoUtils.getVtrueName(getContext()).equals("1")){
+            mList.get(3).setText("已提交");
+        }else if (GetUserInfoUtils.getVtrueName(getContext()).equals("2")){
+            mList.get(3).setText("不合格");
+        }else if (GetUserInfoUtils.getVtrueName(getContext()).equals("9")){
+            mList.get(3).setText("已认证");
         }
     }
     @Override
@@ -198,9 +210,9 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.mine_rl_car:
                 if (isLogin){
-
+                    startActivity(new Intent(getContext(), CarInfoActivity.class));
                 }else {
-
+                    ToolsUtils.getInstance().toastShowStr(getActivity(),login);
                 }
                 break;
             case R.id.mine_rl_carteam:

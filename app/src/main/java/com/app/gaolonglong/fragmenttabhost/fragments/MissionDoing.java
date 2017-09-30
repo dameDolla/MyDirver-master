@@ -1,7 +1,9 @@
 package com.app.gaolonglong.fragmenttabhost.fragments;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -13,19 +15,24 @@ import android.view.ViewGroup;
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.activities.MissionDetailActivity;
 import com.app.gaolonglong.fragmenttabhost.adapter.MissionListAdapter;
-import com.app.gaolonglong.fragmenttabhost.adapter.MissionListBean;
+import com.app.gaolonglong.fragmenttabhost.bean.MissionDetailBean;
+import com.app.gaolonglong.fragmenttabhost.bean.MissionListBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.app.gaolonglong.fragmenttabhost.view.EmptyLayout;
 import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +50,9 @@ public class MissionDoing extends Fragment {
 
     @BindView(R.id.mission_doing_rcv)
     public RecyclerView rcv;
+
+    @BindView(R.id.mission_doing_empty)
+    public EmptyLayout empty;
     private MissionListAdapter adapter;
 
     @Nullable
@@ -80,21 +90,43 @@ public class MissionDoing extends Fragment {
         MyLinearLayoutManager manager = new MyLinearLayoutManager(getContext());
         rcv.setLayoutManager(manager);
         rcv.setAdapter(adapter);
-        getList(initJsonData());
+
         adapter.setOnMissionItemClick(new MissionListAdapter.OnMissionItemClick() {
             @Override
-            public void onMissionItemClick(View view) {
+            public void onMissionItemClick(View view, MissionDetailBean bean) {
                 Intent intent = new Intent(getContext(), MissionDetailActivity.class);
+                intent.putExtra("missionDetail",bean);
                 startActivity(intent);
+                ToolsUtils.getInstance().toastShowStr(getContext(),bean.getBillsGUID()+"");
             }
         });
+        adapter.setOnMissionClick(new MissionListAdapter.OnMissionClick() {
+            @Override
+            public void onMissionClick(int position, String missionnum, String flag) {
+                if (flag.equals("cancel"))
+                {
+                    ToolsUtils.getInstance().toastShowStr(getContext(),missionnum);
+                }else if (flag.equals("caozuo")){
+                    ToolsUtils.getInstance().toastShowStr(getContext(),missionnum);
+                }else if (flag.equals("tel")){
+                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+missionnum));
+                    startActivity(intent);
+                }
+            }
+        });
+        ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(3, 5,
+                1, TimeUnit.SECONDS, new LinkedBlockingDeque<Runnable>(128));
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                getList(initJsonData());
+            }
+        };
 
+        poolExecutor.execute(runnable);
     }
     private void getList(final String json)
     {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
                 RetrofitUtils.getRetrofitService()
                         .getMissionList(Constant.MYINFO_PAGENAME, Config.MISSION_DOING,json)
                         .subscribeOn(Schedulers.io())
@@ -112,13 +144,17 @@ public class MissionDoing extends Fragment {
 
                             @Override
                             public void onNext(MissionListBean missionListBean) {
-                                list.clear();
-                                list.addAll(missionListBean.getData());
-                                adapter.notifyDataSetChanged();
+                                if (missionListBean.getData().size() == 0){
+                                    empty.setErrorType(EmptyLayout.NODATA);
+                                }else {
+                                    empty.setVisibility(View.GONE);
+                                    list.clear();
+                                    list.addAll(missionListBean.getData());
+                                    adapter.notifyDataSetChanged();
+                                }
+
                             }
                         });
-            }
-        }).start();
 
     }
     private String initJsonData()
@@ -131,5 +167,11 @@ public class MissionDoing extends Fragment {
         map.put(Constant.MOBILE,mobile);
         map.put(Constant.KEY,key);
         return JsonUtils.getInstance().getJsonStr(map);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        onActivityCreated(null);
     }
 }

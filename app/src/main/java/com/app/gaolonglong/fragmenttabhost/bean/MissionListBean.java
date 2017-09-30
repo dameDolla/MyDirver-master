@@ -1,4 +1,4 @@
-package com.app.gaolonglong.fragmenttabhost.adapter;
+package com.app.gaolonglong.fragmenttabhost.bean;
 
 import java.util.List;
 
@@ -234,6 +234,34 @@ public class MissionListBean {
         private String SecreKeyDateTime;
         private Object AvatarAddress;
         private int PageNum;
+        private String billNumber;
+        private String Newload;
+        private String FromDetailedAddress;
+        private String ToDetailedAddress;
+
+        public String getToDetailedAddress() {
+            return ToDetailedAddress;
+        }
+
+        public String getFromDetailedAddress() {
+            return FromDetailedAddress;
+        }
+
+        public String getNewload() {
+            return Newload;
+        }
+
+        public void setNewload(String newload) {
+            Newload = newload;
+        }
+
+        public String getBillNumber() {
+            return billNumber;
+        }
+
+        public void setBillNumber(String billNumber) {
+            this.billNumber = billNumber;
+        }
 
         public int getBillid() {
             return billid;

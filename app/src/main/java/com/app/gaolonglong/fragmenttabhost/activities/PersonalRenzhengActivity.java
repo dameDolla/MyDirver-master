@@ -136,6 +136,7 @@ public class PersonalRenzhengActivity extends BaseActivity implements View.OnCli
         guid = ToolsUtils.getString(PersonalRenzhengActivity.this, Constant.LOGIN_GUID,"");
         key = ToolsUtils.getString(PersonalRenzhengActivity.this, Constant.KEY, "");
         mobile = ToolsUtils.getString(PersonalRenzhengActivity.this, Constant.MOBILE,"");
+        mEdit.get(1).setText(ToolsUtils.getString(PersonalRenzhengActivity.this,"idcard",""));
     }
 
     @Override
@@ -172,7 +173,6 @@ public class PersonalRenzhengActivity extends BaseActivity implements View.OnCli
         dialog.show();
         String name = mEdit.get(0).getText().toString();
         String num = mEdit.get(1).getText().toString();
-        // startActivity(new Intent(CarGroupRenzhengActivity.this,CarGroupRenzheng2Activity.class));
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(num))
         {
             ToolsUtils.getInstance().toastShowStr(PersonalRenzhengActivity.this,"请填写完整的信息");

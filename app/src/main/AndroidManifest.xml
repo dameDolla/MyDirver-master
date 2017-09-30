@@ -296,6 +296,11 @@
             android:theme="@style/AppTheme">
 
         </activity>
+        <!--车辆信息-->
+        <activity android:name=".activities.CarInfoActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
     </application>
 
 </manifest>

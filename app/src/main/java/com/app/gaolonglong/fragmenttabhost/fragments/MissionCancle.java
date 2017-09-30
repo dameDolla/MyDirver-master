@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.adapter.MissionListAdapter;
-import com.app.gaolonglong.fragmenttabhost.adapter.MissionListBean;
+import com.app.gaolonglong.fragmenttabhost.bean.MissionListBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;

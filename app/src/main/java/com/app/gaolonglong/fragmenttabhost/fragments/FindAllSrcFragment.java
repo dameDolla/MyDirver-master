@@ -36,6 +36,7 @@ import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 import com.app.gaolonglong.fragmenttabhost.view.MyGridView;
 import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
+import com.luoxudong.app.threadpool.ThreadPoolHelp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -106,8 +107,17 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         init();
+        ThreadPoolHelp.Builder
+                .cached()
+                .builder()
+                .execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        //线程执行体
+                        getSrcFromside(initJsonData(flag,addrs));
+                    }
+                    });
 
-        getSrcFromside(initJsonData(flag,addrs));
     }
 
     @Override

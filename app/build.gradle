@@ -33,33 +33,26 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:design:23.1.0'
-
     compile 'com.squareup.okhttp3:okhttp:3.3.0'
     compile 'com.squareup.okio:okio:1.5.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-
     compile 'com.github.zcweng:switch-button:0.0.3@aar'
     compile 'com.facebook.fresco:fresco:1.5.0'
     compile 'com.google.code.gson:gson:2.3'
-
     compile 'io.reactivex:rxandroid:1.0.1'
     compile 'io.reactivex:rxjava:1.1.5'
-
-
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
-
     /*高德地图定位*/
     compile 'com.amap.api:location:latest.integration'
-
     compile 'org.greenrobot:eventbus:3.0.0'
-
-    compile 'cn.jiguang.sdk:jpush:3.0.3'  // 此处以JPush 3.0.3 版本为例。
-    compile 'cn.jiguang.sdk:jcore:1.1.1'  // 此处以JCore 1.1.1 版本为例。
+    // 此处以JPush 3.0.3 版本为例。
+    // 此处以JCore 1.1.1 版本为例。
+    compile files('libs/ThreadPoolHelp-2.0.jar')
+    compile files('libs/xdd安卓sdk对接包3.1.5.jar')
 }

@@ -25,6 +25,7 @@ import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 import com.app.gaolonglong.fragmenttabhost.view.EmptyLayout;
 import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
+import com.luoxudong.app.threadpool.ThreadPoolHelp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -114,16 +115,25 @@ public class MissionDoing extends Fragment {
                 }
             }
         });
-        ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(3, 5,
+        /*ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(3, 5,
                 1, TimeUnit.SECONDS, new LinkedBlockingDeque<Runnable>(128));
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                getList(initJsonData());
+
             }
         };
 
-        poolExecutor.execute(runnable);
+        poolExecutor.execute(runnable);*/
+        ThreadPoolHelp.Builder
+                .cached()
+                .builder()
+                .execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        getList(initJsonData());
+                    }
+                    });
     }
     private void getList(final String json)
     {

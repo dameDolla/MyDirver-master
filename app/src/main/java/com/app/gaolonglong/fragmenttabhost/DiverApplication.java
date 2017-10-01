@@ -7,11 +7,11 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.xdd.pay.xddPay;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by yanqi on 2017/8/1.
@@ -30,8 +30,10 @@ public class DiverApplication extends Application {
         }
         mList = new ArrayList<Activity>();
         Fresco.initialize(this);
-        JPushInterface.setDebugMode(true);
-        JPushInterface.init(this);
+       // JPushInterface.setDebugMode(true);
+        //JPushInterface.init(this);
+        //xddPay.init(this);
+
     }
 
     /**

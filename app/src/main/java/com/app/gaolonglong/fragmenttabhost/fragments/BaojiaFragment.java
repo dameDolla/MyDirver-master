@@ -25,6 +25,7 @@ import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
+import com.luoxudong.app.threadpool.ThreadPoolHelp;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -113,7 +114,17 @@ public class BaojiaFragment extends Fragment {
         MyLinearLayoutManager manager = new MyLinearLayoutManager(getContext());
         rcl.setLayoutManager(manager);
         rcl.setAdapter(adapter);
-        getBaojiaList(json.toString());
+        ThreadPoolHelp.Builder
+                .cached()
+                .builder()
+                .execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        //线程执行体
+                        getBaojiaList(json.toString());
+                    }
+                });
+
 
 
         adapter.setOnclick(new BaojiaListAdapter.OnClickListener() {

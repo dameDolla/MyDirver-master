@@ -12,17 +12,6 @@ android {
         versionCode 1
         versionName "1.0"
 
-        ndk {
-            //选择要添加的对应cpu类型的.so库。
-            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
-            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
-        }
-
-        manifestPlaceholders = [
-                JPUSH_PKGNAME : applicationId,
-                JPUSH_APPKEY : "a06798ee88e4d7d9967c6c16", //JPush上注册的包名对应的appkey.
-                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
-        ]
     }
     buildTypes {
         release {
@@ -55,4 +44,6 @@ dependencies {
     // 此处以JCore 1.1.1 版本为例。
     compile files('libs/ThreadPoolHelp-2.0.jar')
     compile files('libs/xdd安卓sdk对接包3.1.5.jar')
+    compile files('libs/jcore-android-1.1.6.jar')
+    compile files('libs/jpush-android-3.0.8.jar')
 }

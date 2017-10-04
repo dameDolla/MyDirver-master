@@ -97,6 +97,7 @@ public class ToolsUtils {
         ToolsUtils.putString(context,Constant.MOBILE,"");
         ToolsUtils.putString(context,Constant.HEADLOGO,"");
         ToolsUtils.putString(context,Constant.COUNT,"");
+        ToolsUtils.putString(context,Constant.VCOMPANY,"");
 
     }
 

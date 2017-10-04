@@ -146,6 +146,7 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
             json.put("trucktype", mEdit.get(3).getText());
             json.put("trucklength", mEdit.get(4).getText());
             json.put("boardingtime", mEdit.get(2).getText());
+            json.put("TruckImg","");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -165,12 +166,15 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
                     @Override
                     public void onError(Throwable e) {
                         dialog.dismiss();
+                        Log.e("bindtruckerror",e.getMessage());
+                        //ToolsUtils.getInstance().toastShowStr(DiaoduRenzheng3Activity.this,e.getMessage());
                     }
 
                     @Override
                     public void onNext(GetCodeBean getCodeBean) {
                         dialog.dismiss();
-                        ToolsUtils.getInstance().toastShowStr(DiaoduRenzheng3Activity.this,getCodeBean.getErrorMsg());
+                        Log.e("bindtruck",getCodeBean.getErrorMsg());
+                        //ToolsUtils.getInstance().toastShowStr(DiaoduRenzheng3Activity.this,getCodeBean.getErrorMsg());
                     }
                 });
 

@@ -1,5 +1,7 @@
 package com.app.gaolonglong.fragmenttabhost.fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.app.gaolonglong.fragmenttabhost.R;
+import com.app.gaolonglong.fragmenttabhost.activities.MissionDetailActivity;
 import com.app.gaolonglong.fragmenttabhost.adapter.MissionListAdapter;
+import com.app.gaolonglong.fragmenttabhost.bean.MissionDetailBean;
 import com.app.gaolonglong.fragmenttabhost.bean.MissionListBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
@@ -17,6 +21,7 @@ import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
+import com.luoxudong.app.threadpool.ThreadPoolHelp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,7 +77,37 @@ public class MissionDone extends Fragment {
         MyLinearLayoutManager manager = new MyLinearLayoutManager(getContext());
         rcv.setLayoutManager(manager);
         rcv.setAdapter(adapter);
-        getList(initJsonData());
+        adapter.setOnMissionItemClick(new MissionListAdapter.OnMissionItemClick() {
+            @Override
+            public void onMissionItemClick(View view, MissionDetailBean bean) {
+                Intent intent = new Intent(getContext(), MissionDetailActivity.class);
+                intent.putExtra("missionDetail", bean);
+                startActivity(intent);
+                // ToolsUtils.getInstance().toastShowStr(getContext(),bean.getBillsGUID()+"");
+            }
+        });
+        adapter.setOnMissionClick(new MissionListAdapter.OnMissionClick() {
+            @Override
+            public void onMissionClick(int position, String missionnum, String flag) {
+                if (flag.equals("cancel")) {
+                    ToolsUtils.getInstance().toastShowStr(getContext(), missionnum);
+                } else if (flag.equals("caozuo")) {
+                    ToolsUtils.getInstance().toastShowStr(getContext(), missionnum);
+                } else if (flag.equals("tel")) {
+                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + missionnum));
+                    startActivity(intent);
+                }
+            }
+        });
+        ThreadPoolHelp.Builder
+                .cached()
+                .builder()
+                .execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        getList(initJsonData());
+                    }
+                });
     }
     private void getList(String json)
     {

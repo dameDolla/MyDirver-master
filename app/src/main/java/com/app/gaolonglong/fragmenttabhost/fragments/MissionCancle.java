@@ -1,5 +1,7 @@
 package com.app.gaolonglong.fragmenttabhost.fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,14 +11,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.app.gaolonglong.fragmenttabhost.R;
+import com.app.gaolonglong.fragmenttabhost.activities.MissionDetailActivity;
 import com.app.gaolonglong.fragmenttabhost.adapter.MissionListAdapter;
+import com.app.gaolonglong.fragmenttabhost.bean.MissionDetailBean;
 import com.app.gaolonglong.fragmenttabhost.bean.MissionListBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
+import com.luoxudong.app.threadpool.ThreadPoolHelp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,19 +45,18 @@ public class MissionCancle extends Fragment {
     private MissionListAdapter adapter;
     @BindView(R.id.mission_cancel_rcv)
     public RecyclerView rcv;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if(mRootView == null)
-        {
-            mRootView = inflater.inflate(R.layout.mission_cancle,container,false);
+        if (mRootView == null) {
+            mRootView = inflater.inflate(R.layout.mission_cancle, container, false);
         }
         ViewGroup parent = (ViewGroup) mRootView.getParent();
-        if(parent != null)
-        {
+        if (parent != null) {
             parent.removeView(mRootView);
         }
-        ButterKnife.bind(this,mRootView);
+        ButterKnife.bind(this, mRootView);
         return mRootView;
     }
 
@@ -59,24 +64,54 @@ public class MissionCancle extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
-    private void init()
-    {
+
+    private void init() {
         initView();
     }
-    private void initView()
-    {
+
+    private void initView() {
         list = new ArrayList<>();
-        adapter = new MissionListAdapter(getContext(),list);
+        adapter = new MissionListAdapter(getContext(), list);
         MyLinearLayoutManager manager = new MyLinearLayoutManager(getContext());
         rcv.setLayoutManager(manager);
         rcv.setAdapter(adapter);
-        getList(initJsonData());
+
+        adapter.setOnMissionItemClick(new MissionListAdapter.OnMissionItemClick() {
+            @Override
+            public void onMissionItemClick(View view, MissionDetailBean bean) {
+                Intent intent = new Intent(getContext(), MissionDetailActivity.class);
+                intent.putExtra("missionDetail", bean);
+                startActivity(intent);
+                // ToolsUtils.getInstance().toastShowStr(getContext(),bean.getBillsGUID()+"");
+            }
+        });
+        adapter.setOnMissionClick(new MissionListAdapter.OnMissionClick() {
+            @Override
+            public void onMissionClick(int position, String missionnum, String flag) {
+                if (flag.equals("cancel")) {
+                    ToolsUtils.getInstance().toastShowStr(getContext(), missionnum);
+                } else if (flag.equals("caozuo")) {
+                    ToolsUtils.getInstance().toastShowStr(getContext(), missionnum);
+                } else if (flag.equals("tel")) {
+                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + missionnum));
+                    startActivity(intent);
+                }
+            }
+        });
+        ThreadPoolHelp.Builder
+                .cached()
+                .builder()
+                .execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        getList(initJsonData());
+                    }
+                });
     }
 
-    private void getList(String json)
-    {
+    private void getList(String json) {
         RetrofitUtils.getRetrofitService()
-                .getMissionList(Constant.MYINFO_PAGENAME, Config.MISSION_CANCEL,json)
+                .getMissionList(Constant.MYINFO_PAGENAME, Config.MISSION_CANCEL, json)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<MissionListBean>() {
@@ -92,19 +127,23 @@ public class MissionCancle extends Fragment {
 
                     @Override
                     public void onNext(MissionListBean missionListBean) {
-
+                        if (missionListBean.getErrorCode().equals("200")) {
+                            list.clear();
+                            list.addAll(missionListBean.getData());
+                            adapter.notifyDataSetChanged();
+                        }
                     }
                 });
     }
-    private String initJsonData()
-    {
-        String guid = ToolsUtils.getString(getContext(),Constant.LOGIN_GUID,"");
-        String mobile = ToolsUtils.getString(getContext(),Constant.MOBILE,"");
-        String key = ToolsUtils.getString(getContext(),Constant.KEY,"");
-        Map<String,String> map = new HashMap<>();
-        map.put("GUID",guid);
-        map.put(Constant.MOBILE,mobile);
-        map.put(Constant.KEY,key);
+
+    private String initJsonData() {
+        String guid = GetUserInfoUtils.getGuid(getContext());
+        String mobile = GetUserInfoUtils.getMobile(getContext());
+        String key = GetUserInfoUtils.getKey(getContext());
+        Map<String, String> map = new HashMap<>();
+        map.put("GUID", guid);
+        map.put(Constant.MOBILE, mobile);
+        map.put(Constant.KEY, key);
         return JsonUtils.getInstance().getJsonStr(map);
     }
 }

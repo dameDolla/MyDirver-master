@@ -210,6 +210,7 @@ public class AddRouteActivity extends BaseActivity implements AdapterView.OnItem
         String start = mText.get(0).getText().toString();
         String finish = mText.get(1).getText().toString();
         String type = mText.get(2).getText().toString();
+        String[] carinfo = type.split("/");
         JSONObject mJson = new JSONObject();
         try {
             mJson.put("guid",guid);
@@ -217,8 +218,8 @@ public class AddRouteActivity extends BaseActivity implements AdapterView.OnItem
             mJson.put(Constant.KEY,key);
             mJson.put("fromSite",start);
             mJson.put("toSite",finish);
-            mJson.put("trucktype","大奔");
-            mJson.put("trucklength","123");
+            mJson.put("trucktype",carinfo[0]);
+            mJson.put("trucklength",carinfo[1]);
         } catch (JSONException e) {
             e.printStackTrace();
         }

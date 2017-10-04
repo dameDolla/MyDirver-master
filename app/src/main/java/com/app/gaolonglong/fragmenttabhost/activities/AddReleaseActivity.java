@@ -44,6 +44,7 @@ import java.util.TimeZone;
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -72,8 +73,16 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
     @BindView(R.id.fabu_now)
     public Button fabu;
 
-    @BindViews({R.id.title_back})
-    public List<ImageView> mImage;
+    @OnClick({R.id.title_back})
+    public void  back()
+    {
+        finish();
+    }
+    @OnClick(R.id.title_back_txt)
+    public void backs()
+    {
+        finish();
+    }
 
     @BindViews({R.id.release_begin_addr,R.id.release_finish_addr,
                 R.id.release_rl_emptytime,R.id.release_rl_backtime,

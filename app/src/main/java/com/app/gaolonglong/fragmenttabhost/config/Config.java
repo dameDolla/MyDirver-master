@@ -89,4 +89,8 @@ public class Config {
     public static final String MISSION_STATUS_XIEHUO = "UpdateStatus3";
     //运单修改状态为已签收
     public static final String MISSION_STATUS_QIANSHOU = "UpdateStatus4";
+    //添加车辆信息
+    public static final String ADDTRUCK = "AddInfos";
+    //获取车队车辆列表
+    public static final String GETTRUCKS = "SelectInfo";
 }

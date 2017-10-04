@@ -24,12 +24,13 @@
 
                 <TextView
                     android:id="@+id/find_tv_origin"
-                    android:layout_width="40dp"
+                    android:layout_width="70dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="@string/txt_origin"
+                    android:singleLine="true"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/txt_12" />
+                    android:textSize="@dimen/txt_14" />
 
                 <ImageView
                     android:id="@+id/d"
@@ -57,9 +58,10 @@
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="@string/txt_destination"
+                    android:text="全国"
+                    android:singleLine="true"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/txt_12" />
+                    android:textSize="@dimen/txt_14" />
 
                 <ImageView
                     android:layout_width="@dimen/txt_10dp"
@@ -87,8 +89,9 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="@string/txt_cartype"
+                    android:singleLine="true"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/txt_12" />
+                    android:textSize="@dimen/txt_14" />
 
                 <ImageView
                     android:layout_width="@dimen/txt_10dp"
@@ -116,8 +119,9 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="@string/txt_time"
+                    android:singleLine="true"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/txt_12" />
+                    android:textSize="@dimen/txt_14" />
 
                 <ImageView
                     android:id="@+id/iv"

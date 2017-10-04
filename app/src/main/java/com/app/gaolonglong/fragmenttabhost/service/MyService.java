@@ -4,6 +4,7 @@ import retrofit2.http.Body;
 import retrofit2.http.FormUrlEncoded;
 import rx.Observable;
 
+import com.app.gaolonglong.fragmenttabhost.bean.CarTeamBean;
 import com.app.gaolonglong.fragmenttabhost.bean.MissionListBean;
 import com.app.gaolonglong.fragmenttabhost.bean.BaojiaListBean;
 import com.app.gaolonglong.fragmenttabhost.bean.CompanyInfoBean;
@@ -261,4 +262,12 @@ public interface MyService {
     Observable<GetCodeBean> changeMissionStatus(@Field(Constant.PAGENAME) String page,
                                              @Field(Constant.METHOD) String method,
                                              @Field("JsonValue") String json);
+    /**
+     * 获取车队车辆列表
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<CarTeamBean> getCarTeamList(@Field(Constant.PAGENAME) String page,
+                                           @Field(Constant.METHOD) String method,
+                                           @Field("JsonValue") String json);
 }

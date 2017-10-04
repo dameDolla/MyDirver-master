@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ import com.app.gaolonglong.fragmenttabhost.bean.TestBean;
 import com.app.gaolonglong.fragmenttabhost.bean.ToSrcDetailBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
@@ -107,6 +109,7 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         init();
+
         ThreadPoolHelp.Builder
                 .cached()
                 .builder()
@@ -140,16 +143,19 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
     }
     private void initView()
     {
-        guid = ToolsUtils.getString(getContext(), Constant.LOGIN_GUID, "");
-        mobile = ToolsUtils.getString(getContext(), Constant.MOBILE, "");
-        key = ToolsUtils.getString(getContext(), Constant.KEY, "");
+        guid = GetUserInfoUtils.getGuid(getContext());
+        mobile = GetUserInfoUtils.getMobile(getContext());
+        key = GetUserInfoUtils.getKey(getContext());
         location = ToolsUtils.getString(getContext(), Constant.CITY, "");
-        ToolsUtils.getInstance().toastShowStr(getContext(),ToolsUtils.getString(getContext(),Constant.CITY,""));
         mText.get(0).setOnClickListener(this);
         mText.get(1).setOnClickListener(this);
         mText.get(2).setOnClickListener(this);
         mText.get(3).setOnClickListener(this);
-
+        if (addrs.equals("")){
+            mText.get(0).setText(location);
+        }else {
+            mText.get(0).setText(addrs);
+        }
 
         adapter = new FindSrcAdapter(getContext(),list);
         MyLinearLayoutManager manager = new MyLinearLayoutManager(getContext());
@@ -300,7 +306,7 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
     Map<String,String> map = new HashMap<String,String>();
     private String initJsonData(int flag,String addr)
     {
-
+        ToolsUtils.getInstance().toastShowStr(getContext(),addr);
         map.put("GUID",guid);
         map.put(Constant.MOBILE,mobile);
         map.put(Constant.KEY,key);
@@ -310,7 +316,7 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
         {
             if(addr.equals(""))
             {
-                map.put("fromSite","深圳市");
+                map.put("fromSite",location);
             }else
             {
                 map.put("fromSite",addr);
@@ -335,9 +341,6 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
      */
     private void getSrcFromside(final String json)
     {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
                 RetrofitUtils.getRetrofitService()
                         .getSRCWithFromside(Constant.MYINFO_PAGENAME, Config.SRC_FROMSIDE,json)
                         .subscribeOn(Schedulers.io())
@@ -356,14 +359,17 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
                             @Override
                             public void onNext(GetSRCBean getSRCBean) {
 
-                                list.clear();
-                                list.addAll(getSRCBean.getData());
-                                adapter.notifyDataSetChanged();
+                                Log.e("allSrc",getSRCBean.getErrorMsg()+"");
+                                if (getSRCBean.getErrorCode().equals("200"))
+                                {
+                                    rlv.removeAllViews();
+                                    list.clear();
+                                    list.addAll(getSRCBean.getData());
+                                    adapter.notifyDataSetChanged();
+                                }
+
                             }
                         });
-            }
-        }).start();
-
 
     }
 
@@ -443,14 +449,15 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
         {
             flag =0;
             addrs = address;
-            ToolsUtils.getInstance().toastShowStr(getActivity(),addrs);
             mText.get(0).setText(addrs);
+            Log.e("address",addrs);
         }else if (requestCode == MUDIDI && resultCode == 4)
         {
             flag = 1;
             addrs = address;
             mText.get(1).setText(addrs);
         }
+        onActivityCreated(null);
     }
 
     @Override
@@ -459,7 +466,7 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
         popMenu.dismiss();
         time = popList.get(i).get("name");
         mText.get(3).setText(time);
-       ToolsUtils.getInstance().toastShowStr(getContext(),initJsonData(flag,addrs));
-       // getSrcFromside(initJsonData(flag,addrs));
+      // ToolsUtils.getInstance().toastShowStr(getContext(),initJsonData(flag,addrs));
+        getSrcFromside(initJsonData(flag,addrs));
     }
 }

@@ -59,6 +59,8 @@
                     android:layout_weight="4"
                     android:background="@null"
                     android:textSize="@dimen/txt_16"
+                    android:inputType="number"
+                    android:singleLine="true"
                     android:id="@+id/login_phone"
                     android:hint="@string/login_username_hint"/>
                 <FrameLayout

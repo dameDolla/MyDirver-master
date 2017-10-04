@@ -6,11 +6,16 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.xdd.pay.xddPay;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import cn.jpush.android.api.JPushInterface;
 
 
 /**
@@ -30,9 +35,11 @@ public class DiverApplication extends Application {
         }
         mList = new ArrayList<Activity>();
         Fresco.initialize(this);
-       // JPushInterface.setDebugMode(true);
-        //JPushInterface.init(this);
-        //xddPay.init(this);
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
+        Set<String> set = new HashSet<>();
+        set.add(GetUserInfoUtils.getGuid(this));//名字任意，可多添加几个
+        JPushInterface.setTags(this, set, null);//设置标签
 
     }
 

@@ -21,14 +21,14 @@
 
                 <TextView
                     android:id="@+id/find_route_origin"
-                    android:layout_width="40dp"
+                    android:layout_width="70dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="@string/txt_origin"
+                    android:text="线路始发地"
                     android:enabled="false"
                     android:singleLine="true"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/txt_12" />
+                    android:textSize="@dimen/txt_14" />
 
                 <ImageView
                     android:id="@+id/d"
@@ -56,11 +56,11 @@
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="@string/txt_destination"
+                    android:text="线路目的地"
                     android:singleLine="true"
                     android:enabled="false"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/txt_12" />
+                    android:textSize="@dimen/txt_14" />
 
                 <ImageView
                     android:layout_width="@dimen/txt_10dp"
@@ -89,7 +89,7 @@
                     android:gravity="center"
                     android:text="@string/txt_cartype"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/txt_12" />
+                    android:textSize="@dimen/txt_14" />
 
                 <ImageView
                     android:layout_width="@dimen/txt_10dp"
@@ -113,12 +113,13 @@
 
                 <TextView
                     android:id="@+id/find_route_changeroute"
-                    android:layout_width="50dp"
+                    android:layout_width="70dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:singleLine="true"
                     android:text="更改线路"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/txt_12" />
+                    android:textSize="@dimen/txt_14" />
 
                 <ImageView
                     android:id="@+id/iv"

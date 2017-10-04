@@ -136,7 +136,7 @@ public class LoginActivity extends BaseActivity {
                 if (response.isSuccessful()) {
                     GetCodeBean code = response.body();
                     String msg = code.getErrorMsg();
-                    //ToolsUtils.getInstance().toastShowStr(LoginActivity.this, code.getErrorMsg());
+                    ToolsUtils.getInstance().toastShowStr(LoginActivity.this, code.getErrorMsg());
                     Log.e("getCodeInfo",code.getErrorMsg());
                 }
             }

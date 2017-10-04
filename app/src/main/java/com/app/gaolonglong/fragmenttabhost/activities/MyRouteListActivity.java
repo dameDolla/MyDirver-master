@@ -130,14 +130,9 @@ public class MyRouteListActivity extends BaseActivity implements View.OnClickLis
         adapter.checkBoxCheckChange(new RouteListAdapter.CheckBoxInterface() {
             @Override
             public void change(int position, String lineGuid,Map<Integer,String> map) {
-                for (int i:map.keySet())
-                {
-                    //ToolsUtils.getInstance().toastShowStr(MyRouteListActivity.this,map.get(i));
-                    list.get(i).setMainLin("0");
-                    adapter.notifyDataSetChanged();
-                }
+
                 //ToolsUtils.getInstance().toastShowStr(MyRouteListActivity.this,lineGuid);
-                setMain(lineGuid);
+                setMain(lineGuid,position);
             }
         });
 
@@ -195,8 +190,9 @@ public class MyRouteListActivity extends BaseActivity implements View.OnClickLis
      * 设置主线路
      * @param lguid
      */
-   private void setMain(String lguid)
+   private void setMain(String lguid, final int i)
    {
+       ToolsUtils.getInstance().toastShowStr(MyRouteListActivity.this,i+"");
        Map<String,String> map = new HashMap<String,String>();
        map.put("GUID",guid);
        map.put(Constant.MOBILE,mobile);
@@ -221,7 +217,9 @@ public class MyRouteListActivity extends BaseActivity implements View.OnClickLis
                    @Override
                    public void onNext(GetSRCBean getSRCBean) {
                         ToolsUtils.getInstance().toastShowStr(MyRouteListActivity.this,getSRCBean.getErrorMsg());
-                       getRouteListInfo();
+                       if (getSRCBean.getErrorCode().equals("200")){
+                            onCreate(null);
+                       }
                    }
                });
    }

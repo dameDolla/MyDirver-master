@@ -149,8 +149,7 @@ public class BaojiaFragment extends Fragment {
                     map.put(Constant.KEY,key);
                     map.put("cargopricesGUID",list.get(postion).getCargoPricesGUID()+"");
                     map.put("UpdatePriceTime",list.get(postion).getUpdatePriceTime());
-                    //cancel(JsonUtils.getInstance().getJsonStr(map),postion);
-                    ToolsUtils.getInstance().toastShowStr(getContext(),list.get(postion).getCargoPricesGUID()+"");
+                    cancel(JsonUtils.getInstance().getJsonStr(map),postion);
                 }
             }
         });

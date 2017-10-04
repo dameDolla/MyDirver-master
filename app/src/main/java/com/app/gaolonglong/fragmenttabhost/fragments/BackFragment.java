@@ -75,13 +75,19 @@ public class BackFragment extends Fragment implements View.OnClickListener{
     public void release()
     {
         String usertype = GetUserInfoUtils.getUserType(getContext());
-        if(usertype.equals("3"))
+        if (ToolsUtils.getInstance().isLogin(getContext()))
         {
-            new CommomDialog(getContext(),"对不起,您的权限不够").setTitle("友情提示").show();
+            if(usertype.equals("3"))
+            {
+                new CommomDialog(getContext(),"对不起,您的权限不够").setTitle("友情提示").show();
+            }
+            else
+            {
+                startActivityForResult(new Intent(getActivity(),AddReleaseActivity.class),1);
+            }
         }
-        else
-        {
-            startActivityForResult(new Intent(getActivity(),AddReleaseActivity.class),1);
+        else {
+            ToolsUtils.getInstance().toastShowStr(getContext(),"请先登录");
         }
     }
 

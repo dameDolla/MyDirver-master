@@ -98,7 +98,7 @@ public class MissionDoing extends Fragment {
                 Intent intent = new Intent(getContext(), MissionDetailActivity.class);
                 intent.putExtra("missionDetail",bean);
                 startActivity(intent);
-                ToolsUtils.getInstance().toastShowStr(getContext(),bean.getBillsGUID()+"");
+               // ToolsUtils.getInstance().toastShowStr(getContext(),bean.getBillsGUID()+"");
             }
         });
         adapter.setOnMissionClick(new MissionListAdapter.OnMissionClick() {
@@ -115,16 +115,8 @@ public class MissionDoing extends Fragment {
                 }
             }
         });
-        /*ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(3, 5,
-                1, TimeUnit.SECONDS, new LinkedBlockingDeque<Runnable>(128));
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
 
-            }
-        };
 
-        poolExecutor.execute(runnable);*/
         ThreadPoolHelp.Builder
                 .cached()
                 .builder()

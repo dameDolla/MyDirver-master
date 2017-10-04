@@ -25,10 +25,12 @@ import com.app.gaolonglong.fragmenttabhost.bean.GetSRCBean;
 import com.app.gaolonglong.fragmenttabhost.bean.RouteListBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
+import com.luoxudong.app.threadpool.ThreadPoolHelp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -97,25 +99,29 @@ public class FindRouteSrcFragment extends Fragment implements View.OnClickListen
     {
         initView();
         initPopWindow();
-        getSrcData(initJsonData("","",""));
-        getRouteData(initJsonData("","",""));
+        ThreadPoolHelp.Builder.cached().builder().execute(new Runnable() {
+            @Override
+            public void run() {
+                getSrcData(initJsonData("","",""));
+                getRouteData(initJsonData("","",""));
+            }
+        });
+
     }
     private void initView()
     {
         list = new ArrayList<GetSRCBean.DataBean>();
         routeList = new ArrayList<RouteListBean.DataBean>();
-        guid = ToolsUtils.getString(getContext(), Constant.LOGIN_GUID,"");
-        mobile = ToolsUtils.getString(getContext(), Constant.MOBILE,"");
-        key = ToolsUtils.getString(getContext(), Constant.KEY,"");
+        guid = GetUserInfoUtils.getGuid(getContext());
+        mobile = GetUserInfoUtils.getMobile(getContext());
+        key = GetUserInfoUtils.getKey(getContext());
 
         mText.get(3).setOnClickListener(this);
-        if(list.size() > 0)
-        {
             srcAdapter = new FindSrcAdapter(getContext(),list);
             MyLinearLayoutManager manager = new MyLinearLayoutManager(getContext());
             rlv.setLayoutManager(manager);
             rlv.setAdapter(srcAdapter);
-        }
+
 
     }
     private Map<String,String> map = new HashMap<String,String>();
@@ -158,16 +164,17 @@ public class FindRouteSrcFragment extends Fragment implements View.OnClickListen
                     @Override
                     public void onError(Throwable e) {
                         //ToolsUtils.getInstance().toastShowStr(getContext(),e.getMessage());
-                        Log.e("888888888888888888888",e.getMessage());
+                        //Log.e("888888888888888888888",e.getMessage());
                     }
 
                     @Override
                     public void onNext(GetSRCBean getSRCBean) {
                                 //list.clear();
-                                list.addAll(getSRCBean.getData());
-                                srcAdapter.notifyDataSetChanged();
-
-                        ToolsUtils.getInstance().toastShowStr(getContext(),getSRCBean.getErrorCode());
+                                if ((getSRCBean.getData().size())!=0)
+                                {
+                                    list.addAll(getSRCBean.getData());
+                                    srcAdapter.notifyDataSetChanged();
+                                }
                     }
                 });
     }

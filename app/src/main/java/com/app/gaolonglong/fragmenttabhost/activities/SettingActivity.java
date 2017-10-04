@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -79,6 +80,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     @BindView(R.id.setting_icon)
     public SimpleDraweeView icon;
 
+    @BindView(R.id.setting_phone)
+    public TextView tel;
 
     @OnClick(R.id.exit_account)
     public void exit()
@@ -111,14 +114,14 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         back = (ImageView)findViewById(R.id.title_back);
         title = (TextView)findViewById(R.id.top_title);
         rl = (RelativeLayout)findViewById(R.id.title_rl);
-
+        tel.setText(GetUserInfoUtils.getMobile(SettingActivity.this));
         rl_icon.setOnClickListener(this);
         icon.setOnClickListener(this);
 
         rl.setBackgroundColor(Color.WHITE);
         title.setText("设置");
         title.setTextColor(Color.parseColor("#000000"));
-        guid = ToolsUtils.getString(SettingActivity.this, Constant.LOGIN_GUID,"");
+        guid = GetUserInfoUtils.getGuid(SettingActivity.this);
 
     }
     private void initIcon()

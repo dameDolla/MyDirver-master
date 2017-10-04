@@ -12,6 +12,8 @@ public class Constant {
     public static final String MYINFO_PAGENAME = "MyInfo";
     //获取报价 PageName
     public static final String PRICE_PAGENAME = "Prices";
+    //车队车辆的PageName
+    public static final String TRUCK_PAGENAME = "Trucks";
 
     public static final String KEY = "SecreKey";
 
@@ -58,6 +60,8 @@ public class Constant {
     public static final String LNG = "lng";
     //账户余额
     public static final String COUNT = "money";
+    //是否是第一次进入app
+    public static final String iSFIRST = "isFirst";
 
 
 }

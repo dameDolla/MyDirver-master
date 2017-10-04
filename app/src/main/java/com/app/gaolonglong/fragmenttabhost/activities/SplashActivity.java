@@ -38,6 +38,7 @@ public class SplashActivity extends BaseActivity {
     private String mobile;
     private String key;
     private Map<String, String> map;
+    private Intent intent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -142,7 +143,13 @@ public class SplashActivity extends BaseActivity {
      * 3秒后跳转
      */
     private void toMain() {
-        final Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+        boolean isFirst = ToolsUtils.getBoolean(SplashActivity.this,Constant.iSFIRST,true);
+        if (isFirst){
+            intent = new Intent(SplashActivity.this, GuidActivity.class);
+        }else {
+            intent = new Intent(SplashActivity.this,MainActivity.class);
+        }
+
         intent.putExtra("flag", "splash");
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {

@@ -65,8 +65,14 @@ public class SearchAddrActivity extends BaseActivity implements View.OnClickList
     @BindView(R.id.top_title)
     public TextView title;
 
-    @OnClick(R.id.top_title)
+    @OnClick(R.id.title_back)
     public void back()
+    {
+        finish();
+    }
+
+    @OnClick(R.id.title_back_txt)
+    public void backs()
     {
         finish();
     }

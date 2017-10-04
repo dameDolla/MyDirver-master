@@ -11,7 +11,7 @@
         android:background="@color/color_f2"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="130dp"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -59,7 +59,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2">
+                android:layout_weight="3">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -97,7 +97,7 @@
                         android:paddingTop="5dp"
                         android:text="深圳市虚拟大学园"
                         android:textColor="#010000"
-                        android:textSize="@dimen/txt_14" />
+                        android:textSize="@dimen/txt_18" />
 
                     <TextView
                         android:id="@+id/find_addr_xie"
@@ -108,7 +108,7 @@
                         android:paddingTop="2dp"
                         android:text="俄罗斯贝加尔湖"
                         android:textColor="#010000"
-                        android:textSize="@dimen/txt_14" />
+                        android:textSize="@dimen/txt_18" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -168,7 +168,7 @@
                         android:paddingTop="5dp"
                         android:text="家具"
                         android:textColor="@color/color_fd4a"
-                        android:textSize="@dimen/txt_12" />
+                        android:textSize="@dimen/txt_14" />
 
                     <TextView
                         android:id="@+id/find_time"
@@ -179,7 +179,7 @@
                         android:paddingTop="2dp"
                         android:text="2017-7-31  星期一  下午"
                         android:textColor="@color/color_fd4a"
-                        android:textSize="@dimen/txt_12" />
+                        android:textSize="@dimen/txt_14" />
 
                     <TextView
                         android:id="@+id/find_car_type"
@@ -190,7 +190,7 @@
                         android:paddingTop="2dp"
                         android:text="10.0吨  9.6米  高箱车"
                         android:textColor="@color/color_fd4a"
-                        android:textSize="@dimen/txt_12" />
+                        android:textSize="@dimen/txt_14" />
                 </LinearLayout>
 
                 <LinearLayout

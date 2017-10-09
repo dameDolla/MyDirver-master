@@ -270,4 +270,12 @@ public interface MyService {
     Observable<CarTeamBean> getCarTeamList(@Field(Constant.PAGENAME) String page,
                                            @Field(Constant.METHOD) String method,
                                            @Field("JsonValue") String json);
+    /**
+     * 添加车辆
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> addCars(@Field(Constant.PAGENAME) String page,
+                                           @Field(Constant.METHOD) String method,
+                                           @Field("JsonValue") String json);
 }

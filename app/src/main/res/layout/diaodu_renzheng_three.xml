@@ -333,6 +333,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:gravity="center"
+                    android:visibility="gone"
                     android:paddingLeft="@dimen/txt_15dp">
                     <ImageView
                         android:layout_width="80dp"
@@ -353,6 +354,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:gravity="center"
+                    android:visibility="gone"
                     android:paddingLeft="@dimen/txt_39dp">
                     <ImageView
                         android:layout_width="80dp"
@@ -387,15 +389,6 @@
                         android:gravity="center"
                         android:text="车辆正面照"/>
                 </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@color/white"
-                android:paddingBottom="@dimen/txt_39dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -438,6 +431,17 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            <!--<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:paddingBottom="@dimen/txt_39dp">
+
+
+
+            </LinearLayout>-->
 
             <Button
                 android:layout_width="match_parent"

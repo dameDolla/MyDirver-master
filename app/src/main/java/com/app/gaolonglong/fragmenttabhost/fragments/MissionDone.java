@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,7 @@ public class MissionDone extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        init();
     }
     private void init()
     {
@@ -123,11 +125,12 @@ public class MissionDone extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.e("missiondoneerror",e.getMessage());
                     }
 
                     @Override
                     public void onNext(MissionListBean missionListBean) {
+                        Log.e("missiondone",missionListBean.getErrorMsg());
                         list.clear();
                         list.addAll(missionListBean.getData());
                         adapter.notifyDataSetChanged();

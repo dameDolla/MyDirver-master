@@ -240,7 +240,7 @@ public class AddRouteActivity extends BaseActivity implements AdapterView.OnItem
 
                     @Override
                     public void onNext(GetCodeBean getCodeBean) {
-                        ToolsUtils.getInstance().toastShowStr(AddRouteActivity.this,getCodeBean.getErrorMsg());
+                       // ToolsUtils.getInstance().toastShowStr(AddRouteActivity.this,getCodeBean.getErrorMsg());
                         startActivity(new Intent(AddRouteActivity.this,MyRouteListActivity.class));
                     }
                 });

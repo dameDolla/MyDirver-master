@@ -983,5 +983,6 @@ public class GetSRCBean {
         public void setFromDetailedAddress(String fromDetailedAddress) {
             FromDetailedAddress = fromDetailedAddress;
         }
+
     }
 }

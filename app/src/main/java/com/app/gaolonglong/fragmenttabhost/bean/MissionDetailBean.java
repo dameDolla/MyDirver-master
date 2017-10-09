@@ -21,10 +21,17 @@ public class MissionDetailBean implements Serializable{
     private String AvatarAddress;
     private String status;
     private String signtime;
+    private String signby;
+    private String drivername;
+    private String driverphone;
+    private String driverGUID;
+    private String truckno;
+
 
     public MissionDetailBean(String billsGUID,String ownername,String ownerphone,String preloadtime,String FromDetailedAddress,
                              String ToDetailedAddress,String billNumber,String dealprice,String loadfee,
-                             String unloadfee,String AvatarAddress,String status,String signtime)
+                             String unloadfee,String AvatarAddress,String status,String signtime,String signby,String drivername,
+                             String driverphone,String driverGUID,String truckno)
     {
         this.billsGUID = billsGUID;
         this.ownername = ownername;
@@ -39,6 +46,31 @@ public class MissionDetailBean implements Serializable{
         this.AvatarAddress = AvatarAddress;
         this.status = status;
         this.signtime = signtime;
+        this.signby = signby;
+        this.drivername = drivername;
+        this.driverphone = driverphone;
+        this.driverGUID = driverGUID;
+        this.truckno = truckno;
+    }
+
+    public String getTruckno() {
+        return truckno;
+    }
+
+    public String getDriverGUID() {
+        return driverGUID;
+    }
+
+    public String getSignby() {
+        return signby;
+    }
+
+    public String getDrivername() {
+        return drivername;
+    }
+
+    public String getDriverphone() {
+        return driverphone;
     }
 
     public void setStatus(String status) {

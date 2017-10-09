@@ -42,6 +42,7 @@ public class GuidActivity extends BaseActivity implements View.OnClickListener{
     private final int GUID_PAGE_COUNT = 4;
     private List<View> viewList;
     private ImageView[] indicatorImg;
+    private Intent intent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -138,7 +139,13 @@ public class GuidActivity extends BaseActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(GuidActivity.this,MainActivity.class);
+        if (ToolsUtils.getInstance().isLogin(GuidActivity.this))
+        {
+            intent = new Intent(GuidActivity.this,MainActivity.class);
+        }else{
+            intent = new Intent(GuidActivity.this,LoginActivity.class);
+        }
+
         intent.putExtra("flag","splash");
         startActivity(intent);
         ToolsUtils.putBoolean(GuidActivity.this, Constant.iSFIRST,false);

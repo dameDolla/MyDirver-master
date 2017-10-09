@@ -64,6 +64,7 @@ public class MissionListAdapter extends RecyclerView.Adapter implements View.OnC
         mHolder.time.setText(data.getPreloadtime() + "");
         mHolder.carInfo.setText(data.getCargotype());
         mHolder.itemView.setTag(position);
+        mHolder.carNum.setText("车牌号:" + data.getTruckno());
         mHolder.cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,6 +85,8 @@ public class MissionListAdapter extends RecyclerView.Adapter implements View.OnC
         });
         if (data.getStatus().equals("-2")){
             mHolder.status.setText("已取消");
+            mHolder.gray.setVisibility(View.VISIBLE);
+            mHolder.caozuo1.setVisibility(View.GONE);
         }else if (data.getStatus().equals("0")){
             mHolder.status.setText("已生成");
         }else if (data.getStatus().equals("1")){
@@ -96,6 +99,8 @@ public class MissionListAdapter extends RecyclerView.Adapter implements View.OnC
             mHolder.status.setText("已签收");
         }else if (data.getStatus().equals("9")){
             mHolder.status.setText("已完成");
+            mHolder.gray.setVisibility(View.VISIBLE);
+            mHolder.caozuo1.setVisibility(View.GONE);
         }
     }
 
@@ -114,6 +119,8 @@ public class MissionListAdapter extends RecyclerView.Adapter implements View.OnC
         private final TextView cancel;
         private final TextView caozuo;
         private final ImageView phone;
+        private final LinearLayout caozuo1;
+        private final LinearLayout gray;
 
         public MissionViewHolder(View itemView) {
             super(itemView);
@@ -125,6 +132,9 @@ public class MissionListAdapter extends RecyclerView.Adapter implements View.OnC
             cancel = (TextView) itemView.findViewById(R.id.mission_order_cancle);
             caozuo = (TextView) itemView.findViewById(R.id.mission_order_caozuo);
             phone = (ImageView) itemView.findViewById(R.id.mission_item_phone);
+            caozuo1 = (LinearLayout) itemView.findViewById(R.id.mission_item_caozuo);
+            gray = (LinearLayout) itemView.findViewById(R.id.mission_item_gray);
+
         }
     }
 
@@ -145,7 +155,12 @@ public class MissionListAdapter extends RecyclerView.Adapter implements View.OnC
                     list.get((int)view.getTag()).getUnloadfee()+"",
                     list.get((int)view.getTag()).getAvatarAddress()+"",
                     list.get((int)view.getTag()).getStatus()+"",
-                    list.get((int)view.getTag()).getSigntime()+""
+                    list.get((int)view.getTag()).getSigntime()+"",
+                    list.get((int)view.getTag()).getSignby()+"",
+                    list.get((int)view.getTag()).getDrivername()+"",
+                    list.get((int)view.getTag()).getDriverphone()+"",
+                    list.get((int)view.getTag()).getDriverGUID()+"",
+                    (list.get((int)view.getTag()).getTruckno()).equals(null)?list.get((int)view.getTag()).getTruckno():""+""
             );
             onMissionItemClick.onMissionItemClick(view,beans);
         }

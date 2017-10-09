@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
@@ -78,6 +79,9 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
     @BindView(R.id.find_all_parent)
     public LinearLayout parent;
 
+    @BindView(R.id.find_all_refresh)
+    public SwipeRefreshLayout refresh;
+
     @BindViews({R.id.find_tv_origin,R.id.find_tv_destination,R.id.find_tv_cartype,R.id.find_tv_time})
     public List<TextView> mText;
     private String guid;
@@ -117,7 +121,7 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
                     @Override
                     public void run() {
                         //线程执行体
-                        getSrcFromside(initJsonData(flag,addrs));
+                       getSrcFromside(initJsonData(flag,addrs));
                     }
                     });
 
@@ -175,6 +179,18 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
             public void onFindClick(int position, String tel) {
                 Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+list.get(position).getOwnerphone()));
                 startActivity(intent);
+            }
+        });
+
+        refresh.setColorSchemeResources(R.color.google_blue,
+                R.color.google_green,
+                R.color.google_red,
+                R.color.google_yellow);
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                onActivityCreated(null);
+                refresh.setRefreshing(false);
             }
         });
 
@@ -289,6 +305,8 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
             }
         });
         TextView sure = (TextView)popView.findViewById(R.id.cartype_grid_sure);
+        TextView noLimit = (TextView)popView.findViewById(R.id.cartype_grid_nocartype);
+
         sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -296,7 +314,12 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
                 typePopmenu.dismiss();
             }
         });
+        noLimit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
     }
     /**
      *
@@ -306,7 +329,7 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
     Map<String,String> map = new HashMap<String,String>();
     private String initJsonData(int flag,String addr)
     {
-        ToolsUtils.getInstance().toastShowStr(getContext(),addr);
+       // ToolsUtils.getInstance().toastShowStr(getContext(),addr);
         map.put("GUID",guid);
         map.put(Constant.MOBILE,mobile);
         map.put(Constant.KEY,key);
@@ -359,7 +382,7 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
                             @Override
                             public void onNext(GetSRCBean getSRCBean) {
 
-                                Log.e("allSrc",getSRCBean.getErrorMsg()+"");
+                                //Log.e("allSrc",getSRCBean.getErrorMsg()+"");
                                 if (getSRCBean.getErrorCode().equals("200"))
                                 {
                                     rlv.removeAllViews();
@@ -367,6 +390,8 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
                                     list.addAll(getSRCBean.getData());
                                     adapter.notifyDataSetChanged();
                                 }
+
+
 
                             }
                         });

@@ -69,7 +69,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:paddingLeft="@dimen/txt_20dp"
-                            android:text="保温车"
+                            android:text=""
                             android:textColor="@color/black_6d"
                             android:textSize="@dimen/txt_16" />
                     </RelativeLayout>
@@ -106,7 +106,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:paddingLeft="@dimen/txt_20dp"
-                            android:text="16m"
+                            android:text=""
                             android:textColor="@color/black_6d"
                             android:textSize="@dimen/txt_16" />
                     </RelativeLayout>
@@ -143,7 +143,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:paddingLeft="@dimen/txt_20dp"
-                            android:text="16吨"
+                            android:text=""
                             android:textColor="@color/black_6d"
                             android:textSize="@dimen/txt_16" />
                     </RelativeLayout>
@@ -180,7 +180,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:paddingLeft="@dimen/txt_20dp"
-                            android:text="16方"
+                            android:text=""
                             android:textColor="@color/black_6d"
                             android:textSize="@dimen/txt_16" />
                     </RelativeLayout>
@@ -217,7 +217,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:paddingLeft="@dimen/txt_20dp"
-                            android:text="粤B 88888"
+                            android:text=""
                             android:textColor="@color/black_6d"
                             android:textSize="@dimen/txt_16" />
                     </RelativeLayout>
@@ -254,7 +254,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:paddingLeft="@dimen/txt_20dp"
-                            android:text="2017-09-21"
+                            android:text=""
                             android:textColor="@color/black_6d"
                             android:textSize="@dimen/txt_16" />
                     </RelativeLayout>
@@ -291,7 +291,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:paddingLeft="@dimen/txt_20dp"
-                            android:text="29292929"
+                            android:text=""
                             android:textColor="@color/black_6d"
                             android:textSize="@dimen/txt_16" />
                     </RelativeLayout>

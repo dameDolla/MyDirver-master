@@ -38,7 +38,7 @@
                 android:gravity="center"
                 android:text="jack"
                 android:textColor="@color/black"
-                android:textSize="@dimen/txt_12" />
+                android:textSize="@dimen/txt_14" />
 
             <TextView
                 android:id="@+id/find_is_renzheng"
@@ -95,6 +95,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:paddingTop="5dp"
+                        android:singleLine="true"
                         android:text="深圳市虚拟大学园"
                         android:textColor="#010000"
                         android:textSize="@dimen/txt_18" />
@@ -105,6 +106,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:paddingBottom="3dp"
+                        android:singleLine="true"
                         android:paddingTop="2dp"
                         android:text="俄罗斯贝加尔湖"
                         android:textColor="#010000"
@@ -204,8 +206,8 @@
 
                     <ImageView
                         android:id="@+id/find_iv_phone"
-                        android:layout_width="@dimen/txt_15dp"
-                        android:layout_height="@dimen/txt_15dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:src="@mipmap/phone" />
                     <!-- <TextView
                         android:layout_width="match_parent"

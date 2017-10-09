@@ -332,8 +332,15 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
     private void upload() {
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         builder.addFormDataPart("MemberGUID", guid);
-        builder.addFormDataPart("ImgType", "1");
+
         builder.addFormDataPart("headimgurl", "avatar", RequestBody.create(MediaType.parse("image/png/jpg; charset=utf-8"), file));
+        if (position == 2){
+            builder.addFormDataPart("ImgType", "6");
+        }else if (position == 3){
+            builder.addFormDataPart("ImgType", "7");
+        }else if (position == 4){
+            builder.addFormDataPart("ImgType", "8");
+        }
         RetrofitUtils.getRetrofitService().
                 upload_avatar(builder.build())
                 .subscribeOn(Schedulers.io())

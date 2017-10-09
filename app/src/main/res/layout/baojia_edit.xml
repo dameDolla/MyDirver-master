@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="货主:王小毛"
+                android:text="货主:"
                 android:textSize="@dimen/txt_14" />
         </LinearLayout>
 
@@ -293,7 +293,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="380元"
+                    android:text="0.00元"
                     android:textSize="@dimen/txt_14"
                     android:textColor="@color/red"
                     android:id="@+id/baojia_need_pay"

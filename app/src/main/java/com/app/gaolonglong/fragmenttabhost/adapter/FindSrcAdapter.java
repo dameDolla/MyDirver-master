@@ -59,12 +59,13 @@ public class FindSrcAdapter extends RecyclerView.Adapter implements View.OnClick
         SrcViewHolder holder1 = (SrcViewHolder) holder;
         data = list.get(position);
         holder1.username.setText(data.getOwnername() + "");
-        holder1.zhuang.setText(data.getFromSite() + "");
-        holder1.xie.setText(data.getToSite() + "");
-        String cartype = data.getQty() + "" + data.getTrucklength() + "米 " + data.getTrucktype();
+        holder1.zhuang.setText(data.getFromDetailedAddress() + "");
+        holder1.xie.setText(data.getToDetailedAddress() + "");
+        String cartype = data.getTrucklengthHZ()  + data.getTrucktypeHZ();
         holder1.carType.setText(cartype);
         holder1.type.setText(data.getCargotype());
-        holder1.time.setText(data.getPreloadtime() + "");
+        String[] time = (data.getPreloadtime()).split(" ");
+        holder1.time.setText(time[0]);
         holder1.icon.setImageURI(Uri.parse(data.getAvatarAddress()));
         holder1.itemView.setTag(position);
         //holder1.username.setText(data.getOwnername().toString());

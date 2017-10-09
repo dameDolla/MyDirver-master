@@ -1,8 +1,10 @@
 package com.app.gaolonglong.fragmenttabhost.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
@@ -50,6 +52,12 @@ public class MyCarTeamActivity extends BaseActivity {
     }
     @BindView(R.id.carteam_gv)
     public WrapHeightGridView gv;
+
+    @OnClick(R.id.carteam_add)
+    public void add()
+    {
+        addCars();
+    }
 
     private List<CarTeamBean.DataBean> list;
 
@@ -116,5 +124,9 @@ public class MyCarTeamActivity extends BaseActivity {
                         }
                     }
                 });
+    }
+    private void addCars()
+    {
+        startActivity(new Intent(MyCarTeamActivity.this,AddCarActivity.class));
     }
 }

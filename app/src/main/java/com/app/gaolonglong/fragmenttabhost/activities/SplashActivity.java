@@ -147,7 +147,12 @@ public class SplashActivity extends BaseActivity {
         if (isFirst){
             intent = new Intent(SplashActivity.this, GuidActivity.class);
         }else {
-            intent = new Intent(SplashActivity.this,MainActivity.class);
+            if (ToolsUtils.getInstance().isLogin(SplashActivity.this))
+            {
+                intent = new Intent(SplashActivity.this,MainActivity.class);
+            }else {
+                intent = new Intent(SplashActivity.this,LoginActivity.class);
+            }
         }
 
         intent.putExtra("flag", "splash");

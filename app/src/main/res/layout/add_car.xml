@@ -233,7 +233,7 @@
                     android:paddingLeft="@dimen/txt_15dp">
 
                     <ImageView
-                        android:id="@+id/diaodu3_card_pic"
+                        android:id="@+id/addcar_card_pic"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
@@ -255,7 +255,7 @@
                     android:paddingLeft="@dimen/txt_39dp">
 
                     <ImageView
-                        android:id="@+id/diaodu3_with_card"
+                        android:id="@+id/addcar_with_card"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
@@ -277,7 +277,7 @@
                     android:paddingLeft="@dimen/txt_39dp">
 
                     <ImageView
-                        android:id="@+id/diaodu3_car_face"
+                        android:id="@+id/addcar_car_face"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
@@ -308,7 +308,7 @@
                     android:paddingLeft="@dimen/txt_15dp">
 
                     <ImageView
-                        android:id="@+id/diaodu3_car_back"
+                        android:id="@+id/addcar_car_back"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
@@ -330,7 +330,7 @@
                     android:paddingLeft="@dimen/txt_39dp">
 
                     <ImageView
-                        android:id="@+id/diaodu3_car_content"
+                        android:id="@+id/addcar_car_content"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
@@ -347,7 +347,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/diaodu3_next"
+                android:id="@+id/addcar_queren"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/txt_39dp"
                 android:layout_marginBottom="40dp"
@@ -355,7 +355,7 @@
                 android:layout_marginRight="@dimen/txt_20dp"
                 android:background="@drawable/login_bt_"
                 android:gravity="center"
-                android:text="提交绑定"
+                android:text="确认添加"
                 android:textColor="@color/white"
                 android:textSize="@dimen/txt_18" />
 

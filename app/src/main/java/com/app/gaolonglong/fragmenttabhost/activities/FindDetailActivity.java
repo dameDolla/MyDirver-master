@@ -91,8 +91,12 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(FindDetailActivity.this,BaojiaEditActivity.class);
-        intent.putExtra("srcdetail",bean);
-        startActivity(intent);
+        if (!GetUserInfoUtils.getVtrueName(FindDetailActivity.this).equals("9")){
+            ToolsUtils.getInstance().toastShowStr(FindDetailActivity.this,"请认证完成后再报价");
+        }else {
+            Intent intent = new Intent(FindDetailActivity.this,BaojiaEditActivity.class);
+            intent.putExtra("srcdetail",bean);
+            startActivity(intent);
+        }
     }
 }

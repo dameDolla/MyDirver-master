@@ -93,16 +93,18 @@
             android:layout_height="match_parent"
             android:layout_weight="2">
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@mipmap/phone"
+                android:layout_marginTop="@dimen/txt_15dp"
                 android:id="@+id/mission_item_phone"
-                android:paddingLeft="@dimen/txt_15dp"/>
+                />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/txt_39dp"
+        android:id="@+id/mission_item_caozuo"
         android:background="@color/titleColorSelected"
         android:orientation="horizontal">
         <TextView
@@ -134,6 +136,7 @@
         android:layout_height="@dimen/txt_39dp"
         android:background="@color/color_f2"
         android:visibility="gone"
+        android:id="@+id/mission_item_gray"
         android:orientation="horizontal">
         <TextView
             android:layout_width="0dp"

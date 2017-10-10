@@ -192,7 +192,7 @@ public class SplashActivity extends BaseActivity {
         mLocationClient.setLocationListener(new AMapLocationListener() {
             @Override
             public void onLocationChanged(AMapLocation amapLocation) {
-
+                //Log.e("location",);
                 ToolsUtils.putString(SplashActivity.this, Constant.CITY, amapLocation.getCity());
                 ToolsUtils.putString(SplashActivity.this, Constant.ADDRESS, amapLocation.getAddress());
                 //ToolsUtils.getInstance().toastShowStr(SplashActivity.this,amapLocation.getErrorInfo());

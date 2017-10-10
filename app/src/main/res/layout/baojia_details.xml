@@ -222,7 +222,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="1500.0"
+                    android:text=""
                     android:id="@+id/baojia_detail_hzxie"
                     android:paddingTop="@dimen/txt_10dp"
                     android:textSize="@dimen/txt_16"
@@ -250,7 +250,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="1500.0"
+                    android:text=""
                     android:id="@+id/baojia_detail_hzother"
                     android:paddingTop="@dimen/txt_10dp"
                     android:textSize="@dimen/txt_16"
@@ -477,7 +477,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="+12500.0"
+                android:text=""
                 android:id="@+id/baojia_detail_baozheng"
                 android:textColor="@color/red"
                 android:textSize="@dimen/txt_16"

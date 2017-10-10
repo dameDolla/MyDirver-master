@@ -49,6 +49,10 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
 
     @BindView(R.id.src_detail_submit)
     public LinearLayout submit;
+
+    @BindViews({R.id.find_detail_fromsitell,R.id.find_detail_tositell})
+    public List<LinearLayout> mLinear;
+
     @OnClick(R.id.src_detail_phone)
     public void calls()
     {
@@ -82,6 +86,8 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
         mText.get(10).setText(bean.getOwnername());
         mText.get(11).setText(bean.getTel());
         submit.setOnClickListener(this);
+        mLinear.get(0).setOnClickListener(this);
+        mLinear.get(1).setOnClickListener(this);
         logo.setImageURI(Uri.parse(bean.getAvatarAddress()));
         if (GetUserInfoUtils.getUserType(FindDetailActivity.this).equals("3"))
         {
@@ -91,12 +97,24 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        if (!GetUserInfoUtils.getVtrueName(FindDetailActivity.this).equals("9")){
-            ToolsUtils.getInstance().toastShowStr(FindDetailActivity.this,"请认证完成后再报价");
-        }else {
-            Intent intent = new Intent(FindDetailActivity.this,BaojiaEditActivity.class);
-            intent.putExtra("srcdetail",bean);
-            startActivity(intent);
+        switch (view.getId())
+        {
+            case R.id.src_detail_submit:
+                if (!GetUserInfoUtils.getVtrueName(FindDetailActivity.this).equals("9")){
+                    ToolsUtils.getInstance().toastShowStr(FindDetailActivity.this,"请认证完成后再报价");
+                }else {
+                    Intent intent = new Intent(FindDetailActivity.this,BaojiaEditActivity.class);
+                    intent.putExtra("srcdetail",bean);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.find_detail_fromsitell:
+                startActivity(new Intent(FindDetailActivity.this,RouteMapActivity.class));
+                break;
+            case R.id.find_detail_tositell:
+                startActivity(new Intent(FindDetailActivity.this,RouteMapActivity.class));
+                break;
         }
+
     }
 }

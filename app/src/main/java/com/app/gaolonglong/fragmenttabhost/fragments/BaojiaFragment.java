@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,6 +57,9 @@ public class BaojiaFragment extends Fragment {
     public List<TextView> mTextView;
     @BindView(R.id.baojia_fragment_list)
     public RecyclerView rcl;
+
+    @BindView(R.id.baojia_refresh)
+    public SwipeRefreshLayout refresh;
 
     private List<BaojiaListBean.DataBean> list = new ArrayList<BaojiaListBean.DataBean>();
     private BaojiaListAdapter adapter;
@@ -160,6 +164,18 @@ public class BaojiaFragment extends Fragment {
                 intent.putExtra("baojaiInfo",bean);
                 startActivity(intent);
                 //ToolsUtils.getInstance().toastShowStr(getContext(),bean.getCargopricesGUID());
+            }
+        });
+
+        refresh.setColorSchemeResources(R.color.google_blue,
+                R.color.google_green,
+                R.color.google_red,
+                R.color.google_yellow);
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                onActivityCreated(null);
+                refresh.setRefreshing(false);
             }
         });
     }

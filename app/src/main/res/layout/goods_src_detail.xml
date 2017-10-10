@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingTop="@dimen/txt_10dp"
+            android:id="@+id/find_detail_fromsitell"
             android:paddingBottom="@dimen/txt_10dp"
             android:gravity="center">
             <ImageView
@@ -76,6 +77,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingTop="@dimen/txt_10dp"
+            android:id="@+id/find_detail_tositell"
             android:paddingBottom="@dimen/txt_10dp"
             android:gravity="center">
             <ImageView

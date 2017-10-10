@@ -29,6 +29,7 @@ import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.LoadingDialog;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
@@ -106,6 +107,7 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
     @OnClick(R.id.person2_next)
     public void next() {
         dialog.show();
+        Log.e("personjson",initJsonData());
         toNext(initJsonData());
     }
 
@@ -162,12 +164,14 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
 
                     @Override
                     public void onError(Throwable e) {
+                        dialog.dismiss();
                         Log.e("personerror",e.getMessage());
                     }
 
                     @Override
                     public void onNext(GetCodeBean getCodeBean) {
-                        Log.e("personinfo",getCodeBean.getErrorMsg());
+                        dialog.dismiss();
+                        Log.e("personinfo",getCodeBean.getErrorCode());
                         if (getCodeBean.getErrorCode().equals("200"))
                         {
                             startActivity(new Intent(PersonalRenzheng2Activity.this,CommitSuccessActivity.class));
@@ -328,7 +332,7 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
 
     private void upload() {
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-        builder.addFormDataPart("MemberGUID", Constant.LOGIN_GUID);
+        builder.addFormDataPart("MemberGUID", GetUserInfoUtils.getGuid(PersonalRenzheng2Activity.this));
         builder.addFormDataPart("headimgurl", "avatar", RequestBody.create(MediaType.parse("image/png/jpg; charset=utf-8"), file));
         if(position == 0)
         {
@@ -352,7 +356,7 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
 
                     @Override
                     public void onError(Throwable e) {
-                        ToolsUtils.getInstance().toastShowStr(PersonalRenzheng2Activity.this, e.getMessage());
+                       // ToolsUtils.getInstance().toastShowStr(PersonalRenzheng2Activity.this, e.getMessage());
                     }
 
                     @Override

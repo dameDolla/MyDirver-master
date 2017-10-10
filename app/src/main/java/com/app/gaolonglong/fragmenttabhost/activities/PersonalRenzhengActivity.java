@@ -208,7 +208,7 @@ public class PersonalRenzhengActivity extends BaseActivity implements View.OnCli
                         @Override
                         public void onError(Throwable e) {
                             dialog.dismiss();
-                            ToolsUtils.getInstance().toastShowStr(PersonalRenzhengActivity.this,e.getMessage());
+                            //ToolsUtils.getInstance().toastShowStr(PersonalRenzhengActivity.this,e.getMessage());
                         }
 
                         @Override
@@ -407,7 +407,7 @@ public class PersonalRenzhengActivity extends BaseActivity implements View.OnCli
             builder.addFormDataPart("ImgType","3");
         }else if(position == 3)
         {
-            builder.addFormDataPart("ImgType","1");
+            builder.addFormDataPart("ImgType","3");
         }
         RetrofitUtils.getRetrofitService().
                 upload_avatar(builder.build())
@@ -429,20 +429,15 @@ public class PersonalRenzhengActivity extends BaseActivity implements View.OnCli
                         try {
 
                             String info = responseBody.string();
-                            ToolsUtils.getInstance().toastShowStr(PersonalRenzhengActivity.this,info);
-                            /*try {
+                            try {
                                 JSONObject json = new JSONObject(info);
                                 String str = json.get("errorMsg").toString();
+                                ToolsUtils.getInstance().toastShowStr(PersonalRenzhengActivity.this, str);
+                            } catch (Exception e) {
 
                             }
-                            catch (Exception e)
-                            {
 
-                            }*/
-
-                        }
-                        catch (IOException e)
-                        {
+                        } catch (IOException e) {
 
                         }
 

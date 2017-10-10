@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.util.Log;
 
 import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -40,7 +41,7 @@ public class DiverApplication extends Application {
         Set<String> set = new HashSet<>();
         set.add(GetUserInfoUtils.getGuid(this));//名字任意，可多添加几个
         JPushInterface.setTags(this, set, null);//设置标签
-
+        Log.e("applicaiton",GetUserInfoUtils.getGuid(this));
     }
 
     /**

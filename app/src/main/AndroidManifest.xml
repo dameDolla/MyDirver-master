@@ -84,7 +84,16 @@
 
 
         </activity>
+        <!--路线规划页面-->
+        <activity android:name=".activities.RouteMapActivity"
+            android:theme="@style/AppTheme">
 
+        </activity>
+        <!--认证成功界面-->
+        <activity android:name=".activities.CommitSuccessActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
         <!--启动页面-->
         <activity android:name=".activities.SplashActivity"
             android:theme="@style/AppTheme">

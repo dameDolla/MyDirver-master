@@ -101,7 +101,7 @@ public class BaojiaEditActivity extends BaseActivity {
         ToolsUtils.getInstance().toastShowStr(BaojiaEditActivity.this, bean.getOwnerguid());
        // initJsonData();
         logo.setImageURI(Uri.parse(bean.getAvatarAddress()));
-        mText.get(5).setText("货主: "+bean.getOwnername());
+        mText.get(3).setText("货主: "+bean.getOwnername());
         ll.get(2).setVisibility(View.GONE);
         if (bean.getLoad().equals("0"))
         {
@@ -146,7 +146,7 @@ public class BaojiaEditActivity extends BaseActivity {
         map.put("priceM",yunshu);
         map.put("otherfeeM","0");
         map.put("totalchargeM",sum);
-        map.put("trucktype","火车");
+        map.put("trucktype",bean.getTrucktype());
         map.put("feeremarkM","");
 
         map.put("price","0");

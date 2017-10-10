@@ -114,7 +114,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     private void checkInfo() {
         //获取保存的用户信息
         String guid = GetUserInfoUtils.getGuid(getContext());
-        ToolsUtils.getInstance().toastShowStr(getActivity(),guid);
         if (!TextUtils.isEmpty(guid)) {
 
             isLogin = true;
@@ -164,13 +163,13 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             case R.id.renzheng_rl:  //认证界面
                 if (isLogin)
                 {
-                    if (GetUserInfoUtils.getVtrueName(getContext()).equals("9") || GetUserInfoUtils.getVcompany(getContext()).equals("9"))
-                    {
+                    /*if (GetUserInfoUtils.getVtrueName(getContext()).equals("9") || GetUserInfoUtils.getVcompany(getContext()).equals("9") || GetUserInfoUtils.getVtrueName(getContext()).equals("0")||GetUserInfoUtils.getVcompany(getContext()).equals("0"))
+                    {*/
                         intent1 = new Intent(getActivity(), RenzhengMainActivity.class);
                         startActivity(intent1);
-                    }else {
+                   /* }else {
                         ToolsUtils.getInstance().toastShowStr(getActivity(),"请先完成认证");
-                    }
+                    }*/
 
                 }
                 else{ToolsUtils.getInstance().toastShowStr(getActivity(),login);}

@@ -1,11 +1,15 @@
 package com.app.gaolonglong.fragmenttabhost.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +42,16 @@ public class CommitSuccessActivity extends BaseActivity {
     }
     private void init()
     {
+        Timer timers = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(CommitSuccessActivity.this,MainActivity.class);
+                intent.putExtra("flag","splash");
+                startActivity(intent);
+            }
+        };
+        timers.schedule(task, 1000 * 3);
         MyCounDownTimer timer = new MyCounDownTimer(3000, 1000);
         timer.start();
     }

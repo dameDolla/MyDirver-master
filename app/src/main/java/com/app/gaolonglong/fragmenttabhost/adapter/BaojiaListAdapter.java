@@ -110,7 +110,7 @@ public class BaojiaListAdapter extends RecyclerView.Adapter implements View.OnCl
             mHolder.caozuo_gray.setVisibility(View.VISIBLE);
         }else if (data.getCargoPriceState().equals("3")){
             mHolder.status_logo.setVisibility(View.GONE);
-            mHolder.status_txt.setText("已撤销");
+            mHolder.status_txt.setText("司机同意报价");
             mHolder.status_txt.setTextSize(18);
             mHolder.status_txt.setTextColor(Color.RED);
             mHolder.ll.setVisibility(View.GONE);
@@ -138,7 +138,8 @@ public class BaojiaListAdapter extends RecyclerView.Adapter implements View.OnCl
                     list.get((int)view.getTag()).getTotalcharge()+"",
                     list.get((int)view.getTag()).getAvatarAddress()+"",
                     list.get((int)view.getTag()).getOwnername()+"",
-                    list.get((int)view.getTag()).getOwnerphone()+""
+                    list.get((int)view.getTag()).getOwnerphone()+"",
+                    list.get((int)view.getTag()).getFeeremark()+""
             );
             itemClickListener.onItemClick(view,bean);
         }

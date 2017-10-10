@@ -93,7 +93,7 @@ public class BaojiaDetailActivity extends BaseActivity implements View.OnClickLi
         mText.get(0).setText(bean.getPrice());
         mText.get(1).setText(bean.getLoadfee());
         mText.get(2).setText(bean.getUnloadfee());
-        mText.get(3).setText(bean.getFeeremarkM());
+        mText.get(3).setText(bean.getFeeremark());
         mText.get(5).setText(bean.getTotalcharge());
         mText.get(4).setText(bean.getTotalchargeM());
         mText.get(6).setText(bean.getOwnername());

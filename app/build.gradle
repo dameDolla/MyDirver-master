@@ -39,6 +39,7 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     /*高德地图定位*/
     compile 'com.amap.api:location:latest.integration'
+    compile 'com.amap.api:map2d:latest.integration'
     compile 'org.greenrobot:eventbus:3.0.0'
     // 此处以JPush 3.0.3 版本为例。
     // 此处以JCore 1.1.1 版本为例。
@@ -46,4 +47,5 @@ dependencies {
     compile files('libs/xdd安卓sdk对接包3.1.5.jar')
     compile files('libs/jcore-android-1.1.6.jar')
     compile files('libs/jpush-android-3.0.8.jar')
+    compile files('libs/AMap_Search_V5.2.1_20170630.jar')
 }

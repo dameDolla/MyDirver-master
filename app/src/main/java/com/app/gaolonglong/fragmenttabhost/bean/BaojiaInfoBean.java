@@ -23,11 +23,12 @@ public class BaojiaInfoBean implements Serializable {
     private String  AvatarAddress;//货主头像
     private String  ownername;  //货主的名称
     private String  ownerphone; //货主的电话
+    private String  feeremark;
 
     public BaojiaInfoBean(String totalchargeM,String priceM,String loadfeeM,String imforfee,String feeremarkM,
                           String UpdatePriceTime,String cargopricesGUID,String unloadfeeM,String otherfeeM,String price,
                           String loadfee,String unloadfee,String totalcharge,String AvatarAddress,String ownername,
-                          String ownerphone)
+                          String ownerphone,String feeremark)
     {
         this.totalchargeM = totalchargeM;
         this.priceM = priceM;
@@ -45,7 +46,12 @@ public class BaojiaInfoBean implements Serializable {
         this.AvatarAddress = AvatarAddress;
         this.ownername = ownername;
         this.ownerphone = ownerphone;
+        this.feeremark = feeremark;
 
+    }
+
+    public String getFeeremark() {
+        return feeremark;
     }
 
     public String getCargopricesGUID() {

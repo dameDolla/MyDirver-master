@@ -353,7 +353,7 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
 
                     @Override
                     public void onError(Throwable e) {
-                        ToolsUtils.getInstance().toastShowStr(DiaoduRenzheng3Activity.this, e.getMessage());
+                       // ToolsUtils.getInstance().toastShowStr(DiaoduRenzheng3Activity.this, e.getMessage());
                     }
 
                     @Override

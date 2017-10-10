@@ -61,7 +61,7 @@ public class MissionListAdapter extends RecyclerView.Adapter implements View.OnC
         MissionViewHolder mHolder = (MissionViewHolder) holder;
         MissionListBean.DataBean data = list.get(position);
         mHolder.addr.setText(data.getFromSite() + "-" + data.getToSite());
-        mHolder.time.setText(data.getPreloadtime() + "");
+        mHolder.time.setText("装车时间: "+data.getPreloadtime() + "");
         mHolder.carInfo.setText(data.getCargotype());
         mHolder.itemView.setTag(position);
         mHolder.carNum.setText("车牌号:" + data.getTruckno());

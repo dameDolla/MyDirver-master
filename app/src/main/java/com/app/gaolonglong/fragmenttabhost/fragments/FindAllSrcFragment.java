@@ -158,7 +158,7 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
         if (addrs.equals("")){
             mText.get(0).setText(location);
         }else {
-            mText.get(0).setText(addrs);
+           // mText.get(0).setText(addrs);
         }
 
         adapter = new FindSrcAdapter(getContext(),list);

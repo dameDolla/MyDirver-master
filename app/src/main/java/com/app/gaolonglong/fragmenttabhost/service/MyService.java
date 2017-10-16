@@ -5,6 +5,8 @@ import retrofit2.http.FormUrlEncoded;
 import rx.Observable;
 
 import com.app.gaolonglong.fragmenttabhost.bean.CarTeamBean;
+import com.app.gaolonglong.fragmenttabhost.bean.CarinfoBean;
+import com.app.gaolonglong.fragmenttabhost.bean.DriverBean;
 import com.app.gaolonglong.fragmenttabhost.bean.MissionListBean;
 import com.app.gaolonglong.fragmenttabhost.bean.BaojiaListBean;
 import com.app.gaolonglong.fragmenttabhost.bean.CompanyInfoBean;
@@ -14,6 +16,7 @@ import com.app.gaolonglong.fragmenttabhost.bean.LoginBean;
 import com.app.gaolonglong.fragmenttabhost.bean.ParametersBean;
 import com.app.gaolonglong.fragmenttabhost.bean.ReleaseBean;
 import com.app.gaolonglong.fragmenttabhost.bean.RouteListBean;
+import com.app.gaolonglong.fragmenttabhost.bean.VersionCodeBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
 
@@ -278,4 +281,59 @@ public interface MyService {
     Observable<GetCodeBean> addCars(@Field(Constant.PAGENAME) String page,
                                            @Field(Constant.METHOD) String method,
                                            @Field("JsonValue") String json);
+    /**
+     * 实时上传车辆位置
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> uploadLatLng(@Field(Constant.PAGENAME) String page,
+                                    @Field(Constant.METHOD) String method,
+                                    @Field("JsonValue") String json);
+    /**
+     * 检查版本更新
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<VersionCodeBean> checkUpdate(@Field(Constant.PAGENAME) String page,
+                                            @Field(Constant.METHOD) String method);
+    /**
+     * 获取一个全新guid
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> getGuid(@Field(Constant.PAGENAME) String page,
+                                            @Field(Constant.METHOD) String method);
+    /**
+     * 获取车辆信息  个体司机获取一辆车的信息  平台获取所有车的信息
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<CarinfoBean> getCarInfo(@Field(Constant.PAGENAME) String page,
+                                       @Field(Constant.METHOD) String method,
+                                       @Field("JsonValue") String json);
+    /**
+     * 根据车辆GUID删除车辆信息
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> delCar(@Field(Constant.PAGENAME) String page,
+                                       @Field(Constant.METHOD) String method,
+                                       @Field("JsonValue") String json);
+    /**
+     * 车队指派司机配送运单
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> getDriverToMission(@Field(Constant.PAGENAME) String page,
+                                   @Field(Constant.METHOD) String method,
+                                   @Field("JsonValue") String json);
+    /**
+     * 获取车队司机
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<DriverBean> getDriverInfo(@Field(Constant.PAGENAME) String page,
+                                         @Field(Constant.METHOD) String method,
+                                         @Field("JsonValue") String json);
+
 }

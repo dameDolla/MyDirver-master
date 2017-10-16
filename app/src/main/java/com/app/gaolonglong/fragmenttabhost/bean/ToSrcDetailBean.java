@@ -34,10 +34,12 @@ public class ToSrcDetailBean implements Serializable {
     private String trucklengthHZ;
     private String trucktypeHZ;
     private String trucktype;
+    private String loadaddHZ;
+    private String arrivedaddHZ;
 
     public ToSrcDetailBean(String fromSite,String toSite,String ownername,String cargotype,String preloadtime,String avatarAddress,String creditlevel,String qty,String unit,String tel,String driverdeposit,
                            String ownerguid,String billsGUID,String driverGUID,String drivername,String companyGUID,String company,String truckno,String trucklength,String load,String unload,String FromDetailedAddress,
-                           String ToDetailedAddress,String trucklengthHZ,String trucktypeHZ,String trucktype)
+                           String ToDetailedAddress,String trucklengthHZ,String trucktypeHZ,String trucktype,String loadaddHZ,String arrivedaddHZ)
     {
         this.fromSite = fromSite;
         this.toSite = toSite;
@@ -65,6 +67,16 @@ public class ToSrcDetailBean implements Serializable {
         this.trucklengthHZ = trucklengthHZ;
         this.trucktypeHZ = trucktypeHZ;
         this.trucktype = trucktype;
+        this.loadaddHZ = loadaddHZ;
+        this.arrivedaddHZ = arrivedaddHZ;
+    }
+
+    public String getArrivedaddHZ() {
+        return arrivedaddHZ;
+    }
+
+    public String getLoadaddHZ() {
+        return loadaddHZ;
     }
 
     public String getTrucktype() {

@@ -2,6 +2,7 @@ package com.app.gaolonglong.fragmenttabhost.activities;
 
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -123,81 +124,83 @@ public class MissionDetailActivity extends BaseActivity  implements View.OnClick
         if (bean.getDriverGUID().equals("") && GetUserInfoUtils.getVcompany(MissionDetailActivity.this).equals("9"))
         {
             mButton.get(0).setText("选择运输司机");
+        }else {
+            if (bean.getStatus().equals("0")){
+
+                mText.get(0).setText(STATUS1);
+                methodName = Config.MISSION_STATUS_YUBAO;
+                mButton.get(0).setText(BUTTONTXT1);
+
+            }else if (bean.getStatus().equals("1")){
+
+                mText.get(0).setText(STATUS2);
+                methodName = Config.MISSION_STATUS_ZHIXING;
+                mButton.get(0).setText(BUTTONTXT2);
+                status.get(2).setText(ToolsUtils.getString(MissionDetailActivity.this,Constant.ADDRESS,""));
+                status.get(0).setTextColor(Color.BLACK);
+                status.get(1).setTextColor(Color.BLACK);
+                status.get(2).setTextColor(Color.BLACK);
+
+            }else if (bean.getStatus().equals("2")){
+
+                mText.get(0).setText(STATUS3);
+                methodName = Config.MISSION_STATUS_XIEHUO;
+                status.get(1).setText(ToolsUtils.getString(MissionDetailActivity.this,Constant.ADDRESS,""));
+                mButton.get(0).setText(BUTTONTXT3);
+                status.get(0).setTextColor(Color.BLACK);
+                status.get(1).setTextColor(Color.BLACK);
+                status.get(2).setTextColor(Color.BLACK);
+                status.get(3).setTextColor(Color.BLACK);
+                status.get(4).setTextColor(Color.BLACK);
+                status.get(5).setTextColor(Color.BLACK);
+
+            }else if (bean.getStatus().equals("3")){
+
+                mText.get(0).setText(STATUS4);
+                methodName = Config.MISSION_STATUS_QIANSHOU;
+                status.get(1).setText(ToolsUtils.getString(MissionDetailActivity.this,Constant.ADDRESS,""));
+                mButton.get(0).setText(BUTTONTXT4);
+                status.get(0).setTextColor(Color.BLACK);
+                status.get(1).setTextColor(Color.BLACK);
+                status.get(2).setTextColor(Color.BLACK);
+                status.get(3).setTextColor(Color.BLACK);
+                status.get(4).setTextColor(Color.BLACK);
+                status.get(5).setTextColor(Color.BLACK);
+                status.get(6).setTextColor(Color.BLACK);
+                status.get(7).setTextColor(Color.BLACK);
+            }else if (bean.getStatus().equals("4")){
+                mText.get(0).setText(STATUS5);
+                mButton.get(0).setText(STATUS5);
+                status.get(1).setText(ToolsUtils.getString(MissionDetailActivity.this,Constant.ADDRESS,""));
+                status.get(0).setTextColor(Color.BLACK);
+                status.get(1).setTextColor(Color.BLACK);
+                status.get(2).setTextColor(Color.BLACK);
+                status.get(3).setTextColor(Color.BLACK);
+                status.get(4).setTextColor(Color.BLACK);
+                status.get(5).setTextColor(Color.BLACK);
+                status.get(6).setTextColor(Color.BLACK);
+                status.get(7).setTextColor(Color.BLACK);
+                status.get(8).setTextColor(Color.RED);
+                status.get(9).setTextColor(Color.RED);
+            }else if (bean.getStatus().equals(9)){
+                mText.get(0).setText(STATUS5);
+                mButton.get(0).setText(STATUS5);
+                status.get(1).setText(ToolsUtils.getString(MissionDetailActivity.this,Constant.ADDRESS,""));
+                mText.get(9).setText(bean.getSigntime());
+                status.get(0).setTextColor(Color.BLACK);
+                status.get(1).setTextColor(Color.BLACK);
+                status.get(2).setTextColor(Color.BLACK);
+                status.get(3).setTextColor(Color.BLACK);
+                status.get(4).setTextColor(Color.BLACK);
+                status.get(5).setTextColor(Color.BLACK);
+                status.get(6).setTextColor(Color.BLACK);
+                status.get(7).setTextColor(Color.BLACK);
+                status.get(8).setTextColor(Color.RED);
+                status.get(9).setTextColor(Color.RED);
+            }
         }
 
-        if (bean.getStatus().equals("0")){
 
-            mText.get(0).setText(STATUS1);
-            methodName = Config.MISSION_STATUS_YUBAO;
-            mButton.get(0).setText(BUTTONTXT1);
-
-        }else if (bean.getStatus().equals("1")){
-
-            mText.get(0).setText(STATUS2);
-            methodName = Config.MISSION_STATUS_ZHIXING;
-            mButton.get(0).setText(BUTTONTXT2);
-            status.get(2).setText(ToolsUtils.getString(MissionDetailActivity.this,Constant.ADDRESS,""));
-            status.get(0).setTextColor(Color.BLACK);
-            status.get(1).setTextColor(Color.BLACK);
-            status.get(2).setTextColor(Color.BLACK);
-
-        }else if (bean.getStatus().equals("2")){
-
-            mText.get(0).setText(STATUS3);
-            methodName = Config.MISSION_STATUS_XIEHUO;
-            status.get(1).setText(ToolsUtils.getString(MissionDetailActivity.this,Constant.ADDRESS,""));
-            mButton.get(0).setText(BUTTONTXT3);
-            status.get(0).setTextColor(Color.BLACK);
-            status.get(1).setTextColor(Color.BLACK);
-            status.get(2).setTextColor(Color.BLACK);
-            status.get(3).setTextColor(Color.BLACK);
-            status.get(4).setTextColor(Color.BLACK);
-            status.get(5).setTextColor(Color.BLACK);
-
-        }else if (bean.getStatus().equals("3")){
-
-            mText.get(0).setText(STATUS4);
-            methodName = Config.MISSION_STATUS_QIANSHOU;
-            status.get(1).setText(ToolsUtils.getString(MissionDetailActivity.this,Constant.ADDRESS,""));
-            mButton.get(0).setText(BUTTONTXT4);
-            status.get(0).setTextColor(Color.BLACK);
-            status.get(1).setTextColor(Color.BLACK);
-            status.get(2).setTextColor(Color.BLACK);
-            status.get(3).setTextColor(Color.BLACK);
-            status.get(4).setTextColor(Color.BLACK);
-            status.get(5).setTextColor(Color.BLACK);
-            status.get(6).setTextColor(Color.BLACK);
-            status.get(7).setTextColor(Color.BLACK);
-        }else if (bean.getStatus().equals("4")){
-            mText.get(0).setText(STATUS5);
-            mButton.get(0).setText(STATUS5);
-            status.get(1).setText(ToolsUtils.getString(MissionDetailActivity.this,Constant.ADDRESS,""));
-            status.get(0).setTextColor(Color.BLACK);
-            status.get(1).setTextColor(Color.BLACK);
-            status.get(2).setTextColor(Color.BLACK);
-            status.get(3).setTextColor(Color.BLACK);
-            status.get(4).setTextColor(Color.BLACK);
-            status.get(5).setTextColor(Color.BLACK);
-            status.get(6).setTextColor(Color.BLACK);
-            status.get(7).setTextColor(Color.BLACK);
-            status.get(8).setTextColor(Color.RED);
-            status.get(9).setTextColor(Color.RED);
-        }else if (bean.getStatus().equals(9)){
-            mText.get(0).setText(STATUS5);
-            mButton.get(0).setText(STATUS5);
-            status.get(1).setText(ToolsUtils.getString(MissionDetailActivity.this,Constant.ADDRESS,""));
-            mText.get(9).setText(bean.getSigntime());
-            status.get(0).setTextColor(Color.BLACK);
-            status.get(1).setTextColor(Color.BLACK);
-            status.get(2).setTextColor(Color.BLACK);
-            status.get(3).setTextColor(Color.BLACK);
-            status.get(4).setTextColor(Color.BLACK);
-            status.get(5).setTextColor(Color.BLACK);
-            status.get(6).setTextColor(Color.BLACK);
-            status.get(7).setTextColor(Color.BLACK);
-            status.get(8).setTextColor(Color.RED);
-            status.get(9).setTextColor(Color.RED);
-        }
 
     }
     private void change()
@@ -264,7 +267,15 @@ public class MissionDetailActivity extends BaseActivity  implements View.OnClick
                 ToolsUtils.getInstance().toastShowStr(MissionDetailActivity.this,"复制成功");
                 break;
             case R.id.mission_detail_changestatus:
-                changeStatus(methodName);
+                if(bean.getDriverGUID().equals("") && GetUserInfoUtils.getVcompany(MissionDetailActivity.this).equals("9"))
+                {
+                    Intent intent = new Intent(MissionDetailActivity.this,SelectDriverActivity.class);
+                    intent.putExtra("missionguid",bean.getBillsGUID());
+                    startActivity(intent);
+                }else{
+                    changeStatus(methodName);
+                }
+
                 break;
         }
     }

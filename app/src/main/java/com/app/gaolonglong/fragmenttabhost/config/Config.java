@@ -13,6 +13,8 @@ public class Config {
     public static final String host = "/Handler/App.ashx";
     //上传图片
     public static  final String UPLOAD_URL = "/Handler/img.ashx";
+    //获取图片
+    public static final String GET_IMG = "/Handler/GetImg.ashx";
     //登录接口
     public static final String LOGIN_API_URL = "appLogin";
     //检查登录接口
@@ -93,4 +95,18 @@ public class Config {
     public static final String ADDTRUCK = "AddInfos";
     //获取车队车辆列表
     public static final String GETTRUCKS = "SelectInfo";
+    //实时上传车辆位置
+    public static final String UPLOADLATLNG = "UpdateNewLoad";
+    //检查版本更新
+    public static final String CHECKVERSION = "GetVersion";
+    //获取一个全新guid
+    public static final String GETNEWGUID = "GetGUID";
+    //根据司机GUID查询车辆信息
+    public static final String GETCARINFO = "SelecTruckByMemberGUID";
+    //根据车辆GUID删除车辆信息
+    public static final String DELCAR = "DeleteTruckByGUID";
+    //根据运单GUID修改司机GUID、司机名称、司机手机
+    public static final String UPDATEDRIVER = "UpdateDriverByGUID";
+    //根据车队（公司）查询司机信息
+    public static final String GETDRIVERS = "SelectInfoByCompanyGUID";
 }

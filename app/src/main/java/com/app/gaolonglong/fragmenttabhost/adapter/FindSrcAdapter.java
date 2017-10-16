@@ -121,7 +121,9 @@ public class FindSrcAdapter extends RecyclerView.Adapter implements View.OnClick
                         list.get((int)view.getTag()).getToDetailedAddress()+"",
                         list.get((int)view.getTag()).getTrucklengthHZ()+"",
                         list.get((int)view.getTag()).getTrucktypeHZ()+"",
-                        list.get((int)view.getTag()).getTrucktype()+""
+                        list.get((int)view.getTag()).getTrucktype()+"",
+                        list.get((int)view.getTag()).getLoadadd()+"",
+                        list.get((int)view.getTag()).getArrivedadd()+""
 
                 );
                 //注意这里使用getTag方法获取position

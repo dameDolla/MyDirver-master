@@ -1,12 +1,10 @@
 package com.app.gaolonglong.fragmenttabhost.fragments;
 
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -24,12 +21,10 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
-import com.app.gaolonglong.fragmenttabhost.activities.AddReleaseActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.FindDetailActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.SearchAddrActivity;
 import com.app.gaolonglong.fragmenttabhost.adapter.FindSrcAdapter;
 import com.app.gaolonglong.fragmenttabhost.bean.GetSRCBean;
-import com.app.gaolonglong.fragmenttabhost.bean.TestBean;
 import com.app.gaolonglong.fragmenttabhost.bean.ToSrcDetailBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
@@ -92,6 +87,7 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
     private View popView;
     private PopupWindow typePopmenu;
     private WindowManager.LayoutParams param;
+    private boolean isRenzheng;
 
     @Nullable
     @Override
@@ -121,7 +117,7 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
                     @Override
                     public void run() {
                         //线程执行体
-                       getSrcFromside(initJsonData(flag,addrs));
+                       getSrcFromside(initJsonData(flag,addrs,"",""));
                     }
                     });
 
@@ -147,6 +143,7 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
     }
     private void initView()
     {
+        isRenzheng = GetUserInfoUtils.isRenzheng(getContext());
         guid = GetUserInfoUtils.getGuid(getContext());
         mobile = GetUserInfoUtils.getMobile(getContext());
         key = GetUserInfoUtils.getKey(getContext());
@@ -160,7 +157,7 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
         }else {
            // mText.get(0).setText(addrs);
         }
-
+        Log.e("carteamJson",list.size()+"");
         adapter = new FindSrcAdapter(getContext(),list);
         MyLinearLayoutManager manager = new MyLinearLayoutManager(getContext());
         rlv.setLayoutManager(manager);
@@ -169,16 +166,29 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
             @Override
             public void onItemClick(View view, ToSrcDetailBean bean) {
                 //ToolsUtils.getInstance().toastShowStr(getContext(),bean.getOwnerguid());
-                Intent intent = new Intent(getContext(), FindDetailActivity.class);
-                intent.putExtra("findSrc",bean);
-                startActivity(intent);
+                if (isRenzheng){
+                    Intent intent = new Intent(getContext(), FindDetailActivity.class);
+                    intent.putExtra("findSrc",bean);
+                    startActivity(intent);
+                }else {
+                    ToolsUtils.getInstance().toastShowStr(getContext(),"请先通过认证");
+                }
+
             }
         });
         adapter.setOnFindClickListener(new FindSrcAdapter.OnFindClickListener() {
             @Override
             public void onFindClick(int position, String tel) {
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+list.get(position).getOwnerphone()));
-                startActivity(intent);
+                if (isRenzheng)
+                {
+                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+list.get(position).getOwnerphone()));
+                    startActivity(intent);
+                }
+                else
+                {
+                    ToolsUtils.getInstance().toastShowStr(getContext(),"请先通过认证");
+                }
+
             }
         });
 
@@ -310,7 +320,9 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
         sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                flag = 2;
                 mText.get(2).setText(lenStr+"/"+typeStr);
+                getSrcFromside( initJsonData(flag,addrs,lenStr,typeStr));
                 typePopmenu.dismiss();
             }
         });
@@ -327,7 +339,7 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
      * @return
      */
     Map<String,String> map = new HashMap<String,String>();
-    private String initJsonData(int flag,String addr)
+    private String initJsonData(int flag,String addr,String trucklenth,String trucktype)
     {
        // ToolsUtils.getInstance().toastShowStr(getContext(),addr);
         map.put("GUID",guid);
@@ -349,7 +361,8 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
             map.put("toSite",addr);
         }else if (flag == 2)
         {
-            map.put("trucktype","");
+            map.put("trucklength",trucklenth);
+            map.put("trucktype",trucktype);
         }
         else if (flag == 3)
         {
@@ -492,6 +505,6 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
         time = popList.get(i).get("name");
         mText.get(3).setText(time);
       // ToolsUtils.getInstance().toastShowStr(getContext(),initJsonData(flag,addrs));
-        getSrcFromside(initJsonData(flag,addrs));
+        getSrcFromside(initJsonData(flag,addrs,"",""));
     }
 }

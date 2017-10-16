@@ -7,9 +7,10 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
+import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.xdd.pay.xddPay;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -38,10 +39,12 @@ public class DiverApplication extends Application {
         Fresco.initialize(this);
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+        CrashReport.initCrashReport(getApplicationContext(), Constant.BUGLYAPPID,true);
         Set<String> set = new HashSet<>();
         set.add(GetUserInfoUtils.getGuid(this));//名字任意，可多添加几个
         JPushInterface.setTags(this, set, null);//设置标签
         Log.e("applicaiton",GetUserInfoUtils.getGuid(this));
+        //CrashReport.testJavaCrash();
     }
 
     /**

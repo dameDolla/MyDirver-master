@@ -7,16 +7,17 @@
 
     <include layout="@layout/top_title"/>
 
-    <com.app.gaolonglong.fragmenttabhost.view.WrapHeightGridView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/carteam_fresh">
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/carteam_gv"
-        android:horizontalSpacing="60dp"
-        android:numColumns="2"
-        android:verticalSpacing="@dimen/txt_39dp"
-        android:layout_marginLeft="@dimen/txt_20dp"
-        android:layout_marginRight="@dimen/txt_20dp"/>
-    <LinearLayout
+       android:paddingRight="@dimen/txt_20dp"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
+    <!--<LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_marginTop="@dimen/txt_20dp"
@@ -39,5 +40,5 @@
             android:text="添加更多的车辆"
             android:textColor="@color/black_6d"
             android:textSize="@dimen/txt_14"/>
-    </LinearLayout>
+    </LinearLayout>-->
 </LinearLayout>

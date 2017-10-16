@@ -419,7 +419,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/txt_12"
                         android:gravity="center"
-                        android:text="身份证正面"/>
+                        android:text="法人身份证正面"/>
                 </LinearLayout>
 
                 <LinearLayout

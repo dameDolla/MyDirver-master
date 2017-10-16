@@ -1,7 +1,11 @@
 package com.app.gaolonglong.fragmenttabhost.utils;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -9,8 +13,11 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -26,6 +33,7 @@ import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
@@ -600,6 +608,86 @@ public class ToolsUtils {
         return stringBuilder.toString();
     }
 
+    public void downLoadApk(final Context context) {
+        //进度条
+        final ProgressDialog pd;
+        pd = new ProgressDialog(context);
+        pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        pd.setMessage("正在下载更新");
+        pd.show();
+        new Thread(){
+            @Override
+            public void run() {
+                try {
+                    File file = getFileFromServer(ToolsUtils.getString(context,Constant.DOWNLOADURL,""), pd);
+                    //安装APK
+                    installApk(file,context);
+                    pd.dismiss(); //结束掉进度条对话框
+                } catch (Exception e) {
+                }
+            }}.start();
+    }
 
+    public static File getFileFromServer(String path, ProgressDialog pd) throws Exception{
+        //如果相等的话表示当前的sdcard挂载在手机上并且是可用的
+        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
+            URL url = new URL(path);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(5000);
+            //获取到文件的大小
+            pd.setMax(conn.getContentLength());
+            InputStream is = conn.getInputStream();
+            File file = new File(Environment.getExternalStorageDirectory(), "SD.apk");
+            FileOutputStream fos = new FileOutputStream(file);
+            BufferedInputStream bis = new BufferedInputStream(is);
+            byte[] buffer = new byte[1024];
+            int len ;
+            int total=0;
+            while((len =bis.read(buffer))!=-1){
+                fos.write(buffer, 0, len);
+                total+= len;
+                //获取当前下载量
+                pd.setProgress(total);
+            }
+            fos.close();
+            bis.close();
+            is.close();
+            return file;
+        }
+        else{
+            return null;
+        }
+    }
+    protected void installApk(File file,Context context) {
+        Intent intent = new Intent();
+        //执行动作
+        intent.setAction(Intent.ACTION_VIEW);
+        //执行的数据类型
+        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+        context.startActivity(intent);
+    }
 
+    /**
+     * 大于6.0主动申请权限
+     */
+    public  void requestPermission(Activity context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(context, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+
+            }
+        }
+    }
+    public void requestPermissions(Activity context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
+
+            }
+        }
+    }
 }

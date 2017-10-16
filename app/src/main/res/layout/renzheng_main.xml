@@ -41,6 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="个体司机认证"
+                android:id="@+id/renzheng_main_person"
                 android:textSize="@dimen/txt_14"
                 android:textColor="@color/black"/>
             <TextView
@@ -74,6 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="车队司机认证"
+                android:id="@+id/renzheng_main_cargroup"
                 android:textSize="@dimen/txt_14"
                 android:textColor="@color/black"/>
             <TextView
@@ -106,7 +108,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="调度平台认证"
+                android:text="车队调度认证"
+                android:id="@+id/renzheng_main_diaodu"
                 android:textSize="@dimen/txt_14"
                 android:textColor="@color/black"/>
             <TextView

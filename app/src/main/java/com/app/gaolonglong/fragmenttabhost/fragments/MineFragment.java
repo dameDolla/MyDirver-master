@@ -1,5 +1,6 @@
 package com.app.gaolonglong.fragmenttabhost.fragments;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import com.app.gaolonglong.fragmenttabhost.bean.LoginBean;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.app.gaolonglong.fragmenttabhost.view.CommomDialog;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.io.IOException;
@@ -48,6 +50,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     private Boolean isLogin = ToolsUtils.getInstance().isLogin(getContext());
 
     public String login = "请先登录";
+
+    private String tishitxt = "您已认证过了，如果重新提交资料需要重新认证,确定进行此操作吗？？";
 
 
     @BindViews({R.id.mine_setting, R.id.mine_username,
@@ -91,6 +95,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     public void init() {
         initView();
         showItem();
+
     }
 
     public void initView() {
@@ -138,19 +143,33 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     private void showItem()
     {
         String usertype = GetUserInfoUtils.getUserType(getContext());
+        String usertypename = "";
         if (usertype.equals("2")){//个体司机
             rlList.get(5).setVisibility(View.GONE);
+            usertypename="个体司机认证";
+        }
+        if (usertype.equals("3"))
+        {
+            usertypename = "车队司机认证";
+            rlList.get(5).setVisibility(View.GONE);
+            rlList.get(3).setVisibility(View.GONE);
+        }
+        if (usertype.equals("4"))
+        {
+            usertypename = "车队认证";
+            rlList.get(3).setVisibility(View.GONE);
         }
         if (GetUserInfoUtils.getVtrueName(getContext()).equals("0"))
         {
             mList.get(3).setText("未认证");
         }else if (GetUserInfoUtils.getVtrueName(getContext()).equals("1")){
-            mList.get(3).setText("已提交");
+            mList.get(3).setText(usertypename+"已提交");
         }else if (GetUserInfoUtils.getVtrueName(getContext()).equals("2")){
-            mList.get(3).setText("不合格");
+            mList.get(3).setText(usertypename+"不合格");
         }else if (GetUserInfoUtils.getVtrueName(getContext()).equals("9")){
-            mList.get(3).setText("已认证");
+            mList.get(3).setText(usertypename+"已认证");
         }
+        Log.e("vtruneme",GetUserInfoUtils.getVtrueName(getContext()));
     }
     @Override
     public void onClick(View view) {
@@ -163,13 +182,25 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             case R.id.renzheng_rl:  //认证界面
                 if (isLogin)
                 {
-                    /*if (GetUserInfoUtils.getVtrueName(getContext()).equals("9") || GetUserInfoUtils.getVcompany(getContext()).equals("9") || GetUserInfoUtils.getVtrueName(getContext()).equals("0")||GetUserInfoUtils.getVcompany(getContext()).equals("0"))
-                    {*/
+                    if (GetUserInfoUtils.getVtrueName(getContext()).equals("9") || GetUserInfoUtils.getVcompany(getContext()).equals("9"))
+                    {
+                        CommomDialog dialog = new CommomDialog(getContext(), R.style.dialog, tishitxt, new CommomDialog.OnCloseListener() {
+                            @Override
+                            public void onClick(Dialog dialog, boolean confirm) {
+                                dialog.dismiss();
+                                if(confirm)
+                                {
+                                    intent1 = new Intent(getActivity(), RenzhengMainActivity.class);
+                                    startActivity(intent1);
+                                }
+                            }
+                        });
+                        dialog.setTitle("提示");
+                        dialog.show();
+
+                    }
                         intent1 = new Intent(getActivity(), RenzhengMainActivity.class);
                         startActivity(intent1);
-                   /* }else {
-                        ToolsUtils.getInstance().toastShowStr(getActivity(),"请先完成认证");
-                    }*/
 
                 }
                 else{ToolsUtils.getInstance().toastShowStr(getActivity(),login);}
@@ -260,13 +291,13 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.mine_rl_route:
                 if(isLogin){
-                   /* if (GetUserInfoUtils.getVtrueName(getContext()).equals("9") || GetUserInfoUtils.getVcompany(getContext()).equals("9"))
-                    {*/
+                    if (GetUserInfoUtils.getVtrueName(getContext()).equals("9") || GetUserInfoUtils.getVcompany(getContext()).equals("9"))
+                    {
                         startActivity(new Intent(getActivity(), MyRouteListActivity.class));
-                    /*}else {
+                    }else {
                         ToolsUtils.getInstance().toastShowStr(getActivity(),"请先完成认证");
                     }
-*/
+
                 }else {
                     ToolsUtils.getInstance().toastShowStr(getActivity(),login);
                 }

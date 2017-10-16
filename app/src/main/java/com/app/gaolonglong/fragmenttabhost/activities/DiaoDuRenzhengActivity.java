@@ -35,6 +35,7 @@ import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.LoadingDialog;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.luoxudong.app.threadpool.ThreadPoolHelp;
 
 import org.json.JSONObject;
 
@@ -119,7 +120,7 @@ public class DiaoDuRenzhengActivity extends BaseActivity implements View.OnClick
 
     private void initView()
     {
-        mText.get(0).setText("调度平台认证");
+        mText.get(0).setText("车队调度认证");
         upload_head.setOnClickListener(this);
         icon.get(1).setOnClickListener(this);
         icon.get(2).setOnClickListener(this);
@@ -154,8 +155,8 @@ public class DiaoDuRenzhengActivity extends BaseActivity implements View.OnClick
                 position=3;
                 break;
             case R.id.cargroup_next:
-                startActivity(new Intent(DiaoDuRenzhengActivity.this,DiaoduRenzheng2Activity.class));
-                //next();
+                //startActivity(new Intent(DiaoDuRenzhengActivity.this,DiaoduRenzheng2Activity.class));
+                next();
                 break;
         }
     }
@@ -214,7 +215,7 @@ public class DiaoDuRenzhengActivity extends BaseActivity implements View.OnClick
                             if(code.equals("200") )
                             {
 
-                                startActivity(new Intent(DiaoDuRenzhengActivity.this,CarGroupRenzheng2Activity.class));
+                                startActivity(new Intent(DiaoDuRenzhengActivity.this,DiaoduRenzheng2Activity.class));
                             }
                         }
                     });
@@ -352,7 +353,12 @@ public class DiaoDuRenzhengActivity extends BaseActivity implements View.OnClick
 
                     if(file.exists())
                     {
-                        upload();
+                        ThreadPoolHelp.Builder.cached().builder().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                upload();
+                            }
+                        });
                     }
 
                 }
@@ -373,7 +379,12 @@ public class DiaoDuRenzhengActivity extends BaseActivity implements View.OnClick
                     file = ToolsUtils.compressImage(BitmapFactory.decodeFile(picPath));
                     if(file.exists())
                     {
-                        upload();
+                        ThreadPoolHelp.Builder.cached().builder().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                upload();
+                            }
+                        });
                     }
                 }
                 break;
@@ -388,8 +399,17 @@ public class DiaoDuRenzhengActivity extends BaseActivity implements View.OnClick
     {
 
         MultipartBody.Builder builder =  new MultipartBody.Builder().setType(MultipartBody.FORM);
+        if (position == 0){
+            builder.addFormDataPart("ImgType","1");
+        }else if (position == 1){
+            builder.addFormDataPart("ImgType","2");
+        }else if (position == 2){
+            builder.addFormDataPart("ImgType","3");
+        }else if (position == 3){
+            builder.addFormDataPart("ImgType","15");
+        }
+
         builder.addFormDataPart("MemberGUID",guid);
-        builder.addFormDataPart("ImgType","1");
         builder.addFormDataPart("headimgurl", "avatar", RequestBody.create(MediaType.parse("image/png/jpg; charset=utf-8"), file));
         RetrofitUtils.getRetrofitService().
                 upload_avatar(builder.build())
@@ -414,7 +434,14 @@ public class DiaoDuRenzhengActivity extends BaseActivity implements View.OnClick
                             try {
                                 JSONObject json = new JSONObject(info);
                                 String str = json.get("errorMsg").toString();
-                                ToolsUtils.getInstance().toastShowStr(DiaoDuRenzhengActivity.this,str);
+
+                                if (position == 0)
+                                {
+                                    ToolsUtils.getInstance().toastShowStr(DiaoDuRenzhengActivity.this,"上传图片成功");
+                                    ToolsUtils.putString(DiaoDuRenzhengActivity.this,Constant.HEADLOGO,str);
+                                }else {
+                                    ToolsUtils.getInstance().toastShowStr(DiaoDuRenzhengActivity.this,str);
+                                }
                             }
                             catch (Exception e)
                             {

@@ -36,6 +36,7 @@ import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.LoadingDialog;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.luoxudong.app.threadpool.ThreadPoolHelp;
 
 import org.json.JSONObject;
 
@@ -127,7 +128,7 @@ public class DiaoduRenzheng2Activity extends BaseActivity implements View.OnClic
 
     private void initView()
     {
-        mText.get(0).setText("调度平台司机认证");
+        mText.get(0).setText("车队调度认证");
         icon.get(0).setOnClickListener(this);
         icon.get(1).setOnClickListener(this);
         icon.get(2).setOnClickListener(this);
@@ -371,7 +372,12 @@ public class DiaoduRenzheng2Activity extends BaseActivity implements View.OnClic
 
                     if(file.exists())
                     {
-                        upload();
+                        ThreadPoolHelp.Builder.cached().builder().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                upload();
+                            }
+                        });
                     }
 
                 }
@@ -392,7 +398,12 @@ public class DiaoduRenzheng2Activity extends BaseActivity implements View.OnClic
                     file = ToolsUtils.compressImage(BitmapFactory.decodeFile(picPath));
                     if(file.exists())
                     {
-                        upload();
+                        ThreadPoolHelp.Builder.cached().builder().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                upload();
+                            }
+                        });
                     }
                 }
                 break;

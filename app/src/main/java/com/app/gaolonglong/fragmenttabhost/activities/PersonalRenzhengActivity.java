@@ -36,6 +36,7 @@ import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.LoadingDialog;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.luoxudong.app.threadpool.ThreadPoolHelp;
 
 import org.json.JSONObject;
 
@@ -357,7 +358,12 @@ public class PersonalRenzhengActivity extends BaseActivity implements View.OnCli
 
                     if(file.exists())
                     {
-                        upload();
+                        ThreadPoolHelp.Builder.cached().builder().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                upload();
+                            }
+                        });
                     }
 
                 }
@@ -379,7 +385,12 @@ public class PersonalRenzhengActivity extends BaseActivity implements View.OnCli
                     if(file.exists())
                     {
                        // ToolsUtils.getInstance().toastShowStr(PersonalRenzhengActivity.this,file.length()+"");
-                        upload();
+                        ThreadPoolHelp.Builder.cached().builder().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                upload();
+                            }
+                        });
                     }
                 }
                 break;
@@ -407,7 +418,7 @@ public class PersonalRenzhengActivity extends BaseActivity implements View.OnCli
             builder.addFormDataPart("ImgType","3");
         }else if(position == 3)
         {
-            builder.addFormDataPart("ImgType","3");
+            builder.addFormDataPart("ImgType","15");
         }
         RetrofitUtils.getRetrofitService().
                 upload_avatar(builder.build())
@@ -432,7 +443,13 @@ public class PersonalRenzhengActivity extends BaseActivity implements View.OnCli
                             try {
                                 JSONObject json = new JSONObject(info);
                                 String str = json.get("errorMsg").toString();
-                                ToolsUtils.getInstance().toastShowStr(PersonalRenzhengActivity.this, str);
+
+                                if (position == 0)
+                                {
+                                    ToolsUtils.putString(PersonalRenzhengActivity.this,Constant.HEADLOGO,str);
+                                }else {
+                                    ToolsUtils.getInstance().toastShowStr(PersonalRenzhengActivity.this, str);
+                                }
                             } catch (Exception e) {
 
                             }

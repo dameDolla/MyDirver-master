@@ -1,13 +1,16 @@
 package com.app.gaolonglong.fragmenttabhost.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.activities.BaseActivity;
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 
 import java.util.List;
 
@@ -23,6 +26,9 @@ public class RenzhengMainActivity extends BaseActivity implements View.OnClickLi
     @BindViews({R.id.rl_personal,R.id.rl_cargroup,R.id.rl_tiaodu})
     public List<RelativeLayout> mList;
 
+    @BindViews({R.id.renzheng_main_person,R.id.renzheng_main_cargroup,R.id.renzheng_main_diaodu})
+    public List<TextView> mText;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +42,27 @@ public class RenzhengMainActivity extends BaseActivity implements View.OnClickLi
     }
     private void initView()
     {
+        String usertype = GetUserInfoUtils.getUserType(RenzhengMainActivity.this);
+        boolean isRenzheng = GetUserInfoUtils.isRenzheng(RenzhengMainActivity.this);
+        if (isRenzheng){
+            if (usertype.equals("2")){//个体司机
+                mList.get(1).setEnabled(false);
+                mList.get(2).setEnabled(false);
+                mText.get(1).setTextColor(Color.GRAY);
+                mText.get(2).setTextColor(Color.GRAY);
+            }else if (usertype.equals("3")){
+                mList.get(0).setEnabled(false);
+                mList.get(2).setEnabled(false);
+                mText.get(0).setTextColor(Color.GRAY);
+                mText.get(2).setTextColor(Color.GRAY);
+            }else if (usertype.equals("4")){
+                mList.get(1).setEnabled(false);
+                mList.get(0).setEnabled(false);
+                mText.get(1).setTextColor(Color.GRAY);
+                mText.get(0).setTextColor(Color.GRAY);
+            }
+        }
+
         mList.get(0).setOnClickListener(this);
         mList.get(1).setOnClickListener(this);
         mList.get(2).setOnClickListener(this);

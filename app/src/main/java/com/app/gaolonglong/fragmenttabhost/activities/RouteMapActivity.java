@@ -45,6 +45,12 @@ public class RouteMapActivity extends BaseActivity implements RouteSearch.OnRout
         setContentView(R.layout.route_map);
         ButterKnife.bind(this);
         map.onCreate(savedInstanceState);
+        init();
+    }
+    private void init()
+    {
+        String fromsite = getIntent().getStringExtra("fromsitelatlng");
+        String tosite = getIntent().getStringExtra("tositelatlng");
         mRouteSearch = new RouteSearch(this);
         mRouteSearch.setRouteSearchListener(this);
         aMap = map.getMap();

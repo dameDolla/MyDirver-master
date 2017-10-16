@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,9 +21,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
@@ -32,6 +36,8 @@ import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.LoadingDialog;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.app.gaolonglong.fragmenttabhost.view.MyGridView;
+import com.luoxudong.app.threadpool.ThreadPoolHelp;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,8 +45,11 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -63,6 +72,8 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
 
     private int position = 0;
 
+    private String NEWGUID = "diaodunewguid";
+
     //请求相机
     private static final int REQUEST_CAPTURE = 100;
     //请求相册
@@ -83,6 +94,7 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
     private String mobile;
 
     private String key;
+    private WindowManager.LayoutParams param;
 
     @BindViews({R.id.top_title})
     public List<TextView> mText;
@@ -96,6 +108,14 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
             R.id.diaodu3_time, R.id.diaodu3_cartype,
             R.id.diaodu3_carlong})
     public List<EditText> mEdit;
+
+    @BindView(R.id.diaodu3_parent)
+    public LinearLayout parent;
+
+    @BindView(R.id.diaodu3_car_ll)
+    public LinearLayout carLL;
+    private View popView;
+    private PopupWindow typePopmenu;
 
     @OnClick(R.id.title_back)
     public void back() {
@@ -121,14 +141,15 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
     }
 
     private void initView() {
-        mText.get(0).setText("调度平台认证");
+        mText.get(0).setText("车队调度认证");
         mImage.get(0).setOnClickListener(this);
         mImage.get(1).setOnClickListener(this);
         mImage.get(2).setOnClickListener(this);
         mImage.get(3).setOnClickListener(this);
         mImage.get(4).setOnClickListener(this);
+        carLL.setOnClickListener(this);
         dialog = LoadingDialog.showDialog(DiaoduRenzheng3Activity.this);
-
+        getGuid();
         guid = ToolsUtils.getString(DiaoduRenzheng3Activity.this, Constant.LOGIN_GUID, "");
         mobile = ToolsUtils.getString(DiaoduRenzheng3Activity.this, Constant.MOBILE, "");
         key = ToolsUtils.getString(DiaoduRenzheng3Activity.this, Constant.KEY, "");
@@ -145,8 +166,9 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
             json.put("trucklicence", mEdit.get(1).getText());
             json.put("trucktype", mEdit.get(3).getText());
             json.put("trucklength", mEdit.get(4).getText());
-            json.put("boardingtime", mEdit.get(2).getText());
+            json.put("boardingtime", "");
             json.put("TruckImg","");
+            json.put("TrucksGUID",ToolsUtils.getString(DiaoduRenzheng3Activity.this,NEWGUID,""));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -174,6 +196,10 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
                     public void onNext(GetCodeBean getCodeBean) {
                         dialog.dismiss();
                         Log.e("bindtruck",getCodeBean.getErrorMsg());
+                        if (getCodeBean.getErrorCode().equals("200"))
+                        {
+                            startActivity(new Intent(DiaoduRenzheng3Activity.this,CommitSuccessActivity.class));
+                        }
                         //ToolsUtils.getInstance().toastShowStr(DiaoduRenzheng3Activity.this,getCodeBean.getErrorMsg());
                     }
                 });
@@ -304,7 +330,12 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
                     file = ToolsUtils.compressImage(BitmapFactory.decodeFile(path));
 
                     if (file.exists()) {
-                        upload();
+                        ThreadPoolHelp.Builder.cached().builder().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                               upload(ToolsUtils.getString(DiaoduRenzheng3Activity.this,NEWGUID,""));
+                            }
+                        });
                     }
 
                 }
@@ -321,7 +352,13 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
                     }
                     file = ToolsUtils.compressImage(BitmapFactory.decodeFile(picPath));
                     if (file.exists()) {
-                        upload();
+                        ThreadPoolHelp.Builder.cached().builder().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                upload(ToolsUtils.getString(DiaoduRenzheng3Activity.this,NEWGUID,""));
+                            }
+                        });
+
                     }
                 }
                 break;
@@ -329,9 +366,9 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
         }
     }
 
-    private void upload() {
+    private void upload(String g) {
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-        builder.addFormDataPart("MemberGUID", guid);
+        builder.addFormDataPart("MemberGUID", g);
 
         builder.addFormDataPart("headimgurl", "avatar", RequestBody.create(MediaType.parse("image/png/jpg; charset=utf-8"), file));
         if (position == 2){
@@ -376,7 +413,36 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
                     }
                 });
     }
+    private void getGuid()
+    {
+        ThreadPoolHelp.Builder.cached().builder().execute(new Runnable() {
+            @Override
+            public void run() {
+                RetrofitUtils.getRetrofitService()
+                        .getGuid(Constant.PARAMETER_PAGENAME,Config.GETNEWGUID)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Subscriber<GetCodeBean>() {
+                            @Override
+                            public void onCompleted() {
 
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onNext(GetCodeBean getCodeBean) {
+                                String guid = getCodeBean.getErrorMsg();
+                                ToolsUtils.putString(DiaoduRenzheng3Activity.this,NEWGUID,guid);
+                               // upload(guid);
+                            }
+                        });
+            }
+        });
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -400,6 +466,132 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
                 position = 4;
                 uploadImage();
                 break;
+            case R.id.diaodu3_car_ll:
+                showCarPop();
+                break;
+
         }
+    }
+    private void initCartypePopwindow()
+    {
+        popView = getLayoutInflater().inflate(R.layout.find_cartype_gridview,null);
+        typePopmenu = new PopupWindow(popView,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        ColorDrawable dw = new ColorDrawable(0xb0000000);
+        typePopmenu.setOutsideTouchable(true);
+        typePopmenu.setBackgroundDrawable(dw);
+        typePopmenu.setFocusable(true);
+        typePopmenu.setTouchable(true);
+        typePopmenu.setAnimationStyle(R.style.mypopwindow_anim_style);
+    }
+
+    String lenStr = "";
+    String typeStr = "";
+    private void showCarPop()
+    {
+
+        List<Map<String,String>> typeList = new ArrayList<Map<String,String>>();
+        List<Map<String,String>> lengthList = new ArrayList<Map<String,String>>();
+        String[] length = { "4.2米", "4.5米", "5米", "5.2米", "6.2米", "6.8米",
+                "7.2米", "11.7米", "12.5米", "13米", "13.5米","14米","15米","16米","17米" };
+
+        final String[] type = {"冷藏车","平板","高栏","箱式","保温","危险品","高低板"};
+
+        for (int j=0;j<type.length;j++)
+        {
+            Map<String,String> maps = new HashMap<String, String>();
+            maps.put("type",type[j]);
+            typeList.add(maps);
+        }
+
+        for (int i= 0;i<length.length;i++)
+        {
+            Map<String,String> map = new HashMap<String,String>();
+            map.put("length",length[i]);
+            lengthList.add(map);
+        }
+        final MyGridView lenthGrid = (MyGridView) popView.findViewById(R.id.gridview);
+        SimpleAdapter lenthAdapter = new SimpleAdapter(DiaoduRenzheng3Activity.this,lengthList,R.layout.find_cartype_pop_item,new String[]{"length"},
+                new int[]{R.id.gv_item_text});
+        lenthGrid.setAdapter(lenthAdapter);
+
+        final MyGridView typeGrid = (MyGridView) popView.findViewById(R.id.gridview_2);
+        SimpleAdapter typeAdapter = new SimpleAdapter(DiaoduRenzheng3Activity.this,typeList,R.layout.find_cartype_pop_item,new String[]{"type"},
+                new int[]{R.id.gv_item_text});
+        typeGrid.setAdapter(typeAdapter);
+
+        typePopmenu.showAtLocation(parent, Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0,0);
+
+        param = getWindow().getAttributes();
+        param.alpha=0.7f;
+        getWindow().setAttributes(param);
+        typePopmenu.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                param = getWindow().getAttributes();
+                param.alpha=1f;
+                getWindow().setAttributes(param);
+            }
+        });
+        lenthGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                CharSequence len = ((TextView) lenthGrid.getChildAt(i).findViewById(R.id.gv_item_text)).getText();
+                lenStr = len.toString();
+                for(int m=0;m<adapterView.getCount();m++){
+                    TextView item = (TextView) lenthGrid.getChildAt(m).findViewById(R.id.gv_item_text);
+
+                    if (i == m) {//当前选中的Item改变背景颜色
+                        item.setBackgroundResource(R.drawable.cartype_unselect);
+                    } else {
+                        item.setBackgroundResource(R.drawable.cartype_select);
+                    }
+                }
+            }
+        });
+        typeGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                CharSequence type = ((TextView) typeGrid.getChildAt(i).findViewById(R.id.gv_item_text)).getText();
+                typeStr = type.toString();
+                for(int m=0;m<adapterView.getCount();m++){
+                    TextView item = (TextView) typeGrid.getChildAt(m).findViewById(R.id.gv_item_text);
+                    typeStr = (String)item.getText();
+                    if (i == m) {//当前选中的Item改变背景颜色
+                        item.setBackgroundResource(R.drawable.cartype_unselect);
+                    } else {
+                        item.setBackgroundResource(R.drawable.cartype_select);
+                    }
+                }
+            }
+        });
+        TextView sure = (TextView)popView.findViewById(R.id.cartype_grid_sure);
+        TextView noLimit = (TextView)popView.findViewById(R.id.cartype_grid_nocartype);
+
+        sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //.get(2).setText(lenStr+"/"+typeStr);
+                if (!typeStr.equals(""))
+                {
+                    mEdit.get(3).setText("");
+                    mEdit.get(3).setText(typeStr);
+                }
+                if (!lenStr.equals(""))
+                {
+                    mEdit.get(4).setText("");
+                    mEdit.get(4).setText(lenStr);
+                }
+
+                typePopmenu.dismiss();
+            }
+        });
+        noLimit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 }

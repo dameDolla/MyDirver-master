@@ -109,10 +109,16 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
                 }
                 break;
             case R.id.find_detail_fromsitell:
-                startActivity(new Intent(FindDetailActivity.this,RouteMapActivity.class));
+                Intent intent = new Intent(FindDetailActivity.this,RouteMapActivity.class);
+                intent.putExtra("fromsitelatlng",bean.getLoadaddHZ());
+                intent.putExtra("tositelatlng",bean.getArrivedaddHZ());
+                startActivity(intent);
                 break;
             case R.id.find_detail_tositell:
-                startActivity(new Intent(FindDetailActivity.this,RouteMapActivity.class));
+                Intent intents = new Intent(FindDetailActivity.this,RouteMapActivity.class);
+                intents.putExtra("fromsitelatlng",bean.getLoadaddHZ());
+                intents.putExtra("tositelatlng",bean.getArrivedaddHZ());
+                startActivity(intents);
                 break;
         }
 

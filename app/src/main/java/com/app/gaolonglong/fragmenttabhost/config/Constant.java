@@ -6,6 +6,12 @@ package com.app.gaolonglong.fragmenttabhost.config;
 
 public class Constant {
 
+    //bugly  appkey
+    public static final String BUGLYAPPKEY = "af7f6682-ab61-4a7a-9ff4-9b630411b57f";
+
+    public static final String BUGLYAPPID = "8a61380a74";
+
+    public static final String PLATFORM_PAGENAME = "Platform";
     //获取所有参数的PageName
     public static final String PARAMETER_PAGENAME = "Parameter";
     //获取个人信息的PageName
@@ -62,6 +68,8 @@ public class Constant {
     public static final String COUNT = "money";
     //是否是第一次进入app
     public static final String iSFIRST = "isFirst";
+    //检查更新的app下载url
+    public static final String DOWNLOADURL = "downloadurl";
 
 
 }

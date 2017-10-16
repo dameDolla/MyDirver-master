@@ -12,6 +12,11 @@ android {
         versionCode 1
         versionName "1.0"
 
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
+
     }
     buildTypes {
         release {
@@ -22,7 +27,6 @@ android {
 }
 
 dependencies {
-    testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:design:23.1.0'
     compile 'com.squareup.okhttp3:okhttp:3.3.0'
@@ -40,12 +44,13 @@ dependencies {
     /*高德地图定位*/
     compile 'com.amap.api:location:latest.integration'
     compile 'com.amap.api:map2d:latest.integration'
-    compile 'org.greenrobot:eventbus:3.0.0'
     // 此处以JPush 3.0.3 版本为例。
     // 此处以JCore 1.1.1 版本为例。
     compile files('libs/ThreadPoolHelp-2.0.jar')
-    compile files('libs/xdd安卓sdk对接包3.1.5.jar')
     compile files('libs/jcore-android-1.1.6.jar')
     compile files('libs/jpush-android-3.0.8.jar')
     compile files('libs/AMap_Search_V5.2.1_20170630.jar')
+    compile 'com.tencent.bugly:crashreport:latest.release'
+    //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+    compile 'com.tencent.bugly:nativecrashreport:latest.release'
 }

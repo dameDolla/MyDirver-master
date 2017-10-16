@@ -19,6 +19,7 @@ import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.LoadingDialog;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -62,8 +63,7 @@ public class CarGroupRenzheng2Activity extends BaseActivity {
     @BindView(R.id.renzheng_company_name)
     public EditText name;
 
-    @BindView(R.id.ll_recycler)
-    public LinearLayout recycler;
+
 
     @BindView(R.id.rcv_cominfo)
     public RecyclerView recyclerView;
@@ -105,8 +105,8 @@ public class CarGroupRenzheng2Activity extends BaseActivity {
         } catch (UnsupportedEncodingException e) {
 
         }
-        LinearLayoutManager manager = new LinearLayoutManager(CarGroupRenzheng2Activity.this);
-        recycler.setVisibility(View.VISIBLE);
+        MyLinearLayoutManager manager = new MyLinearLayoutManager(CarGroupRenzheng2Activity.this);
+
         recyclerView.setLayoutManager(manager);
         adapter = new CompanyInfoAdapters(list,CarGroupRenzheng2Activity.this);
         recyclerView.setAdapter(adapter);
@@ -162,6 +162,7 @@ public class CarGroupRenzheng2Activity extends BaseActivity {
 
                     @Override
                     public void onNext(final CompanyInfoBean getCodeBean) {
+
                         dialog.dismiss();
                         list.addAll(getCodeBean.getData());
                         adapter.notifyDataSetChanged();

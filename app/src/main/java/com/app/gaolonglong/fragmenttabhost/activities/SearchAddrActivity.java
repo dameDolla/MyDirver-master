@@ -26,8 +26,6 @@ import com.app.gaolonglong.fragmenttabhost.utils.DBManager;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 import com.app.gaolonglong.fragmenttabhost.view.SideLetterBar;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 

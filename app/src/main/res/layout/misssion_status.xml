@@ -463,7 +463,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="111"
+                            android:text=""
                             android:textColor="@color/black_6d"
                             android:textSize="@dimen/txt_14"
                             android:id="@+id/mission_detail_bzj"/>

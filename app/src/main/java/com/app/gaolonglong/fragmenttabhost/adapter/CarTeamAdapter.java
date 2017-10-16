@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
@@ -19,10 +20,11 @@ import java.util.List;
  * Created by yanqi on 2017/10/3.
  */
 
-public class CarTeamAdapter extends BaseAdapter{
+public class CarTeamAdapter extends RecyclerView.Adapter{
     private Context context;
     private List<CarTeamBean.DataBean> list;
     private View contentView;
+    private carteamClick onclick;
 
     public CarTeamAdapter(Context context, List<CarTeamBean.DataBean> list)
     {
@@ -30,59 +32,65 @@ public class CarTeamAdapter extends BaseAdapter{
         this.list = list;
     }
 
+    public interface carteamClick{
+         void OnCarteamClick(String truckguid);
+    }
+    public void setCarteamClick(carteamClick onclick)
+    {
+        this.onclick = onclick;
+    }
     @Override
-    public int getCount() {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.carteam_item,null);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        view.setLayoutParams(lp);
+        return new MyViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        MyViewHolder mHolder = (MyViewHolder) holder;
+        final CarTeamBean.DataBean data = list.get(position);
+        mHolder.carNum.setText(data.getTruckno());
+        mHolder.type.setText(data.getTrucktype());
+        mHolder.length.setText(data.getTrucklength());
+        mHolder.logo.setImageURI(Uri.parse(data.getTruckImg()));
+        mHolder.del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onclick.OnCarteamClick(data.getTrucksGUID());
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
         return list.size();
     }
 
-    @Override
-    public Object getItem(int i) {
-        return list.get(i);
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return 0;
-    }
-
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        MyViewHolder holder = null;
-        if(view == null)
-        {
-            holder = new MyViewHolder();
-        }else {
-            holder = (MyViewHolder) contentView.getTag();
-        }
-        CarTeamBean.DataBean data = list.get(i);
-
-        holder.logo.setImageURI(Uri.parse(data.getTruckImg()));
-        holder.carNum.setText(data.getTruckno());
-        holder.length.setText(data.getTrucklength());
-        holder.type.setText(data.getTrucktype());
-        return view;
-    }
-
-    private class MyViewHolder{
+    private class MyViewHolder extends RecyclerView.ViewHolder{
 
         private final SimpleDraweeView logo;
         private final TextView carNum;
         private final TextView type;
         private final TextView length;
         private final TextView weight;
-        private final TextView tiji;
+        private final TextView tiji,del;
 
-        public MyViewHolder()
-        {
-            contentView = LayoutInflater.from(context).inflate(R.layout.carteam_item,null);
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            logo = (SimpleDraweeView) itemView.findViewById(R.id.carteam_item_icon);
+            carNum = (TextView) itemView.findViewById(R.id.carteam_item_carnum);
+            type = (TextView) itemView.findViewById(R.id.carteam_item_cartype);
+            length = (TextView) itemView.findViewById(R.id.carteam_item_carlenth);
+            weight = (TextView) itemView.findViewById(R.id.carteam_item_weight);
+            tiji = (TextView) itemView.findViewById(R.id.carteam_item_tiji);
+            del = (TextView) itemView.findViewById(R.id.carteam_item_del);
 
-            logo = (SimpleDraweeView) contentView.findViewById(R.id.carteam_item_icon);
-            carNum = (TextView) contentView.findViewById(R.id.carteam_item_carnum);
-            type = (TextView) contentView.findViewById(R.id.carteam_item_cartype);
-            length = (TextView) contentView.findViewById(R.id.carteam_item_carlenth);
-            weight = (TextView) contentView.findViewById(R.id.carteam_item_weight);
-            tiji = (TextView) contentView.findViewById(R.id.carteam_item_tiji);
-            contentView.setTag(this);
         }
+
+
     }
+
+
 }

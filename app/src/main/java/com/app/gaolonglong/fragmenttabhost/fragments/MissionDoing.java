@@ -95,10 +95,7 @@ public class MissionDoing extends Fragment {
         adapter.setOnMissionItemClick(new MissionListAdapter.OnMissionItemClick() {
             @Override
             public void onMissionItemClick(View view, MissionDetailBean bean) {
-                Intent intent = new Intent(getContext(), MissionDetailActivity.class);
-                intent.putExtra("missionDetail",bean);
-                startActivity(intent);
-               // ToolsUtils.getInstance().toastShowStr(getContext(),bean.getBillsGUID()+"");
+                toDetail(bean);
             }
         });
         adapter.setOnMissionClick(new MissionListAdapter.OnMissionClick() {
@@ -108,7 +105,8 @@ public class MissionDoing extends Fragment {
                 {
                     ToolsUtils.getInstance().toastShowStr(getContext(),missionnum);
                 }else if (flag.equals("caozuo")){
-                    ToolsUtils.getInstance().toastShowStr(getContext(),missionnum);
+                    //toDetail();
+                    //ToolsUtils.getInstance().toastShowStr(getContext(),missionnum);
                 }else if (flag.equals("tel")){
                     Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+missionnum));
                     startActivity(intent);
@@ -158,6 +156,12 @@ public class MissionDoing extends Fragment {
                             }
                         });
 
+    }
+    private void toDetail(MissionDetailBean bean)
+    {
+        Intent intent = new Intent(getContext(), MissionDetailActivity.class);
+        intent.putExtra("missionDetail",bean);
+        startActivity(intent);
     }
     private String initJsonData()
     {

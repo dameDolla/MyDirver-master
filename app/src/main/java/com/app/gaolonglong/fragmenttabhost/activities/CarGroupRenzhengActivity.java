@@ -159,8 +159,8 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
                 position=3;
                 break;
             case R.id.cargroup_next:
-                startActivity(new Intent(CarGroupRenzhengActivity.this,CarGroupRenzheng2Activity.class));
-                //next();
+                //startActivity(new Intent(CarGroupRenzhengActivity.this,CarGroupRenzheng2Activity.class));
+                next();
                 break;
         }
     }
@@ -389,7 +389,7 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
     /**
      * 图片上传的方法
      */
-    private void upload(int position)
+    private void upload(final int position)
     {
 
         MultipartBody.Builder builder =  new MultipartBody.Builder().setType(MultipartBody.FORM);
@@ -406,6 +406,8 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
         }else if(position == 2)
         {
             builder.addFormDataPart("ImgType","3");
+        }else if (position == 3){
+            builder.addFormDataPart("ImgType","15");
         }
         RetrofitUtils.getRetrofitService().
                 upload_avatar(builder.build())
@@ -430,7 +432,13 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
                             try {
                                 JSONObject json = new JSONObject(info);
                                 String str = json.get("errorMsg").toString();
-                                ToolsUtils.getInstance().toastShowStr(CarGroupRenzhengActivity.this,str);
+                                if (position == 0)
+                                {
+                                    ToolsUtils.getInstance().toastShowStr(CarGroupRenzhengActivity.this,"上传图片成功");
+                                    ToolsUtils.putString(CarGroupRenzhengActivity.this,Constant.HEADLOGO,str);
+                                }else {
+                                    ToolsUtils.getInstance().toastShowStr(CarGroupRenzhengActivity.this,str);
+                                }
                             }
                             catch (Exception e)
                             {

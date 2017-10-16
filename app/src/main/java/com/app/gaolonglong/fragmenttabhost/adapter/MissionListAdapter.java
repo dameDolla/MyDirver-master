@@ -71,12 +71,12 @@ public class MissionListAdapter extends RecyclerView.Adapter implements View.OnC
                 onMissionClick.onMissionClick(position,list.get(position).getBillsGUID()+"","cancel");
             }
         });
-        mHolder.caozuo.setOnClickListener(new View.OnClickListener() {
+       /* mHolder.caozuo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onMissionClick.onMissionClick(position,list.get(position).getBillsGUID()+"","caozuo");
             }
-        });
+        });*/
         mHolder.phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

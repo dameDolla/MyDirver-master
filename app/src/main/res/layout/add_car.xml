@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
@@ -97,6 +98,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/txt_39dp"
+                android:visibility="gone"
                 android:background="@color/white"
                 android:orientation="horizontal">
 
@@ -232,12 +234,13 @@
                     android:orientation="vertical"
                     android:paddingLeft="@dimen/txt_15dp">
 
-                    <ImageView
+                    <com.facebook.drawee.view.SimpleDraweeView
                         android:id="@+id/addcar_card_pic"
                         android:layout_width="80dp"
+                        app:placeholderImage="@mipmap/pic"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
-                        android:src="@mipmap/pic" />
+                        />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -254,12 +257,12 @@
                     android:orientation="vertical"
                     android:paddingLeft="@dimen/txt_39dp">
 
-                    <ImageView
+                    <com.facebook.drawee.view.SimpleDraweeView
                         android:id="@+id/addcar_with_card"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/pic" />
+                        app:placeholderImage="@mipmap/pic"
+                        android:layout_gravity="center"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -276,12 +279,12 @@
                     android:orientation="vertical"
                     android:paddingLeft="@dimen/txt_39dp">
 
-                    <ImageView
+                    <com.facebook.drawee.view.SimpleDraweeView
                         android:id="@+id/addcar_car_face"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
-                        android:src="@mipmap/pic" />
+                        app:placeholderImage="@mipmap/pic"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -307,12 +310,12 @@
                     android:orientation="vertical"
                     android:paddingLeft="@dimen/txt_15dp">
 
-                    <ImageView
+                    <com.facebook.drawee.view.SimpleDraweeView
                         android:id="@+id/addcar_car_back"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
-                        android:src="@mipmap/pic" />
+                        app:placeholderImage="@mipmap/pic"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -329,12 +332,12 @@
                     android:orientation="vertical"
                     android:paddingLeft="@dimen/txt_39dp">
 
-                    <ImageView
+                    <com.facebook.drawee.view.SimpleDraweeView
                         android:id="@+id/addcar_car_content"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
-                        android:src="@mipmap/pic" />
+                        app:placeholderImage="@mipmap/pic"/>
 
                     <TextView
                         android:layout_width="match_parent"

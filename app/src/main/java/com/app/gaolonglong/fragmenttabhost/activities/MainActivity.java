@@ -1,5 +1,6 @@
 package com.app.gaolonglong.fragmenttabhost.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,7 +10,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,8 +32,8 @@ import com.app.gaolonglong.fragmenttabhost.fragments.FindFragment;
 import com.app.gaolonglong.fragmenttabhost.fragments.MineFragment;
 import com.app.gaolonglong.fragmenttabhost.fragments.MissionFragment;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.app.gaolonglong.fragmenttabhost.view.CommomDialog;
 
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,9 +44,9 @@ public class MainActivity extends AppCompatActivity {
     private FragmentTabHost mTabHost;
     private ViewPager mViewPager;
     private List<Fragment> mFragmentList;
-    private Class mClass[] = {BaojiaFragment.class,BackFragment.class,FindFragment.class, MissionFragment.class,MineFragment.class};
-    private Fragment mFragment[] = {new BaojiaFragment(),new BackFragment(),new FindFragment(),new MissionFragment(),new MineFragment()};
-    private String mTitles[] = {"报价","空程","找货","运单","我的"};
+    private Class mClass[] = {BaojiaFragment.class, BackFragment.class, FindFragment.class, MissionFragment.class, MineFragment.class};
+    private Fragment mFragment[] = {new BaojiaFragment(), new BackFragment(), new FindFragment(), new MissionFragment(), new MineFragment()};
+    private String mTitles[] = {"报价", "空程", "找货", "运单", "我的"};
     private int mImages[] = {
             R.drawable.tab_baojia,
             R.drawable.tab_back,
@@ -64,40 +67,42 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         init();
-        if(getSupportActionBar()!=null)
+        if (getSupportActionBar() != null)
             getSupportActionBar().hide();
 
     }
 
     private void init() {
+        ToolsUtils.getInstance().requestPermissions(MainActivity.this);
         initExit();
         initView();
 
         initEvent();
+        checkUpdate();
     }
-    private void initExit()
-    {
-        if(mApplication == null)
-        {
+
+    private void initExit() {
+        if (mApplication == null) {
             mApplication = (DiverApplication) getApplication();
         }
         mApplication.addActivity(MainActivity.this);
     }
+
     private void initView() {
 
-       // EventBus.getDefault().register(MainActivity.this);
+        // EventBus.getDefault().register(MainActivity.this);
         //EventBus.getDefault().post(new LocationInfo("测试","","",""));
         mCenter = (ImageView) findViewById(R.id.main_image_center);
         mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
 
         mFragmentList = new ArrayList<Fragment>();
-        mTabHost.setup(this,getSupportFragmentManager(), android.R.id.tabcontent);
+        mTabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
         mTabHost.getTabWidget().setDividerDrawable(null);
 
-        for (int i = 0;i < mFragment.length;i++){
+        for (int i = 0; i < mFragment.length; i++) {
             TabHost.TabSpec tabSpec = mTabHost.newTabSpec(mTitles[i]).setIndicator(getTabView(i));
-            mTabHost.addTab(tabSpec,mClass[i],null);
+            mTabHost.addTab(tabSpec, mClass[i], null);
             mFragmentList.add(mFragment[i]);
             mTabHost.getTabWidget().getChildAt(i).setBackgroundColor(Color.WHITE);
         }
@@ -121,8 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
         image = (ImageView) view.findViewById(R.id.image);
         title = (TextView) view.findViewById(R.id.title);
-        if(index == 2)
-        {
+        if (index == 2) {
 
         }
         image.setImageResource(mImages[index]);
@@ -138,10 +142,9 @@ public class MainActivity extends AppCompatActivity {
             public void onTabChanged(String tabId) {
 
                 mViewPager.setCurrentItem(mTabHost.getCurrentTab());
-                switch (tabId)
-                {
+                switch (tabId) {
                     case "找货":
-                       // ToolsUtils.getInstance().toastShowStr(MainActivity.this,tabId);
+                        // ToolsUtils.getInstance().toastShowStr(MainActivity.this,tabId);
                         mCenter.setImageResource(R.drawable.tab_find_light);
                         //title.setTextColor(Color.parseColor("#ffd38a"));
                         break;
@@ -193,14 +196,39 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     private void toFindFragment() {
         String flag = getIntent().getStringExtra("flag");
-        if(flag.equals("splash"))
-        {
+        if (flag.equals("splash")) {
             mTabHost.setCurrentTab(2);
         }
-        if (flag.equals("baojiaEdit")){
+        if (flag.equals("baojiaEdit")) {
             mTabHost.setCurrentTab(0);
+        }
+    }
+
+    private void checkUpdate() {
+
+        String url = ToolsUtils.getString(MainActivity.this, Constant.DOWNLOADURL, "");
+        //String url = getIntent().getStringExtra("downloadUrl")+"";
+
+        if (!url.equals("")) {
+            CommomDialog dialog = new CommomDialog(MainActivity.this, R.style.dialog, "有新版本更新", new CommomDialog.OnCloseListener() {
+                @Override
+                public void onClick(Dialog dialog, boolean confirm) {
+                    dialog.dismiss();
+                    if (confirm) {
+                        ToolsUtils.getInstance().downLoadApk(MainActivity.this);
+                    } else {
+                        ToolsUtils.putString(MainActivity.this, Constant.DOWNLOADURL, "");
+                    }
+                }
+            });
+            dialog.setNegativeButton("取消");
+            dialog.setPositiveButton("更新");
+            dialog.show();
+
+            //dialog.setOnShowListener();
         }
     }
 
@@ -213,32 +241,29 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 双击退出
      */
-    private long  time = 0;
-    private void  exits()
-    {
-        if(System.currentTimeMillis() - time >2000)
-        {
+    private long time = 0;
+
+    private void exits() {
+        if (System.currentTimeMillis() - time > 2000) {
             time = System.currentTimeMillis();
-            ToolsUtils.getInstance().toastShowStr(MainActivity.this,Constant.EXIT_STR);
-        }
-        else
-        {
+            ToolsUtils.getInstance().toastShowStr(MainActivity.this, Constant.EXIT_STR);
+        } else {
             mApplication.removeAllActivity();
         }
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == event.KEYCODE_BACK) exits();
+        if (keyCode == event.KEYCODE_BACK) exits();
         return true;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1 && resultCode == 2)
-        {
+        if (requestCode == 1 && resultCode == 2) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(android.R.id.tabcontent,new BackFragment())
+                    .replace(android.R.id.tabcontent, new BackFragment())
                     .commit();
         }
     }

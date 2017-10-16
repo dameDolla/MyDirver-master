@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,9 +21,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
@@ -34,6 +38,8 @@ import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.LoadingDialog;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.app.gaolonglong.fragmenttabhost.view.MyGridView;
+import com.luoxudong.app.threadpool.ThreadPoolHelp;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,6 +51,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -89,6 +96,9 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
     @BindViews({R.id.top_title})
     public List<TextView> mText;
 
+    @BindView(R.id.personal2_parent)
+    public LinearLayout parent;
+
     @BindViews({R.id.person2_card_pic, R.id.person2_with_card,
             R.id.person2_car_face, R.id.person2_car_back,
             R.id.person2_car_content})
@@ -98,6 +108,10 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
             R.id.person2_time, R.id.person2_cartype,
             R.id.person2_carlong})
     public List<EditText> mEdit;
+    private View popView;
+    private PopupWindow typePopmenu;
+    private WindowManager.LayoutParams param;
+    private String newguid;
 
     @OnClick(R.id.title_back)
     public void back() {
@@ -121,6 +135,7 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
 
     private void init() {
         initView();
+        initCartypePopwindow();
     }
 
     private void initView() {
@@ -130,8 +145,12 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
         mImage.get(2).setOnClickListener(this);
         mImage.get(3).setOnClickListener(this);
         mImage.get(4).setOnClickListener(this);
+        mEdit.get(3).setOnClickListener(this);
+        mEdit.get(4).setOnClickListener(this);
         dialog = LoadingDialog.showDialog(PersonalRenzheng2Activity.this);
-
+        getGuid();
+        newguid = ToolsUtils.getString(PersonalRenzheng2Activity.this,"newguid","");
+        Log.e("personnalguid",newguid);
         guid = ToolsUtils.getString(PersonalRenzheng2Activity.this, Constant.LOGIN_GUID, "");
         mobile = ToolsUtils.getString(PersonalRenzheng2Activity.this, Constant.MOBILE, "");
         key = ToolsUtils.getString(PersonalRenzheng2Activity.this, Constant.KEY, "");
@@ -146,7 +165,8 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
         map.put("trucklicence", mEdit.get(1).getText().toString());
         map.put("trucktype", mEdit.get(3).getText().toString());
         map.put("trucklength", mEdit.get(4).getText().toString());
-        map.put("boardingtime", mEdit.get(2).getText().toString());
+        map.put("TrucksGUID",ToolsUtils.getString(PersonalRenzheng2Activity.this,"newguid",""));
+        //map.put("boardingtime", mEdit.get(2).getText().toString());
 
         return JsonUtils.getInstance().getJsonStr(map);
     }
@@ -165,7 +185,8 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
                     @Override
                     public void onError(Throwable e) {
                         dialog.dismiss();
-                        Log.e("personerror",e.getMessage());
+                        //Log.e("personerror",e.getMessage());
+                        ToolsUtils.getInstance().toastShowStr(PersonalRenzheng2Activity.this,e.getMessage());
                     }
 
                     @Override
@@ -305,7 +326,13 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
                     file = ToolsUtils.compressImage(BitmapFactory.decodeFile(path));
 
                     if (file.exists()) {
-                        upload();
+                        ThreadPoolHelp.Builder.cached().builder().execute(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                upload(ToolsUtils.getString(PersonalRenzheng2Activity.this,"newguid",""));
+                            }
+                        });
                     }
 
                 }
@@ -322,7 +349,14 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
                     }
                     file = ToolsUtils.compressImage(BitmapFactory.decodeFile(picPath));
                     if (file.exists()) {
-                        upload();
+                        ThreadPoolHelp.Builder.cached().builder().execute(new Runnable() {
+                            @Override
+                            public void run() {
+
+                               upload(ToolsUtils.getString(PersonalRenzheng2Activity.this,"newguid",""));
+                            }
+                        });
+
                     }
                 }
                 break;
@@ -330,19 +364,55 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
         }
     }
 
-    private void upload() {
+    private void getGuid()
+    {
+        ThreadPoolHelp.Builder.cached().builder().execute(new Runnable() {
+            @Override
+            public void run() {
+                RetrofitUtils.getRetrofitService()
+                        .getGuid(Constant.PARAMETER_PAGENAME,Config.GETNEWGUID)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Subscriber<GetCodeBean>() {
+                            @Override
+                            public void onCompleted() {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onNext(GetCodeBean getCodeBean) {
+                                String guid = getCodeBean.getErrorMsg();
+                                ToolsUtils.putString(PersonalRenzheng2Activity.this,"newguid",guid);
+                                //upload(guid);
+                            }
+                        });
+            }
+        });
+    }
+    private void upload(String s) {
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-        builder.addFormDataPart("MemberGUID", GetUserInfoUtils.getGuid(PersonalRenzheng2Activity.this));
+        builder.addFormDataPart("MemberGUID", s);
         builder.addFormDataPart("headimgurl", "avatar", RequestBody.create(MediaType.parse("image/png/jpg; charset=utf-8"), file));
         if(position == 0)
         {
             builder.addFormDataPart("ImgType", "4");
         }else if(position == 1)
         {
-            builder.addFormDataPart("ImgType", "1");//个人持照
+            builder.addFormDataPart("ImgType", "14");//个人持照
         }else if(position == 2)
         {
-            builder.addFormDataPart("ImgType", "1");
+            builder.addFormDataPart("ImgType", "5");
+        }else if (position == 3)
+        {
+            builder.addFormDataPart("ImgType", "6");
+        }else if (position == 4)
+        {
+            builder.addFormDataPart("ImgType", "7");
         }
         RetrofitUtils.getRetrofitService().
                 upload_avatar(builder.build())
@@ -403,6 +473,134 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
                 position = 4;
                 uploadImage();
                 break;
+            case R.id.person2_cartype:
+                showCarPop();
+                break;
+            case R.id.person2_carlong:
+                showCarPop();
+                break;
         }
+    }
+    private void initCartypePopwindow()
+    {
+        popView = getLayoutInflater().inflate(R.layout.find_cartype_gridview,null);
+        typePopmenu = new PopupWindow(popView,
+                 ViewGroup.LayoutParams.MATCH_PARENT,
+                 ViewGroup.LayoutParams.WRAP_CONTENT);
+        ColorDrawable dw = new ColorDrawable(0xb0000000);
+        typePopmenu.setOutsideTouchable(true);
+        typePopmenu.setBackgroundDrawable(dw);
+        typePopmenu.setFocusable(true);
+        typePopmenu.setTouchable(true);
+        typePopmenu.setAnimationStyle(R.style.mypopwindow_anim_style);
+    }
+
+    String lenStr = "";
+    String typeStr = "";
+    private void showCarPop()
+    {
+
+        List<Map<String,String>> typeList = new ArrayList<Map<String,String>>();
+        List<Map<String,String>> lengthList = new ArrayList<Map<String,String>>();
+        String[] length = { "4.2米", "4.5米", "5米", "5.2米", "6.2米", "6.8米",
+                "7.2米", "11.7米", "12.5米", "13米", "13.5米","14米","15米","16米","17米" };
+
+        final String[] type = {"冷藏车","平板","高栏","箱式","保温","危险品","高低板"};
+
+        for (int j=0;j<type.length;j++)
+        {
+            Map<String,String> maps = new HashMap<String, String>();
+            maps.put("type",type[j]);
+            typeList.add(maps);
+        }
+
+        for (int i= 0;i<length.length;i++)
+        {
+            Map<String,String> map = new HashMap<String,String>();
+            map.put("length",length[i]);
+            lengthList.add(map);
+        }
+        final MyGridView lenthGrid = (MyGridView) popView.findViewById(R.id.gridview);
+        SimpleAdapter lenthAdapter = new SimpleAdapter(PersonalRenzheng2Activity.this,lengthList,R.layout.find_cartype_pop_item,new String[]{"length"},
+                new int[]{R.id.gv_item_text});
+        lenthGrid.setAdapter(lenthAdapter);
+
+        final MyGridView typeGrid = (MyGridView) popView.findViewById(R.id.gridview_2);
+        SimpleAdapter typeAdapter = new SimpleAdapter(PersonalRenzheng2Activity.this,typeList,R.layout.find_cartype_pop_item,new String[]{"type"},
+                new int[]{R.id.gv_item_text});
+        typeGrid.setAdapter(typeAdapter);
+
+        typePopmenu.showAtLocation(parent, Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0,0);
+
+        param = getWindow().getAttributes();
+        param.alpha=0.7f;
+        getWindow().setAttributes(param);
+        typePopmenu.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                param = getWindow().getAttributes();
+                param.alpha=1f;
+                getWindow().setAttributes(param);
+            }
+        });
+        lenthGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                CharSequence len = ((TextView) lenthGrid.getChildAt(i).findViewById(R.id.gv_item_text)).getText();
+                lenStr = len.toString();
+                for(int m=0;m<adapterView.getCount();m++){
+                    TextView item = (TextView) lenthGrid.getChildAt(m).findViewById(R.id.gv_item_text);
+
+                    if (i == m) {//当前选中的Item改变背景颜色
+                        item.setBackgroundResource(R.drawable.cartype_unselect);
+                    } else {
+                        item.setBackgroundResource(R.drawable.cartype_select);
+                    }
+                }
+            }
+        });
+        typeGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                CharSequence type = ((TextView) typeGrid.getChildAt(i).findViewById(R.id.gv_item_text)).getText();
+                typeStr = type.toString();
+                for(int m=0;m<adapterView.getCount();m++){
+                    TextView item = (TextView) typeGrid.getChildAt(m).findViewById(R.id.gv_item_text);
+                    typeStr = (String)item.getText();
+                    if (i == m) {//当前选中的Item改变背景颜色
+                        item.setBackgroundResource(R.drawable.cartype_unselect);
+                    } else {
+                        item.setBackgroundResource(R.drawable.cartype_select);
+                    }
+                }
+            }
+        });
+        TextView sure = (TextView)popView.findViewById(R.id.cartype_grid_sure);
+        TextView noLimit = (TextView)popView.findViewById(R.id.cartype_grid_nocartype);
+
+        sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //.get(2).setText(lenStr+"/"+typeStr);
+                if (!typeStr.equals(""))
+                {
+                    mEdit.get(3).setText("");
+                    mEdit.get(3).setText(typeStr);
+                }
+                if (!lenStr.equals(""))
+                {
+                    mEdit.get(4).setText("");
+                    mEdit.get(4).setText(lenStr);
+                }
+
+                typePopmenu.dismiss();
+            }
+        });
+        noLimit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 }

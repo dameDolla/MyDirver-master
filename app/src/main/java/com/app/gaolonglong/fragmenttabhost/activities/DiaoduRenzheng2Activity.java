@@ -148,16 +148,16 @@ public class DiaoduRenzheng2Activity extends BaseActivity implements View.OnClic
         {
 
             case R.id.diaodu2_zheng_pic:
-                uploadImage();
                 position=0;
+                uploadImage();
                 break;
             case R.id.diaodu2_fan_pic:
-                uploadImage();
                 position=1;
+                uploadImage();
                 break;
             case R.id.diaodu2_yyzz:
-                uploadImage();
                 position=2;
+                uploadImage();
                 break;
             case R.id.diaodu2_next:
                 next();
@@ -175,16 +175,16 @@ public class DiaoduRenzheng2Activity extends BaseActivity implements View.OnClic
     private void next()
     {
         //dialog.show();
-        String name = mEdit.get(0).getText().toString();
-        String num = mEdit.get(1).getText().toString();
+        //String name = mEdit.get(0).getText().toString();
+        //String num = mEdit.get(1).getText().toString();
         String camname = mEdit.get(2).getText().toString();
         String comcode = mEdit.get(3).getText().toString();
-        String addr = mEdit.get(4).getText().toString();
+        //String addr = mEdit.get(4).getText().toString();
         String lxrname = mEdit.get(5).getText().toString();
         String bindTel = mEdit.get(6).getText().toString();
 
         // startActivity(new Intent(DiaoduRenzheng2Activity.this,CarGroupRenzheng2Activity.class));
-        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(num))
+        if (TextUtils.isEmpty(camname) || TextUtils.isEmpty(comcode) || TextUtils.isEmpty(lxrname)||TextUtils.isEmpty(bindTel))
         {
             ToolsUtils.getInstance().toastShowStr(DiaoduRenzheng2Activity.this,"请填写完整的信息");
         }
@@ -195,11 +195,11 @@ public class DiaoduRenzheng2Activity extends BaseActivity implements View.OnClic
                 mJson = new JSONObject();
                 mJson.put("GUID",guid);
                 mJson.put("mobile",mobile);
-                mJson.put("lealperson",name);
-                mJson.put("lealpersonIdcard",num);
+                mJson.put("lealperson","");
+                mJson.put("lealpersonIdcard","");
                 mJson.put("companyName",camname);
                 mJson.put("companycode",comcode);
-                mJson.put("address",addr);
+                mJson.put("address","");
                 mJson.put("person",lxrname);
                 mJson.put("phone",bindTel);
                 mJson.put(Constant.KEY,key);
@@ -209,7 +209,7 @@ public class DiaoduRenzheng2Activity extends BaseActivity implements View.OnClic
             {
 
             }
-            UpdateIdCardBean bodys = new UpdateIdCardBean(mobile,guid,num,key,name,"3");
+            //UpdateIdCardBean bodys = new UpdateIdCardBean(mobile,guid,num,key,name,"3");
             RetrofitUtils.getRetrofitService()
                     .setDiaoduInfo(/*bodys,*/"YZ", Config.DIAODU_INFO,mJson.toString())
                     .subscribeOn(Schedulers.io())
@@ -229,6 +229,7 @@ public class DiaoduRenzheng2Activity extends BaseActivity implements View.OnClic
                         @Override
                         public void onNext(GetCodeBean s) {
                             //dialog.dismiss();
+                            Log.e("ddCompany",s.getErrorMsg());
                             ToolsUtils.getInstance().toastShowStr(DiaoduRenzheng2Activity.this,s.getErrorCode());
                             String code = s.getErrorCode();
                             if(code.equals("200") )
@@ -422,13 +423,13 @@ public class DiaoduRenzheng2Activity extends BaseActivity implements View.OnClic
         builder.addFormDataPart("headimgurl", "avatar", RequestBody.create(MediaType.parse("image/png/jpg; charset=utf-8"), file));
         if(position == 0)
         {
-            builder.addFormDataPart("ImgType","2");
+            builder.addFormDataPart("ImgType","9");
         }else if(position == 1)
         {
-            builder.addFormDataPart("ImgType","3");
+            builder.addFormDataPart("ImgType","19");
         }else if(position == 2)
         {
-            builder.addFormDataPart("ImgType","9");
+            builder.addFormDataPart("ImgType","20");
         }
         RetrofitUtils.getRetrofitService().
                 upload_avatar(builder.build())

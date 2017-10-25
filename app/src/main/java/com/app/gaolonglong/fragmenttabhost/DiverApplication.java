@@ -10,6 +10,7 @@ import android.util.Log;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
@@ -36,7 +37,10 @@ public class DiverApplication extends Application {
             mDiver = this;
         }
         mList = new ArrayList<Activity>();
-        Fresco.initialize(this);
+        ImagePipelineConfig config = ImagePipelineConfig.newBuilder(this)
+                .setDownsampleEnabled(true)
+                .build();
+        Fresco.initialize(this,config);
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         CrashReport.initCrashReport(getApplicationContext(), Constant.BUGLYAPPID,true);

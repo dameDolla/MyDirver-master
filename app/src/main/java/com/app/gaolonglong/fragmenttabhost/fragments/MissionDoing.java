@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.activities.MissionDetailActivity;
@@ -52,6 +54,12 @@ public class MissionDoing extends Fragment {
     @BindView(R.id.mission_doing_rcv)
     public RecyclerView rcv;
 
+    @BindView(R.id.mission_doing_main)
+    public LinearLayout main;
+
+    @BindView(R.id.mission_doing_fresh)
+    public SwipeRefreshLayout fresh;
+
     @BindView(R.id.mission_doing_empty)
     public EmptyLayout empty;
     private MissionListAdapter adapter;
@@ -83,9 +91,6 @@ public class MissionDoing extends Fragment {
     }
     private void initView()
     {
-        String guid = GetUserInfoUtils.getGuid(getContext());
-        String mobile = GetUserInfoUtils.getMobile(getContext());
-        String key = GetUserInfoUtils.getKey(getContext());
         list = new ArrayList<>();
         adapter = new MissionListAdapter(getContext(),list);
         MyLinearLayoutManager manager = new MyLinearLayoutManager(getContext());
@@ -124,6 +129,18 @@ public class MissionDoing extends Fragment {
                         getList(initJsonData());
                     }
                     });
+
+        fresh.setColorSchemeResources(R.color.google_blue,
+                R.color.google_green,
+                R.color.google_red,
+                R.color.google_yellow);
+        fresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                onActivityCreated(null);
+                fresh.setRefreshing(false);
+            }
+        });
     }
     private void getList(final String json)
     {
@@ -144,12 +161,15 @@ public class MissionDoing extends Fragment {
 
                             @Override
                             public void onNext(MissionListBean missionListBean) {
+                                list.clear();
+                                list.addAll(missionListBean.getData());
                                 if (missionListBean.getData().size() == 0){
-                                    empty.setErrorType(EmptyLayout.NODATA);
+                                    empty.setVisibility(View.VISIBLE);
+                                    main.setVisibility(View.GONE);
+                                    empty.setErrorImag(R.drawable.nomission,"您还没有运单哦");
                                 }else {
                                     empty.setVisibility(View.GONE);
-                                    list.clear();
-                                    list.addAll(missionListBean.getData());
+                                    main.setVisibility(View.VISIBLE);
                                     adapter.notifyDataSetChanged();
                                 }
 

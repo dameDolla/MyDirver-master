@@ -6,8 +6,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="深圳市-贝加尔湖"
-        android:textSize="@dimen/txt_14"
+        android:text=""
+        android:textSize="@dimen/txt_18"
         android:id="@+id/route_item_addr"
         android:textColor="@color/black"
         android:gravity="center_vertical"

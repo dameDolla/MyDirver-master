@@ -65,7 +65,6 @@ public class SplashActivity extends BaseActivity {
         }
 
         initLocation();
-        Log.e("key",key);
     }
 
     private void checkLogin() {
@@ -92,16 +91,17 @@ public class SplashActivity extends BaseActivity {
 
                             @Override
                             public void onError(Throwable e) {
-                                Log.e("splasherror",e.getMessage());
+                               //Log.e("splasherror",e.getMessage());
                                 //ToolsUtils.getInstance().loginOut(SplashActivity.this);
                             }
 
                             @Override
                             public void onNext(LoginBean loginBean) {
                                // Log.e("splashinfo",loginBean.getErrorMsg()+"---"+loginBean.getErrorCode());
-                                ToolsUtils.getInstance().toastShowStr(SplashActivity.this,loginBean.getErrorCode());
+                               // ToolsUtils.getInstance().toastShowStr(SplashActivity.this,loginBean.getErrorCode());
                                 if (loginBean.getErrorCode().equals("202")) {
                                     ToolsUtils.getInstance().loginOut(SplashActivity.this);
+                                    startActivity(new Intent(SplashActivity.this,LoginActivity.class));
 
                                 } else if (loginBean.getErrorCode().equals("200")) {
                                     ToolsUtils.putString(SplashActivity.this,Constant.LOGIN_GUID,loginBean.getData().get(0).getGUID()+"");
@@ -111,8 +111,13 @@ public class SplashActivity extends BaseActivity {
                                     ToolsUtils.putString(SplashActivity.this, Constant.HEADLOGO, loginBean.getData().get(0).getAvatarAddress()+"");
                                     ToolsUtils.putString(SplashActivity.this,Constant.COUNT,loginBean.getData().get(0).getMoney()+"");
                                     ToolsUtils.putString(SplashActivity.this,Constant.VCOMPANY,loginBean.getData().get(0).getVcompany()+"");
-                                    ToolsUtils.putString(SplashActivity.this,"idcard",loginBean.getData().get(0).getIdcard()+"");
+                                    ToolsUtils.putString(SplashActivity.this,Constant.USERNAME,loginBean.getData().get(0).getTruename()+"");
+                                    ToolsUtils.putString(SplashActivity.this,Constant.COMPANYGUID,loginBean.getData().get(0).getCompanyGUID()+"");
+
                                     //ToolsUtils.getInstance().toastShowStr(SplashActivity.this,loginBean.getData().get(0).getAvatarAddress());
+                                }else if (loginBean.getErrorCode().equals("203"))
+                                {
+                                    startActivity(new Intent(SplashActivity.this,LoginActivity.class));
                                 }
                                 //  toMain();
                             }
@@ -160,17 +165,26 @@ public class SplashActivity extends BaseActivity {
      */
     private void toMain() {
         boolean isFirst = ToolsUtils.getBoolean(SplashActivity.this,Constant.iSFIRST,true);
-        if (isFirst){
-            intent = new Intent(SplashActivity.this, GuidActivity.class);
-        }else {
-            if (ToolsUtils.getInstance().isLogin(SplashActivity.this))
-            {
-                intent = new Intent(SplashActivity.this,MainActivity.class);
-
+        if (ToolsUtils.getInstance().isNetworkAvailable(SplashActivity.this)){
+            if (isFirst){
+                intent = new Intent(SplashActivity.this, GuidActivity.class);
             }else {
-                intent = new Intent(SplashActivity.this,LoginActivity.class);
+                if (ToolsUtils.getInstance().isLogin(SplashActivity.this))
+                {
+                    intent = new Intent(SplashActivity.this,MainActivity.class);
+
+                }else {
+                    intent = new Intent(SplashActivity.this,LoginActivity.class);
+                }
+
             }
+        }else {
+            intent = new Intent(SplashActivity.this,NoNetWorkActivity.class);
         }
+
+        /*if (!ToolsUtils.getInstance().isNetworkAvailable(SplashActivity.this)){
+
+        }*/
         //intent.putExtra("downloadUrl",downloadurls);
         intent.putExtra("flag", "splash");
         Timer timer = new Timer();
@@ -178,6 +192,7 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void run() {
                 startActivity(intent);
+                finish();
             }
         };
         timer.schedule(task, 1000 * 3);

@@ -92,6 +92,7 @@ public class LoginActivity extends BaseActivity {
                         ToolsUtils.putString(LoginActivity.this, Constant.MOBILE, data.get(0).getMobile());
                         ToolsUtils.putString(LoginActivity.this, Constant.HEADLOGO, data.get(0).getAvatarAddress());
                         ToolsUtils.putString(LoginActivity.this,Constant.COUNT,data.get(0).getMoney()+"");
+                        ToolsUtils.putString(LoginActivity.this,Constant.COMPANYGUID,data.get(0).getCompanyGUID()+"");
 
                     } catch (Exception e) {
                         e.printStackTrace();

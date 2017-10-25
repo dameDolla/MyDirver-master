@@ -121,12 +121,14 @@ public class CarInfoActivity extends BaseActivity  implements View.OnClickListen
 
                             @Override
                             public void onError(Throwable e) {
-                                Log.e("carinfoerror",e.getMessage());
+                                //Log.e("carinfoerror",e.getMessage());
                             }
 
                             @Override
                             public void onNext(CarinfoBean carinfoBean) {
                                 Log.e("carinfo",carinfoBean.getErrorCode());
+                                //Log.e("carinfoimg",GetUserInfoUtils.getImg(,"4"));
+                                //Log.e("carinfoimgssss",GetUserInfoUtils.getImg(carinfoBean.getData().get(0).getTrucksGUID(),"4"));
                                 setView(carinfoBean);
                                 Log.e("carinfo",carinfoBean.getErrorMsg());
                             }
@@ -136,16 +138,15 @@ public class CarInfoActivity extends BaseActivity  implements View.OnClickListen
     }
     private void setView(CarinfoBean bean)
     {
-
+        String guid = GetUserInfoUtils.getGuid(CarInfoActivity.this);
         data = bean.getData();
-        mText.get(0).setText(data.get(0).getTrucktype());
-        mText.get(1).setText(data.get(0).getTrucklength());
-        mText.get(2).setText(data.get(0).getTruckno());
-        mText.get(3).setText(data.get(0).getTrucklicence());
+        mText.get(0).setText(data.get(0).getTrucktype()+"");
+        mText.get(1).setText(data.get(0).getTrucklength()+"");
+        mText.get(2).setText(data.get(0).getTruckno()+"");
+        mText.get(3).setText(data.get(0).getTrucklicence()+"");
 
-
-        img.get(0).setImageURI(Uri.parse(GetUserInfoUtils.getImg(data.get(0).getTrucksGUID(),"4")));
-        img.get(1).setImageURI(Uri.parse(GetUserInfoUtils.getImg(data.get(0).getTrucksGUID(),"14")));
+        img.get(0).setImageURI(Uri.parse(GetUserInfoUtils.getImg(data.get(0).getTrucksGUID(),"10")));
+        img.get(1).setImageURI(Uri.parse(GetUserInfoUtils.getImg(data.get(0).getTrucksGUID(),"16")));
         img.get(2).setImageURI(Uri.parse(GetUserInfoUtils.getImg(data.get(0).getTrucksGUID(),"6")));
         img.get(3).setImageURI(Uri.parse(GetUserInfoUtils.getImg(data.get(0).getTrucksGUID(),"7")));
     }

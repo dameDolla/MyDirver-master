@@ -85,7 +85,7 @@
             android:layout_height="match_parent"
             android:gravity="center">
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:id="@+id/baojia_detail_phone"
                 android:src="@mipmap/phone"/>
@@ -149,11 +149,12 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:orientation="horizontal"
                     android:layout_marginLeft="30dp"
                     android:paddingTop="@dimen/txt_10dp">
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="运输费"
                         android:textSize="@dimen/txt_16"
@@ -162,8 +163,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="1500.0"
+                        android:paddingLeft="@dimen/txt_10dp"
                         android:id="@+id/baojia_detail_hzyun"
-                        android:paddingTop="@dimen/txt_10dp"
                         android:textSize="@dimen/txt_16"
                         android:textColor="@color/red"/>
                 </LinearLayout>
@@ -177,13 +178,14 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"
+                android:gravity="center"
+                android:orientation="horizontal"
                 android:layout_marginLeft="30dp"
                 android:paddingTop="@dimen/txt_10dp">
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="装车费"
+                    android:text="装车费用"
                     android:textSize="@dimen/txt_16"
                     android:textColor="@color/black"/>
                 <TextView
@@ -191,8 +193,8 @@
                     android:layout_height="wrap_content"
                     android:text="1500.0"
                     android:id="@+id/baojia_detail_hzzhuang"
-                    android:paddingTop="@dimen/txt_10dp"
                     android:textSize="@dimen/txt_16"
+                    android:paddingLeft="@dimen/txt_10dp"
                     android:textColor="@color/red"/>
             </LinearLayout>
         </LinearLayout>
@@ -210,11 +212,12 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"
+                android:gravity="center"
+                android:orientation="horizontal"
                 android:layout_marginLeft="30dp"
                 android:paddingTop="@dimen/txt_10dp">
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="卸车费"
                     android:textSize="@dimen/txt_16"
@@ -224,8 +227,8 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:id="@+id/baojia_detail_hzxie"
-                    android:paddingTop="@dimen/txt_10dp"
                     android:textSize="@dimen/txt_16"
+                    android:paddingLeft="@dimen/txt_10dp"
                     android:textColor="@color/red"/>
             </LinearLayout>
             <FrameLayout
@@ -238,11 +241,12 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"
+                android:gravity="center"
+                android:orientation="horizontal"
                 android:layout_marginLeft="30dp"
                 android:paddingTop="@dimen/txt_10dp">
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="其他费用"
                     android:textSize="@dimen/txt_16"
@@ -252,8 +256,8 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:id="@+id/baojia_detail_hzother"
-                    android:paddingTop="@dimen/txt_10dp"
                     android:textSize="@dimen/txt_16"
+                    android:paddingLeft="@dimen/txt_10dp"
                     android:textColor="@color/red"/>
             </LinearLayout>
         </LinearLayout>
@@ -322,11 +326,12 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"
+                android:gravity="center"
+                android:orientation="horizontal"
                 android:layout_marginLeft="30dp"
                 android:paddingTop="@dimen/txt_10dp">
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="运输费"
                     android:textSize="@dimen/txt_16"
@@ -337,8 +342,8 @@
                     android:background="@null"
                     android:inputType="number"
                     android:id="@+id/baojia_detail_czyun"
-                    android:paddingTop="@dimen/txt_10dp"
                     android:textSize="@dimen/txt_16"
+                    android:paddingLeft="@dimen/txt_10dp"
                     android:textColor="@color/red"/>
             </LinearLayout>
             <FrameLayout
@@ -351,13 +356,14 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"
+                android:gravity="center"
+                android:orientation="horizontal"
                 android:layout_marginLeft="30dp"
                 android:paddingTop="@dimen/txt_10dp">
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="装车费"
+                    android:text="装车费用"
                     android:textSize="@dimen/txt_16"
                     android:textColor="@color/black"/>
                 <EditText
@@ -366,7 +372,7 @@
                     android:background="@null"
                     android:inputType="number"
                     android:id="@+id/baojia_detail_czzhuang"
-                    android:paddingTop="@dimen/txt_10dp"
+                    android:paddingLeft="@dimen/txt_10dp"
                     android:textSize="@dimen/txt_16"
                     android:textColor="@color/red"/>
             </LinearLayout>
@@ -385,11 +391,12 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"
+                android:gravity="center"
+                android:orientation="horizontal"
                 android:layout_marginLeft="30dp"
                 android:paddingTop="@dimen/txt_10dp">
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="卸车费"
                     android:textSize="@dimen/txt_16"
@@ -400,7 +407,7 @@
                     android:background="@null"
                     android:inputType="number"
                     android:id="@+id/baojia_detail_czxie"
-                    android:paddingTop="@dimen/txt_10dp"
+                    android:paddingLeft="@dimen/txt_10dp"
                     android:textSize="@dimen/txt_16"
                     android:textColor="@color/red"/>
             </LinearLayout>
@@ -414,11 +421,12 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"
+                android:gravity="center"
+                android:orientation="horizontal"
                 android:layout_marginLeft="30dp"
                 android:paddingTop="@dimen/txt_10dp">
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="其他费用"
                     android:textSize="@dimen/txt_16"
@@ -429,7 +437,7 @@
                     android:background="@null"
                     android:inputType="number"
                     android:id="@+id/baojia_detail_czother"
-                    android:paddingTop="@dimen/txt_10dp"
+                    android:paddingLeft="@dimen/txt_10dp"
                     android:textSize="@dimen/txt_16"
                     android:textColor="@color/red"/>
             </LinearLayout>
@@ -444,6 +452,7 @@
             android:background="@null"
             android:id="@+id/baojia_detail_czmsg"
             android:paddingLeft="30dp"
+            android:hint="请输入您的留言"
             android:paddingTop="@dimen/txt_10dp"
             android:paddingBottom="@dimen/txt_10dp"/>
         <FrameLayout
@@ -512,7 +521,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="提交议价"
+                    android:text="提交报价"
                     android:paddingLeft="@dimen/txt_5dp"
                     android:paddingTop="@dimen/txt_10dp"
                     android:paddingBottom="@dimen/txt_10dp"
@@ -542,11 +551,11 @@
                     android:paddingTop="@dimen/txt_10dp"
                     android:paddingBottom="@dimen/txt_10dp"
                     android:textColor="@color/white"
-                    android:paddingLeft="@dimen/txt_5dp"
+
                     android:textSize="@dimen/txt_18"
-                    android:paddingRight="@dimen/txt_20dp"
+
                     android:gravity="center"
-                    android:text="确认议价"/>
+                    android:text="确认货主报价"/>
             </LinearLayout>
         </LinearLayout>
         <FrameLayout

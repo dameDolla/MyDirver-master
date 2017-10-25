@@ -72,7 +72,12 @@ public class CarGroupRenzheng2Activity extends BaseActivity {
 
     @OnClick(R.id.title_back)
     public void back() {
-        back();
+        finish();
+    }
+    @OnClick(R.id.title_back_txt)
+    public void backs()
+    {
+        finish();
     }
 
     @OnClick(R.id.submit_info)
@@ -156,7 +161,7 @@ public class CarGroupRenzheng2Activity extends BaseActivity {
                     @Override
                     public void onError(Throwable e) {
                         dialog.dismiss();
-                        ToolsUtils.getInstance().toastShowStr(CarGroupRenzheng2Activity.this, e.getMessage());
+                        ToolsUtils.getInstance().toastShowStr(CarGroupRenzheng2Activity.this, "cargrouperror:"+e.getMessage());
 
                     }
 
@@ -164,9 +169,10 @@ public class CarGroupRenzheng2Activity extends BaseActivity {
                     public void onNext(final CompanyInfoBean getCodeBean) {
 
                         dialog.dismiss();
+                        list.clear();
                         list.addAll(getCodeBean.getData());
                         adapter.notifyDataSetChanged();
-                        //ToolsUtils.getInstance().toastShowStr(CarGroupRenzheng2Activity.this,list.size()+"");
+                        ToolsUtils.getInstance().toastShowStr(CarGroupRenzheng2Activity.this,"公司名车："+getCodeBean.getData().get(0).getCompanyName());
                     }
                 });
     }
@@ -183,7 +189,7 @@ public class CarGroupRenzheng2Activity extends BaseActivity {
             json.put("GUID",guid);
             json.put("mobile",mobile);
             json.put(Constant.KEY,key);
-            json.put("CompanysGUID",companyCode);
+            json.put("CompanyGUID",companyCode);
         } catch (JSONException e) {
             e.printStackTrace();
         }

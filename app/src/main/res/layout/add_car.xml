@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color_f2"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/add_car_parent">
 
         <include layout="@layout/top_title" />
 
@@ -33,98 +34,6 @@
                     android:textSize="@dimen/txt_12" />
 
             </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/txt_39dp"
-                android:background="@color/white"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/txt_15dp"
-                    android:text="车牌号"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/txt_14" />
-
-                <EditText
-                    android:id="@+id/add_car_carnum"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="5"
-                    android:background="@null"
-                    android:gravity="center_vertical"
-                    android:hint="必须和驾照一致"
-                    android:textColor="#666666"
-                    android:textSize="@dimen/txt_14" />
-            </LinearLayout>
-
-            <include layout="@layout/back_line" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/txt_39dp"
-                android:background="@color/white"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/txt_15dp"
-                    android:text="行驶证号"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/txt_14" />
-
-                <EditText
-                    android:id="@+id/add_car_xsznum"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="5"
-                    android:background="@null"
-                    android:gravity="center_vertical"
-                    android:hint="请输入行驶证号"
-                    android:textColor="#666666"
-                    android:textSize="@dimen/txt_14" />
-            </LinearLayout>
-
-            <include layout="@layout/back_line" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/txt_39dp"
-                android:visibility="gone"
-                android:background="@color/white"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/txt_15dp"
-                    android:text="上牌时间"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/txt_14" />
-
-                <EditText
-                    android:id="@+id/add_car_time"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="5"
-                    android:background="@null"
-                    android:gravity="center_vertical"
-                    android:hint=""
-                    android:textColor="#666666"
-                    android:textSize="@dimen/txt_14" />
-            </LinearLayout>
-
-            <include layout="@layout/back_line" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -174,6 +83,301 @@
                     android:textColor="#666666"
                     android:textSize="@dimen/txt_14" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/txt_39dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/txt_15dp"
+                    android:text="车牌号"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_14" />
+
+                <EditText
+                    android:id="@+id/add_car_carnum"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="必须和驾照一致"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/txt_14" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/txt_39dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/txt_15dp"
+                    android:text="自编号"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_14" />
+
+                <EditText
+                    android:id="@+id/carrenzheng_zbh"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入自编号"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/txt_14" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/add_car_carinfo">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/txt_39dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/txt_15dp"
+                        android:text="车重(吨)"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/txt_14" />
+
+                    <EditText
+                        android:id="@+id/carrenzheng_carweight"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="5"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="请输入车重"
+                        android:textColor="#666666"
+                        android:textSize="@dimen/txt_14" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/txt_39dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/txt_15dp"
+                        android:text="最大载重(吨):"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/txt_14" />
+
+                    <EditText
+                        android:id="@+id/carrz_zaizhong"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="最大载重"
+                        android:textColor="#666666"
+                        android:textSize="@dimen/txt_14" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/txt_15dp"
+                        android:text="容积"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/txt_14" />
+
+                    <EditText
+                        android:id="@+id/carrz_rongji"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="请输入容积(方)"
+                        android:textColor="#666666"
+                        android:textSize="@dimen/txt_14" />
+                </LinearLayout>
+
+                <include layout="@layout/back_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/txt_39dp"
+                    android:visibility="gone"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/txt_15dp"
+                        android:text="行驶证号"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/txt_14" />
+
+                    <EditText
+                        android:id="@+id/add_car_xsznum"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="5"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="请输入行驶证号"
+                        android:textColor="#666666"
+                        android:textSize="@dimen/txt_14" />
+                </LinearLayout>
+
+                <include layout="@layout/back_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/txt_39dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/txt_15dp"
+                        android:text="上牌时间"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/txt_14" />
+
+                    <EditText
+                        android:id="@+id/add_car_time"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="5"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint=""
+                        android:textColor="#666666"
+                        android:textSize="@dimen/txt_14" />
+                </LinearLayout>
+
+                <include layout="@layout/back_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/txt_39dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/txt_15dp"
+                        android:text="车辆尺寸(米)"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/txt_14" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/txt_39dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <!--<TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/txt_15dp"
+                        android:text="长"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/txt_14" />
+
+                    <EditText
+                        android:id="@+id/carrenzheng_length"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="请输入车长"
+                        android:singleLine="true"
+                        android:textColor="#666666"
+                        android:textSize="@dimen/txt_14" />-->
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/txt_15dp"
+                        android:text="宽"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/txt_14" />
+
+                    <EditText
+                        android:id="@+id/carrenzheng_kuan"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="请输入车宽"
+                        android:singleLine="true"
+                        android:textColor="#666666"
+                        android:textSize="@dimen/txt_14" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/txt_15dp"
+                        android:text="高"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/txt_14" />
+
+                    <EditText
+                        android:id="@+id/carrenzheng_gao"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="请输入车高"
+                        android:singleLine="true"
+                        android:textColor="#666666"
+                        android:textSize="@dimen/txt_14" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <include layout="@layout/carrenzheng_common" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -237,16 +441,15 @@
                     <com.facebook.drawee.view.SimpleDraweeView
                         android:id="@+id/addcar_card_pic"
                         android:layout_width="80dp"
-                        app:placeholderImage="@mipmap/pic"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
-                        />
+                        app:placeholderImage="@mipmap/pic" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="驾驶证"
+                        android:text="行驶证"
                         android:textSize="@dimen/txt_12" />
                 </LinearLayout>
 
@@ -261,14 +464,14 @@
                         android:id="@+id/addcar_with_card"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        app:placeholderImage="@mipmap/pic"
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center"
+                        app:placeholderImage="@mipmap/pic" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="个人持证照"
+                        android:text="营运证"
                         android:textSize="@dimen/txt_12" />
                 </LinearLayout>
 
@@ -284,7 +487,7 @@
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
-                        app:placeholderImage="@mipmap/pic"/>
+                        app:placeholderImage="@mipmap/pic" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -301,7 +504,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:paddingBottom="@dimen/txt_39dp">
+                >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -315,7 +518,7 @@
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
-                        app:placeholderImage="@mipmap/pic"/>
+                        app:placeholderImage="@mipmap/pic" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -337,7 +540,7 @@
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
-                        app:placeholderImage="@mipmap/pic"/>
+                        app:placeholderImage="@mipmap/pic" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -347,6 +550,62 @@
                         android:textSize="@dimen/txt_12" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/add_car_zbgce_ll"
+                    android:visibility="gone"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/txt_39dp">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/addcar_zbg_ce"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        app:placeholderImage="@mipmap/pic" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="柜体侧面"
+                        android:textSize="@dimen/txt_12" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:id="@+id/add_car_zbgback_ll"
+                android:visibility="gone"
+                android:paddingLeft="@dimen/txt_15dp"
+                android:paddingTop="@dimen/txt_10dp">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    >
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/addcar_zbg_back"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        app:placeholderImage="@mipmap/pic" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="柜体后面"
+                        android:textSize="@dimen/txt_12" />
+                </LinearLayout>
             </LinearLayout>
 
             <Button

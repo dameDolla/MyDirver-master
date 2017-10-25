@@ -72,6 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:id="@+id/baojia_item_hzbj_ll"
                     android:paddingTop="@dimen/txt_5dp">
                     <TextView
                         android:layout_width="wrap_content"
@@ -120,7 +121,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="50000"
+                        android:text=""
+                        android:paddingRight="@dimen/txt_5dp"
                         android:id="@+id/mission_item_baojia_hz"
                         android:gravity="center"
                         android:textSize="@dimen/txt_20"/>
@@ -141,11 +143,12 @@
             android:layout_weight="2"
             android:id="@+id/baojia_item_tel_ll">
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:src="@mipmap/phone"
                 android:id="@+id/mission_item_phone"
-                android:paddingLeft="@dimen/txt_15dp"/>
+                android:layout_marginRight="@dimen/txt_10dp"
+                />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -158,8 +161,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="撤销报价"
-            android:id="@+id/mission_order_cancle"
+            android:text="货源详情"
+            android:id="@+id/mission_order_tosrcdetail"
             android:textColor="@color/white"
             android:textSize="@dimen/txt_14"
             android:gravity="center"/>
@@ -172,13 +175,27 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="确认报价"
-            android:id="@+id/mission_order_caozuo"
+            android:text="重新报价"
+            android:id="@+id/mission_order_cxbj"
+            android:textColor="@color/white"
+            android:textSize="@dimen/txt_14"
+            android:gravity="center"/>
+        <FrameLayout
+            android:layout_width="1dp"
+            android:layout_gravity="center"
+            android:layout_height="@dimen/txt_20dp"
+            android:background="@color/white"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="取消报价"
+            android:id="@+id/mission_order_cancle"
             android:textColor="@color/white"
             android:textSize="@dimen/txt_14"
             android:gravity="center"/>
     </LinearLayout>
-    <TextView
+    <!--<TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/txt_39dp"
         android:text="进入运单查看"
@@ -186,6 +203,6 @@
         android:textSize="@dimen/txt_16"
         android:textColor="@color/white"
         android:gravity="center"
-        android:id="@+id/baojia_item_caozuo_gray"/>
+        android:id="@+id/baojia_item_caozuo_gray"/>-->
 
 </LinearLayout>

@@ -102,7 +102,7 @@
             android:orientation="horizontal"
             android:gravity="center">
 
-                <TextView
+                <!--<TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="解绑"
@@ -114,7 +114,21 @@
                     android:paddingRight="@dimen/txt_15dp"
                     android:paddingTop="@dimen/txt_5dp"
                     android:paddingBottom="@dimen/txt_5dp"
-                    android:background="@drawable/border_gray"/>
+                    android:background="@drawable/border_gray"/>-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/driver_jiebang"
+                android:gravity="center"
+                android:textColor="@color/black_6d"
+                android:textSize="@dimen/txt_16"
+                android:paddingLeft="@dimen/txt_15dp"
+                android:paddingRight="@dimen/txt_15dp"
+                android:paddingTop="@dimen/txt_5dp"
+                android:paddingBottom="@dimen/txt_5dp"
+                />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

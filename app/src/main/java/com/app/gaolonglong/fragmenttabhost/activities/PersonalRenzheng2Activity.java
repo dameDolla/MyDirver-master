@@ -101,13 +101,32 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
 
     @BindViews({R.id.person2_card_pic, R.id.person2_with_card,
             R.id.person2_car_face, R.id.person2_car_back,
-            R.id.person2_car_content})
+            R.id.person2_car_content,R.id.person2_zbg_ce,R.id.person2_zbg_back})
     public List<ImageView> mImage;
 
     @BindViews({R.id.person2_carnum, R.id.person2_xsnum,
             R.id.person2_time, R.id.person2_cartype,
             R.id.person2_carlong})
     public List<EditText> mEdit;
+
+    @BindViews({R.id.carrenzheng_info,R.id.carrenzheng_zbg_info})
+    public List<LinearLayout> mLinear;
+
+    @BindViews({R.id.person2_zbh,R.id.person2_carweight,R.id.person2_zaizhong,
+            R.id.person2_rongji,R.id.carrenzheng_kuan,R.id.carrenzheng_gao,
+    })
+    public List<EditText> mCarinfo;
+
+    @BindViews({R.id.carrc_common_zbgcode,R.id.carrc_common_hgcode,R.id.carrc_common_zbgnum,
+            R.id.carrc_common_zaizhong,R.id.carrenzheng_common_headweight,
+            R.id.carrenzheng_common_guiweight,R.id.carrenzheng_common_jiaweight})
+    public List<EditText> mZbginfo;
+
+    @BindViews({R.id.person2_zbgce_ll,R.id.person2_zbgback_ll})
+    public List<LinearLayout> mZbgimg;
+
+
+
     private View popView;
     private PopupWindow typePopmenu;
     private WindowManager.LayoutParams param;
@@ -145,6 +164,8 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
         mImage.get(2).setOnClickListener(this);
         mImage.get(3).setOnClickListener(this);
         mImage.get(4).setOnClickListener(this);
+        mImage.get(5).setOnClickListener(this);
+        mImage.get(6).setOnClickListener(this);
         mEdit.get(3).setOnClickListener(this);
         mEdit.get(4).setOnClickListener(this);
         dialog = LoadingDialog.showDialog(PersonalRenzheng2Activity.this);
@@ -157,6 +178,20 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
     }
     private String initJsonData()
     {
+        String zbh = mCarinfo.get(0).getText()+""; //自编号
+        String carweight = mCarinfo.get(1).getText()+""; //车重
+        String zaizhong = mCarinfo.get(2).getText()+""; //载重
+        String rongji = mCarinfo.get(3).getText()+""; //容积
+        //String chang = mCarinfo.get(4).getText()+""; //长
+        String kuan = mCarinfo.get(4).getText()+""; // 宽
+        String gao = mCarinfo.get(5).getText()+""; //高
+        String zbgcode = mZbginfo.get(0).getText()+""; //自备柜车牌号
+        String hgcode = mZbginfo.get(1).getText()+"";//海关编码
+        String zbgnum = mZbginfo.get(2).getText()+"";//柜号
+        String zbgzaizhong = mZbginfo.get(3).getText()+"";//自备柜载重
+        String headweight = mZbginfo.get(4).getText()+"";//自备柜头重
+        String guiweight = mZbginfo.get(5).getText()+"";//自备柜柜重
+        String jiaweight = mZbginfo.get(6).getText()+"";//自备柜架重
         Map<String,String> map  = new HashMap<>();
         map.put("GUID",guid);
         map.put(Constant.KEY,key);
@@ -166,6 +201,18 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
         map.put("trucktype", mEdit.get(3).getText().toString());
         map.put("trucklength", mEdit.get(4).getText().toString());
         map.put("TrucksGUID",ToolsUtils.getString(PersonalRenzheng2Activity.this,"newguid",""));
+        map.put("CustomNumber",zbh);
+        map.put("TruckWeight",carweight);
+        map.put("MaximumLoad",zaizhong);
+        map.put("Volume",rongji);
+        map.put("TruckWidth",kuan);
+        map.put("TruckHeight",gao);
+        map.put("PlateNumber",zbgcode);
+        map.put("CustomsCode",hgcode);
+        map.put("CabinetNo",zbgnum);
+        map.put("HeadWeight",headweight);
+        map.put("CabinetWeight",guiweight);
+        map.put("FrameWeight",jiaweight);
         //map.put("boardingtime", mEdit.get(2).getText().toString());
 
         return JsonUtils.getInstance().getJsonStr(map);
@@ -400,10 +447,10 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
         builder.addFormDataPart("headimgurl", "avatar", RequestBody.create(MediaType.parse("image/png/jpg; charset=utf-8"), file));
         if(position == 0)
         {
-            builder.addFormDataPart("ImgType", "4");
+            builder.addFormDataPart("ImgType", "10"); //行驶证
         }else if(position == 1)
         {
-            builder.addFormDataPart("ImgType", "14");//个人持照
+            builder.addFormDataPart("ImgType", "16");//营运证
         }else if(position == 2)
         {
             builder.addFormDataPart("ImgType", "5");
@@ -413,6 +460,12 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
         }else if (position == 4)
         {
             builder.addFormDataPart("ImgType", "7");
+        }else if (position == 5)
+        {
+            builder.addFormDataPart("ImgType", "17");//柜体侧面
+        }else if (position == 6)
+        {
+            builder.addFormDataPart("ImgType", "18");//柜体后面
         }
         RetrofitUtils.getRetrofitService().
                 upload_avatar(builder.build())
@@ -473,6 +526,14 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
                 position = 4;
                 uploadImage();
                 break;
+            case R.id.person2_zbg_ce:
+                position = 5;
+                uploadImage();
+                break;
+            case R.id.person2_zbg_back:
+                position = 6;
+                uploadImage();
+                break;
             case R.id.person2_cartype:
                 showCarPop();
                 break;
@@ -505,7 +566,7 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
         String[] length = { "4.2米", "4.5米", "5米", "5.2米", "6.2米", "6.8米",
                 "7.2米", "11.7米", "12.5米", "13米", "13.5米","14米","15米","16米","17米" };
 
-        final String[] type = {"冷藏车","平板","高栏","箱式","保温","危险品","高低板"};
+        final String[] type = {"冷藏车","平板","高栏","箱式","保温","危险品","高低板","自备柜"};
 
         for (int j=0;j<type.length;j++)
         {
@@ -566,7 +627,6 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
                 typeStr = type.toString();
                 for(int m=0;m<adapterView.getCount();m++){
                     TextView item = (TextView) typeGrid.getChildAt(m).findViewById(R.id.gv_item_text);
-                    typeStr = (String)item.getText();
                     if (i == m) {//当前选中的Item改变背景颜色
                         item.setBackgroundResource(R.drawable.cartype_unselect);
                     } else {
@@ -592,7 +652,18 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
                     mEdit.get(4).setText("");
                     mEdit.get(4).setText(lenStr);
                 }
-
+                if (typeStr.equals("自备柜"))//选择的是自备柜就显示填写自备柜信息的条目
+                {
+                    mZbgimg.get(0).setVisibility(View.VISIBLE);
+                    mZbgimg.get(1).setVisibility(View.VISIBLE);
+                    mLinear.get(0).setVisibility(View.GONE);
+                    mLinear.get(1).setVisibility(View.VISIBLE);
+                }else {
+                    mZbgimg.get(0).setVisibility(View.GONE);
+                    mZbgimg.get(1).setVisibility(View.GONE);
+                    mLinear.get(0).setVisibility(View.VISIBLE);
+                    mLinear.get(1).setVisibility(View.GONE);
+                }
                 typePopmenu.dismiss();
             }
         });

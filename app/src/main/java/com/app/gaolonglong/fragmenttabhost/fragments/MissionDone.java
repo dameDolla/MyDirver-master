@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.activities.MissionDetailActivity;
@@ -21,6 +22,7 @@ import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.app.gaolonglong.fragmenttabhost.view.EmptyLayout;
 import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
 import com.luoxudong.app.threadpool.ThreadPoolHelp;
 
@@ -45,6 +47,13 @@ public class MissionDone extends Fragment {
 
     @BindView(R.id.mission_done_rcv)
     public RecyclerView rcv;
+
+    @BindView(R.id.mission_done_main)
+    public LinearLayout main;
+
+    @BindView(R.id.mission_done_empty)
+    public EmptyLayout empty;
+
     private MissionListAdapter adapter;
 
     @Nullable
@@ -125,7 +134,7 @@ public class MissionDone extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("missiondoneerror",e.getMessage());
+                        //Log.e("missiondoneerror",e.getMessage());
                     }
 
                     @Override
@@ -133,7 +142,16 @@ public class MissionDone extends Fragment {
                         Log.e("missiondone",missionListBean.getErrorMsg());
                         list.clear();
                         list.addAll(missionListBean.getData());
-                        adapter.notifyDataSetChanged();
+                        if (list.size() == 0){
+                            main.setVisibility(View.GONE);
+                            empty.setVisibility(View.VISIBLE);
+                            empty.setErrorImag(R.drawable.nomission,"您还没有已完成的运单");
+                        }else {
+                            main.setVisibility(View.VISIBLE);
+                            empty.setVisibility(View.GONE);
+                            adapter.notifyDataSetChanged();
+                        }
+
                     }
                 });
     }

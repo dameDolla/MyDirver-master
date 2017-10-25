@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:id="@+id/find_pop_listview"
         android:dividerHeight="0.5dp"
-        android:divider="@color/black"
+        android:divider="@color/color_f2"
         android:cacheColorHint="@android:color/transparent"
         android:scrollingCache="false"
         android:scrollbars="none"

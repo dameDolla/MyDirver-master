@@ -66,7 +66,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
+        <service android:name=".service.GetUserInfoService"/>
         <service
             android:name="cn.jpush.android.service.PushService"
             android:enabled="true"
@@ -83,8 +83,23 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <!--无网络-->
+        <activity android:name=".activities.NoNetWorkActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
+        <!--公司信息界面-->
+        <activity android:name=".activities.CompanyInfoActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
         <!--添加或者修改车辆-->
         <activity android:name=".activities.AddCarActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
+        <!--关于我们界面-->
+        <activity android:name=".activities.IntroduceActivity"
             android:theme="@style/AppTheme">
 
         </activity>
@@ -111,6 +126,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <!--微信支付回调页面-->
+        <activity android:name=".activities.pay.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+
         </activity>
 
         <!--欢迎界面-->

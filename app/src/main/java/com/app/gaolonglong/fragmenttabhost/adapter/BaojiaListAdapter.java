@@ -66,7 +66,7 @@ public class BaojiaListAdapter extends RecyclerView.Adapter implements View.OnCl
         data = list.get(position);
         mHolder.addr.setText(data.getFromSite()+" - "+ data.getToSite());
         mHolder.time.setText(data.getPreloadtime());
-        mHolder.info.setText(data.getTrucktype()+"\\"+ data.getTrucklength()+"\\"+ data.getCargotype());
+        mHolder.info.setText(data.getTrucktypeHZ()+"\\"+ data.getTrucklengthHZ()+"\\"+ data.getCargotype());
         mHolder.czBaojia.setText(data.getTotalchargeM()+"");
         mHolder.mBaojia.setText(data.getTotalcharge()+"");
         mHolder.itemView.setTag(position);
@@ -76,12 +76,12 @@ public class BaojiaListAdapter extends RecyclerView.Adapter implements View.OnCl
                 listener.onOlick(position, data.getOwnerphone(),"","","phone");
             }
         });
-        mHolder.caozuo.setOnClickListener(new View.OnClickListener() {
+        /*mHolder.caozuo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listener.onOlick(position,"",data.getCargoPricesGUID()+"",data.getUpdatePriceTime(),"caozuo");
             }
-        });
+        });*/
         mHolder.cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,28 +93,28 @@ public class BaojiaListAdapter extends RecyclerView.Adapter implements View.OnCl
             mHolder.status_txt.setTextSize(12);
             mHolder.status_logo.setVisibility(View.VISIBLE);
             mHolder.status_logo.setImageResource(R.drawable.baojiaing);
-            mHolder.caozuo_gray.setVisibility(View.GONE);
         }else if (data.getCargoPriceState().equals("1")){
             mHolder.status_logo.setVisibility(View.GONE);
             mHolder.status_txt.setText("已确定");
             mHolder.status_txt.setTextSize(18);
             mHolder.status_txt.setTextColor(Color.RED);
-            mHolder.ll.setVisibility(View.GONE);
-            mHolder.caozuo_gray.setVisibility(View.VISIBLE);
+            mHolder.ll.setVisibility(View.VISIBLE);
+            mHolder.cxbj.setVisibility(View.GONE);
         }else if (data.getCargoPriceState().equals("2")){
             mHolder.status_logo.setVisibility(View.GONE);
             mHolder.status_txt.setText("已撤销");
             mHolder.status_txt.setTextSize(18);
             mHolder.status_txt.setTextColor(Color.RED);
-            mHolder.ll.setVisibility(View.GONE);
-            mHolder.caozuo_gray.setVisibility(View.VISIBLE);
+            mHolder.ll.setVisibility(View.VISIBLE);
+            mHolder.cxbj.setVisibility(View.GONE);
         }else if (data.getCargoPriceState().equals("3")){
             mHolder.status_logo.setVisibility(View.GONE);
-            mHolder.status_txt.setText("司机同意报价");
-            mHolder.status_txt.setTextSize(18);
+            mHolder.status_txt.setText("您同意货主报价");
+            mHolder.status_txt.setTextSize(14);
+            mHolder.hzbj.setVisibility(View.GONE);
             mHolder.status_txt.setTextColor(Color.RED);
-            mHolder.ll.setVisibility(View.GONE);
-            mHolder.caozuo_gray.setVisibility(View.VISIBLE);
+            mHolder.ll.setVisibility(View.VISIBLE);
+            mHolder.cxbj.setVisibility(View.GONE);
         }
     }
 
@@ -139,7 +139,8 @@ public class BaojiaListAdapter extends RecyclerView.Adapter implements View.OnCl
                     list.get((int)view.getTag()).getAvatarAddress()+"",
                     list.get((int)view.getTag()).getOwnername()+"",
                     list.get((int)view.getTag()).getOwnerphone()+"",
-                    list.get((int)view.getTag()).getFeeremark()+""
+                    list.get((int)view.getTag()).getFeeremark()+"",
+                    list.get((int)view.getTag()).getCargoPriceState()+""
             );
             itemClickListener.onItemClick(view,bean);
         }
@@ -158,12 +159,15 @@ public class BaojiaListAdapter extends RecyclerView.Adapter implements View.OnCl
         private final TextView mBaojia;
         private final TextView czBaojia;
         private final TextView cancel;
-        private final TextView caozuo;
+       // private final TextView caozuo;
         private final TextView info;
         private final ImageView status_logo;
         private final TextView status_txt;
-        private final TextView caozuo_gray;
+       // private final TextView caozuo_gray;
         private final LinearLayout ll,tel;
+        private final LinearLayout hzbj;
+        private final TextView cxbj;
+        private final TextView toSrcDetail;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -173,13 +177,16 @@ public class BaojiaListAdapter extends RecyclerView.Adapter implements View.OnCl
             czBaojia = (TextView)itemView.findViewById(R.id.mission_item_baojia_mine);
             mBaojia = (TextView)itemView.findViewById(R.id.mission_item_baojia_hz);
             cancel = (TextView)itemView.findViewById(R.id.mission_order_cancle);
-            caozuo = (TextView)itemView.findViewById(R.id.mission_order_caozuo);
+            //caozuo = (TextView)itemView.findViewById(R.id.mission_order_caozuo);
             info = (TextView)itemView.findViewById(R.id.mission_item_carinfo);
             status_logo = (ImageView)itemView.findViewById(R.id.baojia_item_status_logo);
             status_txt = (TextView)itemView.findViewById(R.id.baojia_item_status_txt);
-            caozuo_gray = (TextView)itemView.findViewById(R.id.baojia_item_caozuo_gray);
+            //caozuo_gray = (TextView)itemView.findViewById(R.id.baojia_item_caozuo_gray);
             ll = (LinearLayout)itemView.findViewById(R.id.baojia_item_ll);
             tel = (LinearLayout)itemView.findViewById(R.id.baojia_item_tel_ll);
+            hzbj = (LinearLayout) itemView.findViewById(R.id.baojia_item_hzbj_ll);
+            toSrcDetail = (TextView) itemView.findViewById(R.id.mission_order_tosrcdetail);
+            cxbj = (TextView) itemView.findViewById(R.id.mission_order_cxbj);
         }
     }
 }

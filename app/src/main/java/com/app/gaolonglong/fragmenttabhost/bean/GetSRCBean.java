@@ -230,7 +230,29 @@ public class GetSRCBean {
         private String ToDetailedAddress;
         private String trucklengthHZ;
         private String trucktypeHZ;
+        private String loadaddHZ;
+        private String arrivedaddHZ;
+        private String MyPriceStatus; //1 有报过价  0 没有报过价
 
+        public String getMyPriceStatus() {
+            return MyPriceStatus;
+        }
+
+        public String getArrivedaddHZ() {
+            return arrivedaddHZ;
+        }
+
+        public void setArrivedaddHZ(String arrivedaddHZ) {
+            this.arrivedaddHZ = arrivedaddHZ;
+        }
+
+        public String getLoadaddHZ() {
+            return loadaddHZ;
+        }
+
+        public void setLoadaddHZ(String loadaddHZ) {
+            this.loadaddHZ = loadaddHZ;
+        }
 
         public String getTrucklengthHZ() {
             return trucklengthHZ;

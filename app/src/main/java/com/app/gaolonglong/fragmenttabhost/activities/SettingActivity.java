@@ -1,7 +1,10 @@
 package com.app.gaolonglong.fragmenttabhost.activities;
 
 import android.Manifest;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.IBinder;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -28,6 +32,7 @@ import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.service.GetUserInfoService;
 import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
@@ -77,19 +82,36 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     @BindView(R.id.setting_icon_rl)
     public RelativeLayout  rl_icon;
 
+    @BindView(R.id.setting_call)
+    public TextView call;
+
     @BindView(R.id.setting_icon)
     public SimpleDraweeView icon;
 
     @BindView(R.id.setting_phone)
     public TextView tel;
 
+    @OnClick(R.id.setting_call_ll)
+    public void call()
+    {
+        Intent intent = new Intent(Intent.ACTION_DIAL,Uri.parse("tel:"+call.getText()+""));
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.setting_intro)
+    public void intro()
+    {
+        startActivity(new Intent(SettingActivity.this,IntroduceActivity.class));
+    }
+    private Intent intentService;
+
     @OnClick(R.id.exit_account)
     public void exit()
     {
 
         ToolsUtils.getInstance().loginOut(SettingActivity.this);
-        //startActivity(new Intent(SettingActivity.this,MainActivity.class));
-        finish();
+        startActivity(new Intent(SettingActivity.this,LoginActivity.class));
+        //finish();
     }
 
     @OnClick(R.id.setting_set_paycode)
@@ -97,18 +119,46 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     {
         startActivity(new Intent(SettingActivity.this,SetPayCodeMainActivity.class));
     }
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setting_content);
         ButterKnife.bind(this);
         init();
+        intentService = new Intent(SettingActivity.this, GetUserInfoService.class);
+        bindService(intentService,conn, Context.BIND_AUTO_CREATE);
+       /* startService(intentService);
+        Intent intent2 = new Intent(SettingActivity.this, GetUserInfoService.class);
+        stopService(intent2);*/
     }
     private void init()
     {
         initView();
         initIcon();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        this.unbindService(conn);
+
+    }
+    private ServiceConnection conn = new ServiceConnection() {
+
+        private GetUserInfoService userinfoService;
+
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            userinfoService = ((GetUserInfoService.MyBinder) iBinder).getService();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            userinfoService = null;
+        }
+    };
     private  void initView()
     {
         back = (ImageView)findViewById(R.id.title_back);

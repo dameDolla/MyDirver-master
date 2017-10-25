@@ -8,6 +8,12 @@ public class Constant {
 
     //bugly  appkey
     public static final String BUGLYAPPKEY = "af7f6682-ab61-4a7a-9ff4-9b630411b57f";
+    //微信支付appid
+    public static final String WXAPPID = "wx29f6079b4f7741c8";
+    //请求成功且有数据的返回值
+    public static final String HAVEDATAANDSUCCESS = "200";
+    //请求成功但是没有数据
+    public static final String NODATABUTSUCCESS = "203";
 
     public static final String BUGLYAPPID = "8a61380a74";
 
@@ -70,6 +76,9 @@ public class Constant {
     public static final String iSFIRST = "isFirst";
     //检查更新的app下载url
     public static final String DOWNLOADURL = "downloadurl";
-
+    //查看公司的guid
+    public static final String COMPANYGUID = "companyguid";
+    //运单进入选择司机界面的flag
+    public static final String MISSIONFLAGS = "mission_detail";
 
 }

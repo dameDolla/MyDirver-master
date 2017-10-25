@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/top_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/company_info_logo"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_centerInParent="true"
+                        app:placeholderImage="@mipmap/head" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/txt_10dp">
+
+                        <TextView
+                            android:id="@+id/company_info_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="深圳市唔通科技有限公司"
+                            android:textColor="@color/black_6d"
+                            android:textSize="@dimen/txt_16" />
+
+                        <TextView
+                            android:id="@+id/company_info_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/txt_10dp"
+                            android:textColor="@color/google_yellow"
+                            android:textSize="@dimen/txt_14" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/txt_5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="联系电话:"
+                            android:textColor="@color/black_6d"
+                            android:textSize="@dimen/txt_16" />
+
+                        <TextView
+                            android:id="@+id/company_info_tel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/txt_5dp"
+                            android:text="15908690321"
+                            android:textColor="@color/shen_blue"
+                            android:textSize="@dimen/txt_16" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/txt_5dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="企业信用代码:"
+                            android:textColor="@color/black_6d"
+                            android:textSize="@dimen/txt_16"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="8000"
+                            android:textColor="@color/shen_blue"
+                            android:textSize="@dimen/txt_16"
+                            android:id="@+id/company_info_qyxydm"
+                            android:paddingLeft="@dimen/txt_5dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/txt_10dp"
+                android:background="@color/color_f2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/txt_10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/txt_5dp"
+                    android:layout_marginLeft="@dimen/txt_15dp"
+                    android:layout_marginTop="@dimen/txt_5dp"
+                    android:background="@color/shen_blue"
+                    android:gravity="center_vertical" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/txt_5dp"
+                    android:text="认证信息"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_18" />
+            </LinearLayout>
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/company_info_yyzz"
+                android:layout_width="380dp"
+                android:layout_height="200dp"
+                app:placeholderImage="@drawable/pic_loaderror" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="营业执照"
+                android:textColor="@color/black_6d"
+                android:textSize="@dimen/txt_16" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/company_info_ysxkz"
+                android:layout_width="380dp"
+                android:layout_height="200dp"
+                app:placeholderImage="@drawable/pic_loaderror" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="道路运输许可证"
+                android:textColor="@color/black_6d"
+                android:textSize="@dimen/txt_16" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/company_info_sqwt"
+                android:layout_width="380dp"
+                android:layout_height="200dp"
+                app:placeholderImage="@drawable/pic_loaderror" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="60dp"
+                android:gravity="center"
+                android:text="授权委托书"
+                android:textColor="@color/black_6d"
+                android:textSize="@dimen/txt_16" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

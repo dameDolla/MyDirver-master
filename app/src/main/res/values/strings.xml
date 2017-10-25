@@ -62,4 +62,6 @@
     <string name="located_failed">定位失败</string>
     <string name="hot_city">热门城市</string>
     <string name="error_view_no_data">暂无内容</string>
+
+    <string name="pay_result_callback_msg" formatted="false">微信支付结果：%s</string>
 </resources>

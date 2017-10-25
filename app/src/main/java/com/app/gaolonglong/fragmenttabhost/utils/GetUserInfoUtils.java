@@ -17,6 +17,21 @@ import rx.schedulers.Schedulers;
  */
 
 public class GetUserInfoUtils {
+
+    public static String getUserName(Context context)
+    {
+        return ToolsUtils.getString(context,Constant.USERNAME,"");
+    }
+
+    /**
+     * 获取公司guid
+     * @param context
+     * @return
+     */
+    public static String getCompanyGuid(Context context)
+    {
+        return ToolsUtils.getString(context,Constant.COMPANYGUID,"");
+    }
     /**
      * 获取用户类型
      * @param context
@@ -33,6 +48,10 @@ public class GetUserInfoUtils {
     {
         String vtruename = GetUserInfoUtils.getVtrueName(context);
         String vcompanyname = GetUserInfoUtils.getVcompany(context);
+        String usertype = GetUserInfoUtils.getUserType(context);
+        /*if (usertype.equals("2")){
+
+        }*/
         if (vtruename.equals("9") || vcompanyname.equals("9"))
         {
             return true;

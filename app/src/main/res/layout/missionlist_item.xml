@@ -134,14 +134,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/txt_39dp"
-        android:background="@color/color_f2"
         android:visibility="gone"
+        android:background="@color/color_f2"
         android:id="@+id/mission_item_gray"
         android:orientation="horizontal">
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:text="查看订单"
             android:id="@+id/mission_order_todetail"
             android:textColor="@color/black_6d"

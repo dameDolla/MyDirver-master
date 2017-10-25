@@ -109,4 +109,6 @@ public class Config {
     public static final String UPDATEDRIVER = "UpdateDriverByGUID";
     //根据车队（公司）查询司机信息
     public static final String GETDRIVERS = "SelectInfoByCompanyGUID";
+    //根据billsGuid查找货源详情
+    public static final String GETSRCDETAIL = "SelectCargoXQByCGUID";
 }

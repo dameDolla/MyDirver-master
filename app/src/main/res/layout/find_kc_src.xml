@@ -1,151 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <LinearLayout
+        android:id="@+id/find_kc_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <!-- <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="48dp"
-             android:orientation="horizontal">
-
-             <RelativeLayout
-                 android:layout_width="0dp"
-                 android:layout_height="match_parent"
-                 android:layout_weight="1"
-                 android:gravity="center">
-
-                 <TextView
-                     android:id="@+id/find_kc_origin"
-                     android:layout_width="40dp"
-                     android:layout_height="match_parent"
-                     android:gravity="center"
-                     android:text="@string/txt_origin"
-                     android:textColor="@color/black"
-                     android:textSize="@dimen/txt_12" />
-
-                 <ImageView
-                     android:id="@+id/d"
-                     android:layout_width="@dimen/txt_10dp"
-                     android:layout_height="@dimen/txt_10dp"
-                     android:layout_centerVertical="true"
-                     android:layout_toRightOf="@+id/find_kc_origin"
-                     android:src="@mipmap/arrow_high" />
-
-             </RelativeLayout>
-
-             <TextView
-                 android:layout_width="1dp"
-                 android:layout_height="15dp"
-                 android:background="@color/color_f2" />
-
-             <RelativeLayout
-                 android:layout_width="0dp"
-                 android:layout_height="match_parent"
-                 android:layout_weight="1"
-                 android:gravity="center">
-
-                 <TextView
-                     android:id="@+id/find_kc_destination"
-                     android:layout_width="40dp"
-                     android:layout_height="match_parent"
-                     android:gravity="center"
-                     android:text="@string/txt_destination"
-                     android:textColor="@color/black"
-                     android:textSize="@dimen/txt_12" />
-
-                 <ImageView
-                     android:layout_width="@dimen/txt_10dp"
-                     android:layout_height="@dimen/txt_10dp"
-                     android:layout_centerVertical="true"
-                     android:layout_toRightOf="@id/find_kc_destination"
-                     android:src="@mipmap/arrow_high" />
-
-             </RelativeLayout>
-
-             <TextView
-                 android:layout_width="1dp"
-                 android:layout_height="15dp"
-                 android:background="@color/color_f2" />
-
-             <RelativeLayout
-                 android:layout_width="0dp"
-                 android:layout_height="match_parent"
-                 android:layout_weight="1"
-                 android:gravity="center">
-
-                 <TextView
-                     android:id="@+id/find_kc_cartype"
-                     android:layout_width="40dp"
-                     android:layout_height="match_parent"
-                     android:gravity="center"
-                     android:text="@string/txt_cartype"
-                     android:textColor="@color/black"
-                     android:textSize="@dimen/txt_12" />
-
-                 <ImageView
-                     android:layout_width="@dimen/txt_10dp"
-                     android:layout_height="@dimen/txt_10dp"
-                     android:layout_centerVertical="true"
-                     android:layout_toRightOf="@id/find_kc_cartype"
-                     android:src="@mipmap/arrow_high" />
-
-             </RelativeLayout>
-
-             <TextView
-                 android:layout_width="1dp"
-                 android:layout_height="15dp"
-                 android:background="@color/color_f2" />
-
-             <RelativeLayout
-                 android:layout_width="0dp"
-                 android:layout_height="match_parent"
-                 android:layout_weight="1"
-                 android:gravity="center">
-
-                 <TextView
-                     android:id="@+id/find_kc_time"
-                     android:layout_width="50dp"
-                     android:layout_height="match_parent"
-                     android:gravity="center"
-                     android:text="@string/txt_time"
-                     android:textColor="@color/black"
-                     android:textSize="@dimen/txt_12" />
-
-                 <ImageView
-                     android:id="@+id/iv"
-                     android:layout_width="@dimen/txt_10dp"
-                     android:layout_height="@dimen/txt_10dp"
-                     android:layout_centerVertical="true"
-                     android:layout_toRightOf="@id/find_kc_time"
-                     android:src="@mipmap/arrow_high" />
-
-             </RelativeLayout>
-
-         </LinearLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:id="@+id/find_kc_addr_ll"
             android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
+
+            <RelativeLayout
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:id="@+id/find_kc_addr"/>
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/find_kc_selectkc"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="切换空程"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_12" />
+
+                <ImageView
+                    android:id="@+id/d"
+                    android:layout_width="@dimen/txt_10dp"
+                    android:layout_height="@dimen/txt_10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/find_kc_selectkc"
+                    android:src="@mipmap/arrow_high" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="15dp"
+                android:background="@color/color_f2" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/find_kc_addkc"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="添加空程"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_12" />
+
+                <ImageView
+                    android:layout_width="@dimen/txt_10dp"
+                    android:layout_height="@dimen/txt_10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/find_kc_addkc"
+                    android:src="@mipmap/arrow_high" />
+
+            </RelativeLayout>
+
+
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <LinearLayout
+            android:id="@+id/find_kc_addr_ll"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/find_kc_addr"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/find_kc_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/find_kc_rlv"/>
+            android:orientation="vertical">
 
-        <!--<com.app.gaolonglong.fragmenttabhost.view.EmptyLayout
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/find_kc_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/find_kc_rlv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </android.support.v4.widget.SwipeRefreshLayout>
+        </LinearLayout>
+
+        <com.app.gaolonglong.fragmenttabhost.view.EmptyLayout
+            android:id="@+id/find_kc_empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/find_empty_view"/>-->
+            android:visibility="gone" />
+
     </LinearLayout>
 </LinearLayout>

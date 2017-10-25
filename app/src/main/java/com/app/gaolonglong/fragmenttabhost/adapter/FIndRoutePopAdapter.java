@@ -19,6 +19,7 @@ import java.util.List;
  */
 
 public class FIndRoutePopAdapter extends BaseAdapter {
+
     private Context context;
     private List<RouteListBean.DataBean> list;
 

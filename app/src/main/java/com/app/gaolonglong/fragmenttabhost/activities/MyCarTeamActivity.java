@@ -126,12 +126,12 @@ public class MyCarTeamActivity extends BaseActivity implements View.OnClickListe
         String guid = GetUserInfoUtils.getGuid(MyCarTeamActivity.this);
         String mobile = GetUserInfoUtils.getMobile(MyCarTeamActivity.this);
         String key = GetUserInfoUtils.getKey(MyCarTeamActivity.this);
-
+        String companyguid = GetUserInfoUtils.getCompanyGuid(MyCarTeamActivity.this);
         Map<String,String> map = new HashMap<>();
         map.put("GUID",guid);
         map.put(Constant.MOBILE,mobile);
         map.put(Constant.KEY,key);
-        map.put("companyGUID",guid);
+        map.put("companyGUID",companyguid);
 
         return JsonUtils.getInstance().getJsonStr(map);
     }
@@ -149,12 +149,12 @@ public class MyCarTeamActivity extends BaseActivity implements View.OnClickListe
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("carteamerror",e.getMessage());
+                       // Log.e("carteamerror",e.getMessage());
                     }
 
                     @Override
                     public void onNext(CarTeamBean carTeamBean) {
-                        Log.e("CarTEM",carTeamBean.getData().size()+"");
+                        Log.e("CarTEM",carTeamBean.getErrorCode()+"--"+carTeamBean.getErrorMsg());
                             list.clear();
                             list.addAll(carTeamBean.getData());
                             adapter.notifyDataSetChanged();
@@ -199,6 +199,7 @@ public class MyCarTeamActivity extends BaseActivity implements View.OnClickListe
     private void addCars()
     {
         startActivity(new Intent(MyCarTeamActivity.this,AddCarActivity.class));
+        finish();
     }
 
     @Override

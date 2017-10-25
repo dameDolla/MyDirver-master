@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 import com.app.gaolonglong.fragmenttabhost.view.MyGridView;
@@ -62,6 +64,12 @@ public class AddRouteActivity extends BaseActivity implements AdapterView.OnItem
 
     @OnClick(R.id.title_back)
     public void back(){finish();}
+
+    @OnClick(R.id.title_back_txt)
+    public void backs()
+    {
+        finish();
+    }
 
     @BindViews({R.id.add_route_start,R.id.add_route_finish,
                 R.id.add_route_type})
@@ -210,40 +218,49 @@ public class AddRouteActivity extends BaseActivity implements AdapterView.OnItem
         String start = mText.get(0).getText().toString();
         String finish = mText.get(1).getText().toString();
         String type = mText.get(2).getText().toString();
-        String[] carinfo = type.split("/");
-        JSONObject mJson = new JSONObject();
-        try {
-            mJson.put("guid",guid);
-            mJson.put("mobile",mobile);
-            mJson.put(Constant.KEY,key);
-            mJson.put("fromSite",start);
-            mJson.put("toSite",finish);
-            mJson.put("trucktype",carinfo[0]);
-            mJson.put("trucklength",carinfo[1]);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if (TextUtils.isEmpty(start) || TextUtils.isEmpty(finish)){
+            ToolsUtils.getInstance().toastShowStr(AddRouteActivity.this,"请填入始发地和目的地");
+        }else {
+            Map<String,String> map = new HashMap<>();
+            map.put("guid",guid);
+            map.put("mobile",mobile);
+            map.put(Constant.KEY,key);
+            map.put("fromSite",start+"市");
+            map.put("toSite",finish+"市");
+            if (!type.equals(""))
+            {
+                String[] carinfo = type.split("/");
+                map.put("trucktype",carinfo[0]);
+                map.put("trucklength",carinfo[1]);
+            }else {
+                map.put("trucktype","");
+                map.put("trucklength","");
+            }
+
+
+            RetrofitUtils.getRetrofitService()
+                    .addRoute(Constant.MYINFO_PAGENAME, Config.ROUTE_ADD, JsonUtils.getInstance().getJsonStr(map))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<GetCodeBean>() {
+                        @Override
+                        public void onCompleted() {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onNext(GetCodeBean getCodeBean) {
+                            // ToolsUtils.getInstance().toastShowStr(AddRouteActivity.this,getCodeBean.getErrorMsg());
+                            startActivity(new Intent(AddRouteActivity.this,MyRouteListActivity.class));
+                        }
+                    });
         }
-        RetrofitUtils.getRetrofitService()
-                .addRoute(Constant.MYINFO_PAGENAME, Config.ROUTE_ADD,mJson.toString())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<GetCodeBean>() {
-                    @Override
-                    public void onCompleted() {
 
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(GetCodeBean getCodeBean) {
-                       // ToolsUtils.getInstance().toastShowStr(AddRouteActivity.this,getCodeBean.getErrorMsg());
-                        startActivity(new Intent(AddRouteActivity.this,MyRouteListActivity.class));
-                    }
-                });
     }
 
     @Override

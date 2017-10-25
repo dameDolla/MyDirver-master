@@ -1,5 +1,6 @@
 package com.app.gaolonglong.fragmenttabhost.fragments;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.activities.FindDetailActivity;
+import com.app.gaolonglong.fragmenttabhost.activities.RenzhengMainActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.SearchAddrActivity;
 import com.app.gaolonglong.fragmenttabhost.adapter.FindSrcAdapter;
 import com.app.gaolonglong.fragmenttabhost.bean.GetSRCBean;
@@ -32,6 +34,8 @@ import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.app.gaolonglong.fragmenttabhost.view.CommomDialog;
+import com.app.gaolonglong.fragmenttabhost.view.EmptyLayout;
 import com.app.gaolonglong.fragmenttabhost.view.MyGridView;
 import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
 import com.luoxudong.app.threadpool.ThreadPoolHelp;
@@ -76,6 +80,12 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
 
     @BindView(R.id.find_all_refresh)
     public SwipeRefreshLayout refresh;
+
+    @BindView(R.id.find_all_main)
+    public LinearLayout main;
+
+    @BindView(R.id.find_all_empty)
+    public EmptyLayout  empty;
 
     @BindViews({R.id.find_tv_origin,R.id.find_tv_destination,R.id.find_tv_cartype,R.id.find_tv_time})
     public List<TextView> mText;
@@ -165,14 +175,27 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
         adapter.setOnItemClickListener(new FindSrcAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, ToSrcDetailBean bean) {
-                //ToolsUtils.getInstance().toastShowStr(getContext(),bean.getOwnerguid());
+                //ToolsUtils.getInstance().toastShowStr(getContext(),isRenzheng+"");
                 if (isRenzheng){
                     Intent intent = new Intent(getContext(), FindDetailActivity.class);
                     intent.putExtra("findSrc",bean);
                     startActivity(intent);
                 }else {
                     ToolsUtils.getInstance().toastShowStr(getContext(),"请先通过认证");
+                   /*CommomDialog dialog =  new CommomDialog(getContext(), R.style.dialog, "您暂时还未通过认证，现在需要去认证吗?", new CommomDialog.OnCloseListener() {
+                        @Override
+                        public void onClick(Dialog dialog, boolean confirm) {
+                            if (confirm){
+                                dialog.dismiss();
+                                startActivity(new Intent(getContext(), RenzhengMainActivity.class));
+                            }
+                        }
+                    });
+                    dialog.setNegativeButton("取消");
+                    dialog.setPositiveButton("确定");
+                    dialog.show();*/
                 }
+
 
             }
         });
@@ -321,7 +344,7 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
             @Override
             public void onClick(View view) {
                 flag = 2;
-                mText.get(2).setText(lenStr+"/"+typeStr);
+                mText.get(2).setText(typeStr+"/"+lenStr);
                 getSrcFromside( initJsonData(flag,addrs,lenStr,typeStr));
                 typePopmenu.dismiss();
             }
@@ -329,7 +352,11 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
         noLimit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                flag = 0;
+                mText.get(2).setText("车型"+"/"+"车长");
+                Log.e("findlog",initJsonData(flag,addrs,"",""));
+                getSrcFromside( initJsonData(flag,addrs,"",""));
+                typePopmenu.dismiss();
             }
         });
     }
@@ -338,14 +365,15 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
      * @param flag 0(默认定位) 1(选择了终点) 2（选择了车辆类型） 3（选择了装车时间）
      * @return
      */
-    Map<String,String> map = new HashMap<String,String>();
+
     private String initJsonData(int flag,String addr,String trucklenth,String trucktype)
     {
+        Map<String,String> map = new HashMap<String,String>();
        // ToolsUtils.getInstance().toastShowStr(getContext(),addr);
         map.put("GUID",guid);
         map.put(Constant.MOBILE,mobile);
         map.put(Constant.KEY,key);
-
+        map.put("companyGUID",ToolsUtils.getString(getContext(),Constant.COMPANYGUID,""));
 
         if (flag == 0)
         {
@@ -395,17 +423,22 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
                             @Override
                             public void onNext(GetSRCBean getSRCBean) {
 
-                                //Log.e("allSrc",getSRCBean.getErrorMsg()+"");
-                                if (getSRCBean.getErrorCode().equals("200"))
-                                {
+                                Log.e("allSrc",getSRCBean.getErrorMsg()+"--"+getSRCBean.getErrorCode());
+
                                     rlv.removeAllViews();
                                     list.clear();
                                     list.addAll(getSRCBean.getData());
-                                    adapter.notifyDataSetChanged();
-                                }
+                                    Log.e("srcsize",list.size()+"");
 
-
-
+                                    if (list.size() == 0){
+                                        main.setVisibility(View.GONE);
+                                        empty.setVisibility(View.VISIBLE);
+                                        empty.setErrorImag(R.drawable.nosrc,"暂无货源信息");
+                                    }else {
+                                        main.setVisibility(View.VISIBLE);
+                                        empty.setVisibility(View.GONE);
+                                        adapter.notifyDataSetChanged();
+                                    }
                             }
                         });
 

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/no_network_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f6f6f6" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" >
+
+                <ImageView
+                    android:id="@+id/no_network_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/nonetwork"
+                    android:visibility="visible" />
+
+                <!--<ProgressBar
+                    android:id="@+id/animProgress"
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    style="@style/loading"
+                    />-->
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/no_network_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10.0dip"
+                android:lines="2"
+                android:gravity="center"
+                android:text="请检查你的网络连接"
+                android:textColor="#999999"
+                android:textSize="16.0dip" />
+            <TextView
+                android:id="@+id/no_network_tv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10.0dip"
+                android:lines="2"
+                android:gravity="center"
+                android:text="点击重试"
+                android:textColor="@color/shen_blue"
+                android:textSize="16.0dip" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

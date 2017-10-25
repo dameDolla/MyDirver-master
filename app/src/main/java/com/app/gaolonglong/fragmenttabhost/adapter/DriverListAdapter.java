@@ -1,6 +1,7 @@
 package com.app.gaolonglong.fragmenttabhost.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.bean.DriverBean;
+import com.app.gaolonglong.fragmenttabhost.bean.LoginBean;
+import com.app.gaolonglong.fragmenttabhost.config.Constant;
 
 import java.util.List;
 
@@ -20,18 +23,22 @@ import java.util.List;
 public class DriverListAdapter extends RecyclerView.Adapter {
 
     private Context context;
-    private List<DriverBean.DataBean> list;
+    private List<LoginBean.DataBean> list;
     private DriverOnclick driverOnclick = null;
+    private String flags;
 
     public DriverListAdapter(Context context, List list)
     {
         this.context = context;
         this.list = list;
     }
-
+    public void getFlags(String flags){
+        this.flags = flags;
+        notifyDataSetChanged();
+    }
     public interface DriverOnclick
     {
-        public void driverOnclick(String driverguid,String flag);
+         void driverOnclick(String driverguid,String flag,String drivername,String drivertel);
     }
     public void setDriverOnclick(DriverOnclick driverOnclick)
     {
@@ -49,21 +56,36 @@ public class DriverListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MyViewHolder mHolder = (MyViewHolder) holder;
-        final DriverBean.DataBean data = list.get(position);
-        mHolder.name.setText(data.getUsername());
-       // mHolder.tel.setText(data.get);
-        mHolder.select.setOnClickListener(new View.OnClickListener() {
+        final LoginBean.DataBean data = list.get(position);
+        mHolder.name.setText(data.getTruename());
+        mHolder.time.setText(data.getRegtime()+"");
+        mHolder.tel.setText(data.getMobile()+"");
+        mHolder.count.setText(data.getDriverbill()+"");
+        if (data.getVtruename().equals("9")){
+            mHolder.jiebang.setText("已认证");
+            mHolder.jiebang.setTextColor(Color.YELLOW);
+        }else {
+            mHolder.jiebang.setText("未认证");
+            mHolder.jiebang.setTextColor(Color.RED);
+        }
+        if (flags.equals(Constant.MISSIONFLAGS)){
+            mHolder.select.setVisibility(View.VISIBLE);
+            mHolder.select.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    driverOnclick.driverOnclick(data.getGUID(),"driver_select",data.getTruename()+"",data.getMobile()+"");
+                }
+            });
+        }else {
+            mHolder.select.setVisibility(View.GONE);
+        }
+
+        /*mHolder.jiebang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                driverOnclick.driverOnclick(data.getUserGUID(),"driver_select");
+                driverOnclick.driverOnclick(data.getGUID(),"driver_jb");
             }
-        });
-        mHolder.jiebang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                driverOnclick.driverOnclick(data.getUserGUID(),"driver_jb");
-            }
-        });
+        });*/
     }
 
     @Override

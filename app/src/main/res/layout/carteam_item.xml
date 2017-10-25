@@ -105,6 +105,21 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_toLeftOf="@+id/carteam_item_ll"
+                    android:layout_centerVertical="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textSize="@dimen/txt_14"
+                    android:id="@+id/carteam_item_status"
+                    android:paddingRight="@dimen/txt_10dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/carteam_item_ll"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true">
                     <TextView

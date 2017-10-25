@@ -88,7 +88,7 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
     @BindView(R.id.upload_head_rl)
     public RelativeLayout upload_head;
 
-    @BindViews({R.id.renzheng_head,R.id.card_face,R.id.card_back,R.id.person_with_card})
+    @BindViews({R.id.renzheng_head,R.id.card_face,R.id.card_back,R.id.person_with_card,R.id.personal_jsz})
     public List<ImageView> icon;
 
     @BindViews({R.id.top_title,R.id.cargroup_next})
@@ -129,6 +129,7 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
         icon.get(1).setOnClickListener(this);
         icon.get(2).setOnClickListener(this);
         icon.get(3).setOnClickListener(this);
+        icon.get(4).setOnClickListener(this);
         mText.get(1).setOnClickListener(this);
 
         dialog = LoadingDialog.showDialog(CarGroupRenzhengActivity.this);
@@ -157,6 +158,10 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
             case R.id.person_with_card:
                 uploadImage();
                 position=3;
+                break;
+            case R.id.personal_jsz:
+                uploadImage();
+                position=4;
                 break;
             case R.id.cargroup_next:
                 //startActivity(new Intent(CarGroupRenzhengActivity.this,CarGroupRenzheng2Activity.class));
@@ -408,6 +413,8 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
             builder.addFormDataPart("ImgType","3");
         }else if (position == 3){
             builder.addFormDataPart("ImgType","15");
+        }else if (position == 4){
+            builder.addFormDataPart("ImgType","4");
         }
         RetrofitUtils.getRetrofitService().
                 upload_avatar(builder.build())

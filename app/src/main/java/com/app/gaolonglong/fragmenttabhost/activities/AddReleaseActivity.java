@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,9 +25,14 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
+import com.app.gaolonglong.fragmenttabhost.adapter.BaojiaListAdapter;
+import com.app.gaolonglong.fragmenttabhost.adapter.BaojiaPopAdapter;
+import com.app.gaolonglong.fragmenttabhost.bean.CarTeamBean;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
+import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 
@@ -72,6 +78,9 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
 
     @BindView(R.id.fabu_now)
     public Button fabu;
+    private View carcontentView;
+    private PopupWindow carpopMenu;
+    private BaojiaPopAdapter popadapter;
 
     @OnClick({R.id.title_back})
     public void  back()
@@ -88,6 +97,9 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
                 R.id.release_rl_emptytime,R.id.release_rl_backtime,
                 R.id.release_rl_carstatus})
     public List<RelativeLayout> mRelat;
+
+    @BindView(R.id.add_release_carnum_ll)
+    public RelativeLayout carnumll;
 
     @BindView(R.id.release_parent)
     public LinearLayout parent;
@@ -113,6 +125,7 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
     private String backtime;
     private String emptyTime;
     private String status;
+    private List<CarTeamBean.DataBean> carList = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -125,6 +138,7 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
     {
         initView();
         initPopwindow();
+        initCarPopwindow();
     }
     private void initView()
     {
@@ -135,10 +149,25 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
         mRelat.get(2).setOnClickListener(this);
         mRelat.get(3).setOnClickListener(this);
         mRelat.get(4).setOnClickListener(this);
+        carnumll.setOnClickListener(this);
 
         guid = ToolsUtils.getString(AddReleaseActivity.this, Constant.LOGIN_GUID,"");
         mobile = ToolsUtils.getString(AddReleaseActivity.this, Constant.MOBILE,"");
         key = ToolsUtils.getString(AddReleaseActivity.this, Constant.KEY,"");
+
+        if (GetUserInfoUtils.getUserType(AddReleaseActivity.this).equals("2"))
+        {
+            carnumll.setEnabled(false);
+            getCarTeam(initCarJsonData());
+        }
+
+       /* if (GetUserInfoUtils.getUserType(AddReleaseActivity.this).equals("1"))
+        {
+           // mText.get(1).setText();
+            carnumll.setVisibility(View.VISIBLE);
+        }else {
+            carnumll.setVisibility(View.GONE);
+        }*/
     }
 
     private void submit()
@@ -158,11 +187,9 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
         baojia = mEdit.get(2).getText().toString();
         msg = mEdit.get(3).getText().toString();
 
-        if (TextUtils.isEmpty(guid) || TextUtils.isEmpty(mobile) || TextUtils.isEmpty(tiji) ||
-            TextUtils.isEmpty(key) || TextUtils.isEmpty(car_num) || TextUtils.isEmpty(msg)  ||
-            TextUtils.isEmpty(weight) || TextUtils.isEmpty(baojia) || TextUtils.isEmpty(start) ||
-            TextUtils.isEmpty(finish) || TextUtils.isEmpty(emptyTime) ||
-             TextUtils.isEmpty(backtime)) {
+        if (TextUtils.isEmpty(guid) || TextUtils.isEmpty(mobile) ||
+            TextUtils.isEmpty(key)|| TextUtils.isEmpty(start) ||
+            TextUtils.isEmpty(finish)) {
             ToolsUtils.getInstance().toastShowStr(AddReleaseActivity.this,"请填写完整的信息");
             return;
         }
@@ -176,8 +203,8 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
             mJson.put("TransportOffer",baojia);
             mJson.put("SurplusPower",tiji);
             mJson.put("MyMessage",msg);
-            mJson.put("fromSite",start);
-            mJson.put("toSite",finish);
+            mJson.put("fromSite",start+"市");
+            mJson.put("toSite",finish+"市");
             mJson.put("emptytime",emptyTime);//计划返程时间
             mJson.put("backtime",backtime);
             mJson.put("boardingtime",backtime);
@@ -309,6 +336,9 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
 
                 showPop(initPopData(strs),flag);
                 break;
+            case R.id.add_release_carnum_ll:
+                showCarPop();
+                break;
 
         }
        // popMenu.dismiss();
@@ -345,5 +375,115 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
             mText.get(7).setText(start);
         }
 
+    }
+    private String initCarJsonData() {
+        String guid = GetUserInfoUtils.getGuid(AddReleaseActivity.this);
+        String mobile = GetUserInfoUtils.getMobile(AddReleaseActivity.this);
+        String key = GetUserInfoUtils.getKey(AddReleaseActivity.this);
+        String companyguid = GetUserInfoUtils.getCompanyGuid(AddReleaseActivity.this);
+        Map<String, String> map = new HashMap<>();
+        map.put("GUID", guid);
+        map.put(Constant.MOBILE, mobile);
+        map.put(Constant.KEY, key);
+        if (GetUserInfoUtils.getUserType(AddReleaseActivity.this).equals("2"))
+        {
+            map.put("driverGUID", guid);
+        }else {
+            map.put("companyGUID", companyguid);
+        }
+        map.put("companyGUID", companyguid);
+
+        return JsonUtils.getInstance().getJsonStr(map);
+    }
+
+    private void getCarTeam(String json) {
+        RetrofitUtils.getRetrofitService()
+                .getCarTeamList(Constant.TRUCK_PAGENAME, Config.GETTRUCKS, json)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<CarTeamBean>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(CarTeamBean carTeamBean) {
+                        Log.e("addrelease",carTeamBean.getErrorCode()+"--"+carTeamBean.getErrorMsg());
+                        if (GetUserInfoUtils.getUserType(AddReleaseActivity.this).equals("2"))
+                        {
+
+                            CarTeamBean.DataBean data = carTeamBean.getData().get(0);
+                            mText.get(1).setText(data.getTruckno()+"");
+                            mText.get(2).setText(data.getTrucktype()+"/"+data.getTrucklength());
+
+                        }else {
+                            Log.e("addRelease",carTeamBean.getErrorCode()+"--"+carTeamBean.getErrorMsg());
+                            carList.clear();
+                            int sizes = carTeamBean.getData().size();
+                            for (int i=0;i < sizes;i++){
+                                if ((carTeamBean.getData().get(i).getVtruck()).equals("9")){
+                                    Log.e("iiiisize",i+"");
+                                    carList.add(carTeamBean.getData().get(i));
+                                }
+                            }
+                            popadapter.notifyDataSetChanged();
+                        }
+
+
+                    }
+                });
+    }
+    private void initCarPopwindow() {
+        //initPopData();
+        carcontentView = getLayoutInflater().inflate(R.layout.find_poplist, null);
+        carpopMenu = new PopupWindow(carcontentView,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        ColorDrawable dw = new ColorDrawable(0xb0000000);
+        carpopMenu.setOutsideTouchable(true);
+        carpopMenu.setBackgroundDrawable(dw);
+        carpopMenu.setFocusable(true);
+        carpopMenu.setTouchable(true);
+        carpopMenu.setAnimationStyle(R.style.mypopwindow_anim_style);
+
+    }
+
+
+
+    private void showCarPop() {
+        //list = l;
+        ListView popListView = (ListView) carcontentView.findViewById(R.id.find_pop_listview);
+        popListView.setOnItemClickListener(new MyItemclick());
+        popadapter = new BaojiaPopAdapter(AddReleaseActivity.this, carList);
+
+        popListView.setAdapter(popadapter);
+        getCarTeam(initCarJsonData());
+        carpopMenu.showAtLocation(parent, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        params = getWindow().getAttributes();
+        //当弹出Popupwindow时，背景变半透明
+        params.alpha = 0.7f;
+        getWindow().setAttributes(params);
+        //设置Popupwindow关闭监听，当Popupwindow关闭，背景恢复1f
+        carpopMenu.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                params = getWindow().getAttributes();
+                params.alpha = 1f;
+                getWindow().setAttributes(params);
+            }
+        });
+    }
+    private class MyItemclick implements AdapterView.OnItemClickListener{
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            mText.get(1).setText(carList.get(i).getTruckno()+"");
+            mText.get(2).setText(carList.get(i).getTrucktype()+"/"+carList.get(i).getTrucklength());
+            carpopMenu.dismiss();
+        }
     }
 }

@@ -238,7 +238,8 @@ public class BackFragment extends Fragment implements View.OnClickListener{
                         adapter.notifyDataSetChanged();
                         if (list.size() == 0 )
                         {
-                            emptyLayout.setErrorType(EmptyLayout.NODATA);
+                            emptyLayout.setVisibility(View.VISIBLE);
+                            emptyLayout.setErrorImag(R.drawable.nokongcheng,"您还没有发布空程");
                         }
                         else{
                             emptyLayout.setVisibility(View.GONE);

@@ -26,12 +26,13 @@ public class MissionDetailBean implements Serializable{
     private String driverphone;
     private String driverGUID;
     private String truckno;
+    private String signPhone;
 
 
     public MissionDetailBean(String billsGUID,String ownername,String ownerphone,String preloadtime,String FromDetailedAddress,
                              String ToDetailedAddress,String billNumber,String dealprice,String loadfee,
                              String unloadfee,String AvatarAddress,String status,String signtime,String signby,String drivername,
-                             String driverphone,String driverGUID,String truckno)
+                             String driverphone,String driverGUID,String truckno,String signPhone)
     {
         this.billsGUID = billsGUID;
         this.ownername = ownername;
@@ -51,6 +52,11 @@ public class MissionDetailBean implements Serializable{
         this.driverphone = driverphone;
         this.driverGUID = driverGUID;
         this.truckno = truckno;
+        this.signPhone = signPhone;
+    }
+
+    public String getSignPhone() {
+        return signPhone;
     }
 
     public String getTruckno() {

@@ -246,6 +246,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
                             android:textSize="@dimen/txt_14"
+                            android:paddingLeft="@dimen/txt_5dp"
                             android:id="@+id/mission_detail_truckno"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -274,6 +275,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/mission_status_verticalline"
                             android:src="@drawable/vertical_line_one"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -281,14 +283,29 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:layout_weight="4">
-                    <TextView
+                    android:layout_weight="5">
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="已接单,等待下一步操作"
-                        android:textColor="@color/black"
-                        android:paddingTop="@dimen/txt_10dp"
-                        android:textSize="@dimen/txt_14"/>
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="运单已生成 "
+                            android:layout_weight="5"
+                            android:textColor="@color/black"
+                            android:paddingTop="@dimen/txt_10dp"
+                            android:textSize="@dimen/txt_14"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:textSize="@dimen/txt_12"
+                            android:singleLine="true"
+                            android:gravity="center"
+                            android:text="2017-10-26 16:00:00"
+                            android:id="@+id/mission_status1_time"/>
+                    </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -316,13 +333,26 @@
                         android:layout_marginTop="@dimen/txt_5dp"
                         android:layout_marginBottom="@dimen/txt_5dp"/>
     <!--********************************第一步****************************************-->
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/mission_status_two"
-                        android:text="等待去装货地点进行装车"
-                        android:textColor="@color/gray_87"
-                        android:textSize="@dimen/txt_14"/>
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:id="@+id/mission_status_two"
+                            android:text="司机已出发前往装货地 "
+                            android:textColor="@color/gray_87"
+                            android:textSize="@dimen/txt_14"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:textSize="@dimen/txt_12"
+                            android:gravity="center"
+                            android:id="@+id/mission_status2_time"/>
+                    </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -355,13 +385,27 @@
                         android:layout_marginTop="@dimen/txt_5dp"
                         android:layout_marginBottom="@dimen/txt_5dp"/>
      <!--*****************************第二部*************************************-->
-                    <TextView
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="装货成功正在运往目的地"
-                        android:textColor="@color/gray_87"
-                        android:id="@+id/mission_status_three"
-                        android:textSize="@dimen/txt_14"/>
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:text="司机已出发前往目的地"
+                            android:textColor="@color/gray_87"
+                            android:id="@+id/mission_status_three"
+                            android:textSize="@dimen/txt_14"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:textSize="@dimen/txt_12"
+                            android:gravity="center"
+                            android:id="@+id/mission_status3_time"/>
+                    </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -378,6 +422,7 @@
                             android:layout_height="wrap_content"
                             android:text="俄罗斯贝加尔湖"
                             android:textSize="@dimen/txt_12"
+                            android:singleLine="true"
                             android:textColor="@color/gray_87"
                             android:paddingLeft="@dimen/txt_5dp"
                             android:id="@+id/mission_statusthree_tosite"/>
@@ -389,13 +434,26 @@
                         android:layout_marginTop="@dimen/txt_5dp"
                         android:layout_marginBottom="@dimen/txt_5dp"/>
      <!--**********************************第三部***********************************-->
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="到达目的地,正在卸货"
-                        android:id="@+id/mission_status_four"
-                        android:textColor="@color/gray_87"
-                        android:textSize="@dimen/txt_14"/>
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:text="司机已到达卸货地"
+                            android:id="@+id/mission_status_four"
+                            android:textColor="@color/gray_87"
+                            android:textSize="@dimen/txt_14"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:textSize="@dimen/txt_12"
+                            android:gravity="center"
+                            android:id="@+id/mission_status4_time"/>
+                    </LinearLayout>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -409,27 +467,78 @@
                         android:background="@color/color_f2"
                         android:layout_marginTop="@dimen/txt_5dp"
                         android:layout_marginBottom="@dimen/txt_5dp"/>
-    <!--*********************************第四部**************************************-->
-                    <TextView
+     <!--*********************************第四部**************************************-->
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="运单完成"
-                        android:id="@+id/mission_status_five"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="货物已签收 "
+                            android:layout_weight="5"
+                            android:id="@+id/mission_status_five"
+                            android:textColor="@color/gray_87"
+                            android:textSize="@dimen/txt_14"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:textSize="@dimen/txt_12"
+                            android:gravity="center"
+                            android:id="@+id/mission_status5_time"/>
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="当前位置:"
+                        android:textSize="@dimen/txt_12"
                         android:textColor="@color/gray_87"
-                        android:textSize="@dimen/txt_14"/>
+                        android:id="@+id/mission_statusfive_txt"/>
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/color_f2"
+                        android:layout_marginTop="@dimen/txt_5dp"
+                        android:layout_marginBottom="@dimen/txt_5dp"/>
+    <!--*********************************第五部**************************************-->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:text="发货人已确认运单完成 "
+                            android:id="@+id/mission_status_six"
+                            android:textColor="@color/gray_87"
+                            android:textSize="@dimen/txt_14"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:textSize="@dimen/txt_12"
+                            android:gravity="center"
+                            android:id="@+id/mission_status6_time"/>
+                    </LinearLayout>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="货主已支付相关费用，保证金已退回"
                         android:textSize="@dimen/txt_12"
+                        android:layout_marginBottom="@dimen/txt_10dp"
                         android:textColor="@color/gray_87"
-                        android:id="@+id/mission_statusfive_txt"/>
+                        android:visibility="gone"
+                        android:id="@+id/mission_statussix_txt"/>
 
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_weight="0.5">
 
                 </LinearLayout>
             </LinearLayout>

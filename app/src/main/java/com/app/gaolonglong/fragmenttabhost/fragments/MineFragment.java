@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.activities.CarInfoActivity;
+import com.app.gaolonglong.fragmenttabhost.activities.CompanyInfoActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.LoginActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.MyCarTeamActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.MyCardListActivity;
@@ -23,6 +24,7 @@ import com.app.gaolonglong.fragmenttabhost.activities.MyMessageActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.MyRouteListActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.MyWallteActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.RenzhengMainActivity;
+import com.app.gaolonglong.fragmenttabhost.activities.SelectDriverActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.SettingActivity;
 import com.app.gaolonglong.fragmenttabhost.bean.LoginBean;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
@@ -62,13 +64,15 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             R.id.mine_rl_card, R.id.mine_rl_car,
             R.id.mine_rl_bzjxq, R.id.mine_rl_carteam,
             R.id.mine_rl_wallte, R.id.mine_rl_szmx,
-            R.id.mine_rl_route})
+            R.id.mine_rl_route,R.id.mine_rl_drivers,
+            R.id.mine_rl_company})
     public List<RelativeLayout> rlList;
 
 
     @BindView(R.id.mine_icon)
     public SimpleDraweeView logo;
     private String userinfo;
+    private boolean isRenzheng;
 
 
     @Nullable
@@ -109,7 +113,10 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         rlList.get(6).setOnClickListener(this);
         rlList.get(7).setOnClickListener(this);
         rlList.get(8).setOnClickListener(this);
+        rlList.get(9).setOnClickListener(this);
+        rlList.get(10).setOnClickListener(this);
        // if (GetUserInfoUtils.getUserType(getContext()).equals(""))
+        isRenzheng = GetUserInfoUtils.isRenzheng(getContext());
         checkInfo();
     }
 
@@ -122,8 +129,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         if (!TextUtils.isEmpty(guid)) {
 
             isLogin = true;
-            mList.get(1).setText(ToolsUtils.getString(getActivity(), Constant.MOBILE, ""));
-            mList.get(2).setText(ToolsUtils.getString(getActivity(), Constant.MOBILE, ""));
+            mList.get(1).setText(GetUserInfoUtils.getUserName(getContext()));
+            mList.get(2).setText(GetUserInfoUtils.getMobile(getContext()));
             //ToolsUtils.getInstance().toastShowStr(getActivity(), GetUserInfoUtils.getVtrueName(getContext()));
             String url = ToolsUtils.getString(getContext(), Constant.HEADLOGO, "");
             logo.setImageURI(Uri.parse(url));
@@ -158,6 +165,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         {
             usertypename = "车队认证";
             rlList.get(3).setVisibility(View.GONE);
+            rlList.get(9).setVisibility(View.VISIBLE);
+            rlList.get(10).setVisibility(View.VISIBLE);
         }
         if (GetUserInfoUtils.getVtrueName(getContext()).equals("0"))
         {
@@ -303,6 +312,26 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 }
 
                 break;
+            case R.id.mine_rl_drivers:
+                if(isRenzheng)
+                {
+                    Intent intent = new Intent(getContext(), SelectDriverActivity.class);
+                    intent.putExtra("flags","mineFragment");
+                    startActivity(intent);
+                }else {
+                    ToolsUtils.getInstance().toastShowStr(getActivity(),"请先完成认证");
+                }
+
+                break;
+            case R.id.mine_rl_company:
+                if(isRenzheng)
+                {
+                    startActivity(new Intent(getContext(), CompanyInfoActivity.class));
+                }else {
+                    ToolsUtils.getInstance().toastShowStr(getActivity(),"请先完成认证");
+                }
+                break;
+
         }
     }
 }

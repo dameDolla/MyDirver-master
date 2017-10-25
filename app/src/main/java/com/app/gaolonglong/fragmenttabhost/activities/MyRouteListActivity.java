@@ -96,6 +96,13 @@ public class MyRouteListActivity extends BaseActivity implements View.OnClickLis
         ButterKnife.bind(this);
         init();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getRouteListInfo();
+    }
+
     private void init()
     {
         initView();
@@ -190,39 +197,39 @@ public class MyRouteListActivity extends BaseActivity implements View.OnClickLis
      * 设置主线路
      * @param lguid
      */
-   private void setMain(String lguid, final int i)
-   {
-       ToolsUtils.getInstance().toastShowStr(MyRouteListActivity.this,i+"");
-       Map<String,String> map = new HashMap<String,String>();
-       map.put("GUID",guid);
-       map.put(Constant.MOBILE,mobile);
-       map.put(Constant.KEY,key);
-       map.put("LinesGUID",lguid);
-       String json = JsonUtils.getInstance().getJsonStr(map);
-       RetrofitUtils.getRetrofitService()
-               .setRouteMain(Constant.MYINFO_PAGENAME,Config.ROUTE_UPDATE,json)
-               .subscribeOn(Schedulers.io())
-               .observeOn(AndroidSchedulers.mainThread())
-               .subscribe(new Subscriber<GetSRCBean>() {
-                   @Override
-                   public void onCompleted() {
+    private void setMain(String lguid, final int i)
+    {
+        ToolsUtils.getInstance().toastShowStr(MyRouteListActivity.this,i+"");
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("GUID",guid);
+        map.put(Constant.MOBILE,mobile);
+        map.put(Constant.KEY,key);
+        map.put("LinesGUID",lguid);
+        String json = JsonUtils.getInstance().getJsonStr(map);
+        RetrofitUtils.getRetrofitService()
+                .setRouteMain(Constant.MYINFO_PAGENAME,Config.ROUTE_UPDATE,json)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<GetSRCBean>() {
+                    @Override
+                    public void onCompleted() {
 
-                   }
+                    }
 
-                   @Override
-                   public void onError(Throwable e) {
+                    @Override
+                    public void onError(Throwable e) {
 
-                   }
+                    }
 
-                   @Override
-                   public void onNext(GetSRCBean getSRCBean) {
+                    @Override
+                    public void onNext(GetSRCBean getSRCBean) {
                         ToolsUtils.getInstance().toastShowStr(MyRouteListActivity.this,getSRCBean.getErrorMsg());
-                       if (getSRCBean.getErrorCode().equals("200")){
-                            onCreate(null);
-                       }
-                   }
-               });
-   }
+                        if (getSRCBean.getErrorCode().equals("200")){
+                            onStart();
+                        }
+                    }
+                });
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId())

@@ -141,7 +141,56 @@
             </LinearLayout>
 
 
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/txt_39dp"
+                android:id="@+id/diaodu3_car_ll"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:text="车型"
+                    android:paddingLeft="@dimen/txt_15dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_14"
+                    android:gravity="center_vertical"
+                    />
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:hint="请输入车型"
+                    android:background="@null"
+                    android:id="@+id/diaodu3_cartype"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/txt_14"
+                    android:gravity="center_vertical"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="车长"
+                    android:paddingLeft="@dimen/txt_15dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_14"
+                    android:gravity="center_vertical"
+                    />
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:hint="请输入车长"
+                    android:background="@null"
+                    android:id="@+id/diaodu3_carlong"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/txt_14"
+                    android:gravity="center_vertical"
+                    />
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/txt_39dp"
@@ -170,14 +219,121 @@
                     android:gravity="center_vertical"
                     />
             </LinearLayout>
-
-            <include layout="@layout/back_line"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/txt_39dp"
+                android:orientation="horizontal"
+                android:background="@color/white">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:text="自编号"
+                    android:paddingLeft="@dimen/txt_15dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_14"
+                    android:gravity="center_vertical"
+                    />
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:hint="请输入自编号"
+                    android:background="@null"
+                    android:id="@+id/person2_zbh"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/txt_14"
+                    android:gravity="center_vertical"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/diaodu3_car_info"
+                android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/txt_39dp"
+                android:orientation="horizontal"
+                android:background="@color/white">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:text="车重(吨)"
+                    android:paddingLeft="@dimen/txt_15dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_14"
+                    android:gravity="center_vertical"
+                    />
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:hint="请输入车重"
+                    android:background="@null"
+                    android:id="@+id/person2_carweight"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/txt_14"
+                    android:gravity="center_vertical"
+                    />
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/txt_39dp"
                 android:orientation="horizontal"
                 android:background="@color/white"
                 >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:text="最大载重(吨):"
+                    android:paddingLeft="@dimen/txt_15dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_14"
+                    android:gravity="center_vertical"
+                    />
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:hint="最大载重"
+                    android:background="@null"
+                    android:id="@+id/person2_zaizhong"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/txt_14"
+                    android:gravity="center_vertical"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="容积"
+                    android:paddingLeft="@dimen/txt_15dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_14"
+                    android:gravity="center_vertical"
+                    />
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:hint="请输入容积(方)"
+                    android:background="@null"
+                    android:id="@+id/person2_rongji"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/txt_14"
+                    android:gravity="center_vertical"
+                    />
+            </LinearLayout>
+            <include layout="@layout/back_line"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/txt_39dp"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:visibility="gone">
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -236,15 +392,31 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/txt_39dp"
-                android:id="@+id/diaodu3_car_ll"
                 android:orientation="horizontal"
                 android:background="@color/white"
                 >
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="车辆尺寸(米)"
+                    android:paddingLeft="@dimen/txt_15dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_14"
+                    android:gravity="center_vertical"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/txt_39dp"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                >
+
+                <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
-                    android:text="车型"
+                    android:text="宽"
                     android:paddingLeft="@dimen/txt_15dp"
                     android:textColor="@color/black"
                     android:textSize="@dimen/txt_14"
@@ -253,10 +425,11 @@
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:hint="请输入车型"
+                    android:layout_weight="3"
+                    android:hint="请输入车宽"
+                    android:singleLine="true"
                     android:background="@null"
-                    android:id="@+id/diaodu3_cartype"
+                    android:id="@+id/carrenzheng_kuan"
                     android:textColor="#666666"
                     android:textSize="@dimen/txt_14"
                     android:gravity="center_vertical"
@@ -264,8 +437,8 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="车长"
+                    android:layout_weight="2"
+                    android:text="高"
                     android:paddingLeft="@dimen/txt_15dp"
                     android:textColor="@color/black"
                     android:textSize="@dimen/txt_14"
@@ -274,15 +447,18 @@
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:hint="请输入车长"
+                    android:layout_weight="3"
+                    android:hint="请输入车高"
+                    android:singleLine="true"
                     android:background="@null"
-                    android:id="@+id/diaodu3_carlong"
+                    android:id="@+id/carrenzheng_gao"
                     android:textColor="#666666"
                     android:textSize="@dimen/txt_14"
                     android:gravity="center_vertical"
                     />
             </LinearLayout>
+            </LinearLayout>
+            <include layout="@layout/carrenzheng_common"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -329,14 +505,13 @@
                 android:orientation="horizontal"
                 android:background="@color/white"
                 android:paddingTop="@dimen/txt_5dp"
-                android:paddingBottom="@dimen/txt_20dp">
+                android:paddingBottom="@dimen/txt_10dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:gravity="center"
-                    android:visibility="gone"
                     android:paddingLeft="@dimen/txt_15dp">
                     <ImageView
                         android:layout_width="80dp"
@@ -349,7 +524,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/txt_12"
                         android:gravity="center"
-                        android:text="驾驶证"/>
+                        android:text="行驶证"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -357,7 +532,6 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:gravity="center"
-                    android:visibility="gone"
                     android:paddingLeft="@dimen/txt_39dp">
                     <ImageView
                         android:layout_width="80dp"
@@ -370,7 +544,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/txt_12"
                         android:gravity="center"
-                        android:text="个人持证照"/>
+                        android:text="营运证"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -393,6 +567,16 @@
                         android:text="车辆正面照"/>
                 </LinearLayout>
 
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:paddingBottom="@dimen/txt_10dp">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -433,18 +617,56 @@
                         android:text="车辆内部"/>
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:id="@+id/diaodu3_zbgce_ll"
+                    android:visibility="gone"
+                    android:paddingLeft="@dimen/txt_39dp">
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@mipmap/pic"
+                        android:layout_gravity="center"
+                        android:id="@+id/diaodu3_zbg_ce"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/txt_12"
+                        android:gravity="center"
+                        android:text="柜体侧面"/>
+                </LinearLayout>
             </LinearLayout>
 
-            <!--<LinearLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:background="@color/white"
-                android:paddingBottom="@dimen/txt_39dp">
-
-
-
-            </LinearLayout>-->
+                android:visibility="gone"
+                android:id="@+id/diaodu3_zbgback_ll"
+                android:paddingTop="@dimen/txt_10dp"
+                android:paddingLeft="@dimen/txt_15dp"
+                android:layout_marginBottom="@dimen/txt_39dp">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/txt_15dp">
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@mipmap/pic"
+                        android:id="@+id/diaodu3_zbg_back"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/txt_12"
+                        android:text="柜体后方"/>
+                </LinearLayout>
+            </LinearLayout>
 
             <Button
                 android:layout_width="match_parent"

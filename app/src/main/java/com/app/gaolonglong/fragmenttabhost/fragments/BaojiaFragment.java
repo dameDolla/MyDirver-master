@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
@@ -22,9 +23,11 @@ import com.app.gaolonglong.fragmenttabhost.bean.BaojiaListBean;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.app.gaolonglong.fragmenttabhost.view.EmptyLayout;
 import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
 import com.luoxudong.app.threadpool.ThreadPoolHelp;
 
@@ -60,6 +63,12 @@ public class BaojiaFragment extends Fragment {
 
     @BindView(R.id.baojia_refresh)
     public SwipeRefreshLayout refresh;
+
+    @BindView(R.id.baojia_fragment_empty)
+    public EmptyLayout empty;
+
+    @BindView(R.id.baojia_fragment_main)
+    public LinearLayout main;
 
     private List<BaojiaListBean.DataBean> list = new ArrayList<BaojiaListBean.DataBean>();
     private BaojiaListAdapter adapter;
@@ -199,7 +208,10 @@ public class BaojiaFragment extends Fragment {
                     @Override
                     public void onNext(GetCodeBean getCodeBean) {
                         ToolsUtils.getInstance().toastShowStr(getContext(),getCodeBean.getErrorMsg());
-
+                        if (getCodeBean.getErrorCode().equals("200"))
+                        {
+                            onActivityCreated(null);
+                        }
                     }
                 });
     }
@@ -231,6 +243,7 @@ public class BaojiaFragment extends Fragment {
                                     //getBaojiaList();
                                     list.get(position).setCargoPriceState("2");
                                     adapter.notifyDataSetChanged();
+                                    onActivityCreated(null);
                                 }
                             }
                         });
@@ -262,8 +275,20 @@ public class BaojiaFragment extends Fragment {
                             @Override
                             public void onNext(BaojiaListBean baojiaListBean) {
                                 list.clear();
-                                list.addAll(baojiaListBean.getData());
-                                adapter.notifyDataSetChanged();
+                                if (!GetUserInfoUtils.getUserType(getContext()).equals("3")){
+                                    list.addAll(baojiaListBean.getData());
+                                }
+                                Log.e("baojiasize",list.size()+"");
+                                if (list.size() == 0){
+                                    empty.setVisibility(View.VISIBLE);
+                                    main.setVisibility(View.GONE);
+                                    empty.setErrorImag(R.drawable.nobaojia,"无报价信息");
+                                   //empty.setNoDataContent("没有数据");
+                                    //empty.setErrorType(EmptyLayout.NODATA);
+                                }else {
+
+                                    adapter.notifyDataSetChanged();
+                                }
                             }
                         });
             }

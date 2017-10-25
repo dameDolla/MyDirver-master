@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/find_route_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/find_route_parent">
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
@@ -23,10 +25,10 @@
                     android:id="@+id/find_route_origin"
                     android:layout_width="70dp"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="线路始发地"
                     android:enabled="false"
+                    android:gravity="center"
                     android:singleLine="true"
+                    android:text="线路始发地"
                     android:textColor="@color/black"
                     android:textSize="@dimen/txt_14" />
 
@@ -53,12 +55,12 @@
 
                 <TextView
                     android:id="@+id/find_route_destination"
-                    android:layout_width="40dp"
+                    android:layout_width="70dp"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="线路目的地"
-                    android:singleLine="true"
                     android:enabled="false"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="线路目的地"
                     android:textColor="@color/black"
                     android:textSize="@dimen/txt_14" />
 
@@ -80,7 +82,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:gravity="center"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/find_route_cartype"
@@ -132,15 +135,32 @@
             </RelativeLayout>
 
         </LinearLayout>
-
-        <android.support.v7.widget.RecyclerView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/find_route_rlv"/>
+            android:orientation="vertical"
+            android:id="@+id/find_route_main">
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/find_route_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <!--<com.app.gaolonglong.fragmenttabhost.view.EmptyLayout
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/find_route_rlv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/txt_15dp"
+            android:background="@color/color_f2" />
+        </LinearLayout>
+        <com.app.gaolonglong.fragmenttabhost.view.EmptyLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/find_empty_view"/>-->
+            android:id="@+id/find_route_empty"
+            android:visibility="gone"/>
+
     </LinearLayout>
 </LinearLayout>

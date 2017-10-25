@@ -67,20 +67,31 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <ImageView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:paddingTop="6dp"
-                        android:src="@mipmap/zhuang" />
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/zhuang" />
+                    </LinearLayout>
 
-                    <ImageView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:paddingBottom="3dp"
-                        android:paddingTop="3dp"
-                        android:src="@mipmap/xie" />
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/xie" />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -128,7 +139,7 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="1.2"
                     android:orientation="vertical">
 
                     <ImageView
@@ -159,7 +170,7 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="4"
+                    android:layout_weight="3"
                     android:orientation="vertical">
 
                     <TextView
@@ -199,11 +210,23 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="@dimen/txt_10dp"
-                    android:layout_weight="1"
+                    android:layout_weight="2.5"
                     android:gravity="center"
                     android:id="@+id/find_iv_tel_ll"
-                    android:orientation="vertical">
-
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="已报价"
+                        android:textColor="@color/white"
+                        android:paddingRight="3dp"
+                        android:paddingLeft="3dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:visibility="gone"
+                        android:id="@+id/find_iv_bjstatus"
+                        android:background="@drawable/red_bg"
+                        android:layout_marginRight="@dimen/txt_5dp"/>
                     <ImageView
                         android:id="@+id/find_iv_phone"
                         android:layout_width="25dp"

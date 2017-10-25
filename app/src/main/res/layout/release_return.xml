@@ -161,7 +161,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_toLeftOf="@+id/release_arrow2"
-                android:text="2017-9-8"
+                android:text=""
                 android:gravity="center_vertical"
                 android:textSize="14sp"
                 android:id="@+id/release_rl_emptytime_tv"
@@ -211,7 +211,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_toLeftOf="@+id/release_arrow1"
-                android:text="2017-9-8"
+                android:text=""
                 android:gravity="center_vertical"
                 android:textSize="14sp"
                 android:id="@+id/release_backtime_tv"
@@ -243,6 +243,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="47dp"
+            android:id="@+id/add_release_carnum_ll"
             android:gravity="center_vertical">
             <ImageView
                 android:layout_width="wrap_content"
@@ -264,7 +265,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/car_num"
-                android:text="赣A199307"
+                android:text="请选择车辆"
                 android:gravity="center_vertical"
                 android:textColor="@color/black_263"
                 android:textSize="@dimen/txt_14"
@@ -282,7 +283,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="12m/箱车"
+                android:text=""
                 android:gravity="center_vertical"
                 android:paddingRight="@dimen/txt_15dp"
                 android:textSize="@dimen/txt_14"

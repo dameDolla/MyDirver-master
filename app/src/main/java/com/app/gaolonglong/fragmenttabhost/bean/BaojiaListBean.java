@@ -258,6 +258,16 @@ public class BaojiaListBean {
         private String SecreKeyDateTime;
         private Object AvatarAddress;
         private int PageNum;
+        private String trucktypeHZ;
+        private String trucklengthHZ;
+
+        public String getTrucklengthHZ() {
+            return trucklengthHZ;
+        }
+
+        public String getTrucktypeHZ() {
+            return trucktypeHZ;
+        }
 
         public int getPriceid() {
             return priceid;

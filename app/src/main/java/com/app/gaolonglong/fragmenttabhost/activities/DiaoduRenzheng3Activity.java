@@ -33,6 +33,7 @@ import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.LoadingDialog;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
@@ -101,7 +102,7 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
 
     @BindViews({R.id.diaodu3_card_pic, R.id.diaodu3_with_card,
             R.id.diaodu3_car_face, R.id.diaodu3_car_back,
-            R.id.diaodu3_car_content})
+            R.id.diaodu3_car_content,R.id.diaodu3_zbg_ce,R.id.diaodu3_zbg_back})
     public List<ImageView> mImage;
 
     @BindViews({R.id.diaodu3_carnum, R.id.diaodu3_xsnum,
@@ -112,8 +113,26 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
     @BindView(R.id.diaodu3_parent)
     public LinearLayout parent;
 
+    @BindViews({R.id.diaodu3_car_info,R.id.carrenzheng_zbg_info})
+    public List<LinearLayout> mLinear;
+
+    @BindViews({R.id.person2_zbh,R.id.person2_carweight,R.id.person2_zaizhong,
+            R.id.person2_rongji,R.id.carrenzheng_kuan,R.id.carrenzheng_gao,
+    })
+    public List<EditText> mCarinfo;
+
+    @BindViews({R.id.carrc_common_zbgcode,R.id.carrc_common_hgcode,R.id.carrc_common_zbgnum,
+            R.id.carrc_common_zaizhong,R.id.carrenzheng_common_headweight,
+            R.id.carrenzheng_common_guiweight,R.id.carrenzheng_common_jiaweight})
+    public List<EditText> mZbginfo;
+
     @BindView(R.id.diaodu3_car_ll)
     public LinearLayout carLL;
+
+    @BindViews({R.id.diaodu3_zbgce_ll,R.id.diaodu3_zbgback_ll})
+    public List<LinearLayout> mZbgimg;
+
+
     private View popView;
     private PopupWindow typePopmenu;
 
@@ -138,6 +157,7 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
 
     private void init() {
         initView();
+        initCartypePopwindow();
     }
 
     private void initView() {
@@ -147,6 +167,10 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
         mImage.get(2).setOnClickListener(this);
         mImage.get(3).setOnClickListener(this);
         mImage.get(4).setOnClickListener(this);
+        mImage.get(5).setOnClickListener(this);
+        mImage.get(6).setOnClickListener(this);
+        mEdit.get(3).setOnClickListener(this);
+        mEdit.get(4).setOnClickListener(this);
         carLL.setOnClickListener(this);
         dialog = LoadingDialog.showDialog(DiaoduRenzheng3Activity.this);
         getGuid();
@@ -157,6 +181,21 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
 
     private void toNext() {
 
+        String zbh = mCarinfo.get(0).getText()+""; //自编号
+        String carweight = mCarinfo.get(1).getText()+""; //车重
+        String zaizhong = mCarinfo.get(2).getText()+""; //载重
+        String rongji = mCarinfo.get(3).getText()+""; //容积
+        //String chang = mCarinfo.get(4).getText()+""; //长
+        String kuan = mCarinfo.get(4).getText()+""; // 宽
+        String gao = mCarinfo.get(5).getText()+""; //高
+        String zbgcode = mZbginfo.get(0).getText()+""; //自备柜车牌号
+        String hgcode = mZbginfo.get(1).getText()+"";//海关编码
+        String zbgnum = mZbginfo.get(2).getText()+"";//柜号
+        String zbgzaizhong = mZbginfo.get(3).getText()+"";//自备柜载重
+        String headweight = mZbginfo.get(4).getText()+"";//自备柜头重
+        String guiweight = mZbginfo.get(5).getText()+"";//自备柜柜重
+        String jiaweight = mZbginfo.get(6).getText()+"";//自备柜架重
+        //String companyguid = GetUserInfoUtils.getCompanyGuid(DiaoduRenzheng3Activity.this);
         JSONObject json = new JSONObject();
         try {
             json.put("GUID", guid);
@@ -169,6 +208,18 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
             json.put("boardingtime", "");
             json.put("TruckImg","");
             json.put("TrucksGUID",ToolsUtils.getString(DiaoduRenzheng3Activity.this,NEWGUID,""));
+            json.put("CustomNumber",zbh);
+            json.put("TruckWeight",carweight);
+            json.put("MaximumLoad",zaizhong);
+            json.put("Volume",rongji);
+            json.put("TruckWidth",kuan);
+            json.put("TruckHeight",gao);
+            json.put("PlateNumber",zbgcode);
+            json.put("CustomsCode",hgcode);
+            json.put("CabinetNo",zbgnum);
+            json.put("HeadWeight",headweight);
+            json.put("CabinetWeight",guiweight);
+            json.put("FrameWeight",jiaweight);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -371,12 +422,20 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
         builder.addFormDataPart("MemberGUID", g);
 
         builder.addFormDataPart("headimgurl", "avatar", RequestBody.create(MediaType.parse("image/png/jpg; charset=utf-8"), file));
-        if (position == 2){
+        if (position == 0){
+            builder.addFormDataPart("ImgType", "10");
+        }else if (position == 1){
+            builder.addFormDataPart("ImgType", "16");
+        }else if (position == 2){
             builder.addFormDataPart("ImgType", "6");
         }else if (position == 3){
             builder.addFormDataPart("ImgType", "7");
         }else if (position == 4){
             builder.addFormDataPart("ImgType", "8");
+        }else if (position == 5){
+            builder.addFormDataPart("ImgType", "17");
+        }else if (position == 6){
+            builder.addFormDataPart("ImgType", "18");
         }
         RetrofitUtils.getRetrofitService().
                 upload_avatar(builder.build())
@@ -466,7 +525,21 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
                 position = 4;
                 uploadImage();
                 break;
+            case R.id.diaodu3_zbg_ce:
+                position = 5;
+                uploadImage();
+                break;
+            case R.id.diaodu3_zbg_back:
+                position = 6;
+                uploadImage();
+                break;
             case R.id.diaodu3_car_ll:
+                showCarPop();
+                break;
+            case R.id.diaodu3_cartype:
+                showCarPop();
+                break;
+            case R.id.diaodu3_carlong:
                 showCarPop();
                 break;
 
@@ -496,7 +569,7 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
         String[] length = { "4.2米", "4.5米", "5米", "5.2米", "6.2米", "6.8米",
                 "7.2米", "11.7米", "12.5米", "13米", "13.5米","14米","15米","16米","17米" };
 
-        final String[] type = {"冷藏车","平板","高栏","箱式","保温","危险品","高低板"};
+        final String[] type = {"冷藏车","平板","高栏","箱式","保温","危险品","高低板","自备柜"};
 
         for (int j=0;j<type.length;j++)
         {
@@ -557,7 +630,7 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
                 typeStr = type.toString();
                 for(int m=0;m<adapterView.getCount();m++){
                     TextView item = (TextView) typeGrid.getChildAt(m).findViewById(R.id.gv_item_text);
-                    typeStr = (String)item.getText();
+                    //typeStr = (String)item.getText();
                     if (i == m) {//当前选中的Item改变背景颜色
                         item.setBackgroundResource(R.drawable.cartype_unselect);
                     } else {
@@ -582,6 +655,18 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
                 {
                     mEdit.get(4).setText("");
                     mEdit.get(4).setText(lenStr);
+                }
+                if (typeStr.equals("自备柜"))
+                {
+                    mLinear.get(0).setVisibility(View.GONE);
+                    mLinear.get(1).setVisibility(View.VISIBLE);
+                    mZbgimg.get(0).setVisibility(View.VISIBLE);
+                    mZbgimg.get(1).setVisibility(View.VISIBLE);
+                }else {
+                    mLinear.get(0).setVisibility(View.VISIBLE);
+                    mLinear.get(1).setVisibility(View.GONE);
+                    mZbgimg.get(0).setVisibility(View.GONE);
+                    mZbgimg.get(1).setVisibility(View.GONE);
                 }
 
                 typePopmenu.dismiss();

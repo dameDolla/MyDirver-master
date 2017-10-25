@@ -4,17 +4,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.adapter.DriverListAdapter;
 import com.app.gaolonglong.fragmenttabhost.bean.DriverBean;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
+import com.app.gaolonglong.fragmenttabhost.bean.LoginBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
+import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.app.gaolonglong.fragmenttabhost.view.EmptyLayout;
+import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
 import com.luoxudong.app.threadpool.ThreadPoolHelp;
 
 import java.util.ArrayList;
@@ -34,8 +40,10 @@ import rx.schedulers.Schedulers;
  */
 
 public class SelectDriverActivity extends BaseActivity {
-    private List<DriverBean.DataBean> list;
+    private List<LoginBean.DataBean> list;
     private DriverListAdapter adapter;
+    private String flags;
+    private String billsGuid;
 
     @OnClick(R.id.title_back)
     public void back()
@@ -53,6 +61,9 @@ public class SelectDriverActivity extends BaseActivity {
     @BindView(R.id.select_driver_rcv)
     public RecyclerView rcv;
 
+    @BindView(R.id.select_driver_empty)
+    public EmptyLayout empty;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,10 +77,16 @@ public class SelectDriverActivity extends BaseActivity {
     }
     private void initView()
     {
-        title.setText("选择调度司机");
-        list = new ArrayList<DriverBean.DataBean>();
+        title.setText("调度司机");
+        flags = getIntent().getStringExtra("flags");
+        billsGuid = getIntent().getStringExtra("missionguid");
+        list = new ArrayList<LoginBean.DataBean>();
         adapter = new DriverListAdapter(SelectDriverActivity.this,list);
+        MyLinearLayoutManager manager = new MyLinearLayoutManager(SelectDriverActivity.this);
+        rcv.setLayoutManager(manager);
         rcv.setAdapter(adapter);
+        adapter.getFlags(flags);
+
         kjClick();
         getDriverInfo(initJsonData());
     }
@@ -77,22 +94,32 @@ public class SelectDriverActivity extends BaseActivity {
     {
         adapter.setDriverOnclick(new DriverListAdapter.DriverOnclick() {
             @Override
-            public void driverOnclick(String driverguid, String flag) {
+            public void driverOnclick(String driverguid, String flag,String drivername,String drivertel) {
+
                 if (flag.equals("driver_select")){
-                    bindDriver();
+                    Map<String,String> map = new HashMap<String, String>();
+                    ToolsUtils.getInstance().toastShowStr(SelectDriverActivity.this,driverguid);
+                    map.put("GUID",GetUserInfoUtils.getGuid(SelectDriverActivity.this));
+                    map.put(Constant.MOBILE,GetUserInfoUtils.getMobile(SelectDriverActivity.this));
+                    map.put(Constant.KEY,GetUserInfoUtils.getKey(SelectDriverActivity.this));
+                    map.put("billsGUID",billsGuid);
+                    map.put("driverGUID",driverguid);
+                    map.put("drivername",drivername);
+                    map.put("driverphone",drivertel);
+                    bindDriver(JsonUtils.getInstance().getJsonStr(map),drivername);
                 }else if (flag.equals("driver_jb")){
 
                 }
             }
         });
     }
-    private void bindDriver()
+    private void bindDriver(final String json, final String name)
     {
         ThreadPoolHelp.Builder.cached().builder().execute(new Runnable() {
             @Override
             public void run() {
                 RetrofitUtils.getRetrofitService()
-                        .getDriverToMission(Constant.MYINFO_PAGENAME,Config.UPDATEDRIVER,"")
+                        .getDriverToMission(Constant.MYINFO_PAGENAME,Config.UPDATEDRIVER,json)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Subscriber<GetCodeBean>() {
@@ -103,15 +130,20 @@ public class SelectDriverActivity extends BaseActivity {
 
                             @Override
                             public void onError(Throwable e) {
-
+                                Log.e("binddrivererror",e.getMessage());
                             }
 
                             @Override
                             public void onNext(GetCodeBean getCodeBean) {
-                                Intent intent = new Intent(SelectDriverActivity.this,MissionDetailActivity.class);
-                                intent.putExtra("drivername","");
-                                intent.putExtra("drivertel","");
-                                startActivity(intent);
+                                Log.e("binddriver",getCodeBean.getErrorCode()+"--"+getCodeBean.getErrorMsg());
+                                if (getCodeBean.getErrorCode().equals("200")){
+                                    Intent intent = new Intent();
+                                    intent.putExtra("drivername",name);
+                                    intent.putExtra("drivertel","159000000");
+                                    //startActivity(intent);
+                                    setResult(1,intent);
+                                    finish();
+                                }
                             }
                         });
             }
@@ -138,7 +170,7 @@ public class SelectDriverActivity extends BaseActivity {
                         .getDriverInfo(Constant.PLATFORM_PAGENAME, Config.GETDRIVERS,json)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Subscriber<DriverBean>() {
+                        .subscribe(new Subscriber<LoginBean>() {
                             @Override
                             public void onCompleted() {
 
@@ -150,10 +182,31 @@ public class SelectDriverActivity extends BaseActivity {
                             }
 
                             @Override
-                            public void onNext(DriverBean driverBean) {
-                                list.clear();
-                                list.addAll(driverBean.getData());
-                                adapter.notifyDataSetChanged();
+                            public void onNext(LoginBean driverBean) {
+                                Log.e("selectDriver",driverBean.getErrorCode()+"--"+driverBean.getErrorMsg());
+                                if (driverBean.getErrorCode().equals(Constant.HAVEDATAANDSUCCESS))
+                                {
+                                    list.clear();
+                                    int size = driverBean.getData().size();
+                                    if (flags.equals("mission_detail")){
+                                        for (int i=0;i<size;i++){
+                                            if ((driverBean.getData().get(i).getVtruename()).equals("9")){
+                                                list.add(driverBean.getData().get(i));
+                                            }
+                                        }
+                                    }else {
+                                        list.addAll(driverBean.getData());
+                                    }
+                                    adapter.notifyDataSetChanged();
+                                    Log.e("driversize",list.size()+"");
+                                }
+                                if (driverBean.getErrorCode().equals(Constant.NODATABUTSUCCESS))
+                                {
+                                    empty.setVisibility(View.VISIBLE);
+                                    empty.setErrorType(EmptyLayout.NODATA);
+                                }else {
+                                    empty.setVisibility(View.GONE);
+                                }
                             }
                         });
             }

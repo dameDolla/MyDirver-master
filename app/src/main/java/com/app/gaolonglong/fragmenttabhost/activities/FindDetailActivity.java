@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -11,16 +12,29 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
+import com.app.gaolonglong.fragmenttabhost.bean.GetSRCBean;
 import com.app.gaolonglong.fragmenttabhost.bean.ToSrcDetailBean;
+import com.app.gaolonglong.fragmenttabhost.config.Config;
+import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
+import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
+import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.luoxudong.app.threadpool.ThreadPoolHelp;
+import com.luoxudong.app.threadpool.ThreadTaskObject;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by yanqi on 2017/9/13.
@@ -31,10 +45,16 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
     @BindView(R.id.top_title)
     public TextView title;
     private ToSrcDetailBean bean;
+    private GetSRCBean.DataBean data;
+    private List<GetSRCBean.DataBean> list = new ArrayList<>();
 
     @OnClick(R.id.title_back)
     public void back()
     {
+        finish();
+    }
+    @OnClick(R.id.title_back_txt)
+    public void backs(){
         finish();
     }
 
@@ -72,19 +92,21 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
     private void init()
     {
         initView();
+
     }
 
     private void initView()
     {
-        title.setText("货源详情");
         bean = (ToSrcDetailBean) getIntent().getSerializableExtra("findSrc");
-        mText.get(0).setText(bean.getFromDetailedAddress());
-        mText.get(1).setText(bean.getToDetailedAddress());
-        mText.get(4).setText(bean.getPreloadtime());
-        mText.get(5).setText(bean.getCargotype());
-        mText.get(7).setText(bean.getTrucklengthHZ()+"/"+bean.getTrucktypeHZ());
-        mText.get(10).setText(bean.getOwnername());
-        mText.get(11).setText(bean.getTel());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //mText.get(5).setText("测试测试拉");
+                //ToolsUtils.getInstance().toastShowStr(FindDetailActivity.this,"sskksksj");
+                getDetail(initJsonData());
+            }
+        }).start();
+        title.setText("货源详情");
         submit.setOnClickListener(this);
         mLinear.get(0).setOnClickListener(this);
         mLinear.get(1).setOnClickListener(this);
@@ -93,8 +115,19 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
         {
             submit.setVisibility(View.GONE);
         }
-    }
 
+    }
+    private void setViewVal(GetSRCBean src)
+    {
+        data = src.getData().get(0);
+        mText.get(0).setText(data.getFromDetailedAddress());
+        mText.get(1).setText(data.getToDetailedAddress());
+        mText.get(4).setText(data.getPreloadtime());
+        mText.get(5).setText(data.getCargotype());
+        mText.get(7).setText(data.getTrucklengthHZ()+"/"+bean.getTrucktypeHZ());
+        mText.get(10).setText(data.getOwnername()+"");
+        mText.get(11).setText(data.getOwnerphone()+"");
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId())
@@ -110,17 +143,54 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.find_detail_fromsitell:
                 Intent intent = new Intent(FindDetailActivity.this,RouteMapActivity.class);
-                intent.putExtra("fromsitelatlng",bean.getLoadaddHZ());
-                intent.putExtra("tositelatlng",bean.getArrivedaddHZ());
+                intent.putExtra("fromsitelatlng",data.getLoadaddHZ());
+                intent.putExtra("tositelatlng",data.getArrivedaddHZ());
                 startActivity(intent);
+                //Log.e("detail",data.getArrivedaddHZ());
                 break;
             case R.id.find_detail_tositell:
                 Intent intents = new Intent(FindDetailActivity.this,RouteMapActivity.class);
-                intents.putExtra("fromsitelatlng",bean.getLoadaddHZ());
-                intents.putExtra("tositelatlng",bean.getArrivedaddHZ());
+                intents.putExtra("fromsitelatlng",data.getLoadaddHZ());
+                intents.putExtra("tositelatlng",data.getArrivedaddHZ());
                 startActivity(intents);
                 break;
         }
 
+    }
+    private String initJsonData()
+    {
+        String guid = GetUserInfoUtils.getGuid(FindDetailActivity.this);
+        String mobile = GetUserInfoUtils.getMobile(FindDetailActivity.this);
+        String key = GetUserInfoUtils.getKey(FindDetailActivity.this);
+        Map<String,String> map = new HashMap<>();
+        map.put("GUID",guid);
+        map.put(Constant.MOBILE,mobile);
+        map.put(Constant.KEY,key);
+        map.put("billsGUID",bean.getBillsGUID());
+
+        return JsonUtils.getInstance().getJsonStr(map);
+    }
+    private void getDetail(String json){
+        RetrofitUtils.getRetrofitService()
+                .getSrcDetail(Constant.MYINFO_PAGENAME, Config.GETSRCDETAIL,json)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<GetSRCBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(GetSRCBean getSRCBean) {
+                        Log.e("findDetail",getSRCBean.getErrorCode()+"--"+getSRCBean.getErrorMsg());
+                        setViewVal(getSRCBean);
+                    }
+                });
     }
 }

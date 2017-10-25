@@ -242,7 +242,7 @@
             android:orientation="horizontal"
             android:background="@color/white"
             android:paddingTop="@dimen/txt_5dp"
-            android:paddingBottom="@dimen/txt_39dp">
+            android:paddingBottom="@dimen/txt_15dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -304,6 +304,26 @@
                     android:text="个人持照合影"/>
             </LinearLayout>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/txt_10dp"
+            android:background="@color/white"
+            android:layout_marginBottom="@dimen/txt_39dp"
+            android:paddingLeft="@dimen/txt_15dp">
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@mipmap/pic"
+                android:id="@+id/personal_jsz"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/txt_12"
+                android:text="驾驶证正面"/>
         </LinearLayout>
 
         <TextView

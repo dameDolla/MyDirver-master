@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.activities.MissionDetailActivity;
@@ -21,6 +22,7 @@ import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.app.gaolonglong.fragmenttabhost.view.EmptyLayout;
 import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
 import com.luoxudong.app.threadpool.ThreadPoolHelp;
 
@@ -45,6 +47,12 @@ public class MissionCancle extends Fragment {
     private MissionListAdapter adapter;
     @BindView(R.id.mission_cancel_rcv)
     public RecyclerView rcv;
+
+    @BindView(R.id.mission_cancel_main)
+    public LinearLayout main;
+
+    @BindView(R.id.mission_cancel_empty)
+    public EmptyLayout empty;
 
     @Nullable
     @Override
@@ -128,9 +136,13 @@ public class MissionCancle extends Fragment {
 
                     @Override
                     public void onNext(MissionListBean missionListBean) {
-                        if (missionListBean.getErrorCode().equals("200")) {
-                            list.clear();
-                            list.addAll(missionListBean.getData());
+                        list.clear();
+                        list.addAll(missionListBean.getData());
+                        if (list.size() == 0){
+                            main.setVisibility(View.GONE);
+                            empty.setVisibility(View.VISIBLE);
+                            empty.setErrorImag(R.drawable.nomission,"您没有已取消的运单哦");
+                        }else {
                             adapter.notifyDataSetChanged();
                         }
                     }

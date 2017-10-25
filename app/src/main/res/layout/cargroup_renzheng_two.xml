@@ -60,12 +60,12 @@
                             android:layout_height="wrap_content"
                             android:text="已完成"
                             android:gravity="center_horizontal"
-                            android:textColor="@color/gray_87"/>
+                            android:textColor="@color/titleColorSelected"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="个人信息和照片"
-                            android:textColor="@color/gray_87"/>
+                            android:textColor="@color/titleColorSelected"/>
                     </LinearLayout>
 
                 </RelativeLayout>

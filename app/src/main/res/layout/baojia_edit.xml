@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/color_f2"
+    android:id="@+id/baojia_edit_parent"
     android:orientation="vertical">
 
     <include layout="@layout/top_title" />
@@ -57,6 +58,44 @@
             android:layout_marginRight="@dimen/txt_39dp"
             android:layout_marginTop="@dimen/txt_20dp"
             android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/txt_39dp"
+                android:layout_marginTop="@dimen/txt_5dp"
+                android:background="@drawable/border_gray">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/txt_10dp"
+                    android:text="车辆:"
+                    android:textSize="@dimen/txt_14" />
+
+                <TextView
+                    android:id="@+id/baojia_yunshu_carinfo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:text="选择车辆"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/shen_blue"
+                    android:textSize="@dimen/txt_14" />
+                <TextView
+                    android:id="@+id/baojia_yunshu_carinfo2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:text=""
+                    android:singleLine="true"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black_6d"
+                    android:textSize="@dimen/txt_14" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"

@@ -414,7 +414,75 @@
                 android:paddingRight="@dimen/txt_15dp"
                 android:gravity="center_vertical"/>
         </RelativeLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/color_f2"
+            android:layout_marginLeft="@dimen/txt_15dp"/>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:visibility="gone"
+            android:id="@+id/mine_rl_drivers">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/driver"
+                android:paddingLeft="@dimen/txt_15dp"
+                android:id="@+id/mine_driver"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/black_17"
+                android:text="司机信息"
+                android:textSize="@dimen/txt_14"
+                android:gravity="center_vertical"
+                android:layout_toRightOf="@+id/mine_driver"
+                android:paddingLeft="@dimen/txt_10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text=">"
+                android:textSize="20dp"
+                android:layout_alignParentRight="true"
+                android:paddingRight="@dimen/txt_15dp"
+                android:gravity="center_vertical"/>
+        </RelativeLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/color_f2"
+            android:layout_marginLeft="@dimen/txt_15dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:visibility="gone"
+            android:id="@+id/mine_rl_company">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/mine_company"
+                android:paddingLeft="@dimen/txt_15dp"
+                android:id="@+id/mine_company"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/black_17"
+                android:text="公司信息"
+                android:textSize="@dimen/txt_14"
+                android:gravity="center_vertical"
+                android:layout_toRightOf="@+id/mine_company"
+                android:paddingLeft="@dimen/txt_10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text=">"
+                android:textSize="20dp"
+                android:layout_alignParentRight="true"
+                android:paddingRight="@dimen/txt_15dp"
+                android:gravity="center_vertical"/>
+        </RelativeLayout>
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0.5dp"

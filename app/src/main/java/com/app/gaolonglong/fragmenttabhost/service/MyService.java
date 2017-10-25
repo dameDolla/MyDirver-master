@@ -174,8 +174,10 @@ public interface MyService {
     @FormUrlEncoded
     @POST(Config.host)
     Observable<GetSRCBean> getSRCWithFromside(@Field(Constant.PAGENAME) String page,
-                                              @Field(Constant.METHOD) String method,
-                                              @Field("JsonValue") String json);
+                                                 @Field(Constant.METHOD) String method,
+                                                 @Field("JsonValue") String json);
+
+
     /**
      * 修改订阅线路的默认线路
      */
@@ -332,8 +334,15 @@ public interface MyService {
      */
     @FormUrlEncoded
     @POST(Config.host)
-    Observable<DriverBean> getDriverInfo(@Field(Constant.PAGENAME) String page,
+    Observable<LoginBean> getDriverInfo(@Field(Constant.PAGENAME) String page,
                                          @Field(Constant.METHOD) String method,
                                          @Field("JsonValue") String json);
-
+    /**
+     * 根据billsGUID查找货源详情
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetSRCBean> getSrcDetail(@Field(Constant.PAGENAME) String page,
+                                        @Field(Constant.METHOD) String method,
+                                        @Field("JsonValue") String json);
 }

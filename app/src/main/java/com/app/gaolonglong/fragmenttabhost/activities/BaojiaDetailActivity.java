@@ -1,6 +1,8 @@
 package com.app.gaolonglong.fragmenttabhost.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,6 +20,7 @@ import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.app.gaolonglong.fragmenttabhost.view.CommomDialog;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.text.SimpleDateFormat;
@@ -90,6 +93,7 @@ public class BaojiaDetailActivity extends BaseActivity implements View.OnClickLi
     {
         title.setText("报价详情");
         bean = (BaojiaInfoBean) getIntent().getSerializableExtra("baojaiInfo");
+        btnUnConfirm(bean);
         mText.get(0).setText(bean.getPrice());
         mText.get(1).setText(bean.getLoadfee());
         mText.get(2).setText(bean.getUnloadfee());
@@ -111,6 +115,17 @@ public class BaojiaDetailActivity extends BaseActivity implements View.OnClickLi
         guid = ToolsUtils.getString(BaojiaDetailActivity.this, Constant.LOGIN_GUID,"");
         mobile = ToolsUtils.getString(BaojiaDetailActivity.this, Constant.MOBILE,"");
         key = ToolsUtils.getString(BaojiaDetailActivity.this, Constant.KEY,"");
+    }
+    private void btnUnConfirm(BaojiaInfoBean beans)
+    {
+        String status = beans.getStatus(); //报价状态
+        if (status.equals("2") || status.equals("3")){
+            mLL.get(0).setEnabled(false);
+            mLL.get(1).setEnabled(false);
+            mLL.get(0).setBackgroundColor(Color.GRAY);
+            mLL.get(1).setBackgroundColor(Color.GRAY);
+
+        }
     }
     private String initJaonData()
     {
@@ -155,6 +170,7 @@ public class BaojiaDetailActivity extends BaseActivity implements View.OnClickLi
                     @Override
                     public void onNext(GetCodeBean getCodeBean) {
                         Log.e("qurenquern",getCodeBean.getErrorMsg());
+                        ToolsUtils.getInstance().toastShowStr(BaojiaDetailActivity.this,getCodeBean.getErrorMsg());
                     }
                 });
     }
@@ -187,17 +203,35 @@ public class BaojiaDetailActivity extends BaseActivity implements View.OnClickLi
         switch (view.getId())
         {
             case R.id.baojia_detail_tijiao:
-               tijiao(initJaonData());
+
+                new CommomDialog(BaojiaDetailActivity.this, R.style.dialog, "您确定要提交当前的议价吗", new CommomDialog.OnCloseListener() {
+                    @Override
+                    public void onClick(Dialog dialog, boolean confirm) {
+                        dialog.dismiss();
+                        if (confirm){
+                            tijiao(initJaonData());
+                        }
+                    }
+                }).setTitle("提示").show();
 
                 break;
             case R.id.baojia_detail_queren:
-                Map<String,String> map = new HashMap<String,String>();
-                map.put("GUID",guid);
-                map.put(Constant.MOBILE,mobile);
-                map.put(Constant.KEY,key);
-                map.put("cargopricesGUID",bean.getCargopricesGUID()+"");
-                map.put("UpdatePriceTime",bean.getUpdatePriceTime());
-                queren(JsonUtils.getInstance().getJsonStr(map));
+                new CommomDialog(BaojiaDetailActivity.this, R.style.dialog, "您确定要同意议价？", new CommomDialog.OnCloseListener() {
+                    @Override
+                    public void onClick(Dialog dialog, boolean confirm) {
+                        dialog.dismiss();
+                        if (confirm){
+                            Map<String,String> map = new HashMap<String,String>();
+                            map.put("GUID",guid);
+                            map.put(Constant.MOBILE,mobile);
+                            map.put(Constant.KEY,key);
+                            map.put("cargopricesGUID",bean.getCargopricesGUID()+"");
+                            map.put("UpdatePriceTime",bean.getUpdatePriceTime());
+                            queren(JsonUtils.getInstance().getJsonStr(map));
+                        }
+                    }
+                }).setTitle("提示").show();
+
                 break;
         }
     }

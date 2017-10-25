@@ -160,7 +160,8 @@ public class MissionListAdapter extends RecyclerView.Adapter implements View.OnC
                     list.get((int)view.getTag()).getDrivername()+"",
                     list.get((int)view.getTag()).getDriverphone()+"",
                     list.get((int)view.getTag()).getDriverGUID()+"",
-                    (list.get((int)view.getTag()).getTruckno()).equals(null)?list.get((int)view.getTag()).getTruckno():""+""
+                    list.get((int)view.getTag()).getTruckno()+"",
+                    list.get((int)view.getTag()).getSigntime()+""
             );
             onMissionItemClick.onMissionItemClick(view,beans);
         }

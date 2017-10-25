@@ -128,6 +128,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="39dp"
+        android:id="@+id/setting_intro"
         android:background="@color/white">
         <TextView
             android:layout_width="wrap_content"
@@ -154,6 +155,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="39dp"
+        android:id="@+id/setting_call_ll"
         android:background="@color/white">
         <TextView
             android:layout_width="wrap_content"
@@ -163,6 +165,16 @@
             android:textColor="@color/black"
             android:paddingLeft="@dimen/txt_10dp"
             android:gravity="center_vertical"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:id="@+id/setting_call"
+            android:text="4000360240"
+            android:textColor="@color/qian_blue"
+            android:textSize="@dimen/txt_16"
+            android:paddingRight="@dimen/txt_5dp"
+            android:layout_toLeftOf="@+id/setting_arrow5"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

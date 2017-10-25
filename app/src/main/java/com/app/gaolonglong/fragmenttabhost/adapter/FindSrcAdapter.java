@@ -3,6 +3,7 @@ package com.app.gaolonglong.fragmenttabhost.adapter;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,13 +59,25 @@ public class FindSrcAdapter extends RecyclerView.Adapter implements View.OnClick
         //0、注册用户；1、认证用户；2、诚信用户。新注册用户标记为0，完成认证标记为1.
         SrcViewHolder holder1 = (SrcViewHolder) holder;
         data = list.get(position);
+        if (!(data.getFromDetailedAddress()+"").equals("")&&!(data.getToDetailedAddress()+"").equals(""))
+        {
+            //Log.e("tositefromfite",data.getFromDetailedAddress()+"--"+data.getToDetailedAddress());
+
+            /*String[] from = (data.getFromDetailedAddress()+"").split("省");
+            String[] to = (data.getToDetailedAddress()+"").split("省");*/
+            holder1.zhuang.setText(data.getFromDetailedAddress()+"");
+            holder1.xie.setText(data.getToDetailedAddress()+"");
+        }else {
+            holder1.zhuang.setText(data.getFromSite()+"");
+            holder1.xie.setText(data.getToSite()+"");
+        }
+
         holder1.username.setText(data.getOwnername() + "");
-        holder1.zhuang.setText(data.getFromDetailedAddress() + "");
-        holder1.xie.setText(data.getToDetailedAddress() + "");
-        String cartype = data.getTrucklengthHZ()  + data.getTrucktypeHZ();
+
+        String cartype = data.getTrucklengthHZ()+""  + data.getTrucktypeHZ()+"";
         holder1.carType.setText(cartype);
-        holder1.type.setText(data.getCargotype());
-        String[] time = (data.getPreloadtime()).split(" ");
+        holder1.type.setText(data.getCargotype()+"");
+        String[] time = (data.getPreloadtime()+"").split(" ");
         holder1.time.setText(time[0]);
         holder1.icon.setImageURI(Uri.parse(data.getAvatarAddress()));
         holder1.itemView.setTag(position);
@@ -83,7 +96,12 @@ public class FindSrcAdapter extends RecyclerView.Adapter implements View.OnClick
                 onFindClickListener.onFindClick(position,data.getOwnerphone()+"");
             }
         });
-
+       // holder1.status.setText(data.getMyPriceStatus());
+        if (data.getMyPriceStatus().equals("1")){
+            holder1.status.setVisibility(View.VISIBLE);
+        }else {
+            holder1.status.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -122,8 +140,8 @@ public class FindSrcAdapter extends RecyclerView.Adapter implements View.OnClick
                         list.get((int)view.getTag()).getTrucklengthHZ()+"",
                         list.get((int)view.getTag()).getTrucktypeHZ()+"",
                         list.get((int)view.getTag()).getTrucktype()+"",
-                        list.get((int)view.getTag()).getLoadadd()+"",
-                        list.get((int)view.getTag()).getArrivedadd()+""
+                        list.get((int)view.getTag()).getLoadaddHZ()+"",
+                        list.get((int)view.getTag()).getArrivedaddHZ()+""
 
                 );
                 //注意这里使用getTag方法获取position
@@ -158,6 +176,7 @@ public class FindSrcAdapter extends RecyclerView.Adapter implements View.OnClick
         private final TextView carType;
         private final ImageView iv_phone;
         private final LinearLayout tel;
+        private final TextView status;
 
         public SrcViewHolder(View itemView) {
             super(itemView);
@@ -171,7 +190,7 @@ public class FindSrcAdapter extends RecyclerView.Adapter implements View.OnClick
             carType = (TextView) itemView.findViewById(R.id.find_car_type);
             iv_phone = (ImageView) itemView.findViewById(R.id.find_iv_phone);
             tel = (LinearLayout) itemView.findViewById(R.id.find_iv_tel_ll);
-
+            status = (TextView) itemView.findViewById(R.id.find_iv_bjstatus);
         }
     }
 

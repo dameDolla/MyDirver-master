@@ -7,7 +7,7 @@
 
     <include layout="@layout/top_title"/>
 
-    <TextView
+   <!-- <TextView
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:background="@color/color_f2"
@@ -96,6 +96,10 @@
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/txt_10dp"/>
-    </RelativeLayout>
+    </RelativeLayout>-->
+    <com.app.gaolonglong.fragmenttabhost.view.EmptyLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/my_message_empty"/>
 
 </LinearLayout>

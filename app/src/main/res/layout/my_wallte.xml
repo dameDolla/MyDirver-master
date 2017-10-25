@@ -21,7 +21,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="520.00元"
+            android:text="0.00元"
             android:textSize="@dimen/txt_48"
             android:textColor="@color/white"
             android:id="@+id/my_balance"
@@ -53,13 +53,17 @@
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center_vertical">
-                <ImageView
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1.5"
-                    android:paddingTop="@dimen/txt_5dp"
+                    android:layout_weight="1.5">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:src="@mipmap/gold"
                     />
+                </RelativeLayout>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -76,13 +80,17 @@
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center_vertical">
-                <ImageView
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:paddingTop="@dimen/txt_5dp"
-                    android:layout_weight="1.5"
-                    android:src="@mipmap/goldbag"
-                    />
+                    android:layout_weight="1.5">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/goldbag"
+                        />
+                </RelativeLayout>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -99,13 +107,17 @@
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center_vertical">
-                <ImageView
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:paddingTop="@dimen/txt_5dp"
-                    android:layout_weight="1.5"
-                    android:src="@mipmap/cautionmoney"
-                    />
+                    android:layout_weight="1.5">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/cautionmoney"
+                        />
+                </RelativeLayout>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -123,14 +135,17 @@
                 android:id="@+id/wallte_to_coupon"
                 android:orientation="vertical"
                 android:gravity="center">
-                <ImageView
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1.5"
-                    android:paddingTop="@dimen/txt_5dp"
-                    android:src="@mipmap/coupon"
-                    />
+                    android:layout_weight="1.5">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/coupon"
+                        />
+                </RelativeLayout>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -153,7 +168,7 @@
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/txt_10dp"/>
 
-        <RelativeLayout
+        <!--<RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="55dp">
             <LinearLayout
@@ -201,7 +216,7 @@
                     android:textSize="@dimen/txt_14"/>
             </LinearLayout>
 
-        </RelativeLayout>
+        </RelativeLayout>-->
 
     </LinearLayout>
 

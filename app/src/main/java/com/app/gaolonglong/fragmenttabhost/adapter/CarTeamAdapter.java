@@ -1,6 +1,7 @@
 package com.app.gaolonglong.fragmenttabhost.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -51,10 +52,24 @@ public class CarTeamAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MyViewHolder mHolder = (MyViewHolder) holder;
         final CarTeamBean.DataBean data = list.get(position);
+        String vtruck = data.getVtruck()+"";
         mHolder.carNum.setText(data.getTruckno());
         mHolder.type.setText(data.getTrucktype());
         mHolder.length.setText(data.getTrucklength());
         mHolder.logo.setImageURI(Uri.parse(data.getTruckImg()));
+        if (vtruck.equals("0")) { //未认证
+            mHolder.status.setText("未认证");
+            mHolder.status.setTextColor(Color.RED);
+        }else if (vtruck.equals("1")) {
+            mHolder.status.setText("已提交");
+            mHolder.status.setTextColor(Color.YELLOW);
+        }else if (vtruck.equals("2")){
+            mHolder.status.setText("不合格");
+            mHolder.status.setTextColor(Color.RED);
+        }else if (vtruck.equals("9")){
+            mHolder.status.setText("已认证");
+            mHolder.status.setTextColor(Color.GREEN);
+        }
         mHolder.del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,6 +91,7 @@ public class CarTeamAdapter extends RecyclerView.Adapter{
         private final TextView length;
         private final TextView weight;
         private final TextView tiji,del;
+        private final TextView status;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -86,6 +102,7 @@ public class CarTeamAdapter extends RecyclerView.Adapter{
             weight = (TextView) itemView.findViewById(R.id.carteam_item_weight);
             tiji = (TextView) itemView.findViewById(R.id.carteam_item_tiji);
             del = (TextView) itemView.findViewById(R.id.carteam_item_del);
+            status = (TextView) itemView.findViewById(R.id.carteam_item_status);
 
         }
 

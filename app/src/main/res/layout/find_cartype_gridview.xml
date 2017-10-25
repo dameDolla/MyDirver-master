@@ -26,11 +26,11 @@
         android:verticalSpacing="10dp"
         android:horizontalSpacing="10dp"
         android:id="@+id/gridview"/>
-    <EditText
+    <!--<EditText
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:hint="请输入自定义车长"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="20dp"/>-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

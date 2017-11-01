@@ -78,6 +78,9 @@ public class BaojiaDetailActivity extends BaseActivity implements View.OnClickLi
     public List<LinearLayout> mLL;
     @BindView(R.id.baojia_detail_logo)
     public SimpleDraweeView logo;
+
+    @BindView(R.id.baojia_detail_jiedan)
+    public TextView fahuo;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,7 +101,7 @@ public class BaojiaDetailActivity extends BaseActivity implements View.OnClickLi
         mText.get(1).setText(bean.getLoadfee());
         mText.get(2).setText(bean.getUnloadfee());
         mText.get(3).setText(bean.getFeeremark());
-        mText.get(5).setText(bean.getTotalcharge());
+
         mText.get(4).setText(bean.getTotalchargeM());
         mText.get(6).setText(bean.getOwnername());
 
@@ -108,9 +111,16 @@ public class BaojiaDetailActivity extends BaseActivity implements View.OnClickLi
         mEdit.get(3).setText(bean.getFeeremarkM());
         mEdit.get(4).setText(bean.getOtherfeeM());
         logo.setImageURI(Uri.parse(bean.getAvatarAddress()));
-
+        fahuo.setText(bean.getOwnerbill()+"次");
         mLL.get(0).setOnClickListener(this);
         mLL.get(1).setOnClickListener(this);
+        if (bean.getBidder().equals("0") && bean.getCargopriceState().equals("0")){
+            mText.get(5).setText("货主拒绝您的报价");
+        }
+        if (bean.getBidder().equals("0")&&bean.getCargopriceState().equals(1)){
+            mLL.get(0).setEnabled(false);
+            mLL.get(0).setBackgroundColor(this.getResources().getColor(R.color.gray_87));
+        }
         //ToolsUtils.getInstance().toastShowStr(BaojiaDetailActivity.this,bean.getCargopricesGUID());
         guid = ToolsUtils.getString(BaojiaDetailActivity.this, Constant.LOGIN_GUID,"");
         mobile = ToolsUtils.getString(BaojiaDetailActivity.this, Constant.MOBILE,"");

@@ -1,6 +1,7 @@
 package com.app.gaolonglong.fragmenttabhost.fragments;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,6 +27,7 @@ import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
+import com.app.gaolonglong.fragmenttabhost.utils.ThreadManager;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 import com.app.gaolonglong.fragmenttabhost.view.EmptyLayout;
 import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
@@ -50,13 +52,13 @@ import rx.schedulers.Schedulers;
  * Created by yanqi on 2017/8/2.
  */
 
-public class BaojiaFragment extends Fragment {
+public class BaojiaFragment extends Fragment implements View.OnClickListener{
     private View mRootView;
 
     @BindView(R.id.title_back)
     ImageView back;
 
-    @BindViews({R.id.title_back_txt,R.id.top_title})
+    @BindViews({R.id.title_back_txt, R.id.top_title})
     public List<TextView> mTextView;
     @BindView(R.id.baojia_fragment_list)
     public RecyclerView rcl;
@@ -70,24 +72,29 @@ public class BaojiaFragment extends Fragment {
     @BindView(R.id.baojia_fragment_main)
     public LinearLayout main;
 
+    @BindViews({R.id.baojia_fragment_doing,R.id.baojia_fragment_cancel})
+    public List<TextView> select;
+
     private List<BaojiaListBean.DataBean> list = new ArrayList<BaojiaListBean.DataBean>();
     private BaojiaListAdapter adapter;
     private String guid;
     private String mobile;
     private String key;
+    private JSONObject json;
+    private int SELECT =0;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (mRootView == null){
-            Log.e("666","MineFragment");
-            mRootView = inflater.inflate(R.layout.baojia_fragment,container,false);
+        if (mRootView == null) {
+            Log.e("666", "MineFragment");
+            mRootView = inflater.inflate(R.layout.baojia_fragment, container, false);
         }
         ViewGroup parent = (ViewGroup) mRootView.getParent();
-        if (parent != null){
+        if (parent != null) {
             parent.removeView(mRootView);
         }
-        ButterKnife.bind(this,mRootView);
+        ButterKnife.bind(this, mRootView);
         return mRootView;
     }
 
@@ -96,81 +103,73 @@ public class BaojiaFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         init();
     }
-    private void init()
-    {
+
+    private void init() {
         initView();
-        if (ToolsUtils.getInstance().isLogin(getContext()))
-        {
+        if (ToolsUtils.getInstance().isLogin(getContext())) {
             //ToolsUtils.getInstance().toastShowStr(getContext(),"success");
-        }else
-        {
+        } else {
             //ToolsUtils.getInstance().toastShowStr(getContext(),"fail");
         }
     }
-    private void initView()
-    {
-        guid = ToolsUtils.getString(getContext(), Constant.LOGIN_GUID,"");
-        mobile = ToolsUtils.getString(getContext(), Constant.MOBILE,"");
-        key = ToolsUtils.getString(getContext(), Constant.KEY,"");
+
+    private void initView() {
+        Log.e("threadname111",Thread.currentThread().getName());
+        guid = ToolsUtils.getString(getContext(), Constant.LOGIN_GUID, "");
+        mobile = ToolsUtils.getString(getContext(), Constant.MOBILE, "");
+        key = ToolsUtils.getString(getContext(), Constant.KEY, "");
         mTextView.get(0).setVisibility(View.INVISIBLE);
         back.setVisibility(View.INVISIBLE);
         mTextView.get(1).setText("报价");
-        final JSONObject json = new JSONObject();
+        select.get(0).setOnClickListener(this);
+        select.get(1).setOnClickListener(this);
+        json = new JSONObject();
         try {
-            json.put("GUID",guid);
-            json.put(Constant.MOBILE,mobile);
-            json.put(Constant.KEY,key);
+            json.put("GUID", guid);
+            json.put(Constant.MOBILE, mobile);
+            json.put(Constant.KEY, key);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        adapter = new BaojiaListAdapter(getContext(),list);
+        adapter = new BaojiaListAdapter(getContext(), list);
         MyLinearLayoutManager manager = new MyLinearLayoutManager(getContext());
         rcl.setLayoutManager(manager);
         rcl.setAdapter(adapter);
-        ThreadPoolHelp.Builder
-                .cached()
-                .builder()
-                .execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        //线程执行体
-                        getBaojiaList(json.toString());
-                    }
-                });
+        rcl.setNestedScrollingEnabled(false);
 
+        ThreadManager.getNormalPool().execute(new MyRunnabel());
 
 
         adapter.setOnclick(new BaojiaListAdapter.OnClickListener() {
             @Override
             public void onOlick(int postion, String tel, String caragoGUID, String time, String flag) {
-                if(flag.equals("phone"))
-                {
-                    Intent dialIntent =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + list.get(postion).getOwnerphone()));//跳转到拨号界面，同时传递电话号码
+                if (flag.equals("phone")) {
+                    Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + list.get(postion).getOwnerphone()));//跳转到拨号界面，同时传递电话号码
                     startActivity(dialIntent);
-                }else if (flag.equals("caozuo")){
-                    Map<String,String> map = new HashMap<String,String>();
-                    map.put("GUID",guid);
-                    map.put(Constant.MOBILE,mobile);
-                    map.put(Constant.KEY,key);
-                    map.put("cargopricesGUID",list.get(postion).getCargoPricesGUID()+"");
-                    map.put("UpdatePriceTime",list.get(postion).getUpdatePriceTime());
+                } else if (flag.equals("caozuo")) {
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("GUID", guid);
+                    map.put(Constant.MOBILE, mobile);
+                    map.put(Constant.KEY, key);
+                    map.put("cargopricesGUID", list.get(postion).getCargoPricesGUID() + "");
+                    map.put("UpdatePriceTime", list.get(postion).getUpdatePriceTime());
                     cazuo(JsonUtils.getInstance().getJsonStr(map));
-                }else if (flag.equals("cancel")){
-                    Map<String,String> map = new HashMap<String,String>();
-                    map.put("GUID",guid);
-                    map.put(Constant.MOBILE,mobile);
-                    map.put(Constant.KEY,key);
-                    map.put("cargopricesGUID",list.get(postion).getCargoPricesGUID()+"");
-                    map.put("UpdatePriceTime",list.get(postion).getUpdatePriceTime());
-                    cancel(JsonUtils.getInstance().getJsonStr(map),postion);
+                } else if (flag.equals("cancel")) {
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("GUID", guid);
+                    map.put(Constant.MOBILE, mobile);
+                    map.put(Constant.KEY, key);
+                    map.put("cargopricesGUID", list.get(postion).getCargoPricesGUID() + "");
+                    map.put("UpdatePriceTime", list.get(postion).getUpdatePriceTime());
+                    cancel(JsonUtils.getInstance().getJsonStr(map), postion);
                 }
             }
         });
         adapter.setItemClick(new BaojiaListAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view,BaojiaInfoBean bean) {
+            public void onItemClick(View view, BaojiaInfoBean bean) {
                 Intent intent = new Intent(getContext(), BaojiaDetailActivity.class);
-                intent.putExtra("baojaiInfo",bean);
+                intent.putExtra("baojaiInfo", bean);
                 startActivity(intent);
                 //ToolsUtils.getInstance().toastShowStr(getContext(),bean.getCargopricesGUID());
             }
@@ -188,10 +187,10 @@ public class BaojiaFragment extends Fragment {
             }
         });
     }
-    private void cazuo(String json)
-    {
+
+    private void cazuo(String json) {
         RetrofitUtils.getRetrofitService()
-                .agreeBaojia(Constant.PRICE_PAGENAME,Config.AGREE_BAOJIA,json)
+                .agreeBaojia(Constant.PRICE_PAGENAME, Config.AGREE_BAOJIA, json)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<GetCodeBean>() {
@@ -207,21 +206,20 @@ public class BaojiaFragment extends Fragment {
 
                     @Override
                     public void onNext(GetCodeBean getCodeBean) {
-                        ToolsUtils.getInstance().toastShowStr(getContext(),getCodeBean.getErrorMsg());
-                        if (getCodeBean.getErrorCode().equals("200"))
-                        {
+                        ToolsUtils.getInstance().toastShowStr(getContext(), getCodeBean.getErrorMsg());
+                        if (getCodeBean.getErrorCode().equals("200")) {
                             onActivityCreated(null);
                         }
                     }
                 });
     }
-    private void cancel(final String json, final int position)
-    {
+
+    private void cancel(final String json, final int position) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 RetrofitUtils.getRetrofitService()
-                        .cancelBaojia(Constant.PRICE_PAGENAME,Config.CANCEL_BAOJIA,json)
+                        .cancelBaojia(Constant.PRICE_PAGENAME, Config.CANCEL_BAOJIA, json)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Subscriber<GetCodeBean>() {
@@ -237,9 +235,8 @@ public class BaojiaFragment extends Fragment {
 
                             @Override
                             public void onNext(GetCodeBean getCodeBean) {
-                                ToolsUtils.getInstance().toastShowStr(getContext(),getCodeBean.getErrorMsg());
-                                if(getCodeBean.getErrorCode().equals("200"))
-                                {
+                                ToolsUtils.getInstance().toastShowStr(getContext(), getCodeBean.getErrorMsg());
+                                if (getCodeBean.getErrorCode().equals("200")) {
                                     //getBaojiaList();
                                     list.get(position).setCargoPriceState("2");
                                     adapter.notifyDataSetChanged();
@@ -252,48 +249,84 @@ public class BaojiaFragment extends Fragment {
 
 
     }
-    private void getBaojiaList(final String json)
-    {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                RetrofitUtils.getRetrofitService()
-                        .getBaojiaList(Constant.PRICE_PAGENAME, Config.GET_BAOJIALIST,json)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Subscriber<BaojiaListBean>() {
-                            @Override
-                            public void onCompleted() {
 
-                            }
 
-                            @Override
-                            public void onError(Throwable e) {
 
-                            }
+    private class MyRunnabel implements Runnable {
+        @Override
+        public void run() {
+           //getBaojiaList(json.toString());
+            Log.e("threadname2",Thread.currentThread().getName());
+            RetrofitUtils.getRetrofitService()
+                    .getBaojiaList(Constant.PRICE_PAGENAME, Config.GET_BAOJIALIST, json.toString())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<BaojiaListBean>() {
+                        @Override
+                        public void onCompleted() {
 
-                            @Override
-                            public void onNext(BaojiaListBean baojiaListBean) {
-                                list.clear();
-                                if (!GetUserInfoUtils.getUserType(getContext()).equals("3")){
-                                    list.addAll(baojiaListBean.getData());
-                                }
-                                Log.e("baojiasize",list.size()+"");
-                                if (list.size() == 0){
-                                    empty.setVisibility(View.VISIBLE);
-                                    main.setVisibility(View.GONE);
-                                    empty.setErrorImag(R.drawable.nobaojia,"无报价信息");
-                                   //empty.setNoDataContent("没有数据");
-                                    //empty.setErrorType(EmptyLayout.NODATA);
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onNext(BaojiaListBean baojiaListBean) {
+                            list.clear();
+                            String listType = "";
+                            if (!GetUserInfoUtils.getUserType(getContext()).equals("3")) {
+                                int listSize = (baojiaListBean.getData().size());
+                                if (SELECT == 0){
+                                    listType = "0";
                                 }else {
-
-                                    adapter.notifyDataSetChanged();
+                                    listType = "2";
                                 }
+                                for (int i=0;i<listSize;i++){
+                                    if (baojiaListBean.getData().get(i).getCargoPriceState().equals(listType)){
+                                        list.add(baojiaListBean.getData().get(i));
+                                    }
+                                }
+                                //list.addAll(baojiaListBean.getData());
                             }
-                        });
-            }
-        }).start();
+                            //ToolsUtils.getInstance().toastShowStr(getContext(), list.size() + "");
+                            //Log.e("baojiasize",list.size()+"");
+                            if (list.size() == 0) {
+                                empty.setVisibility(View.VISIBLE);
+                                main.setVisibility(View.GONE);
+                                empty.setErrorImag(R.drawable.nobaojia, "无报价信息");
+                                //empty.setNoDataContent("没有数据");
+                                //empty.setErrorType(EmptyLayout.NODATA);
+                            } else {
 
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                    });
+        }
+    }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId())
+        {
+            case R.id.baojia_fragment_doing:
+                select.get(0).setBackgroundResource(R.drawable.buttom_stroke);
+                select.get(1).setBackgroundColor(Color.WHITE);
+                select.get(0).setTextColor(this.getResources().getColor(R.color.shen_blue));
+                select.get(1).setTextColor(this.getResources().getColor(R.color.black_6d));
+                SELECT = 0;
+                ThreadManager.getNormalPool().execute(new MyRunnabel());
+                break;
+            case R.id.baojia_fragment_cancel:
+                select.get(0).setBackgroundColor(Color.WHITE);
+                select.get(1).setBackgroundResource(R.drawable.buttom_stroke);
+                select.get(1).setTextColor(this.getResources().getColor(R.color.shen_blue));
+                select.get(0).setTextColor(this.getResources().getColor(R.color.black_6d));
+                SELECT = 1;
+                ThreadManager.getNormalPool().execute(new MyRunnabel());
+                break;
+        }
     }
 }

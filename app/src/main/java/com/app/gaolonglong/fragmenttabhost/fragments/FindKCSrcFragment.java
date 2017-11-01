@@ -151,6 +151,7 @@ public class FindKCSrcFragment extends Fragment implements View.OnClickListener,
         MyLinearLayoutManager manager = new MyLinearLayoutManager(getContext());
         rlv.setLayoutManager(manager);
         rlv.setAdapter(adapter);
+        rlv.setNestedScrollingEnabled(false);
         getKC();
         adapter.setOnItemClickListener(new FindSrcAdapter.OnItemClickListener() {
             @Override

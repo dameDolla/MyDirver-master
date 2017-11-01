@@ -38,14 +38,26 @@
                 android:layout_marginTop="@dimen/txt_10dp">
                 <Button
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/txt_39dp"
                     android:text="现在去装货"
                     android:textColor="@color/white"
                     android:background="@drawable/login_bt_"
                     android:id="@+id/mission_detail_changestatus"
                     android:gravity="center"
+                    android:layout_marginRight="@dimen/txt_10dp"
+                    android:textSize="@dimen/txt_16"/>
+                <Button
+                    android:layout_width="150dp"
+                    android:layout_height="@dimen/txt_39dp"
+                    android:text="调度车辆"
+                    android:visibility="gone"
+                    android:textColor="@color/white"
+                    android:background="@drawable/login_bt_"
+                    android:id="@+id/mission_detail_selectcar"
+                    android:gravity="center"
                     android:textSize="@dimen/txt_16"/>
             </LinearLayout>
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -103,11 +115,11 @@
                             android:layout_height="match_parent"
                             android:text="装货地址:"
                             android:textSize="@dimen/txt_14"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/gray"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="深圳市虚拟大学园"
+                            android:text=""
                             android:singleLine="true"
                             android:ellipsize="marquee"
                             android:focusable="true"
@@ -115,7 +127,7 @@
                             android:marqueeRepeatLimit="marquee_forever"
                             android:id="@+id/mission_detail_addr"
                             android:textSize="@dimen/txt_14"
-                            android:textColor="@color/black"
+                            android:textColor="@color/gray"
                             android:paddingLeft="@dimen/txt_10dp"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -133,6 +145,7 @@
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:src="@mipmap/phone"
+
                             android:layout_gravity="center"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -167,7 +180,6 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="王小姐"
                             android:id="@+id/mission_detail_shrname"
                             android:textSize="@dimen/txt_14"
                             android:textColor="@color/black"
@@ -175,7 +187,6 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="15908690321"
                             android:id="@+id/mission_detail_shrtel"
                             android:textSize="13sp"
                             android:textColor="@color/shen_blue"
@@ -196,7 +207,6 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="深圳市虚拟大学园R3-b 3c:"
                             android:textColor="@color/black_6d"
                             android:textSize="@dimen/txt_14"
                             android:id="@+id/mission_status_tosite"
@@ -269,14 +279,14 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingTop="@dimen/txt_39dp"
+                        android:paddingTop="@dimen/txt_20dp"
                         android:paddingBottom="@dimen/txt_39dp"
                         android:gravity="center">
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/mission_status_verticalline"
-                            android:src="@drawable/vertical_line_one"/>
+                            android:src="@drawable/vertical_line_1"/>
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
@@ -322,6 +332,7 @@
                             android:layout_height="wrap_content"
                             android:text="深圳市虚拟大学园R3-b"
                             android:textSize="@dimen/txt_12"
+                            android:singleLine="true"
                             android:textColor="@color/black"
                             android:paddingLeft="@dimen/txt_5dp"
                             android:id="@+id/mission_detail_step_addr"/>
@@ -361,7 +372,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="目前地址:"
+                            android:text="当前位置:"
+                            android:visibility="gone"
                             android:id="@+id/mission_statustwo_nowaddrtxt"
                             android:textColor="@color/gray_87"
                             android:textSize="@dimen/txt_12"/>
@@ -394,7 +406,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
-                            android:text="司机已出发前往目的地"
+                            android:text="司机已到达装货地"
                             android:textColor="@color/gray_87"
                             android:id="@+id/mission_status_three"
                             android:textSize="@dimen/txt_14"/>
@@ -413,14 +425,15 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="目的地:"
+                            android:text="当前位置::"
+                            android:visibility="gone"
                             android:id="@+id/mission_statusthree_tositetxt"
                             android:textColor="@color/gray_87"
                             android:textSize="@dimen/txt_12"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="俄罗斯贝加尔湖"
+                            android:text=""
                             android:textSize="@dimen/txt_12"
                             android:singleLine="true"
                             android:textColor="@color/gray_87"
@@ -442,7 +455,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
-                            android:text="司机已到达卸货地"
+                            android:text="司机已出发前往目的地"
                             android:id="@+id/mission_status_four"
                             android:textColor="@color/gray_87"
                             android:textSize="@dimen/txt_14"/>
@@ -457,7 +470,6 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="等待货主验收货物，支付相应费用"
                             android:textSize="@dimen/txt_12"
                             android:textColor="@color/gray_87"
                             android:id="@+id/mission_statusfour_txt"/>
@@ -476,7 +488,7 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="货物已签收 "
+                            android:text="司机已到达卸货地 "
                             android:layout_weight="5"
                             android:id="@+id/mission_status_five"
                             android:textColor="@color/gray_87"
@@ -492,7 +504,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="当前位置:"
                         android:textSize="@dimen/txt_12"
                         android:textColor="@color/gray_87"
                         android:id="@+id/mission_statusfive_txt"/>
@@ -512,7 +523,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
-                            android:text="发货人已确认运单完成 "
+                            android:text="货物已签收 "
                             android:id="@+id/mission_status_six"
                             android:textColor="@color/gray_87"
                             android:textSize="@dimen/txt_14"/>
@@ -524,6 +535,70 @@
                             android:gravity="center"
                             android:id="@+id/mission_status6_time"/>
                     </LinearLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/txt_12"
+                            android:layout_marginBottom="@dimen/txt_10dp"
+                            android:textColor="@color/gray_87"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:id="@+id/mission_statussix_txt"/>
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:text="上传签收单"
+                            android:textColor="@color/black_6d"
+                            android:layout_alignParentRight="true"
+                            android:id="@+id/mission_status_upload"
+                            android:visibility="gone"
+                            android:textSize="@dimen/txt_12"
+                            android:layout_marginRight="@dimen/txt_10dp"
+                            android:background="@drawable/border_gray"/>
+                    </RelativeLayout>
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/color_f2"
+                        android:layout_marginTop="@dimen/txt_5dp"
+                        android:layout_marginBottom="@dimen/txt_5dp"/>
+              <!--**********************************签收单显示*******************************************-->
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:layout_width="60dp"
+                        android:layout_height="70dp"
+                        android:visibility="gone"
+                        android:id="@+id/mission_status_qsd"/>
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/color_f2"
+                        android:layout_marginTop="@dimen/txt_5dp"
+                        android:layout_marginBottom="@dimen/txt_5dp"/>
+              <!--*********************************第6部**************************************-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/txt_10dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:text="发货人已确认运单完成 "
+                            android:id="@+id/mission_status_seven"
+                            android:textColor="@color/gray_87"
+                            android:textSize="@dimen/txt_14"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:textSize="@dimen/txt_12"
+                            android:gravity="center"
+                            android:id="@+id/mission_status7_time"/>
+                    </LinearLayout>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -532,7 +607,7 @@
                         android:layout_marginBottom="@dimen/txt_10dp"
                         android:textColor="@color/gray_87"
                         android:visibility="gone"
-                        android:id="@+id/mission_statussix_txt"/>
+                        android:id="@+id/mission_statusseven_txt"/>
 
                 </LinearLayout>
                 <LinearLayout

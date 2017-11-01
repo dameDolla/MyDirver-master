@@ -93,7 +93,7 @@ public class FindSrcAdapter extends RecyclerView.Adapter implements View.OnClick
         holder1.tel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onFindClickListener.onFindClick(position,data.getOwnerphone()+"");
+                onFindClickListener.onFindClick(position,list.get(position).getOwnerphone()+"");
             }
         });
        // holder1.status.setText(data.getMyPriceStatus());
@@ -141,7 +141,10 @@ public class FindSrcAdapter extends RecyclerView.Adapter implements View.OnClick
                         list.get((int)view.getTag()).getTrucktypeHZ()+"",
                         list.get((int)view.getTag()).getTrucktype()+"",
                         list.get((int)view.getTag()).getLoadaddHZ()+"",
-                        list.get((int)view.getTag()).getArrivedaddHZ()+""
+                        list.get((int)view.getTag()).getArrivedaddHZ()+"",
+                        list.get((int)view.getTag()).getInvoiceType()+"",
+                        list.get((int)view.getTag()).getUploadReceipt()+"",
+                        list.get((int)view.getTag()).getPaperReceipt()+""
 
                 );
                 //注意这里使用getTag方法获取position

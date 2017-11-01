@@ -120,6 +120,7 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
     private void setViewVal(GetSRCBean src)
     {
         data = src.getData().get(0);
+        String need = "";
         mText.get(0).setText(data.getFromDetailedAddress());
         mText.get(1).setText(data.getToDetailedAddress());
         mText.get(4).setText(data.getPreloadtime());
@@ -127,6 +128,16 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
         mText.get(7).setText(data.getTrucklengthHZ()+"/"+bean.getTrucktypeHZ());
         mText.get(10).setText(data.getOwnername()+"");
         mText.get(11).setText(data.getOwnerphone()+"");
+        if (data.getPaperReceipt().equals("1")){
+            need = need+"需要纸质回单/";
+        }
+        if (data.getUploadReceipt().equals("1")){
+            need = need+"需要上传签收单/";
+        }
+        if (data.getInvoiceType().equals("1")){
+            need = need+"需要发票";
+        }
+        mText.get(8).setText(need);
     }
     @Override
     public void onClick(View view) {

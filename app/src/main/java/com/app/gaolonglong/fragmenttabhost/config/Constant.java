@@ -80,5 +80,9 @@ public class Constant {
     public static final String COMPANYGUID = "companyguid";
     //运单进入选择司机界面的flag
     public static final String MISSIONFLAGS = "mission_detail";
+    //接单次数
+    public static final String DRIVERBILL = "driverbill";
+    //设置的开发票方式
+    public static final String FAPIAOTYPE = "fapiaotype";
 
 }

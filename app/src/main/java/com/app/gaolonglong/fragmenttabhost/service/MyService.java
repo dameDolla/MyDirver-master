@@ -345,4 +345,28 @@ public interface MyService {
     Observable<GetSRCBean> getSrcDetail(@Field(Constant.PAGENAME) String page,
                                         @Field(Constant.METHOD) String method,
                                         @Field("JsonValue") String json);
+    /**
+     * 运单绑定车辆
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> bindCar(@Field(Constant.PAGENAME) String page,
+                                        @Field(Constant.METHOD) String method,
+                                        @Field("JsonValue") String json);
+    /**
+     * 取消运单
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> cancelMission(@Field(Constant.PAGENAME) String page,
+                                    @Field(Constant.METHOD) String method,
+                                    @Field("JsonValue") String json);
+    /**
+     * 发票设置
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> fapiaoSetting(@Field(Constant.PAGENAME) String page,
+                                          @Field(Constant.METHOD) String method,
+                                          @Field("JsonValue") String json);
 }

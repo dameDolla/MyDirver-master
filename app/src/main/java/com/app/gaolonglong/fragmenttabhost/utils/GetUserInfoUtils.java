@@ -1,6 +1,7 @@
 package com.app.gaolonglong.fragmenttabhost.utils;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.app.gaolonglong.fragmenttabhost.activities.DiaoduRenzheng3Activity;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
@@ -22,7 +23,9 @@ public class GetUserInfoUtils {
     {
         return ToolsUtils.getString(context,Constant.USERNAME,"");
     }
-
+    public static String getFapiaoType(Context context){
+        return ToolsUtils.getString(context,Constant.FAPIAOTYPE,"");
+    }
     /**
      * 获取公司guid
      * @param context

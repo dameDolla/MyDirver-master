@@ -73,7 +73,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="0次"
                     android:paddingLeft="@dimen/txt_10dp"
                     android:id="@+id/baojia_detail_jiedan"/>
             </LinearLayout>
@@ -119,7 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="货主报价(元)"
+                android:text="报价状态:"
                 android:textSize="@dimen/txt_18"
                 android:textColor="@color/black_6d"
                 android:layout_toRightOf="@+id/baojia_details_fram1"
@@ -137,12 +136,14 @@
         </RelativeLayout>
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
+            android:visibility="gone"
             android:background="@color/color_f2"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:visibility="gone"
             android:layout_marginBottom="@dimen/txt_10dp">
 
                 <LinearLayout
@@ -169,9 +170,10 @@
                         android:textColor="@color/red"/>
                 </LinearLayout>
             <FrameLayout
-                android:layout_width="2dp"
+                android:layout_width="1dp"
                 android:layout_marginBottom="@dimen/txt_10dp"
                 android:layout_marginTop="@dimen/txt_10dp"
+                android:visibility="gone"
                 android:layout_height="match_parent"
                 android:background="@color/color_f2"/>
             <LinearLayout
@@ -179,6 +181,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:visibility="gone"
                 android:orientation="horizontal"
                 android:layout_marginLeft="30dp"
                 android:paddingTop="@dimen/txt_10dp">
@@ -200,12 +203,14 @@
         </LinearLayout>
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
+            android:visibility="gone"
             android:background="@color/color_f2"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:visibility="gone"
             android:layout_marginBottom="@dimen/txt_10dp">
 
             <LinearLayout
@@ -232,7 +237,7 @@
                     android:textColor="@color/red"/>
             </LinearLayout>
             <FrameLayout
-                android:layout_width="2dp"
+                android:layout_width="1dp"
                 android:layout_marginTop="@dimen/txt_10dp"
                 android:layout_marginBottom="@dimen/txt_10dp"
                 android:layout_height="match_parent"
@@ -263,16 +268,33 @@
         </LinearLayout>
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:background="@color/color_f2"/>
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="货主留言:我没有什么要说的！！！！你很棒棒哦"
-            android:id="@+id/baojia_detail_hzmsg"
-            android:paddingLeft="30dp"
-            android:paddingTop="@dimen/txt_10dp"
-            android:paddingBottom="@dimen/txt_10dp"/>
+            android:layout_marginLeft="@dimen/txt_15dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:paddingTop="@dimen/txt_10dp"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/txt_16"
+                android:textColor="@color/black_6d"
+                android:text="拒绝理由:"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:paddingLeft="@dimen/txt_10dp"
+                android:text="货主留言:我没有什么要说的！！！！你很棒棒哦哈哈哈哈哈哈"
+                android:id="@+id/baojia_detail_hzmsg"
+
+                android:paddingTop="@dimen/txt_10dp"
+                android:paddingBottom="@dimen/txt_10dp"/>
+        </LinearLayout>
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/txt_10dp"
@@ -313,7 +335,7 @@
         </RelativeLayout>
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:background="@color/color_f2"/>
         <LinearLayout
             android:layout_width="match_parent"
@@ -347,7 +369,7 @@
                     android:textColor="@color/red"/>
             </LinearLayout>
             <FrameLayout
-                android:layout_width="2dp"
+                android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="@dimen/txt_10dp"
                 android:layout_marginTop="@dimen/txt_10dp"
@@ -379,7 +401,7 @@
         </LinearLayout>
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:background="@color/color_f2"/>
         <LinearLayout
             android:layout_width="match_parent"
@@ -412,7 +434,7 @@
                     android:textColor="@color/red"/>
             </LinearLayout>
             <FrameLayout
-                android:layout_width="2dp"
+                android:layout_width="1dp"
                 android:layout_marginBottom="@dimen/txt_10dp"
                 android:layout_marginTop="10dp"
                 android:layout_height="match_parent"
@@ -501,31 +523,30 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:gravity="center">
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginLeft="@dimen/txt_15dp"
-                android:layout_marginRight="@dimen/txt_10dp"
+                android:layout_marginLeft="@dimen/txt_20dp"
+                android:layout_marginRight="@dimen/txt_20dp"
                 android:background="@drawable/green_bg"
-                android:layout_marginBottom="@dimen/txt_10dp"
                 android:layout_marginTop="@dimen/txt_10dp"
                 android:id="@+id/baojia_detail_tijiao"
                 android:gravity="center">
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/txt_10dp"
+                    android:layout_gravity="center_vertical"
+                    android:paddingTop="@dimen/txt_10dp"
                     android:src="@drawable/querenyijia"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="提交报价"
+
                     android:paddingLeft="@dimen/txt_5dp"
-                    android:paddingTop="@dimen/txt_10dp"
-                    android:paddingBottom="@dimen/txt_10dp"
-                    android:paddingRight="@dimen/txt_20dp"
                     android:textColor="@color/white"
                     android:textSize="@dimen/txt_18"
                     android:gravity="center"/>
@@ -535,6 +556,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/red_bg"
                 android:layout_weight="1"
+                android:visibility="gone"
                 android:layout_marginLeft="@dimen/txt_10dp"
                 android:layout_marginRight="@dimen/txt_15dp"
                 android:layout_marginTop="@dimen/txt_10dp"

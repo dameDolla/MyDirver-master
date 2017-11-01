@@ -27,12 +27,20 @@ public class MissionDetailBean implements Serializable{
     private String driverGUID;
     private String truckno;
     private String signPhone;
+    private String Consignee; //收货人
+    private String ConsigneePhone;//收货人电话
+    private String InsertDate;//运单生成的时间
+    private String ArrivalLoadingTime;//到达装货时间
+    private String loadtime;//实际装车时间
+    private String arrivedtime;//司机提交的到达时间
+    private String DepartureTime; //司机出发的时间
 
 
     public MissionDetailBean(String billsGUID,String ownername,String ownerphone,String preloadtime,String FromDetailedAddress,
                              String ToDetailedAddress,String billNumber,String dealprice,String loadfee,
                              String unloadfee,String AvatarAddress,String status,String signtime,String signby,String drivername,
-                             String driverphone,String driverGUID,String truckno,String signPhone)
+                             String driverphone,String driverGUID,String truckno,String signPhone,String Consignee,String ConsigneePhone,
+                             String InsertDate,String ArrivalLoadingTime,String loadtime,String arrivedtime,String DepartureTime)
     {
         this.billsGUID = billsGUID;
         this.ownername = ownername;
@@ -53,6 +61,57 @@ public class MissionDetailBean implements Serializable{
         this.driverGUID = driverGUID;
         this.truckno = truckno;
         this.signPhone = signPhone;
+        this.Consignee = Consignee;
+        this.ConsigneePhone = ConsigneePhone;
+        this.InsertDate = InsertDate;
+        this.ArrivalLoadingTime = ArrivalLoadingTime;
+        this.loadtime = loadtime;
+        this.arrivedtime = arrivedtime;
+        this.DepartureTime = DepartureTime;
+    }
+
+    public void setDepartureTime(String departureTime) {
+        DepartureTime = departureTime;
+    }
+
+    public String getDepartureTime() {
+        return DepartureTime;
+    }
+
+    public void setArrivalLoadingTime(String arrivalLoadingTime) {
+        ArrivalLoadingTime = arrivalLoadingTime;
+    }
+
+    public String getArrivalLoadingTime() {
+        return ArrivalLoadingTime;
+    }
+
+    public void setArrivedtime(String arrivedtime) {
+        this.arrivedtime = arrivedtime;
+    }
+
+    public String getArrivedtime() {
+        return arrivedtime;
+    }
+
+    public String getInsertDate() {
+        return InsertDate;
+    }
+
+    public void setLoadtime(String loadtime) {
+        this.loadtime = loadtime;
+    }
+
+    public String getLoadtime() {
+        return loadtime;
+    }
+
+    public String getConsignee() {
+        return Consignee;
+    }
+
+    public String getConsigneePhone() {
+        return ConsigneePhone;
     }
 
     public String getSignPhone() {
@@ -71,6 +130,14 @@ public class MissionDetailBean implements Serializable{
         return signby;
     }
 
+    public void setSignby(String signby) {
+        this.signby = signby;
+    }
+
+    public void setSignPhone(String signPhone) {
+        this.signPhone = signPhone;
+    }
+
     public String getDrivername() {
         return drivername;
     }
@@ -85,6 +152,10 @@ public class MissionDetailBean implements Serializable{
 
     public String getSigntime() {
         return signtime;
+    }
+
+    public void setSigntime(String signtime) {
+        this.signtime = signtime;
     }
 
     public String getStatus() {

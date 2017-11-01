@@ -141,63 +141,63 @@ public class MissionListBean {
          */
 
         private int billid;
-        private Object billsGUID;
-        private Object iscargo;
-        private Object owneridGUID;
-        private Object ownername;
+        private String billsGUID;
+        private String iscargo;
+        private String owneridGUID;
+        private String ownername;
         private String ownerphone;
         private String fromSite;
         private String toSite;
         private String cargotype;
         private int qty;
         private String unit;
-        private Object companyGUID;
-        private Object company;
-        private Object driverGUID;
-        private Object drivername;
-        private Object driverphone;
+        private String companyGUID;
+        private String company;
+        private String driverGUID;
+        private String drivername;
+        private String driverphone;
         private String truckno;
-        private Object trucklength;
-        private Object trucktype;
-        private Object dealprice;
-        private Object deposit;
-        private Object imforfee;
-        private Object remark;
-        private Object load;
-        private Object loadfee;
-        private Object unload;
-        private Object unloadfee;
-        private Object waitfee;
-        private Object otherfee;
-        private Object feeremark;
-        private Object totalcharge;
-        private Object preloadtime;
-        private Object loadtime;
-        private Object loadadd;
-        private Object prearrivetime;
-        private Object arrivedtime;
-        private Object arrivedadd;
-        private Object signby;
-        private Object signtime;
-        private Object signadd;
-        private Object loadwaittime;
-        private Object unloadwaittime;
+        private String trucklength;
+        private String trucktype;
+        private String dealprice;
+        private String deposit;
+        private String imforfee;
+        private String remark;
+        private String load;
+        private String loadfee;
+        private String unload;
+        private String unloadfee;
+        private String waitfee;
+        private String otherfee;
+        private String feeremark;
+        private String totalcharge;
+        private String preloadtime;
+        private String loadtime;
+        private String loadadd;
+        private String prearrivetime;
+        private String arrivedtime;
+        private String arrivedadd;
+        private String signby;
+        private String signtime;
+        private String  signadd;
+        private String loadwaittime;
+        private String unloadwaittime;
         private String status;
-        private Object trucktypea;
-        private Object trucktypeb;
-        private Object trucktypec;
-        private Object trucktyped;
-        private Object trucktypef;
-        private Object ownerprice;
-        private Object driverdeposit;
-        private Object ReleaseTime;
-        private Object trucklengthHZ;
-        private Object trucktypeHZ;
-        private Object loadaddHZ;
-        private Object arrivedaddHZ;
-        private Object TypeKCLX;
+        private String trucktypea;
+        private String trucktypeb;
+        private String trucktypec;
+        private String trucktyped;
+        private String trucktypef;
+        private String ownerprice;
+        private String driverdeposit;
+        private String ReleaseTime;
+        private String trucklengthHZ;
+        private String trucktypeHZ;
+        private String loadaddHZ;
+        private String arrivedaddHZ;
+        private String TypeKCLX;
         private int userid;
-        private Object GUID;
+        private String GUID;
         private String username;
         private String usertype;
         private String truename;
@@ -232,12 +232,49 @@ public class MissionListBean {
         private String SMSDatetime;
         private String SecreKey;
         private String SecreKeyDateTime;
-        private Object AvatarAddress;
+        private String AvatarAddress;
         private int PageNum;
         private String billNumber;
         private String Newload;
         private String FromDetailedAddress;
         private String ToDetailedAddress;
+        private String Consignee;
+        private String ConsigneePhone;
+        private String InsertDate;//运单生成的时间
+        private String ArrivalLoadingTime;//到达装货时间
+        private String DepartureTime;//出发时间
+
+        public String getDepartureTime() {
+            return DepartureTime;
+        }
+
+        public void setDepartureTime(String departureTime) {
+            DepartureTime = departureTime;
+        }
+
+        public String getConsigneePhone() {
+            return ConsigneePhone;
+        }
+
+        public String getConsignee() {
+            return Consignee;
+        }
+
+        public String getInsertDate() {
+            return InsertDate;
+        }
+
+        public void setInsertDate(String insertDate) {
+            InsertDate = insertDate;
+        }
+
+        public String getArrivalLoadingTime() {
+            return ArrivalLoadingTime;
+        }
+
+        public void setArrivalLoadingTime(String arrivalLoadingTime) {
+            ArrivalLoadingTime = arrivalLoadingTime;
+        }
 
         public String getToDetailedAddress() {
             return ToDetailedAddress;
@@ -271,35 +308,35 @@ public class MissionListBean {
             this.billid = billid;
         }
 
-        public Object getBillsGUID() {
+        public String getBillsGUID() {
             return billsGUID;
         }
 
-        public void setBillsGUID(Object billsGUID) {
+        public void setBillsGUID(String billsGUID) {
             this.billsGUID = billsGUID;
         }
 
-        public Object getIscargo() {
+        public String getIscargo() {
             return iscargo;
         }
 
-        public void setIscargo(Object iscargo) {
+        public void setIscargo(String iscargo) {
             this.iscargo = iscargo;
         }
 
-        public Object getOwneridGUID() {
+        public String getOwneridGUID() {
             return owneridGUID;
         }
 
-        public void setOwneridGUID(Object owneridGUID) {
+        public void setOwneridGUID(String owneridGUID) {
             this.owneridGUID = owneridGUID;
         }
 
-        public Object getOwnername() {
+        public String getOwnername() {
             return ownername;
         }
 
-        public void setOwnername(Object ownername) {
+        public void setOwnername(String ownername) {
             this.ownername = ownername;
         }
 
@@ -351,43 +388,43 @@ public class MissionListBean {
             this.unit = unit;
         }
 
-        public Object getCompanyGUID() {
+        public String getCompanyGUID() {
             return companyGUID;
         }
 
-        public void setCompanyGUID(Object companyGUID) {
+        public void setCompanyGUID(String companyGUID) {
             this.companyGUID = companyGUID;
         }
 
-        public Object getCompany() {
+        public String getCompany() {
             return company;
         }
 
-        public void setCompany(Object company) {
+        public void setCompany(String company) {
             this.company = company;
         }
 
-        public Object getDriverGUID() {
+        public String getDriverGUID() {
             return driverGUID;
         }
 
-        public void setDriverGUID(Object driverGUID) {
+        public void setDriverGUID(String driverGUID) {
             this.driverGUID = driverGUID;
         }
 
-        public Object getDrivername() {
+        public String getDrivername() {
             return drivername;
         }
 
-        public void setDrivername(Object drivername) {
+        public void setDrivername(String drivername) {
             this.drivername = drivername;
         }
 
-        public Object getDriverphone() {
+        public String getDriverphone() {
             return driverphone;
         }
 
-        public void setDriverphone(Object driverphone) {
+        public void setDriverphone(String driverphone) {
             this.driverphone = driverphone;
         }
 
@@ -399,203 +436,203 @@ public class MissionListBean {
             this.truckno = truckno;
         }
 
-        public Object getTrucklength() {
+        public String getTrucklength() {
             return trucklength;
         }
 
-        public void setTrucklength(Object trucklength) {
+        public void setTrucklength(String trucklength) {
             this.trucklength = trucklength;
         }
 
-        public Object getTrucktype() {
+        public String getTrucktype() {
             return trucktype;
         }
 
-        public void setTrucktype(Object trucktype) {
+        public void setTrucktype(String trucktype) {
             this.trucktype = trucktype;
         }
 
-        public Object getDealprice() {
+        public String getDealprice() {
             return dealprice;
         }
 
-        public void setDealprice(Object dealprice) {
+        public void setDealprice(String dealprice) {
             this.dealprice = dealprice;
         }
 
-        public Object getDeposit() {
+        public String getDeposit() {
             return deposit;
         }
 
-        public void setDeposit(Object deposit) {
+        public void setDeposit(String deposit) {
             this.deposit = deposit;
         }
 
-        public Object getImforfee() {
+        public String getImforfee() {
             return imforfee;
         }
 
-        public void setImforfee(Object imforfee) {
+        public void setImforfee(String imforfee) {
             this.imforfee = imforfee;
         }
 
-        public Object getRemark() {
+        public String getRemark() {
             return remark;
         }
 
-        public void setRemark(Object remark) {
+        public void setRemark(String remark) {
             this.remark = remark;
         }
 
-        public Object getLoad() {
+        public String getLoad() {
             return load;
         }
 
-        public void setLoad(Object load) {
+        public void setLoad(String load) {
             this.load = load;
         }
 
-        public Object getLoadfee() {
+        public String getLoadfee() {
             return loadfee;
         }
 
-        public void setLoadfee(Object loadfee) {
+        public void setLoadfee(String loadfee) {
             this.loadfee = loadfee;
         }
 
-        public Object getUnload() {
+        public String getUnload() {
             return unload;
         }
 
-        public void setUnload(Object unload) {
+        public void setUnload(String unload) {
             this.unload = unload;
         }
 
-        public Object getUnloadfee() {
+        public String getUnloadfee() {
             return unloadfee;
         }
 
-        public void setUnloadfee(Object unloadfee) {
+        public void setUnloadfee(String unloadfee) {
             this.unloadfee = unloadfee;
         }
 
-        public Object getWaitfee() {
+        public String getWaitfee() {
             return waitfee;
         }
 
-        public void setWaitfee(Object waitfee) {
+        public void setWaitfee(String waitfee) {
             this.waitfee = waitfee;
         }
 
-        public Object getOtherfee() {
+        public String getOtherfee() {
             return otherfee;
         }
 
-        public void setOtherfee(Object otherfee) {
+        public void setOtherfee(String otherfee) {
             this.otherfee = otherfee;
         }
 
-        public Object getFeeremark() {
+        public String getFeeremark() {
             return feeremark;
         }
 
-        public void setFeeremark(Object feeremark) {
+        public void setFeeremark(String feeremark) {
             this.feeremark = feeremark;
         }
 
-        public Object getTotalcharge() {
+        public String getTotalcharge() {
             return totalcharge;
         }
 
-        public void setTotalcharge(Object totalcharge) {
+        public void setTotalcharge(String totalcharge) {
             this.totalcharge = totalcharge;
         }
 
-        public Object getPreloadtime() {
+        public String getPreloadtime() {
             return preloadtime;
         }
 
-        public void setPreloadtime(Object preloadtime) {
+        public void setPreloadtime(String preloadtime) {
             this.preloadtime = preloadtime;
         }
 
-        public Object getLoadtime() {
+        public String getLoadtime() {
             return loadtime;
         }
 
-        public void setLoadtime(Object loadtime) {
+        public void setLoadtime(String loadtime) {
             this.loadtime = loadtime;
         }
 
-        public Object getLoadadd() {
+        public String getLoadadd() {
             return loadadd;
         }
 
-        public void setLoadadd(Object loadadd) {
+        public void setLoadadd(String loadadd) {
             this.loadadd = loadadd;
         }
 
-        public Object getPrearrivetime() {
+        public String getPrearrivetime() {
             return prearrivetime;
         }
 
-        public void setPrearrivetime(Object prearrivetime) {
+        public void setPrearrivetime(String prearrivetime) {
             this.prearrivetime = prearrivetime;
         }
 
-        public Object getArrivedtime() {
+        public String getArrivedtime() {
             return arrivedtime;
         }
 
-        public void setArrivedtime(Object arrivedtime) {
+        public void setArrivedtime(String arrivedtime) {
             this.arrivedtime = arrivedtime;
         }
 
-        public Object getArrivedadd() {
+        public String getArrivedadd() {
             return arrivedadd;
         }
 
-        public void setArrivedadd(Object arrivedadd) {
+        public void setArrivedadd(String arrivedadd) {
             this.arrivedadd = arrivedadd;
         }
 
-        public Object getSignby() {
+        public String getSignby() {
             return signby;
         }
 
-        public void setSignby(Object signby) {
+        public void setSignby(String signby) {
             this.signby = signby;
         }
 
-        public Object getSigntime() {
+        public String getSigntime() {
             return signtime;
         }
 
-        public void setSigntime(Object signtime) {
+        public void setSigntime(String signtime) {
             this.signtime = signtime;
         }
 
-        public Object getSignadd() {
+        public String getSignadd() {
             return signadd;
         }
 
-        public void setSignadd(Object signadd) {
+        public void setSignadd(String signadd) {
             this.signadd = signadd;
         }
 
-        public Object getLoadwaittime() {
+        public String getLoadwaittime() {
             return loadwaittime;
         }
 
-        public void setLoadwaittime(Object loadwaittime) {
+        public void setLoadwaittime(String loadwaittime) {
             this.loadwaittime = loadwaittime;
         }
 
-        public Object getUnloadwaittime() {
+        public String getUnloadwaittime() {
             return unloadwaittime;
         }
 
-        public void setUnloadwaittime(Object unloadwaittime) {
+        public void setUnloadwaittime(String unloadwaittime) {
             this.unloadwaittime = unloadwaittime;
         }
 
@@ -607,107 +644,107 @@ public class MissionListBean {
             this.status = status;
         }
 
-        public Object getTrucktypea() {
+        public String getTrucktypea() {
             return trucktypea;
         }
 
-        public void setTrucktypea(Object trucktypea) {
+        public void setTrucktypea(String trucktypea) {
             this.trucktypea = trucktypea;
         }
 
-        public Object getTrucktypeb() {
+        public String getTrucktypeb() {
             return trucktypeb;
         }
 
-        public void setTrucktypeb(Object trucktypeb) {
+        public void setTrucktypeb(String trucktypeb) {
             this.trucktypeb = trucktypeb;
         }
 
-        public Object getTrucktypec() {
+        public String getTrucktypec() {
             return trucktypec;
         }
 
-        public void setTrucktypec(Object trucktypec) {
+        public void setTrucktypec(String trucktypec) {
             this.trucktypec = trucktypec;
         }
 
-        public Object getTrucktyped() {
+        public String getTrucktyped() {
             return trucktyped;
         }
 
-        public void setTrucktyped(Object trucktyped) {
+        public void setTrucktyped(String trucktyped) {
             this.trucktyped = trucktyped;
         }
 
-        public Object getTrucktypef() {
+        public String getTrucktypef() {
             return trucktypef;
         }
 
-        public void setTrucktypef(Object trucktypef) {
+        public void setTrucktypef(String trucktypef) {
             this.trucktypef = trucktypef;
         }
 
-        public Object getOwnerprice() {
+        public String getOwnerprice() {
             return ownerprice;
         }
 
-        public void setOwnerprice(Object ownerprice) {
+        public void setOwnerprice(String ownerprice) {
             this.ownerprice = ownerprice;
         }
 
-        public Object getDriverdeposit() {
+        public String getDriverdeposit() {
             return driverdeposit;
         }
 
-        public void setDriverdeposit(Object driverdeposit) {
+        public void setDriverdeposit(String driverdeposit) {
             this.driverdeposit = driverdeposit;
         }
 
-        public Object getReleaseTime() {
+        public String getReleaseTime() {
             return ReleaseTime;
         }
 
-        public void setReleaseTime(Object ReleaseTime) {
+        public void setReleaseTime(String ReleaseTime) {
             this.ReleaseTime = ReleaseTime;
         }
 
-        public Object getTrucklengthHZ() {
+        public String getTrucklengthHZ() {
             return trucklengthHZ;
         }
 
-        public void setTrucklengthHZ(Object trucklengthHZ) {
+        public void setTrucklengthHZ(String trucklengthHZ) {
             this.trucklengthHZ = trucklengthHZ;
         }
 
-        public Object getTrucktypeHZ() {
+        public String getTrucktypeHZ() {
             return trucktypeHZ;
         }
 
-        public void setTrucktypeHZ(Object trucktypeHZ) {
+        public void setTrucktypeHZ(String trucktypeHZ) {
             this.trucktypeHZ = trucktypeHZ;
         }
 
-        public Object getLoadaddHZ() {
+        public String getLoadaddHZ() {
             return loadaddHZ;
         }
 
-        public void setLoadaddHZ(Object loadaddHZ) {
+        public void setLoadaddHZ(String loadaddHZ) {
             this.loadaddHZ = loadaddHZ;
         }
 
-        public Object getArrivedaddHZ() {
+        public String getArrivedaddHZ() {
             return arrivedaddHZ;
         }
 
-        public void setArrivedaddHZ(Object arrivedaddHZ) {
+        public void setArrivedaddHZ(String arrivedaddHZ) {
             this.arrivedaddHZ = arrivedaddHZ;
         }
 
-        public Object getTypeKCLX() {
+        public String getTypeKCLX() {
             return TypeKCLX;
         }
 
-        public void setTypeKCLX(Object TypeKCLX) {
+        public void setTypeKCLX(String TypeKCLX) {
             this.TypeKCLX = TypeKCLX;
         }
 
@@ -719,11 +756,11 @@ public class MissionListBean {
             this.userid = userid;
         }
 
-        public Object getGUID() {
+        public String getGUID() {
             return GUID;
         }
 
-        public void setGUID(Object GUID) {
+        public void setGUID(String GUID) {
             this.GUID = GUID;
         }
 
@@ -999,11 +1036,11 @@ public class MissionListBean {
             this.SecreKeyDateTime = SecreKeyDateTime;
         }
 
-        public Object getAvatarAddress() {
+        public String getAvatarAddress() {
             return AvatarAddress;
         }
 
-        public void setAvatarAddress(Object AvatarAddress) {
+        public void setAvatarAddress(String AvatarAddress) {
             this.AvatarAddress = AvatarAddress;
         }
 

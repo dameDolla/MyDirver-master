@@ -153,22 +153,22 @@ public class BaojiaListBean {
          */
 
         private int priceid;
-        private Object cargoPricesGUID;
-        private Object cargoGUID;
-        private Object ownerGUID;
-        private Object companyGUID;
-        private Object companyname;
-        private Object truckno;
-        private Object trucklength;
-        private Object trucktype;
+        private String cargoPricesGUID;
+        private String cargoGUID;
+        private String ownerGUID;
+        private String companyGUID;
+        private String companyname;
+        private String truckno;
+        private String trucklength;
+        private String trucktype;
         private String price;
-        private Object loadfee;
-        private Object unloadfee;
-        private Object otherfee;
+        private String loadfee;
+        private String unloadfee;
+        private String otherfee;
         private String totalcharge;
-        private Object feeremark;
-        private Object imforfee;
-        private Object UpdatePriceTimeP;
+        private String feeremark;
+        private String imforfee;
+        private String UpdatePriceTimeP;
         private String Bidder;
         private String priceM;
         private String loadfeeM;
@@ -179,49 +179,49 @@ public class BaojiaListBean {
         private String cargoPriceState;
         private String UpdatePriceTime;
         private int billid;
-        private Object billsGUID;
-        private Object iscargo;
-        private Object owneridGUID;
-        private Object ownername;
+        private String billsGUID;
+        private String iscargo;
+        private String owneridGUID;
+        private String ownername;
         private String ownerphone;
         private String fromSite;
         private String toSite;
         private String cargotype;
         private int qty;
         private String unit;
-        private Object company;
-        private Object driverGUID;
-        private Object drivername;
-        private Object driverphone;
-        private Object dealprice;
-        private Object deposit;
-        private Object remark;
-        private Object load;
-        private Object unload;
-        private Object waitfee;
+        private String company;
+        private String driverGUID;
+        private String drivername;
+        private String driverphone;
+        private String dealprice;
+        private String deposit;
+        private String remark;
+        private String load;
+        private String unload;
+        private String waitfee;
         private String preloadtime;
-        private Object loadtime;
-        private Object loadadd;
-        private Object prearrivetime;
-        private Object arrivedtime;
-        private Object arrivedadd;
-        private Object signby;
-        private Object signtime;
-        private Object signadd;
-        private Object loadwaittime;
-        private Object unloadwaittime;
-        private Object status;
-        private Object trucktypea;
-        private Object trucktypeb;
-        private Object trucktypec;
-        private Object trucktyped;
-        private Object trucktypef;
-        private Object ownerprice;
-        private Object driverdeposit;
-        private Object ReleaseTime;
-        private Object TypeKCLX;
+        private String loadtime;
+        private String loadadd;
+        private String prearrivetime;
+        private String arrivedtime;
+        private String arrivedadd;
+        private String signby;
+        private String signtime;
+        private String signadd;
+        private String loadwaittime;
+        private String unloadwaittime;
+        private String status;
+        private String trucktypea;
+        private String trucktypeb;
+        private String trucktypec;
+        private String trucktyped;
+        private String trucktypef;
+        private String ownerprice;
+        private String driverdeposit;
+        private String ReleaseTime;
+        private String TypeKCLX;
         private int userid;
-        private Object GUID;
+        private String GUID;
         private String username;
         private String usertype;
         private String truename;
@@ -233,7 +233,7 @@ public class BaojiaListBean {
         private String idcard;
         private String creditlevel;
         private int cargocount;
-        private int ownerbill;
+        private int  ownerbill;
         private double ownerscore;
         private int driverScoreNumber;
         private double driverTotalScore;
@@ -256,7 +256,7 @@ public class BaojiaListBean {
         private String SMSDatetime;
         private String SecreKey;
         private String SecreKeyDateTime;
-        private Object AvatarAddress;
+        private String AvatarAddress;
         private int PageNum;
         private String trucktypeHZ;
         private String trucklengthHZ;
@@ -277,67 +277,67 @@ public class BaojiaListBean {
             this.priceid = priceid;
         }
 
-        public Object getCargoPricesGUID() {
+        public String getCargoPricesGUID() {
             return cargoPricesGUID;
         }
 
-        public void setCargoPricesGUID(Object cargoPricesGUID) {
+        public void setCargoPricesGUID(String cargoPricesGUID) {
             this.cargoPricesGUID = cargoPricesGUID;
         }
 
-        public Object getCargoGUID() {
+        public String getCargoGUID() {
             return cargoGUID;
         }
 
-        public void setCargoGUID(Object cargoGUID) {
+        public void setCargoGUID(String cargoGUID) {
             this.cargoGUID = cargoGUID;
         }
 
-        public Object getOwnerGUID() {
+        public String getOwnerGUID() {
             return ownerGUID;
         }
 
-        public void setOwnerGUID(Object ownerGUID) {
+        public void setOwnerGUID(String ownerGUID) {
             this.ownerGUID = ownerGUID;
         }
 
-        public Object getCompanyGUID() {
+        public String getCompanyGUID() {
             return companyGUID;
         }
 
-        public void setCompanyGUID(Object companyGUID) {
+        public void setCompanyGUID(String companyGUID) {
             this.companyGUID = companyGUID;
         }
 
-        public Object getCompanyname() {
+        public String getCompanyname() {
             return companyname;
         }
 
-        public void setCompanyname(Object companyname) {
+        public void setCompanyname(String companyname) {
             this.companyname = companyname;
         }
 
-        public Object getTruckno() {
+        public String getTruckno() {
             return truckno;
         }
 
-        public void setTruckno(Object truckno) {
+        public void setTruckno(String truckno) {
             this.truckno = truckno;
         }
 
-        public Object getTrucklength() {
+        public String getTrucklength() {
             return trucklength;
         }
 
-        public void setTrucklength(Object trucklength) {
+        public void setTrucklength(String trucklength) {
             this.trucklength = trucklength;
         }
 
-        public Object getTrucktype() {
+        public String getTrucktype() {
             return trucktype;
         }
 
-        public void setTrucktype(Object trucktype) {
+        public void setTrucktype(String trucktype) {
             this.trucktype = trucktype;
         }
 
@@ -349,27 +349,27 @@ public class BaojiaListBean {
             this.price = price;
         }
 
-        public Object getLoadfee() {
+        public String getLoadfee() {
             return loadfee;
         }
 
-        public void setLoadfee(Object loadfee) {
+        public void setLoadfee(String loadfee) {
             this.loadfee = loadfee;
         }
 
-        public Object getUnloadfee() {
+        public String getUnloadfee() {
             return unloadfee;
         }
 
-        public void setUnloadfee(Object unloadfee) {
+        public void setUnloadfee(String unloadfee) {
             this.unloadfee = unloadfee;
         }
 
-        public Object getOtherfee() {
+        public String getOtherfee() {
             return otherfee;
         }
 
-        public void setOtherfee(Object otherfee) {
+        public void setOtherfee(String otherfee) {
             this.otherfee = otherfee;
         }
 
@@ -381,27 +381,27 @@ public class BaojiaListBean {
             this.totalcharge = totalcharge;
         }
 
-        public Object getFeeremark() {
+        public String getFeeremark() {
             return feeremark;
         }
 
-        public void setFeeremark(Object feeremark) {
+        public void setFeeremark(String feeremark) {
             this.feeremark = feeremark;
         }
 
-        public Object getImforfee() {
+        public String getImforfee() {
             return imforfee;
         }
 
-        public void setImforfee(Object imforfee) {
+        public void setImforfee(String imforfee) {
             this.imforfee = imforfee;
         }
 
-        public Object getUpdatePriceTimeP() {
+        public String getUpdatePriceTimeP() {
             return UpdatePriceTimeP;
         }
 
-        public void setUpdatePriceTimeP(Object UpdatePriceTimeP) {
+        public void setUpdatePriceTimeP(String UpdatePriceTimeP) {
             this.UpdatePriceTimeP = UpdatePriceTimeP;
         }
 
@@ -485,35 +485,35 @@ public class BaojiaListBean {
             this.billid = billid;
         }
 
-        public Object getBillsGUID() {
+        public String getBillsGUID() {
             return billsGUID;
         }
 
-        public void setBillsGUID(Object billsGUID) {
+        public void setBillsGUID(String billsGUID) {
             this.billsGUID = billsGUID;
         }
 
-        public Object getIscargo() {
+        public String getIscargo() {
             return iscargo;
         }
 
-        public void setIscargo(Object iscargo) {
+        public void setIscargo(String iscargo) {
             this.iscargo = iscargo;
         }
 
-        public Object getOwneridGUID() {
+        public String getOwneridGUID() {
             return owneridGUID;
         }
 
-        public void setOwneridGUID(Object owneridGUID) {
+        public void setOwneridGUID(String owneridGUID) {
             this.owneridGUID = owneridGUID;
         }
 
-        public Object getOwnername() {
+        public String getOwnername() {
             return ownername;
         }
 
-        public void setOwnername(Object ownername) {
+        public void setOwnername(String ownername) {
             this.ownername = ownername;
         }
 
@@ -565,83 +565,83 @@ public class BaojiaListBean {
             this.unit = unit;
         }
 
-        public Object getCompany() {
+        public String getCompany() {
             return company;
         }
 
-        public void setCompany(Object company) {
+        public void setCompany(String company) {
             this.company = company;
         }
 
-        public Object getDriverGUID() {
+        public String getDriverGUID() {
             return driverGUID;
         }
 
-        public void setDriverGUID(Object driverGUID) {
+        public void setDriverGUID(String driverGUID) {
             this.driverGUID = driverGUID;
         }
 
-        public Object getDrivername() {
+        public String getDrivername() {
             return drivername;
         }
 
-        public void setDrivername(Object drivername) {
+        public void setDrivername(String drivername) {
             this.drivername = drivername;
         }
 
-        public Object getDriverphone() {
+        public String getDriverphone() {
             return driverphone;
         }
 
-        public void setDriverphone(Object driverphone) {
+        public void setDriverphone(String driverphone) {
             this.driverphone = driverphone;
         }
 
-        public Object getDealprice() {
+        public String getDealprice() {
             return dealprice;
         }
 
-        public void setDealprice(Object dealprice) {
+        public void setDealprice(String dealprice) {
             this.dealprice = dealprice;
         }
 
-        public Object getDeposit() {
+        public String getDeposit() {
             return deposit;
         }
 
-        public void setDeposit(Object deposit) {
+        public void setDeposit(String deposit) {
             this.deposit = deposit;
         }
 
-        public Object getRemark() {
+        public String getRemark() {
             return remark;
         }
 
-        public void setRemark(Object remark) {
+        public void setRemark(String remark) {
             this.remark = remark;
         }
 
-        public Object getLoad() {
+        public String getLoad() {
             return load;
         }
 
-        public void setLoad(Object load) {
+        public void setLoad(String load) {
             this.load = load;
         }
 
-        public Object getUnload() {
+        public String getUnload() {
             return unload;
         }
 
-        public void setUnload(Object unload) {
+        public void setUnload(String unload) {
             this.unload = unload;
         }
 
-        public Object getWaitfee() {
+        public String getWaitfee() {
             return waitfee;
         }
 
-        public void setWaitfee(Object waitfee) {
+        public void setWaitfee(String waitfee) {
             this.waitfee = waitfee;
         }
 
@@ -653,163 +653,163 @@ public class BaojiaListBean {
             this.preloadtime = preloadtime;
         }
 
-        public Object getLoadtime() {
+        public String getLoadtime() {
             return loadtime;
         }
 
-        public void setLoadtime(Object loadtime) {
+        public void setLoadtime(String loadtime) {
             this.loadtime = loadtime;
         }
 
-        public Object getLoadadd() {
+        public String getLoadadd() {
             return loadadd;
         }
 
-        public void setLoadadd(Object loadadd) {
+        public void setLoadadd(String loadadd) {
             this.loadadd = loadadd;
         }
 
-        public Object getPrearrivetime() {
+        public String getPrearrivetime() {
             return prearrivetime;
         }
 
-        public void setPrearrivetime(Object prearrivetime) {
+        public void setPrearrivetime(String prearrivetime) {
             this.prearrivetime = prearrivetime;
         }
 
-        public Object getArrivedtime() {
+        public String getArrivedtime() {
             return arrivedtime;
         }
 
-        public void setArrivedtime(Object arrivedtime) {
+        public void setArrivedtime(String arrivedtime) {
             this.arrivedtime = arrivedtime;
         }
 
-        public Object getArrivedadd() {
+        public String getArrivedadd() {
             return arrivedadd;
         }
 
-        public void setArrivedadd(Object arrivedadd) {
+        public void setArrivedadd(String arrivedadd) {
             this.arrivedadd = arrivedadd;
         }
 
-        public Object getSignby() {
+        public String getSignby() {
             return signby;
         }
 
-        public void setSignby(Object signby) {
+        public void setSignby(String signby) {
             this.signby = signby;
         }
 
-        public Object getSigntime() {
+        public String getSigntime() {
             return signtime;
         }
 
-        public void setSigntime(Object signtime) {
+        public void setSigntime(String signtime) {
             this.signtime = signtime;
         }
 
-        public Object getSignadd() {
+        public String getSignadd() {
             return signadd;
         }
 
-        public void setSignadd(Object signadd) {
+        public void setSignadd(String signadd) {
             this.signadd = signadd;
         }
 
-        public Object getLoadwaittime() {
+        public String getLoadwaittime() {
             return loadwaittime;
         }
 
-        public void setLoadwaittime(Object loadwaittime) {
+        public void setLoadwaittime(String loadwaittime) {
             this.loadwaittime = loadwaittime;
         }
 
-        public Object getUnloadwaittime() {
+        public String getUnloadwaittime() {
             return unloadwaittime;
         }
 
-        public void setUnloadwaittime(Object unloadwaittime) {
+        public void setUnloadwaittime(String unloadwaittime) {
             this.unloadwaittime = unloadwaittime;
         }
 
-        public Object getStatus() {
+        public String getStatus() {
             return status;
         }
 
-        public void setStatus(Object status) {
+        public void setStatus(String status) {
             this.status = status;
         }
 
-        public Object getTrucktypea() {
+        public String getTrucktypea() {
             return trucktypea;
         }
 
-        public void setTrucktypea(Object trucktypea) {
+        public void setTrucktypea(String trucktypea) {
             this.trucktypea = trucktypea;
         }
 
-        public Object getTrucktypeb() {
+        public String getTrucktypeb() {
             return trucktypeb;
         }
 
-        public void setTrucktypeb(Object trucktypeb) {
+        public void setTrucktypeb(String trucktypeb) {
             this.trucktypeb = trucktypeb;
         }
 
-        public Object getTrucktypec() {
+        public String getTrucktypec() {
             return trucktypec;
         }
 
-        public void setTrucktypec(Object trucktypec) {
+        public void setTrucktypec(String trucktypec) {
             this.trucktypec = trucktypec;
         }
 
-        public Object getTrucktyped() {
+        public String getTrucktyped() {
             return trucktyped;
         }
 
-        public void setTrucktyped(Object trucktyped) {
+        public void setTrucktyped(String trucktyped) {
             this.trucktyped = trucktyped;
         }
 
-        public Object getTrucktypef() {
+        public String getTrucktypef() {
             return trucktypef;
         }
 
-        public void setTrucktypef(Object trucktypef) {
+        public void setTrucktypef(String trucktypef) {
             this.trucktypef = trucktypef;
         }
 
-        public Object getOwnerprice() {
+        public String getOwnerprice() {
             return ownerprice;
         }
 
-        public void setOwnerprice(Object ownerprice) {
+        public void setOwnerprice(String ownerprice) {
             this.ownerprice = ownerprice;
         }
 
-        public Object getDriverdeposit() {
+        public String getDriverdeposit() {
             return driverdeposit;
         }
 
-        public void setDriverdeposit(Object driverdeposit) {
+        public void setDriverdeposit(String driverdeposit) {
             this.driverdeposit = driverdeposit;
         }
 
-        public Object getReleaseTime() {
+        public String getReleaseTime() {
             return ReleaseTime;
         }
 
-        public void setReleaseTime(Object ReleaseTime) {
+        public void setReleaseTime(String ReleaseTime) {
             this.ReleaseTime = ReleaseTime;
         }
 
-        public Object getTypeKCLX() {
+        public String getTypeKCLX() {
             return TypeKCLX;
         }
 
-        public void setTypeKCLX(Object TypeKCLX) {
+        public void setTypeKCLX(String TypeKCLX) {
             this.TypeKCLX = TypeKCLX;
         }
 
@@ -821,11 +821,11 @@ public class BaojiaListBean {
             this.userid = userid;
         }
 
-        public Object getGUID() {
+        public String getGUID() {
             return GUID;
         }
 
-        public void setGUID(Object GUID) {
+        public void setGUID(String GUID) {
             this.GUID = GUID;
         }
 
@@ -1101,11 +1101,11 @@ public class BaojiaListBean {
             this.SecreKeyDateTime = SecreKeyDateTime;
         }
 
-        public Object getAvatarAddress() {
+        public String getAvatarAddress() {
             return AvatarAddress;
         }
 
-        public void setAvatarAddress(Object AvatarAddress) {
+        public void setAvatarAddress(String AvatarAddress) {
             this.AvatarAddress = AvatarAddress;
         }
 

@@ -26,15 +26,19 @@ public class CarTeamAdapter extends RecyclerView.Adapter{
     private List<CarTeamBean.DataBean> list;
     private View contentView;
     private carteamClick onclick;
+    private String flag;
 
     public CarTeamAdapter(Context context, List<CarTeamBean.DataBean> list)
     {
         this.context = context;
         this.list = list;
     }
-
+    public void setFlag(String flag)
+    {
+        this.flag = flag;
+    }
     public interface carteamClick{
-         void OnCarteamClick(String truckguid);
+         void OnCarteamClick(String truckguid,String flags);
     }
     public void setCarteamClick(carteamClick onclick)
     {
@@ -73,9 +77,19 @@ public class CarTeamAdapter extends RecyclerView.Adapter{
         mHolder.del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onclick.OnCarteamClick(data.getTrucksGUID());
+                onclick.OnCarteamClick(data.getTrucksGUID(),"del");
             }
         });
+        mHolder.bind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onclick.OnCarteamClick(data.getTrucksGUID(),"bind");
+            }
+        });
+        if (flag.equals("missiondetail")){
+            mHolder.bind.setVisibility(View.VISIBLE);
+            mHolder.del_ll.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -92,6 +106,7 @@ public class CarTeamAdapter extends RecyclerView.Adapter{
         private final TextView weight;
         private final TextView tiji,del;
         private final TextView status;
+        private final LinearLayout bind,del_ll;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -103,7 +118,8 @@ public class CarTeamAdapter extends RecyclerView.Adapter{
             tiji = (TextView) itemView.findViewById(R.id.carteam_item_tiji);
             del = (TextView) itemView.findViewById(R.id.carteam_item_del);
             status = (TextView) itemView.findViewById(R.id.carteam_item_status);
-
+            bind = (LinearLayout) itemView.findViewById(R.id.carteam_item_bind_ll);
+            del_ll = (LinearLayout) itemView.findViewById(R.id.carteam_item_ll);
         }
 
 

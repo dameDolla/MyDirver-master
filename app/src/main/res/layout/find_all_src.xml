@@ -9,7 +9,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/find_all_main"
         android:orientation="vertical">
 
         <LinearLayout
@@ -137,39 +136,47 @@
 
         </LinearLayout>
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/find_all_refresh"
+        <LinearLayout
+            android:id="@+id/find_all_main"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <ScrollView
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/find_all_refresh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <LinearLayout
+                <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/find_src_rlv"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:background="@color/color_f2" />
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/find_src_rlv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
 
-                </LinearLayout>
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:background="@color/color_f2" />
 
-            </ScrollView>
-        </android.support.v4.widget.SwipeRefreshLayout>
+                    </LinearLayout>
 
+                </ScrollView>
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+        </LinearLayout>
     </LinearLayout>
+
     <com.app.gaolonglong.fragmenttabhost.view.EmptyLayout
+        android:id="@+id/find_all_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:id="@+id/find_all_empty"/>
+        android:visibility="gone" />
 </LinearLayout>

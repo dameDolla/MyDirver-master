@@ -24,7 +24,7 @@ public class MyWallteActivity extends BaseActivity implements View.OnClickListen
     @BindViews({R.id.top_title})
     public List<TextView> mText;
 
-    @BindViews({R.id.wallte_to_coupon})
+    @BindViews({R.id.wallte_to_coupon,R.id.wallte_tixian})
     public List<LinearLayout> mLinear;
 
     @OnClick(R.id.title_back)
@@ -47,6 +47,7 @@ public class MyWallteActivity extends BaseActivity implements View.OnClickListen
     private void initView()
     {
         mText.get(0).setText("钱包");
+        mLinear.get(1).setOnClickListener(this);
     }
 
     @Override
@@ -55,6 +56,9 @@ public class MyWallteActivity extends BaseActivity implements View.OnClickListen
         {
             case R.id.wallte_to_coupon:
                 startActivity(new Intent(MyWallteActivity.this,YouHuiQuanActivity.class));
+                break;
+            case R.id.wallte_tixian:
+
                 break;
         }
     }

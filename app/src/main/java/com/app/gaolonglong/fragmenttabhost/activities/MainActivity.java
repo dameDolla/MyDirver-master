@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         init();
         if (getSupportActionBar() != null)
             getSupportActionBar().hide();
-
+        toFindFragment();
     }
 
     private void init() {
@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        toFindFragment();
+
     }
 
     /**

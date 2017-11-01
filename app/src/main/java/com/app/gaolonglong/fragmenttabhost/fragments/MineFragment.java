@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.activities.CarInfoActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.CompanyInfoActivity;
+import com.app.gaolonglong.fragmenttabhost.activities.FaPiaoSettingActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.LoginActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.MyCarTeamActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.MyCardListActivity;
@@ -65,7 +66,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             R.id.mine_rl_bzjxq, R.id.mine_rl_carteam,
             R.id.mine_rl_wallte, R.id.mine_rl_szmx,
             R.id.mine_rl_route,R.id.mine_rl_drivers,
-            R.id.mine_rl_company})
+            R.id.mine_rl_company,R.id.mine_rl_fapiao})
     public List<RelativeLayout> rlList;
 
 
@@ -115,6 +116,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         rlList.get(8).setOnClickListener(this);
         rlList.get(9).setOnClickListener(this);
         rlList.get(10).setOnClickListener(this);
+        rlList.get(11).setOnClickListener(this);
        // if (GetUserInfoUtils.getUserType(getContext()).equals(""))
         isRenzheng = GetUserInfoUtils.isRenzheng(getContext());
         checkInfo();
@@ -160,6 +162,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             usertypename = "车队司机认证";
             rlList.get(5).setVisibility(View.GONE);
             rlList.get(3).setVisibility(View.GONE);
+            rlList.get(11).setVisibility(View.GONE);
         }
         if (usertype.equals("4"))
         {
@@ -327,6 +330,13 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 if(isRenzheng)
                 {
                     startActivity(new Intent(getContext(), CompanyInfoActivity.class));
+                }else {
+                    ToolsUtils.getInstance().toastShowStr(getActivity(),"请先完成认证");
+                }
+                break;
+            case R.id.mine_rl_fapiao:
+                if (isRenzheng){
+                    startActivity(new Intent(getContext(), FaPiaoSettingActivity.class));
                 }else {
                     ToolsUtils.getInstance().toastShowStr(getActivity(),"请先完成认证");
                 }

@@ -85,10 +85,12 @@ public class SelectDriverActivity extends BaseActivity {
         MyLinearLayoutManager manager = new MyLinearLayoutManager(SelectDriverActivity.this);
         rcv.setLayoutManager(manager);
         rcv.setAdapter(adapter);
+        rcv.setNestedScrollingEnabled(false);
         adapter.getFlags(flags);
 
         kjClick();
         getDriverInfo(initJsonData());
+        setResult(0,new Intent());
     }
     private void kjClick()
     {

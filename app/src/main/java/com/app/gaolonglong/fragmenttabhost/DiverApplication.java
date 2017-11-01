@@ -47,8 +47,7 @@ public class DiverApplication extends Application {
         Set<String> set = new HashSet<>();
         set.add(GetUserInfoUtils.getGuid(this));//名字任意，可多添加几个
         JPushInterface.setTags(this, set, null);//设置标签
-        Log.e("applicaiton",GetUserInfoUtils.getGuid(this));
-        //CrashReport.testJavaCrash();
+
     }
 
     /**
@@ -90,22 +89,6 @@ public class DiverApplication extends Application {
 
     public static Context getContext() {
         return mDiver.getApplicationContext();
-    }
-
-    /**
-     * 获取应用版本号
-     * 先获取Pakageinfo
-     * 默认返回1
-     */
-    public static int getAppVersionCode() {
-        Context context = getContext();
-        try {
-            PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-            return info.versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return  1;
     }
 
 }

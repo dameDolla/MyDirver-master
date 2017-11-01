@@ -85,12 +85,14 @@ public class Config {
     public static final String GET_PARAMETERS = "GetParameterByModel";
     //运单修改状态为已预报
     public static final String MISSION_STATUS_YUBAO = "UpdateStatus1";
+    //运单状态修改为到达装货地
+    public static final String MISSION_STATUS_ARRIVED = "UpdateStatus2";
     //运单修改状态为已执行
-    public static final String MISSION_STATUS_ZHIXING = "UpdateStatus2";
+    public static final String MISSION_STATUS_ZHIXING = "UpdateStatus3";
     //运单修改状态为已卸货
-    public static final String MISSION_STATUS_XIEHUO = "UpdateStatus3";
+    public static final String MISSION_STATUS_XIEHUO = "UpdateStatus4";
     //运单修改状态为已签收
-    public static final String MISSION_STATUS_QIANSHOU = "UpdateStatus4";
+    public static final String MISSION_STATUS_QIANSHOU = "UpdateStatus5";
     //添加车辆信息
     public static final String ADDTRUCK = "AddInfos";
     //获取车队车辆列表
@@ -111,4 +113,10 @@ public class Config {
     public static final String GETDRIVERS = "SelectInfoByCompanyGUID";
     //根据billsGuid查找货源详情
     public static final String GETSRCDETAIL = "SelectCargoXQByCGUID";
+    //绑定运单的车辆
+    public static final String BINDCAR = "";
+    //取消运单
+    public static final String CANCELMISSION  = "";
+    //发票设置
+    public static final String FAPIAOSETTING = "UpdateInvoiceTypeByBill";
 }

@@ -53,14 +53,10 @@ public class BaojiaUpdateActivity extends BaseActivity implements View.OnClickLi
     {
         finish();
     }
-    @BindViews({R.id.baojia_et_baozheng,R.id.baojia_fuwu_fee,R.id.baojia_need_pay,
-            R.id.baojia_other_fee,R.id.baojia_ownwename,R.id.baojia_shuijin,R.id.baojia_sum_fee,
-            R.id.baojia_yunshu_fee,R.id.baojia_zhuang_fee,R.id.baojia_xie_fee})
-    public List<TextView> mText;
+
     @BindView(R.id.baojia_submit)
     public Button submit;
-    @BindView(R.id.baojia_needpay_rl)
-    public RelativeLayout needPay;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,10 +72,8 @@ public class BaojiaUpdateActivity extends BaseActivity implements View.OnClickLi
     {
         title.setText("修改报价");
         submit.setText("确定修改报价");
-        needPay.setVisibility(View.GONE);
+
         bean = (BaojiaInfoBean) getIntent().getSerializableExtra("baojia");
-        mText.get(8).setText(bean.getPriceM());
-        mText.get(7).setText(bean.getTotalchargeM());
 
     }
     private void initJsonData()
@@ -95,14 +89,7 @@ public class BaojiaUpdateActivity extends BaseActivity implements View.OnClickLi
         map.put("GUID",guid);
         map.put(Constant.MOBILE,mobile);
         map.put(Constant.KEY,key);
-        map.put("cargopricesGUID",bean.getCargopricesGUID()+"");
-        map.put("UpdatePriceTime",formatter.format(curDate));
-        map.put("priceM",mText.get(8).getText().toString());
-        map.put("loadfeeM",mText.get(9).getText().toString());
-        map.put("unloadfeeM",mText.get(10).getText().toString());
-        map.put("otherfeeM",mText.get(4).getText().toString());
-        map.put("totalchargeM",mText.get(7).getText().toString());
-        map.put("feeremarkM","");
+
 
     }
     private void submit(String json)

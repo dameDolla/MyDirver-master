@@ -120,6 +120,7 @@ public class MyRouteListActivity extends BaseActivity implements View.OnClickLis
         recyclerView.setLayoutManager(manager);
         adapter = new RouteListAdapter(list,MyRouteListActivity.this);
         recyclerView.setAdapter(adapter);
+        recyclerView.setNestedScrollingEnabled(false);
         getRouteListInfo();
         refresh.setColorSchemeResources(R.color.google_blue,
                 R.color.google_green,

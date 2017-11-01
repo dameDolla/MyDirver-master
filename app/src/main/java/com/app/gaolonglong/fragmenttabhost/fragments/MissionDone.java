@@ -88,6 +88,7 @@ public class MissionDone extends Fragment {
         MyLinearLayoutManager manager = new MyLinearLayoutManager(getContext());
         rcv.setLayoutManager(manager);
         rcv.setAdapter(adapter);
+        rcv.setNestedScrollingEnabled(false);
         adapter.setOnMissionItemClick(new MissionListAdapter.OnMissionItemClick() {
             @Override
             public void onMissionItemClick(View view, MissionDetailBean bean) {
@@ -99,7 +100,7 @@ public class MissionDone extends Fragment {
         });
         adapter.setOnMissionClick(new MissionListAdapter.OnMissionClick() {
             @Override
-            public void onMissionClick(int position, String missionnum, String flag) {
+            public void onMissionClick(int position, String missionnum, String flag,String status) {
                 if (flag.equals("cancel")) {
                     ToolsUtils.getInstance().toastShowStr(getContext(), missionnum);
                 } else if (flag.equals("caozuo")) {

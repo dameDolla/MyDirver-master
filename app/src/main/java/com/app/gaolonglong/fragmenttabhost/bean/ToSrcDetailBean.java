@@ -36,10 +36,13 @@ public class ToSrcDetailBean implements Serializable {
     private String trucktype;
     private String loadaddHZ;
     private String arrivedaddHZ;
+    private String InvoiceType; //是否开发票
+    private String UploadReceipt; //上传签收单
+    private String PaperReceipt; //纸质回单
 
     public ToSrcDetailBean(String fromSite,String toSite,String ownername,String cargotype,String preloadtime,String avatarAddress,String creditlevel,String qty,String unit,String tel,String driverdeposit,
                            String ownerguid,String billsGUID,String driverGUID,String drivername,String companyGUID,String company,String truckno,String trucklength,String load,String unload,String FromDetailedAddress,
-                           String ToDetailedAddress,String trucklengthHZ,String trucktypeHZ,String trucktype,String loadaddHZ,String arrivedaddHZ)
+                           String ToDetailedAddress,String trucklengthHZ,String trucktypeHZ,String trucktype,String loadaddHZ,String arrivedaddHZ,String InvoiceType,String UploadReceipt,String PaperReceipt)
     {
         this.fromSite = fromSite;
         this.toSite = toSite;
@@ -69,6 +72,21 @@ public class ToSrcDetailBean implements Serializable {
         this.trucktype = trucktype;
         this.loadaddHZ = loadaddHZ;
         this.arrivedaddHZ = arrivedaddHZ;
+        this.InvoiceType = InvoiceType;
+        this.UploadReceipt = UploadReceipt;
+        this.PaperReceipt = PaperReceipt;
+    }
+
+    public String getUploadReceipt() {
+        return UploadReceipt;
+    }
+
+    public String getPaperReceipt() {
+        return PaperReceipt;
+    }
+
+    public String getInvoiceType() {
+        return InvoiceType;
     }
 
     public String getArrivedaddHZ() {

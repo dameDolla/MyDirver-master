@@ -149,6 +149,7 @@ public class FindRouteSrcFragment extends Fragment implements View.OnClickListen
         MyLinearLayoutManager manager = new MyLinearLayoutManager(getContext());
         rlv.setLayoutManager(manager);
         rlv.setAdapter(srcAdapter);
+        rlv.setNestedScrollingEnabled(false);
 
         ThreadPoolHelp.Builder.cached().builder().execute(new Runnable() {
             @Override

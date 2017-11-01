@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.activities.MissionDetailActivity;
 import com.app.gaolonglong.fragmenttabhost.adapter.MissionListAdapter;
+import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
 import com.app.gaolonglong.fragmenttabhost.bean.MissionDetailBean;
 import com.app.gaolonglong.fragmenttabhost.bean.MissionListBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
@@ -24,7 +25,9 @@ import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
+import com.app.gaolonglong.fragmenttabhost.utils.ThreadManager;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.app.gaolonglong.fragmenttabhost.view.CancelMissionDialog;
 import com.app.gaolonglong.fragmenttabhost.view.EmptyLayout;
 import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
 import com.luoxudong.app.threadpool.ThreadPoolHelp;
@@ -63,6 +66,10 @@ public class MissionDoing extends Fragment {
     @BindView(R.id.mission_doing_empty)
     public EmptyLayout empty;
     private MissionListAdapter adapter;
+    private String guid;
+    private String mobile;
+    private String key;
+    private CancelMissionDialog cancelDialog;
 
     @Nullable
     @Override
@@ -91,11 +98,15 @@ public class MissionDoing extends Fragment {
     }
     private void initView()
     {
+        guid = GetUserInfoUtils.getGuid(getContext());
+        mobile = GetUserInfoUtils.getMobile(getContext());
+        key = GetUserInfoUtils.getKey(getContext());
         list = new ArrayList<>();
         adapter = new MissionListAdapter(getContext(),list);
         MyLinearLayoutManager manager = new MyLinearLayoutManager(getContext());
         rcv.setLayoutManager(manager);
         rcv.setAdapter(adapter);
+        rcv.setNestedScrollingEnabled(false);
 
         adapter.setOnMissionItemClick(new MissionListAdapter.OnMissionItemClick() {
             @Override
@@ -104,13 +115,36 @@ public class MissionDoing extends Fragment {
             }
         });
         adapter.setOnMissionClick(new MissionListAdapter.OnMissionClick() {
+
+
+
             @Override
-            public void onMissionClick(int position, String missionnum, String flag) {
+            public void onMissionClick(final int position, final String missionnum, String flag, String status) {
                 if (flag.equals("cancel"))
                 {
-                    ToolsUtils.getInstance().toastShowStr(getContext(),missionnum);
+                    cancelDialog = new CancelMissionDialog(getActivity(), R.style.dialog, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            switch (view.getId())
+                            {
+                                case R.id.cancel_mission_dialog_cancel:
+                                    String reason = cancelDialog.reason.getText().toString();
+                                    cancel(missionnum,position);
+                                    break;
+                            }
+                        }
+                    });
+
+                    cancelDialog.show();
+                    if (status.equals("0")){
+                        cancelDialog.status.setText("运单已生成");
+                    }else if (status.equals("1")){
+                        cancelDialog.status.setText("司机出发接货");
+                    }
+
+
                 }else if (flag.equals("caozuo")){
-                    //toDetail();
+                   // toDetail();
                     //ToolsUtils.getInstance().toastShowStr(getContext(),missionnum);
                 }else if (flag.equals("tel")){
                     Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+missionnum));
@@ -119,16 +153,13 @@ public class MissionDoing extends Fragment {
             }
         });
 
+        ThreadManager.getNormalPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                getList(initJsonData());
+            }
+        });
 
-        ThreadPoolHelp.Builder
-                .cached()
-                .builder()
-                .execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        getList(initJsonData());
-                    }
-                    });
 
         fresh.setColorSchemeResources(R.color.google_blue,
                 R.color.google_green,
@@ -139,6 +170,43 @@ public class MissionDoing extends Fragment {
             public void onRefresh() {
                 onActivityCreated(null);
                 fresh.setRefreshing(false);
+            }
+        });
+    }
+
+    private void cancel(final String billsGUID, final int position){
+        ThreadManager.getNormalPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                Map<String,String> map = new HashMap<String, String>();
+                map.put("GUID",guid);
+                map.put(Constant.MOBILE,mobile);
+                map.put(Constant.KEY,key);
+                map.put("billsGUID",billsGUID);
+                RetrofitUtils.getRetrofitService()
+                        .cancelMission("",Config.CANCELMISSION,JsonUtils.getInstance().getJsonStr(map))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Subscriber<GetCodeBean>() {
+                            @Override
+                            public void onCompleted() {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onNext(GetCodeBean getCodeBean) {
+                                ToolsUtils.getInstance().toastShowStr(getContext(),getCodeBean.getErrorMsg());
+                                if (getCodeBean.getErrorCode().equals("200")){
+                                    list.remove(position);
+                                    adapter.notifyDataSetChanged();
+                                }
+                            }
+                        });
             }
         });
     }
@@ -185,9 +253,7 @@ public class MissionDoing extends Fragment {
     }
     private String initJsonData()
     {
-        String guid = ToolsUtils.getString(getContext(),Constant.LOGIN_GUID,"");
-        String mobile = ToolsUtils.getString(getContext(),Constant.MOBILE,"");
-        String key = ToolsUtils.getString(getContext(),Constant.KEY,"");
+
         Map<String,String> map = new HashMap<>();
         map.put("GUID",guid);
         map.put(Constant.MOBILE,mobile);

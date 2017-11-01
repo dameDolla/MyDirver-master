@@ -137,58 +137,58 @@ public class GetSRCBean {
          */
 
         private int billid;
-        private Object billsGUID;
-        private Object iscargo;
-        private Object owneridGUID;
-        private Object ownername;
-        private Object ownerphone;
+        private String billsGUID;
+        private String iscargo;
+        private String owneridGUID;
+        private String ownername;
+        private String ownerphone;
         private String fromSite;
         private String toSite;
         private String cargotype;
-        private Object qty;
-        private Object unit;
-        private Object companyGUID;
-        private Object company;
-        private Object driverGUID;
-        private Object drivername;
-        private Object driverphone;
-        private Object truckno;
-        private Object trucklength;
-        private Object trucktype;
-        private Object dealprice;
-        private Object deposit;
-        private Object imforfee;
-        private Object remark;
-        private Object load;
-        private Object loadfee;
-        private Object unload;
-        private Object unloadfee;
-        private Object waitfee;
-        private Object otherfee;
-        private Object feeremark;
-        private Object totalcharge;
+        private String qty;
+        private String unit;
+        private String companyGUID;
+        private String company;
+        private String driverGUID;
+        private String drivername;
+        private String driverphone;
+        private String truckno;
+        private String trucklength;
+        private String trucktype;
+        private String dealprice;
+        private String deposit;
+        private String imforfee;
+        private String remark;
+        private String load;
+        private String loadfee;
+        private String unload;
+        private String unloadfee;
+        private String waitfee;
+        private String otherfee;
+        private String feeremark;
+        private String totalcharge;
         private String preloadtime;
-        private Object loadtime;
-        private Object loadadd;
-        private Object prearrivetime;
-        private Object arrivedtime;
-        private Object arrivedadd;
-        private Object signby;
-        private Object signtime;
-        private Object signadd;
-        private Object loadwaittime;
-        private Object unloadwaittime;
-        private Object status;
+        private String loadtime;
+        private String loadadd;
+        private String prearrivetime;
+        private String arrivedtime;
+        private String arrivedadd;
+        private String signby;
+        private String signtime;
+        private String signadd;
+        private String loadwaittime;
+        private String unloadwaittime;
+        private String status;
         private String trucktypea;
         private String trucktypeb;
         private String trucktypec;
         private String trucktyped;
         private String trucktypef;
-        private Object ownerprice;
-        private Object ReleaseTime;
-        private Object TypeKCLX;
+        private String ownerprice;
+        private String ReleaseTime;
+        private String TypeKCLX;
         private int userid;
-        private Object GUID;
+        private String GUID;
         private String username;
         private String usertype;
         private String truename;
@@ -233,6 +233,33 @@ public class GetSRCBean {
         private String loadaddHZ;
         private String arrivedaddHZ;
         private String MyPriceStatus; //1 有报过价  0 没有报过价
+        private String InvoiceType; //是否需要发票
+        private String UploadReceipt; //上传签单
+        private String PaperReceipt; //纸质回单
+
+        public String getPaperReceipt() {
+            return PaperReceipt;
+        }
+
+        public void setPaperReceipt(String paperReceipt) {
+            PaperReceipt = paperReceipt;
+        }
+
+        public void setUploadReceipt(String uploadReceipt) {
+            UploadReceipt = uploadReceipt;
+        }
+
+        public String getUploadReceipt() {
+            return UploadReceipt;
+        }
+
+        public String getInvoiceType() {
+            return InvoiceType;
+        }
+
+        public void setInvoiceType(String invoiceType) {
+            InvoiceType = invoiceType;
+        }
 
         public String getMyPriceStatus() {
             return MyPriceStatus;
@@ -278,43 +305,43 @@ public class GetSRCBean {
             this.billid = billid;
         }
 
-        public Object getBillsGUID() {
+        public String getBillsGUID() {
             return billsGUID;
         }
 
-        public void setBillsGUID(Object billsGUID) {
+        public void setBillsGUID(String billsGUID) {
             this.billsGUID = billsGUID;
         }
 
-        public Object getIscargo() {
+        public String getIscargo() {
             return iscargo;
         }
 
-        public void setIscargo(Object iscargo) {
+        public void setIscargo(String iscargo) {
             this.iscargo = iscargo;
         }
 
-        public Object getOwneridGUID() {
+        public String getOwneridGUID() {
             return owneridGUID;
         }
 
-        public void setOwneridGUID(Object owneridGUID) {
+        public void setOwneridGUID(String owneridGUID) {
             this.owneridGUID = owneridGUID;
         }
 
-        public Object getOwnername() {
+        public String getOwnername() {
             return ownername;
         }
 
-        public void setOwnername(Object ownername) {
+        public void setOwnername(String ownername) {
             this.ownername = ownername;
         }
 
-        public Object getOwnerphone() {
+        public String getOwnerphone() {
             return ownerphone;
         }
 
-        public void setOwnerphone(Object ownerphone) {
+        public void setOwnerphone(String ownerphone) {
             this.ownerphone = ownerphone;
         }
 
@@ -342,179 +369,179 @@ public class GetSRCBean {
             this.cargotype = cargotype;
         }
 
-        public Object getQty() {
+        public String getQty() {
             return qty;
         }
 
-        public void setQty(Object qty) {
+        public void setQty(String qty) {
             this.qty = qty;
         }
 
-        public Object getUnit() {
+        public String getUnit() {
             return unit;
         }
 
-        public void setUnit(Object unit) {
+        public void setUnit(String unit) {
             this.unit = unit;
         }
 
-        public Object getCompanyGUID() {
+        public String getCompanyGUID() {
             return companyGUID;
         }
 
-        public void setCompanyGUID(Object companyGUID) {
+        public void setCompanyGUID(String companyGUID) {
             this.companyGUID = companyGUID;
         }
 
-        public Object getCompany() {
+        public String getCompany() {
             return company;
         }
 
-        public void setCompany(Object company) {
+        public void setCompany(String company) {
             this.company = company;
         }
 
-        public Object getDriverGUID() {
+        public String getDriverGUID() {
             return driverGUID;
         }
 
-        public void setDriverGUID(Object driverGUID) {
+        public void setDriverGUID(String driverGUID) {
             this.driverGUID = driverGUID;
         }
 
-        public Object getDrivername() {
+        public String getDrivername() {
             return drivername;
         }
 
-        public void setDrivername(Object drivername) {
+        public void setDrivername(String drivername) {
             this.drivername = drivername;
         }
 
-        public Object getDriverphone() {
+        public String getDriverphone() {
             return driverphone;
         }
 
-        public void setDriverphone(Object driverphone) {
+        public void setDriverphone(String driverphone) {
             this.driverphone = driverphone;
         }
 
-        public Object getTruckno() {
+        public String getTruckno() {
             return truckno;
         }
 
-        public void setTruckno(Object truckno) {
+        public void setTruckno(String truckno) {
             this.truckno = truckno;
         }
 
-        public Object getTrucklength() {
+        public String getTrucklength() {
             return trucklength;
         }
 
-        public void setTrucklength(Object trucklength) {
+        public void setTrucklength(String trucklength) {
             this.trucklength = trucklength;
         }
 
-        public Object getTrucktype() {
+        public String getTrucktype() {
             return trucktype;
         }
 
-        public void setTrucktype(Object trucktype) {
+        public void setTrucktype(String trucktype) {
             this.trucktype = trucktype;
         }
 
-        public Object getDealprice() {
+        public String getDealprice() {
             return dealprice;
         }
 
-        public void setDealprice(Object dealprice) {
+        public void setDealprice(String dealprice) {
             this.dealprice = dealprice;
         }
 
-        public Object getDeposit() {
+        public String getDeposit() {
             return deposit;
         }
 
-        public void setDeposit(Object deposit) {
+        public void setDeposit(String deposit) {
             this.deposit = deposit;
         }
 
-        public Object getImforfee() {
+        public String getImforfee() {
             return imforfee;
         }
 
-        public void setImforfee(Object imforfee) {
+        public void setImforfee(String imforfee) {
             this.imforfee = imforfee;
         }
 
-        public Object getRemark() {
+        public String getRemark() {
             return remark;
         }
 
-        public void setRemark(Object remark) {
+        public void setRemark(String remark) {
             this.remark = remark;
         }
 
-        public Object getLoad() {
+        public String getLoad() {
             return load;
         }
 
-        public void setLoad(Object load) {
+        public void setLoad(String load) {
             this.load = load;
         }
 
-        public Object getLoadfee() {
+        public String getLoadfee() {
             return loadfee;
         }
 
-        public void setLoadfee(Object loadfee) {
+        public void setLoadfee(String loadfee) {
             this.loadfee = loadfee;
         }
 
-        public Object getUnload() {
+        public String getUnload() {
             return unload;
         }
 
-        public void setUnload(Object unload) {
+        public void setUnload(String unload) {
             this.unload = unload;
         }
 
-        public Object getUnloadfee() {
+        public String getUnloadfee() {
             return unloadfee;
         }
 
-        public void setUnloadfee(Object unloadfee) {
+        public void setUnloadfee(String unloadfee) {
             this.unloadfee = unloadfee;
         }
 
-        public Object getWaitfee() {
+        public String getWaitfee() {
             return waitfee;
         }
 
-        public void setWaitfee(Object waitfee) {
+        public void setWaitfee(String waitfee) {
             this.waitfee = waitfee;
         }
 
-        public Object getOtherfee() {
+        public String getOtherfee() {
             return otherfee;
         }
 
-        public void setOtherfee(Object otherfee) {
+        public void setOtherfee(String otherfee) {
             this.otherfee = otherfee;
         }
 
-        public Object getFeeremark() {
+        public String getFeeremark() {
             return feeremark;
         }
 
-        public void setFeeremark(Object feeremark) {
+        public void setFeeremark(String feeremark) {
             this.feeremark = feeremark;
         }
 
-        public Object getTotalcharge() {
+        public String getTotalcharge() {
             return totalcharge;
         }
 
-        public void setTotalcharge(Object totalcharge) {
+        public void setTotalcharge(String totalcharge) {
             this.totalcharge = totalcharge;
         }
 
@@ -526,91 +553,91 @@ public class GetSRCBean {
             this.preloadtime = preloadtime;
         }
 
-        public Object getLoadtime() {
+        public String getLoadtime() {
             return loadtime;
         }
 
-        public void setLoadtime(Object loadtime) {
+        public void setLoadtime(String loadtime) {
             this.loadtime = loadtime;
         }
 
-        public Object getLoadadd() {
+        public String getLoadadd() {
             return loadadd;
         }
 
-        public void setLoadadd(Object loadadd) {
+        public void setLoadadd(String loadadd) {
             this.loadadd = loadadd;
         }
 
-        public Object getPrearrivetime() {
+        public String getPrearrivetime() {
             return prearrivetime;
         }
 
-        public void setPrearrivetime(Object prearrivetime) {
+        public void setPrearrivetime(String prearrivetime) {
             this.prearrivetime = prearrivetime;
         }
 
-        public Object getArrivedtime() {
+        public String getArrivedtime() {
             return arrivedtime;
         }
 
-        public void setArrivedtime(Object arrivedtime) {
+        public void setArrivedtime(String arrivedtime) {
             this.arrivedtime = arrivedtime;
         }
 
-        public Object getArrivedadd() {
+        public String getArrivedadd() {
             return arrivedadd;
         }
 
-        public void setArrivedadd(Object arrivedadd) {
+        public void setArrivedadd(String arrivedadd) {
             this.arrivedadd = arrivedadd;
         }
 
-        public Object getSignby() {
+        public String getSignby() {
             return signby;
         }
 
-        public void setSignby(Object signby) {
+        public void setSignby(String signby) {
             this.signby = signby;
         }
 
-        public Object getSigntime() {
+        public String getSigntime() {
             return signtime;
         }
 
-        public void setSigntime(Object signtime) {
+        public void setSigntime(String signtime) {
             this.signtime = signtime;
         }
 
-        public Object getSignadd() {
+        public String getSignadd() {
             return signadd;
         }
 
-        public void setSignadd(Object signadd) {
+        public void setSignadd(String signadd) {
             this.signadd = signadd;
         }
 
-        public Object getLoadwaittime() {
+        public String getLoadwaittime() {
             return loadwaittime;
         }
 
-        public void setLoadwaittime(Object loadwaittime) {
+        public void setLoadwaittime(String loadwaittime) {
             this.loadwaittime = loadwaittime;
         }
 
-        public Object getUnloadwaittime() {
+        public String getUnloadwaittime() {
             return unloadwaittime;
         }
 
-        public void setUnloadwaittime(Object unloadwaittime) {
+        public void setUnloadwaittime(String unloadwaittime) {
             this.unloadwaittime = unloadwaittime;
         }
 
-        public Object getStatus() {
+        public String getStatus() {
             return status;
         }
 
-        public void setStatus(Object status) {
+        public void setStatus(String status) {
             this.status = status;
         }
 
@@ -654,11 +681,11 @@ public class GetSRCBean {
             this.trucktypef = trucktypef;
         }
 
-        public Object getOwnerprice() {
+        public String getOwnerprice() {
             return ownerprice;
         }
 
-        public void setOwnerprice(Object ownerprice) {
+        public void setOwnerprice(String ownerprice) {
             this.ownerprice = ownerprice;
         }
 
@@ -670,19 +697,19 @@ public class GetSRCBean {
             this.driverdeposit = driverdeposit;
         }
 
-        public Object getReleaseTime() {
+        public String getReleaseTime() {
             return ReleaseTime;
         }
 
-        public void setReleaseTime(Object ReleaseTime) {
+        public void setReleaseTime(String ReleaseTime) {
             this.ReleaseTime = ReleaseTime;
         }
 
-        public Object getTypeKCLX() {
+        public String getTypeKCLX() {
             return TypeKCLX;
         }
 
-        public void setTypeKCLX(Object TypeKCLX) {
+        public void setTypeKCLX(String TypeKCLX) {
             this.TypeKCLX = TypeKCLX;
         }
 
@@ -694,11 +721,11 @@ public class GetSRCBean {
             this.userid = userid;
         }
 
-        public Object getGUID() {
+        public String getGUID() {
             return GUID;
         }
 
-        public void setGUID(Object GUID) {
+        public void setGUID(String GUID) {
             this.GUID = GUID;
         }
 

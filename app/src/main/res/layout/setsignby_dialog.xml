@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/create_user_dialog_view"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:minWidth="200dp"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:paddingBottom="30dp"
+    android:paddingTop="30dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请录入签收人的信息"
+        android:textColor="@color/black_6d"
+        android:textSize="@dimen/txt_18"
+        android:gravity="center"
+        android:paddingLeft="@dimen/txt_15dp"
+        android:paddingBottom="@dimen/txt_10dp"/>
+    <EditText
+        android:id="@+id/text_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_gray"
+        android:hint="签收人姓名"
+        android:paddingLeft="@dimen/txt_10dp"
+        android:minHeight="45dp"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/text_mobile"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/border_gray"
+        android:paddingLeft="@dimen/txt_10dp"
+        android:hint="签收人手机号"
+        android:minHeight="45dp"
+        android:textSize="18sp" />
+
+
+
+    <Button
+        android:id="@+id/btn_save_pop"
+        android:background="@drawable/login_bt_"
+        android:textColor="@color/white"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/txt_39dp"
+        android:layout_marginTop="5dp"
+        android:text="保存" />
+
+</LinearLayout>

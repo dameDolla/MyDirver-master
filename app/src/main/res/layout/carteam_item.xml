@@ -120,7 +120,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/carteam_item_ll"
-                    android:layout_alignParentRight="true"
+                    android:layout_toLeftOf="@+id/carteam_item_bind_ll"
                     android:layout_centerVertical="true">
                     <TextView
                         android:layout_width="match_parent"
@@ -130,6 +130,28 @@
                         android:textColor="@color/red"
                         android:textSize="@dimen/txt_14"
                         android:background="@drawable/red_stroke"
+                        android:paddingLeft="@dimen/txt_10dp"
+                        android:paddingRight="@dimen/txt_10dp"
+                        android:paddingTop="@dimen/txt_5dp"
+                        android:paddingBottom="@dimen/txt_5dp"
+                        android:layout_marginRight="@dimen/txt_15dp"
+                        android:gravity="center_vertical"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/carteam_item_bind_ll"
+                    android:visibility="gone"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="绑定"
+                        android:id="@+id/carteam_item_bind"
+                        android:textColor="@color/shen_blue"
+                        android:textSize="@dimen/txt_14"
+                        android:background="@drawable/blue_stroke"
                         android:paddingLeft="@dimen/txt_10dp"
                         android:paddingRight="@dimen/txt_10dp"
                         android:paddingTop="@dimen/txt_5dp"

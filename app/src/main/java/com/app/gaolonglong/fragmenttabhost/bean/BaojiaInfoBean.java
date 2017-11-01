@@ -25,11 +25,14 @@ public class BaojiaInfoBean implements Serializable {
     private String  ownerphone; //货主的电话
     private String  feeremark;
     private String  status; //报价状态
+    private String  ownerbill;//发货发货运单总数
+    private String  Bidder; // 出价人
+    private String  cargopriceState;//报价状态
 
     public BaojiaInfoBean(String totalchargeM,String priceM,String loadfeeM,String imforfee,String feeremarkM,
                           String UpdatePriceTime,String cargopricesGUID,String unloadfeeM,String otherfeeM,String price,
                           String loadfee,String unloadfee,String totalcharge,String AvatarAddress,String ownername,
-                          String ownerphone,String feeremark,String status)
+                          String ownerphone,String feeremark,String status,String ownerbill,String Bidder,String cargopriceState)
     {
         this.totalchargeM = totalchargeM;
         this.priceM = priceM;
@@ -49,7 +52,22 @@ public class BaojiaInfoBean implements Serializable {
         this.ownerphone = ownerphone;
         this.feeremark = feeremark;
         this.status = status;
+        this.ownerbill = ownerbill;
+        this.Bidder = Bidder;
+        this.cargopriceState = cargopriceState;
 
+    }
+
+    public String getBidder() {
+        return Bidder;
+    }
+
+    public String getCargopriceState() {
+        return cargopriceState;
+    }
+
+    public String getOwnerbill() {
+        return ownerbill;
     }
 
     public String getStatus() {

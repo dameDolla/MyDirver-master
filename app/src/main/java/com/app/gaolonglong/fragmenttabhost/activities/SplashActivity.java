@@ -19,6 +19,7 @@ import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
+import com.app.gaolonglong.fragmenttabhost.utils.ThreadManager;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 import com.app.gaolonglong.fragmenttabhost.view.CommomDialog;
 import com.luoxudong.app.threadpool.ThreadPoolHelp;
@@ -49,8 +50,6 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_page);
-
-
 
         getVersionConde();
         ToolsUtils.getInstance().requestPermission(SplashActivity.this);
@@ -113,6 +112,7 @@ public class SplashActivity extends BaseActivity {
                                     ToolsUtils.putString(SplashActivity.this,Constant.VCOMPANY,loginBean.getData().get(0).getVcompany()+"");
                                     ToolsUtils.putString(SplashActivity.this,Constant.USERNAME,loginBean.getData().get(0).getTruename()+"");
                                     ToolsUtils.putString(SplashActivity.this,Constant.COMPANYGUID,loginBean.getData().get(0).getCompanyGUID()+"");
+                                    ToolsUtils.putString(SplashActivity.this,Constant.DRIVERBILL,loginBean.getData().get(0).getDriverbill()+"");
 
                                     //ToolsUtils.getInstance().toastShowStr(SplashActivity.this,loginBean.getData().get(0).getAvatarAddress());
                                 }else if (loginBean.getErrorCode().equals("203"))
@@ -216,7 +216,7 @@ public class SplashActivity extends BaseActivity {
         //设置定位模式为AMapLocationMode.Battery_Saving，低功耗模式。
         mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Battery_Saving);
         //单位是毫秒，默认30000毫秒，建议超时时间不要低于8000毫秒。
-        //
+        mLocationOption.setInterval(10000);
         //给定位客户端对象设置定位参数mLocationOption.setHttpTimeOut(20000);
         mLocationClient.setLocationOption(mLocationOption);
 
@@ -224,7 +224,7 @@ public class SplashActivity extends BaseActivity {
         mLocationClient.setLocationListener(new AMapLocationListener() {
             @Override
             public void onLocationChanged(AMapLocation amapLocation) {
-                //Log.e("location",);
+                Log.e("location",amapLocation.getAddress());
                 String location = amapLocation.getLatitude()+","+amapLocation.getLongitude();
                 uploadLat(initJsonData(location));
                 ToolsUtils.putString(SplashActivity.this, Constant.CITY, amapLocation.getCity());
@@ -242,7 +242,7 @@ public class SplashActivity extends BaseActivity {
      */
     private void uploadLat(final String json)
     {
-        ThreadPoolHelp.Builder.cached().builder().execute(new Runnable() {
+        ThreadManager.getNormalPool().execute(new Runnable() {
             @Override
             public void run() {
                 RetrofitUtils.getRetrofitService()
@@ -280,7 +280,7 @@ public class SplashActivity extends BaseActivity {
     }
     private void  getVersionConde(){
         String versionCode = null;
-        ThreadPoolHelp.Builder.cached().builder().execute(new Runnable() {
+        ThreadManager.getNormalPool().execute(new Runnable() {
             @Override
             public void run() {
                 RetrofitUtils.getRetrofitService()
@@ -300,13 +300,14 @@ public class SplashActivity extends BaseActivity {
 
                             @Override
                             public void onNext(VersionCodeBean versionCodeBean) {
-                               checkUpdate(versionCodeBean);
+                                checkUpdate(versionCodeBean);
 
 
                             }
                         });
             }
         });
+
     }
     private void checkUpdate(VersionCodeBean versionCodeBean)
     {

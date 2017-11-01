@@ -93,6 +93,8 @@ public class LoginActivity extends BaseActivity {
                         ToolsUtils.putString(LoginActivity.this, Constant.HEADLOGO, data.get(0).getAvatarAddress());
                         ToolsUtils.putString(LoginActivity.this,Constant.COUNT,data.get(0).getMoney()+"");
                         ToolsUtils.putString(LoginActivity.this,Constant.COMPANYGUID,data.get(0).getCompanyGUID()+"");
+                        ToolsUtils.putString(LoginActivity.this,Constant.USERNAME,data.get(0).getTruename()+"");
+                        ToolsUtils.putString(LoginActivity.this,Constant.DRIVERBILL,data.get(0).getDriverbill()+"");
 
                     } catch (Exception e) {
                         e.printStackTrace();

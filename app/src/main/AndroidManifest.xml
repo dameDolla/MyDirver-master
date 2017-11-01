@@ -83,6 +83,10 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity android:name=".activities.FaPiaoSettingActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
         <!--无网络-->
         <activity android:name=".activities.NoNetWorkActivity"
             android:theme="@style/AppTheme">
@@ -269,6 +273,7 @@
         </activity>
         <!--填写报价信息表-->
         <activity android:name=".activities.BaojiaEditActivity"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
             android:theme="@style/AppTheme">
 
         </activity>

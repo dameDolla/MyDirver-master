@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/color_f2"
+    android:layout_height="match_parent">
+    <include layout="@layout/top_title"/>
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/txt_15dp"
+        android:layout_marginTop="@dimen/txt_39dp"
+        android:background="@drawable/baojia_edit_bg"
+        android:paddingLeft="@dimen/txt_10dp"
+        android:paddingTop="@dimen/txt_10dp"
+        android:paddingBottom="@dimen/txt_10dp"
+        android:id="@+id/fapiao_radiogroup"
+        android:layout_marginLeft="@dimen/txt_15dp">
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fapiao_pintai"
+            android:text="平台代开增值税发票"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/txt_5dp"
+            android:text="      不具备增值税开票资格。客户如需开具增值税发票，由平台在报价基础上向客户加收6%税点，代开增值税发票。"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/txt_10dp"
+            android:background="@color/color_f2"/>
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/txt_10dp"
+            android:id="@+id/fapiao_yourself"
+            android:text="自行向客户开具增值税发票"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/txt_5dp"
+            android:text="      具备增值税开票资格。客户如需开票，由我公司自行向客户开具增值税发票。向客户的报价为含税价。"/>
+    </RadioGroup>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/txt_39dp"
+        android:layout_marginRight="@dimen/txt_39dp"
+        android:layout_marginLeft="@dimen/txt_39dp"
+        android:layout_marginTop="@dimen/txt_39dp"
+        android:background="@drawable/login_bt_"
+        android:text="保存"
+        android:id="@+id/fapiao_save"
+        android:textColor="@color/white"
+        android:textSize="@dimen/txt_16"/>
+</LinearLayout>

@@ -26,9 +26,12 @@ public class IntroduceActivity extends BaseActivity {
     {
         WebView webView = (WebView) findViewById(R.id.intro_webview);
         String url = "http://mp.weixin.qq.com/s/3y9jffreSoTgcZv86f2hXg";
-        webView.loadUrl(url);
         WebSettings webSettings = webView.getSettings();
         webSettings.setAllowContentAccess(true);
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setBlockNetworkImage(false);
+        webView.loadUrl(url);
+
 
     }
 }

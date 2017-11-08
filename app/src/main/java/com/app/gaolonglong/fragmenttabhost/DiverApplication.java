@@ -45,6 +45,7 @@ public class DiverApplication extends Application {
         JPushInterface.init(this);
         CrashReport.initCrashReport(getApplicationContext(), Constant.BUGLYAPPID,true);
         Set<String> set = new HashSet<>();
+        Log.e("application",GetUserInfoUtils.getGuid(this));
         set.add(GetUserInfoUtils.getGuid(this));//名字任意，可多添加几个
         JPushInterface.setTags(this, set, null);//设置标签
 

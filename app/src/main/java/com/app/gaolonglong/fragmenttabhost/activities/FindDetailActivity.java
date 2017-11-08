@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -47,6 +48,8 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
     private ToSrcDetailBean bean;
     private GetSRCBean.DataBean data;
     private List<GetSRCBean.DataBean> list = new ArrayList<>();
+    private String billGuid;
+    private String flag;
 
     @OnClick(R.id.title_back)
     public void back()
@@ -98,6 +101,8 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
     private void initView()
     {
         bean = (ToSrcDetailBean) getIntent().getSerializableExtra("findSrc");
+        flag = TextUtils.isEmpty(getIntent().getStringExtra("flag"))?"":getIntent().getStringExtra("flag");
+        billGuid = bean.getBillsGUID();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -115,6 +120,9 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
         {
             submit.setVisibility(View.GONE);
         }
+        if (flag.equals("baojiaFragment")){
+            submit.setVisibility(View.GONE);
+        }
 
     }
     private void setViewVal(GetSRCBean src)
@@ -128,14 +136,16 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
         mText.get(7).setText(data.getTrucklengthHZ()+"/"+bean.getTrucktypeHZ());
         mText.get(10).setText(data.getOwnername()+"");
         mText.get(11).setText(data.getOwnerphone()+"");
+        mText.get(9).setText(data.getRemark()+"");
+        mText.get(12).setText("已发货"+data.getOwnerbill()+"次");
         if (data.getPaperReceipt().equals("1")){
-            need = need+"需要纸质回单/";
+            need = need+"纸质回单/";
         }
         if (data.getUploadReceipt().equals("1")){
-            need = need+"需要上传签收单/";
+            need = need+"上传签收单/";
         }
         if (data.getInvoiceType().equals("1")){
-            need = need+"需要发票";
+            need = need+"开发票";
         }
         mText.get(8).setText(need);
     }
@@ -147,9 +157,15 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
                 if (!GetUserInfoUtils.getVtrueName(FindDetailActivity.this).equals("9")){
                     ToolsUtils.getInstance().toastShowStr(FindDetailActivity.this,"请认证完成后再报价");
                 }else {
-                    Intent intent = new Intent(FindDetailActivity.this,BaojiaEditActivity.class);
-                    intent.putExtra("srcdetail",bean);
-                    startActivity(intent);
+                    if (bean.getMyPriceStatus().equals("1")){
+                        String str = "您已对该货源进行过报价，请到报价列表进行查看";
+                        ToolsUtils.getInstance().toastShowStr(FindDetailActivity.this,str);
+                    }else {
+                        Intent intent = new Intent(FindDetailActivity.this,BaojiaEditActivity.class);
+                        intent.putExtra("srcdetail",bean);
+                        startActivity(intent);
+                    }
+
                 }
                 break;
             case R.id.find_detail_fromsitell:
@@ -177,7 +193,7 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
         map.put("GUID",guid);
         map.put(Constant.MOBILE,mobile);
         map.put(Constant.KEY,key);
-        map.put("billsGUID",bean.getBillsGUID());
+        map.put("billsGUID",billGuid);
 
         return JsonUtils.getInstance().getJsonStr(map);
     }

@@ -98,7 +98,7 @@ public class SplashActivity extends BaseActivity {
                             public void onNext(LoginBean loginBean) {
                                // Log.e("splashinfo",loginBean.getErrorMsg()+"---"+loginBean.getErrorCode());
                                // ToolsUtils.getInstance().toastShowStr(SplashActivity.this,loginBean.getErrorCode());
-                                if (loginBean.getErrorCode().equals("202")) {
+                                if (loginBean.getErrorCode().equals("202")||loginBean.getErrorCode().equals("220")||loginBean.getErrorCode().equals("203")) {
                                     ToolsUtils.getInstance().loginOut(SplashActivity.this);
                                     startActivity(new Intent(SplashActivity.this,LoginActivity.class));
 
@@ -112,12 +112,12 @@ public class SplashActivity extends BaseActivity {
                                     ToolsUtils.putString(SplashActivity.this,Constant.VCOMPANY,loginBean.getData().get(0).getVcompany()+"");
                                     ToolsUtils.putString(SplashActivity.this,Constant.USERNAME,loginBean.getData().get(0).getTruename()+"");
                                     ToolsUtils.putString(SplashActivity.this,Constant.COMPANYGUID,loginBean.getData().get(0).getCompanyGUID()+"");
-                                    ToolsUtils.putString(SplashActivity.this,Constant.DRIVERBILL,loginBean.getData().get(0).getDriverbill()+"");
+                                    ToolsUtils.putString(SplashActivity.this,Constant.DRIVERBILL,loginBean.getData().get(0).getCargocount()+"");
+                                    ToolsUtils.putString(SplashActivity.this,Constant.FAPIAOTYPE,loginBean.getData().get(0).getMInvoiceType()+"");
+                                    ToolsUtils.putString(SplashActivity.this,"money",loginBean.getData().get(0).getMoney()+"");
+                                    ToolsUtils.putString(SplashActivity.this,"idcard",loginBean.getData().get(0).getIdcard()+"");
 
                                     //ToolsUtils.getInstance().toastShowStr(SplashActivity.this,loginBean.getData().get(0).getAvatarAddress());
-                                }else if (loginBean.getErrorCode().equals("203"))
-                                {
-                                    startActivity(new Intent(SplashActivity.this,LoginActivity.class));
                                 }
                                 //  toMain();
                             }
@@ -166,9 +166,9 @@ public class SplashActivity extends BaseActivity {
     private void toMain() {
         boolean isFirst = ToolsUtils.getBoolean(SplashActivity.this,Constant.iSFIRST,true);
         if (ToolsUtils.getInstance().isNetworkAvailable(SplashActivity.this)){
-            if (isFirst){
+            /*if (isFirst){
                 intent = new Intent(SplashActivity.this, GuidActivity.class);
-            }else {
+            }else {*/
                 if (ToolsUtils.getInstance().isLogin(SplashActivity.this))
                 {
                     intent = new Intent(SplashActivity.this,MainActivity.class);
@@ -177,9 +177,10 @@ public class SplashActivity extends BaseActivity {
                     intent = new Intent(SplashActivity.this,LoginActivity.class);
                 }
 
-            }
+            /*}*/
         }else {
             intent = new Intent(SplashActivity.this,NoNetWorkActivity.class);
+
         }
 
         /*if (!ToolsUtils.getInstance().isNetworkAvailable(SplashActivity.this)){
@@ -214,9 +215,9 @@ public class SplashActivity extends BaseActivity {
         //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式。
         mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
         //设置定位模式为AMapLocationMode.Battery_Saving，低功耗模式。
-        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Battery_Saving);
+       // mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Battery_Saving);
         //单位是毫秒，默认30000毫秒，建议超时时间不要低于8000毫秒。
-        mLocationOption.setInterval(10000);
+        mLocationOption.setInterval(2000);
         //给定位客户端对象设置定位参数mLocationOption.setHttpTimeOut(20000);
         mLocationClient.setLocationOption(mLocationOption);
 

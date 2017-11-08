@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,7 +16,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -33,15 +37,23 @@ import com.app.gaolonglong.fragmenttabhost.bean.RequestPostBody;
 import com.app.gaolonglong.fragmenttabhost.bean.UpdateIdCardBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.LoadingDialog;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
+import com.app.gaolonglong.fragmenttabhost.utils.ThreadManager;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.luoxudong.app.threadpool.ThreadPoolHelp;
 
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,6 +106,11 @@ public class PersonalRenzhengActivity extends BaseActivity implements View.OnCli
     @BindViews({R.id.renzheng_head,R.id.card_face,R.id.card_back,R.id.person_with_card,R.id.personal_jsz})
     public List<ImageView> icon;
 
+    /*@BindView(R.id.renzheng_head)
+    public SimpleDraweeView head;*/
+    @BindView(R.id.renzheng_logo)
+    public SimpleDraweeView logo;
+
     @BindViews({R.id.top_title,R.id.cargroup_next})
     public List<TextView> mText;
 
@@ -133,12 +150,68 @@ public class PersonalRenzhengActivity extends BaseActivity implements View.OnCli
         icon.get(3).setOnClickListener(this);
         icon.get(4).setOnClickListener(this);
         mText.get(1).setOnClickListener(this);
+        String url = ToolsUtils.getString(PersonalRenzhengActivity.this,Constant.HEADLOGO,"");
+       /* try {
+            URL thumb_u = new URL(url);
+            Drawable thumb_d = Drawable.createFromStream(thumb_u.openStream(), "src");
+            icon.get(0).setImageDrawable(thumb_d);
+        }
+        catch (Exception e) {
+            // handle it
+        }*/
+       /*Log.e("bitmap",url);
+        Bitmap bitmap = getHttpBitmap(url);
+       icon.get(0).setImageBitmap(bitmap);*/
+
+        //ToolsUtils.setImageFromUrl(ToolsUtils.getString(PersonalRenzhengActivity.this,Constant.HEADLOGO,""),icon.get(0));
+        mEdit.get(0).setText(GetUserInfoUtils.getUserName(PersonalRenzhengActivity.this));
+        mEdit.get(1).setText(GetUserInfoUtils.getIdCard(PersonalRenzhengActivity.this));
+        //logo.setImageURI(Uri.parse(ToolsUtils.getString(PersonalRenzhengActivity.this,Constant.HEADLOGO,"")));
         dialog = LoadingDialog.showDialog(PersonalRenzhengActivity.this);
 
         guid = ToolsUtils.getString(PersonalRenzhengActivity.this, Constant.LOGIN_GUID,"");
         key = ToolsUtils.getString(PersonalRenzhengActivity.this, Constant.KEY, "");
         mobile = ToolsUtils.getString(PersonalRenzhengActivity.this, Constant.MOBILE,"");
+        if (!GetUserInfoUtils.getVtrueName(PersonalRenzhengActivity.this).equals("0")){
+            if (!TextUtils.isEmpty(url)){
+                getHttpBitmap(url,icon.get(0),0);
+            }
+            getHttpBitmap(GetUserInfoUtils.getImg(guid,"2"),icon.get(1),1);
+            getHttpBitmap(GetUserInfoUtils.getImg(guid,"3"),icon.get(2),2);
+            getHttpBitmap(GetUserInfoUtils.getImg(guid,"15"),icon.get(3),3);
+            getHttpBitmap(GetUserInfoUtils.getImg(guid,"4"),icon.get(4),4);
+        }
+
+        mEdit.get(1).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() == 18){
+                    String idcard = mEdit.get(1).getText().toString();
+                    try {
+                        String str = ToolsUtils.IDCardValidate(idcard);
+                        if (!TextUtils.isEmpty(str)){
+                            mEdit.get(1).selectAll();
+                            ToolsUtils.getInstance().toastShowStr(PersonalRenzhengActivity.this,str);
+                        }
+
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
+
 
     @Override
     public void onClick(View view) {
@@ -220,10 +293,13 @@ public class PersonalRenzhengActivity extends BaseActivity implements View.OnCli
                         public void onNext(GetCodeBean s) {
                             dialog.dismiss();
                             String code = s.getErrorCode();
+                            String msg = s.getErrorMsg();
+                            ToolsUtils.getInstance().toastShowStr(PersonalRenzhengActivity.this,msg);
                             if(code.equals("200") )
                             {
-
+                                ToolsUtils.putString(PersonalRenzhengActivity.this,Constant.VTRUENAME,"1");
                                 startActivity(new Intent(PersonalRenzhengActivity.this,PersonalRenzheng2Activity.class));
+                                finish();
                             }
 
                         }
@@ -354,6 +430,7 @@ public class PersonalRenzhengActivity extends BaseActivity implements View.OnCli
                     }
                     else
                     {
+                        logo.setVisibility(View.GONE);
                         icon.get(position).setImageBitmap( ToolsUtils.centerSquareScaleBitmap(bitmap,120));
                     }
 
@@ -383,6 +460,7 @@ public class PersonalRenzhengActivity extends BaseActivity implements View.OnCli
                     }
                     else
                     {
+                        logo.setVisibility(View.GONE);
                         icon.get(position).setImageBitmap( ToolsUtils.centerSquareScaleBitmap(bitmap,120));
                     }
                     file = ToolsUtils.compressImage(BitmapFactory.decodeFile(picPath));
@@ -468,4 +546,68 @@ public class PersonalRenzhengActivity extends BaseActivity implements View.OnCli
                     }
                 });
     }
+    /**
+     * 从服务器取图片
+     *http://bbs.3gstdy.com
+     * @param url
+     * @return
+     */
+    public void getHttpBitmap(final String url, final ImageView iv, final int position) {
+
+        ThreadManager.getNormalPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                URL myFileUrl = null;
+                Bitmap bitmap = null;
+                try {
+                    //Log.d(TAG, url);
+                    myFileUrl = new URL(url);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    HttpURLConnection conn = (HttpURLConnection) myFileUrl.openConnection();
+                    conn.setConnectTimeout(0);
+                    conn.setDoInput(true);
+                    conn.connect();
+                    InputStream is = conn.getInputStream();
+                    bitmap = BitmapFactory.decodeStream(is);
+                    is.close();
+                    final Bitmap finalBitmap = bitmap;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            if (finalBitmap.getByteCount() != 0){
+                                if (position == 0){
+                                    Log.e("bytecount0",finalBitmap.getByteCount()+"");
+                                    iv.setImageBitmap(ToolsUtils.zoomImg(finalBitmap,40,40));
+                                }else if (position == 1){
+                                    iv.setImageBitmap(ToolsUtils.zoomImg(finalBitmap,200,200));
+                                }else if (position == 2){
+                                    Log.e("bytecount1",finalBitmap.getByteCount()+"");
+                                    iv.setImageBitmap(ToolsUtils.zoomImg(finalBitmap,200,200));
+                                }else if (position == 3){
+                                    Log.e("bytecount2",finalBitmap.getByteCount()+"");
+                                    iv.setImageBitmap(ToolsUtils.zoomImg(finalBitmap,200,200));
+                                }else if (position == 4){
+                                    Log.e("bytecount3",finalBitmap.getByteCount()+"");
+                                    iv.setImageBitmap(ToolsUtils.zoomImg(finalBitmap,200,200));
+                                }
+                            }else {
+                                iv.setImageResource(R.mipmap.pic);
+                            }
+
+
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+        //return bitmap;
+    }
+
 }

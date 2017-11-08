@@ -160,12 +160,14 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
         adapter.setOnItemClickListener(new FindSrcAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, ToSrcDetailBean bean) {
+
                 if (isRenzheng) {
                     Intent intent = new Intent(getContext(), FindDetailActivity.class);
                     intent.putExtra("findSrc", bean);
                     startActivity(intent);
                 } else {
                     ToolsUtils.getInstance().toastShowStr(getContext(), "请先通过认证");
+
                    /*CommomDialog dialog =  new CommomDialog(getContext(), R.style.dialog, "您暂时还未通过认证，现在需要去认证吗?", new CommomDialog.OnCloseListener() {
                         @Override
                         public void onClick(Dialog dialog, boolean confirm) {
@@ -187,9 +189,9 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
             @Override
             public void onFindClick(int position, String tel) {
                 if (isRenzheng) {
-                    ToolsUtils.getInstance().toastShowStr(getContext(),tel);
-                    /*Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + list.get(position).getOwnerphone()));
-                    startActivity(intent);*/
+                    //ToolsUtils.getInstance().toastShowStr(getContext(),tel);
+                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + list.get(position).getOwnerphone()));
+                    startActivity(intent);
                 } else {
                     ToolsUtils.getInstance().toastShowStr(getContext(), "请先通过认证");
                 }

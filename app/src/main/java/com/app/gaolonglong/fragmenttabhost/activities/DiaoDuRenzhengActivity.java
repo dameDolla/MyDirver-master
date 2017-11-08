@@ -14,7 +14,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -32,15 +34,23 @@ import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
 import com.app.gaolonglong.fragmenttabhost.bean.UpdateIdCardBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.LoadingDialog;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
+import com.app.gaolonglong.fragmenttabhost.utils.ThreadManager;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.luoxudong.app.threadpool.ThreadPoolHelp;
 
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,6 +100,11 @@ public class DiaoDuRenzhengActivity extends BaseActivity implements View.OnClick
     @BindViews({R.id.top_title,R.id.cargroup_next})
     public List<TextView> mText;
 
+   /* @BindView(R.id.renzheng_heads)
+    public SimpleDraweeView head;*/
+   /*@BindView(R.id.renzheng_logo)
+   public SimpleDraweeView logo;*/
+
     @BindViews({R.id.cargroup_name,R.id.cargroup_num})
     public List<EditText> mEdit;
     private String guid;
@@ -120,18 +135,58 @@ public class DiaoDuRenzhengActivity extends BaseActivity implements View.OnClick
 
     private void initView()
     {
+        //SimpleDraweeView logo = (SimpleDraweeView) findViewById(R.id.renzheng_logo);
         mText.get(0).setText("车队调度认证");
         upload_head.setOnClickListener(this);
         icon.get(1).setOnClickListener(this);
         icon.get(2).setOnClickListener(this);
         icon.get(3).setOnClickListener(this);
         mText.get(1).setOnClickListener(this);
-
+        mEdit.get(0).setText(GetUserInfoUtils.getUserName(DiaoDuRenzhengActivity.this));
+        mEdit.get(1).setText(GetUserInfoUtils.getIdCard(DiaoDuRenzhengActivity.this));
+       //logo.setImageURI(Uri.parse(ToolsUtils.getString(DiaoDuRenzhengActivity.this,Constant.HEADLOGO,"")));
         dialog = LoadingDialog.showDialog(DiaoDuRenzhengActivity.this);
 
         guid = ToolsUtils.getString(DiaoDuRenzhengActivity.this, Constant.LOGIN_GUID,"");
         key = ToolsUtils.getString(DiaoDuRenzhengActivity.this, Constant.KEY,"");
         mobile = ToolsUtils.getString(DiaoDuRenzhengActivity.this, Constant.MOBILE,"");
+        String url = ToolsUtils.getString(DiaoDuRenzhengActivity.this,Constant.HEADLOGO,"");
+        if (!GetUserInfoUtils.getVtrueName(DiaoDuRenzhengActivity.this).equals("0")){
+            if (!TextUtils.isEmpty(url)){
+                getHttpBitmap(url,icon.get(0),0);
+            }
+            getHttpBitmap(GetUserInfoUtils.getImg(guid,"2"),icon.get(1),1);
+            getHttpBitmap(GetUserInfoUtils.getImg(guid,"3"),icon.get(2),2);
+            getHttpBitmap(GetUserInfoUtils.getImg(guid,"15"),icon.get(3),3);
+        }
+
+        mEdit.get(1).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() == 18){
+                    String idcard = mEdit.get(1).getText().toString();
+                    try {
+                        String str = ToolsUtils.IDCardValidate(idcard);
+                        if (!TextUtils.isEmpty(str)){
+                            mEdit.get(1).selectAll();
+                            ToolsUtils.getInstance().toastShowStr(DiaoDuRenzhengActivity.this,str);
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -167,8 +222,8 @@ public class DiaoDuRenzhengActivity extends BaseActivity implements View.OnClick
     private void next()
     {
         //dialog.show();
-        String name = mEdit.get(0).getText().toString();
-        String num = mEdit.get(1).getText().toString();
+        final String name = mEdit.get(0).getText().toString();
+        final String num = mEdit.get(1).getText().toString();
         // startActivity(new Intent(DiaoDuRenzhengActivity.this,CarGroupRenzheng2Activity.class));
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(num))
         {
@@ -214,8 +269,12 @@ public class DiaoDuRenzhengActivity extends BaseActivity implements View.OnClick
                             String code = s.getErrorCode();
                             if(code.equals("200") )
                             {
+                                ToolsUtils.putString(DiaoDuRenzhengActivity.this,Constant.USERNAME,name);
+                                ToolsUtils.putString(DiaoDuRenzhengActivity.this,"idcard",num);
 
+                                ToolsUtils.putString(DiaoDuRenzhengActivity.this,Constant.VTRUENAME,"1");
                                 startActivity(new Intent(DiaoDuRenzhengActivity.this,DiaoduRenzheng2Activity.class));
+                                finish();
                             }
                         }
                     });
@@ -456,5 +515,59 @@ public class DiaoDuRenzhengActivity extends BaseActivity implements View.OnClick
 
                     }
                 });
+    }
+    /**
+     * 从服务器取图片
+     *http://bbs.3gstdy.com
+     * @param url
+     * @return
+     */
+    public void getHttpBitmap(final String url, final ImageView iv, final int position) {
+
+        ThreadManager.getNormalPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                URL myFileUrl = null;
+                Bitmap bitmap = null;
+                try {
+                    //Log.d(TAG, url);
+                    myFileUrl = new URL(url);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    HttpURLConnection conn = (HttpURLConnection) myFileUrl.openConnection();
+                    conn.setConnectTimeout(0);
+                    conn.setDoInput(true);
+                    conn.connect();
+                    InputStream is = conn.getInputStream();
+                    bitmap = BitmapFactory.decodeStream(is);
+                    is.close();
+                    final Bitmap finalBitmap = bitmap;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (finalBitmap.getByteCount() != 0){
+                                if (position == 0){
+                                    iv.setImageBitmap(ToolsUtils.zoomImg(finalBitmap,100,100));
+                                }else if (position == 1){
+                                    iv.setImageBitmap(ToolsUtils.zoomImg(finalBitmap,200,200));
+                                }else if (position == 2){
+                                    iv.setImageBitmap(ToolsUtils.zoomImg(finalBitmap,200,200));
+                                }else if (position == 3){
+                                    iv.setImageBitmap(ToolsUtils.zoomImg(finalBitmap,200,200));
+                                }
+                            }
+
+
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+        //return bitmap;
     }
 }

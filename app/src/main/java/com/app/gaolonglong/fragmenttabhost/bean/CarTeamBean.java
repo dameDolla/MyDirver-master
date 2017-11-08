@@ -156,6 +156,21 @@ public class CarTeamBean {
         private String SecreKeyDateTime;
         private Object AvatarAddress;
         private int PageNum;
+        private String TruckWeight;
+        private String TruckWidth;
+        private String TruckHeight;
+
+        public String getTruckHeight() {
+            return TruckHeight;
+        }
+
+        public String getTruckWidth() {
+            return TruckWidth;
+        }
+
+        public String getTruckWeight() {
+            return TruckWeight;
+        }
 
         public int getTruckid() {
             return truckid;

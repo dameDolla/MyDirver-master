@@ -87,7 +87,7 @@ public class MyCarTeamActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void initView() {
-        flag = getIntent().getStringExtra("flag");
+        flag = TextUtils.isEmpty(getIntent().getStringExtra("flag"))?"mine":getIntent().getStringExtra("flag");
         missionguid = getIntent().getStringExtra("missionguid");
         icon.setVisibility(View.VISIBLE);
         icon.setOnClickListener(this);
@@ -112,7 +112,7 @@ public class MyCarTeamActivity extends BaseActivity implements View.OnClickListe
         }
         adapter.setCarteamClick(new CarTeamAdapter.carteamClick() {
             @Override
-            public void OnCarteamClick(final String truckguid, String flags) {
+            public void OnCarteamClick(final String trucktype, final String truckno, final String trucklength, final String truckguid, String flags) {
                 String str = "";
                 if (flags.equals("del")) {
                     str = "您确定要删除这辆车吗?";
@@ -133,7 +133,7 @@ public class MyCarTeamActivity extends BaseActivity implements View.OnClickListe
                         public void onClick(Dialog dialog, boolean confirm) {
                             dialog.dismiss();
                             if (confirm) {
-                                bindCar(truckguid);
+                                bindCar(truckno,trucktype,trucklength);
                             }
                         }
                     }).setTitle("提示").show();
@@ -199,7 +199,7 @@ public class MyCarTeamActivity extends BaseActivity implements View.OnClickListe
                                 }
 
                             }
-                        } else {
+                        } else if (flag.equals("mine")){
                             list.addAll(carTeamBean.getData());
                         }
                         adapter.notifyDataSetChanged();
@@ -246,15 +246,17 @@ public class MyCarTeamActivity extends BaseActivity implements View.OnClickListe
         finish();
     }
 
-    private void bindCar(String truckguid) {
+    private void bindCar(final String truckno, String trucktype, String trucklength) {
         Map<String, String> map = new HashMap<>();
         map.put("GUID", GetUserInfoUtils.getGuid(MyCarTeamActivity.this));
         map.put(Constant.MOBILE, GetUserInfoUtils.getMobile(MyCarTeamActivity.this));
         map.put(Constant.KEY, GetUserInfoUtils.getKey(MyCarTeamActivity.this));
         map.put("billsGUID", missionguid);
-        map.put("trucksGUID", truckguid);
+        map.put("truckno", truckno);
+        map.put("trucktype", trucktype);
+        map.put("trucklength", trucklength);
         RetrofitUtils.getRetrofitService()
-                .bindCar("", Config.BINDCAR, JsonUtils.getInstance().getJsonStr(map))
+                .bindCar(Constant.MYINFO_PAGENAME, Config.BINDCAR, JsonUtils.getInstance().getJsonStr(map))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<GetCodeBean>() {
@@ -273,7 +275,7 @@ public class MyCarTeamActivity extends BaseActivity implements View.OnClickListe
                         ToolsUtils.getInstance().toastShowStr(MyCarTeamActivity.this, getCodeBean.getErrorMsg());
                         if (getCodeBean.getErrorCode().equals("200")) {
                             Intent intent = new Intent();
-                            intent.putExtra("truckno", "");
+                            intent.putExtra("truckno", truckno);
                             setResult(111, intent);
                             finish();
                         }

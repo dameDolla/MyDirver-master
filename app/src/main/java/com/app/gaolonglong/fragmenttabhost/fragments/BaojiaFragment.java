@@ -18,10 +18,13 @@ import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.activities.BaojiaDetailActivity;
+import com.app.gaolonglong.fragmenttabhost.activities.BaojiaEditActivity;
+import com.app.gaolonglong.fragmenttabhost.activities.FindDetailActivity;
 import com.app.gaolonglong.fragmenttabhost.adapter.BaojiaListAdapter;
 import com.app.gaolonglong.fragmenttabhost.bean.BaojiaInfoBean;
 import com.app.gaolonglong.fragmenttabhost.bean.BaojiaListBean;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
+import com.app.gaolonglong.fragmenttabhost.bean.ToSrcDetailBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
@@ -114,7 +117,7 @@ public class BaojiaFragment extends Fragment implements View.OnClickListener{
     }
 
     private void initView() {
-        Log.e("threadname111",Thread.currentThread().getName());
+        //Log.e("threadname111",Thread.currentThread().getName());
         guid = ToolsUtils.getString(getContext(), Constant.LOGIN_GUID, "");
         mobile = ToolsUtils.getString(getContext(), Constant.MOBILE, "");
         key = ToolsUtils.getString(getContext(), Constant.KEY, "");
@@ -135,6 +138,7 @@ public class BaojiaFragment extends Fragment implements View.OnClickListener{
         MyLinearLayoutManager manager = new MyLinearLayoutManager(getContext());
         rcl.setLayoutManager(manager);
         rcl.setAdapter(adapter);
+        rcl.setHasFixedSize(true);
         rcl.setNestedScrollingEnabled(false);
 
         ThreadManager.getNormalPool().execute(new MyRunnabel());
@@ -142,7 +146,7 @@ public class BaojiaFragment extends Fragment implements View.OnClickListener{
 
         adapter.setOnclick(new BaojiaListAdapter.OnClickListener() {
             @Override
-            public void onOlick(int postion, String tel, String caragoGUID, String time, String flag) {
+            public void onOlick(int postion, String tel, String caragoGUID, String time, String flag, ToSrcDetailBean bean) {
                 if (flag.equals("phone")) {
                     Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + list.get(postion).getOwnerphone()));//跳转到拨号界面，同时传递电话号码
                     startActivity(dialIntent);
@@ -162,14 +166,40 @@ public class BaojiaFragment extends Fragment implements View.OnClickListener{
                     map.put("cargopricesGUID", list.get(postion).getCargoPricesGUID() + "");
                     map.put("UpdatePriceTime", list.get(postion).getUpdatePriceTime());
                     cancel(JsonUtils.getInstance().getJsonStr(map), postion);
+                }else if (flag.equals("cxbj")){
+                    Intent intent = new Intent(getContext(), BaojiaEditActivity.class);
+                    intent.putExtra("srcdetail",bean);
+                    intent.putExtra("flag","baojiaFragment");
+                    intent.putExtra("baojiastatus",list.get(postion).getCargoPriceState());
+                    intent.putExtra("Bidder",list.get(postion).getBidder());
+                    intent.putExtra("cargopricesGUID",list.get(postion).getCargoPricesGUID());
+                    intent.putExtra("UpdatePriceTime",list.get(postion).getUpdatePriceTime());
+                    intent.putExtra("msg",list.get(postion).getFeeremark());
+                    startActivity(intent);
+                }else if (flag.equals("ckhy")){
+
+                    Intent intent = new Intent(getContext(), FindDetailActivity.class);
+                    intent.putExtra("findSrc", bean);
+                    intent.putExtra("flag","baojiaFragment");
+                    startActivity(intent);
+
                 }
             }
         });
         adapter.setItemClick(new BaojiaListAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, BaojiaInfoBean bean) {
-                Intent intent = new Intent(getContext(), BaojiaDetailActivity.class);
+            public void onItemClick(View view, ToSrcDetailBean bean,int position) {
+                /*Intent intent = new Intent(getContext(), BaojiaDetailActivity.class);
                 intent.putExtra("baojaiInfo", bean);
+                startActivity(intent);*/
+                Intent intent = new Intent(getContext(), BaojiaEditActivity.class);
+                intent.putExtra("srcdetail",bean);
+                intent.putExtra("flag","baojiaFragment");
+                intent.putExtra("baojiastatus",list.get(position).getCargoPriceState());
+                intent.putExtra("Bidder",list.get(position).getBidder());
+                intent.putExtra("cargopricesGUID",list.get(position).getCargoPricesGUID());
+                intent.putExtra("UpdatePriceTime",list.get(position).getUpdatePriceTime());
+                intent.putExtra("msg",list.get(position).getFeeremark());
                 startActivity(intent);
                 //ToolsUtils.getInstance().toastShowStr(getContext(),bean.getCargopricesGUID());
             }
@@ -251,12 +281,12 @@ public class BaojiaFragment extends Fragment implements View.OnClickListener{
     }
 
 
-
+    private String listType = "";
     private class MyRunnabel implements Runnable {
         @Override
         public void run() {
            //getBaojiaList(json.toString());
-            Log.e("threadname2",Thread.currentThread().getName());
+            //Log.e("threadname2",Thread.currentThread().getName());
             RetrofitUtils.getRetrofitService()
                     .getBaojiaList(Constant.PRICE_PAGENAME, Config.GET_BAOJIALIST, json.toString())
                     .subscribeOn(Schedulers.io())
@@ -275,7 +305,7 @@ public class BaojiaFragment extends Fragment implements View.OnClickListener{
                         @Override
                         public void onNext(BaojiaListBean baojiaListBean) {
                             list.clear();
-                            String listType = "";
+
                             if (!GetUserInfoUtils.getUserType(getContext()).equals("3")) {
                                 int listSize = (baojiaListBean.getData().size());
                                 if (SELECT == 0){
@@ -299,9 +329,11 @@ public class BaojiaFragment extends Fragment implements View.OnClickListener{
                                 //empty.setNoDataContent("没有数据");
                                 //empty.setErrorType(EmptyLayout.NODATA);
                             } else {
-
+                                main.setVisibility(View.VISIBLE);
+                                empty.setVisibility(View.GONE);
                                 adapter.notifyDataSetChanged();
                             }
+
                         }
                     });
         }

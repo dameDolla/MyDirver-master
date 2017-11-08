@@ -109,13 +109,12 @@ public class FindSrcAdapter extends RecyclerView.Adapter implements View.OnClick
 
         if (mOnItemClickListener != null) {
 
-        new Thread(new Runnable() {
+        /*new Thread(new Runnable() {
 
             @Override
-            public void run() {
+            public void run() {*/
                 ToSrcDetailBean bean = new ToSrcDetailBean(
-                        list.get((int)view.getTag()).getFromSite(),
-                        list.get((int)view.getTag()).getToSite(),
+
                         list.get((int)view.getTag()).getOwnername()+"",
                         list.get((int)view.getTag()).getCargotype(),
                         list.get((int)view.getTag()).getPreloadtime(),
@@ -124,17 +123,13 @@ public class FindSrcAdapter extends RecyclerView.Adapter implements View.OnClick
                         list.get((int)view.getTag()).getQty()+"",
                         list.get((int)view.getTag()).getUnit()+"",
                         list.get((int)view.getTag()).getOwnerphone()+"",
-                        list.get((int)view.getTag()).getDriverdeposit(),
                         list.get((int)view.getTag()).getOwneridGUID()+"",
                         list.get((int)view.getTag()).getBillsGUID()+"",
                         list.get((int)view.getTag()).getDriverGUID()+"",
                         list.get((int)view.getTag()).getDrivername()+"",
                         list.get((int)view.getTag()).getCompanyGUID()+"",
-                        list.get((int)view.getTag()).getCompany()+"",
                         list.get((int)view.getTag()).getTruckno()+"",
                         list.get((int)view.getTag()).getTrucklength()+"",
-                        list.get((int)view.getTag()).getLoad()+"",
-                        list.get((int)view.getTag()).getUnload()+"",
                         list.get((int)view.getTag()).getFromDetailedAddress()+"",
                         list.get((int)view.getTag()).getToDetailedAddress()+"",
                         list.get((int)view.getTag()).getTrucklengthHZ()+"",
@@ -144,13 +139,16 @@ public class FindSrcAdapter extends RecyclerView.Adapter implements View.OnClick
                         list.get((int)view.getTag()).getArrivedaddHZ()+"",
                         list.get((int)view.getTag()).getInvoiceType()+"",
                         list.get((int)view.getTag()).getUploadReceipt()+"",
-                        list.get((int)view.getTag()).getPaperReceipt()+""
-
+                        list.get((int)view.getTag()).getPaperReceipt()+"",
+                        list.get((int)view.getTag()).getCompany(),
+                        list.get((int)view.getTag()).getMyPriceStatus(),
+                        list.get((int)view.getTag()).getOwnerbill(),
+                        list.get((int)view.getTag()).getRemark()
                 );
                 //注意这里使用getTag方法获取position
                 mOnItemClickListener.onItemClick(view,bean);
-            }
-        }).start();
+           /* }*/
+       /* }).start();*/
 
 
         }

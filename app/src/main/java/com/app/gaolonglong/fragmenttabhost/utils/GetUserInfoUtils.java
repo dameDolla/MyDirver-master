@@ -23,8 +23,40 @@ public class GetUserInfoUtils {
     {
         return ToolsUtils.getString(context,Constant.USERNAME,"");
     }
+
+    /**
+     * 获取身份证号
+     * @param context
+     * @return
+     */
+    public static String getIdCard(Context context){
+        return ToolsUtils.getString(context,"idcard","");
+    }
+    /**
+     * 获取钱包余额
+     * @param context
+     * @return
+     */
+    public static String getMoney(Context context){
+        return ToolsUtils.getString(context,"money","");
+    }
+
+    /**
+     * 获取设置的发票类型
+     * @param context
+     * @return
+     */
     public static String getFapiaoType(Context context){
         return ToolsUtils.getString(context,Constant.FAPIAOTYPE,"");
+    }
+
+    /**
+     * 获取接单次数
+     * @param context
+     * @return
+     */
+    public static String getDriverbill(Context context){
+        return ToolsUtils.getString(context,Constant.DRIVERBILL,"");
     }
     /**
      * 获取公司guid

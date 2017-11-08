@@ -38,7 +38,7 @@ public class CarTeamAdapter extends RecyclerView.Adapter{
         this.flag = flag;
     }
     public interface carteamClick{
-         void OnCarteamClick(String truckguid,String flags);
+         void OnCarteamClick(String trucktype,String truckno,String trucklength,String truckguid,String flags);
     }
     public void setCarteamClick(carteamClick onclick)
     {
@@ -59,7 +59,10 @@ public class CarTeamAdapter extends RecyclerView.Adapter{
         String vtruck = data.getVtruck()+"";
         mHolder.carNum.setText(data.getTruckno());
         mHolder.type.setText(data.getTrucktype());
-        mHolder.length.setText(data.getTrucklength());
+        mHolder.length.setText("长"+data.getTrucklength());
+        mHolder.weight.setText("重"+data.getTruckWeight());
+        mHolder.kuan.setText("宽"+data.getTruckWidth());
+        mHolder.gao.setText("高"+data.getTruckHeight());
         mHolder.logo.setImageURI(Uri.parse(data.getTruckImg()));
         if (vtruck.equals("0")) { //未认证
             mHolder.status.setText("未认证");
@@ -77,13 +80,13 @@ public class CarTeamAdapter extends RecyclerView.Adapter{
         mHolder.del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onclick.OnCarteamClick(data.getTrucksGUID(),"del");
+                onclick.OnCarteamClick(data.getTrucktype(),data.getTruckno(),data.getTrucklength(),data.getTrucksGUID(),"del");
             }
         });
         mHolder.bind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onclick.OnCarteamClick(data.getTrucksGUID(),"bind");
+                onclick.OnCarteamClick(data.getTrucktype(),data.getTruckno(),data.getTrucklength(),data.getTrucksGUID(),"bind");
             }
         });
         if (flag.equals("missiondetail")){
@@ -104,7 +107,7 @@ public class CarTeamAdapter extends RecyclerView.Adapter{
         private final TextView type;
         private final TextView length;
         private final TextView weight;
-        private final TextView tiji,del;
+        private final TextView tiji,del,kuan,gao;
         private final TextView status;
         private final LinearLayout bind,del_ll;
 
@@ -114,6 +117,8 @@ public class CarTeamAdapter extends RecyclerView.Adapter{
             carNum = (TextView) itemView.findViewById(R.id.carteam_item_carnum);
             type = (TextView) itemView.findViewById(R.id.carteam_item_cartype);
             length = (TextView) itemView.findViewById(R.id.carteam_item_carlenth);
+            kuan = (TextView) itemView.findViewById(R.id.carteam_item_carkuan);
+            gao = (TextView) itemView.findViewById(R.id.carteam_item_carheight);
             weight = (TextView) itemView.findViewById(R.id.carteam_item_weight);
             tiji = (TextView) itemView.findViewById(R.id.carteam_item_tiji);
             del = (TextView) itemView.findViewById(R.id.carteam_item_del);

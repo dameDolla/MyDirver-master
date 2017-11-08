@@ -5,7 +5,14 @@
     android:layout_height="match_parent">
 
     <include layout="@layout/top_title"/>
-
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mywallte_fresh">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -51,6 +58,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:id="@+id/wallte_chongzhi"
                 android:orientation="vertical"
                 android:gravity="center_vertical">
                 <RelativeLayout
@@ -168,6 +176,10 @@
             android:textColor="#666666"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/txt_10dp"/>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/my_wallte_recycle"/>
 
         <!--<RelativeLayout
             android:layout_width="match_parent"
@@ -220,5 +232,7 @@
         </RelativeLayout>-->
 
     </LinearLayout>
+    </LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

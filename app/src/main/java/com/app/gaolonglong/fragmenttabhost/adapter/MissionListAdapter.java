@@ -2,6 +2,7 @@ package com.app.gaolonglong.fragmenttabhost.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,10 +62,12 @@ public class MissionListAdapter extends RecyclerView.Adapter implements View.OnC
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         MissionViewHolder mHolder = (MissionViewHolder) holder;
         MissionListBean.DataBean data = list.get(position);
+        String trucktype = TextUtils.isEmpty(data.getTrucktypeHZ())?"":data.getTrucktypeHZ();
+        String trucklength = TextUtils.isEmpty(data.getTrucklength())?"":data.getTrucklength();
         mHolder.fromsite.setText(data.getFromDetailedAddress());
         mHolder.tosite.setText(data.getToDetailedAddress());
         mHolder.time.setText(data.getPreloadtime() + "");
-        mHolder.carInfo.setText(data.getCargotype()+"/"+data.getTrucktypeHZ()+"/"+data.getTrucklengthHZ());
+        mHolder.carInfo.setText(data.getCargotype()+"/"+trucktype+"/"+trucklength);
         mHolder.itemView.setTag(position);
        // mHolder.carNum.setText(data.getTruckno());
         mHolder.cancel.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +90,8 @@ public class MissionListAdapter extends RecyclerView.Adapter implements View.OnC
         });
         if (data.getStatus().equals("-2")){
             mHolder.status.setText("已取消");
-            mHolder.cancel.setVisibility(View.VISIBLE);
+            mHolder.cancel.setVisibility(View.GONE);
+            mHolder.phone.setVisibility(View.GONE);
         }else if (data.getStatus().equals("0")){
             mHolder.status.setText("已生成");
             mHolder.cancel.setVisibility(View.VISIBLE);

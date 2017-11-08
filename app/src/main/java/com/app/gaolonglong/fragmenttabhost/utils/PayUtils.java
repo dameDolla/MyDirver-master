@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.app.gaolonglong.fragmenttabhost.activities.pay.WXPayConfig;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
@@ -29,7 +30,7 @@ public class PayUtils {
     {
         return WXAPIFactory.createWXAPI(context, WXPayConfig.APP_ID);
     }
-    public void getInfoFramServer(final Context context)
+    public static void getInfoFramServer(final Context context)
     {
         ThreadManager.getNormalPool().execute(new Runnable() {
             @Override
@@ -40,5 +41,18 @@ public class PayUtils {
                 map.put(Constant.KEY,GetUserInfoUtils.getKey(context));
             }
         });
+    }
+    public void WxPay(Context context){
+        IWXAPI api = getAPI(context);
+        api.registerApp(WXPayConfig.APP_ID);
+        PayReq req = new PayReq();
+        req.appId = WXPayConfig.APP_ID;
+        req.partnerId = "";
+        req.prepayId = "";
+        req.packageValue = "";
+        req.nonceStr = "";
+        req.timeStamp = "";
+        req.sign = "";
+        api.sendReq(req);
     }
 }

@@ -15,25 +15,6 @@
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/txt_10dp"
         android:orientation="vertical">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:visibility="gone"
-            android:orientation="vertical">
-
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/baojia_logo"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                app:roundAsCircle="true"
-                android:src="@mipmap/ic_launcher" />
-
-
-        </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -351,14 +332,13 @@
                         android:textColor="@color/black_263"
                         android:textSize="15sp" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/baojia_yanshi_fee"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1.5"
                         android:background="@null"
-                        android:hint="0.00"
-                        android:inputType="number"
+                        android:text="0.00"
                         android:textColor="@color/black_6d"
                         android:textSize="@dimen/txt_14" />
                     <TextView
@@ -431,11 +411,62 @@
                 </LinearLayout>
             </LinearLayout>
 
-
-
-
-
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/baojia_edit_status_ll"
+                android:background="@drawable/baojia_edit_bg"
+                android:layout_marginTop="@dimen/txt_20dp"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/txt_10dp"
+                    android:layout_marginTop="@dimen/txt_10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="报价状态:"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/txt_18"
+                        android:paddingLeft="@dimen/txt_10dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="货主拒绝了您的报价"
+                        android:visibility="gone"
+                        android:id="@+id/baojia_edit_baojiastatus"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/red"
+                        android:layout_centerVertical="true"
+                        android:paddingRight="@dimen/txt_20dp"/>
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="@dimen/txt_10dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.7"
+                        android:text="拒绝理由:"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/txt_16"
+                        android:paddingLeft="@dimen/txt_10dp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="货主拒绝了您的报价"
+                        android:layout_weight="4.3"
+                        android:textSize="@dimen/txt_16"
+                        android:id="@+id/baojia_edit_reason"
+                        android:textColor="@color/black_6d"/>
+                </LinearLayout>
+            </LinearLayout>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/txt_39dp"
@@ -453,6 +484,7 @@
                 android:layout_height="wrap_content"
                 android:text="货主同意报价即可锁定订单"
                 android:gravity="center"
+                android:id="@+id/baojia_edit_intro"
                 android:textSize="@dimen/txt_14"
                 android:layout_marginBottom="@dimen/txt_39dp"
                 android:paddingTop="@dimen/txt_10dp"/>

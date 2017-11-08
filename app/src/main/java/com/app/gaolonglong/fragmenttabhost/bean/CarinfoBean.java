@@ -158,6 +158,66 @@ public class CarinfoBean {
         private String SecreKeyDateTime;
         private Object AvatarAddress;
         private int PageNum;
+        private String CustomNumber;
+        private String TruckWeight;
+        private String MaximumLoad;
+        private String Volume;
+        private String TruckWidth;
+        private String TruckHeight;
+        private String PlateNumber;//自备柜车牌号
+        private String CustomsCode;//海关编码
+        private String CabinetNo;//柜号
+        private String HeadWeight;//自备柜头重
+        private String CabinetWeight;//自备柜柜重
+        private String FrameWeight;//自备柜架重
+
+        public String getFrameWeight() {
+            return FrameWeight;
+        }
+
+        public String getCabinetWeight() {
+            return CabinetWeight;
+        }
+
+        public String getHeadWeight() {
+            return HeadWeight;
+        }
+
+        public String getCabinetNo() {
+            return CabinetNo;
+        }
+
+        public String getCustomsCode() {
+            return CustomsCode;
+        }
+
+        public String getPlateNumber() {
+            return PlateNumber;
+        }
+
+        public String getTruckHeight() {
+            return TruckHeight;
+        }
+
+        public String getTruckWidth() {
+            return TruckWidth;
+        }
+
+        public String getVolume() {
+            return Volume;
+        }
+
+        public String getMaximumLoad() {
+            return MaximumLoad;
+        }
+
+        public String getTruckWeight() {
+            return TruckWeight;
+        }
+
+        public String getCustomNumber() {
+            return CustomNumber;
+        }
 
         public int getTruckid() {
             return truckid;

@@ -127,8 +127,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         setContentView(R.layout.setting_content);
         ButterKnife.bind(this);
         init();
-        intentService = new Intent(SettingActivity.this, GetUserInfoService.class);
-        bindService(intentService,conn, Context.BIND_AUTO_CREATE);
+        /*intentService = new Intent(SettingActivity.this, GetUserInfoService.class);
+        bindService(intentService,conn, Context.BIND_AUTO_CREATE);*/
        /* startService(intentService);
         Intent intent2 = new Intent(SettingActivity.this, GetUserInfoService.class);
         stopService(intent2);*/
@@ -142,7 +142,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        this.unbindService(conn);
+        //this.unbindService(conn);
 
     }
     private ServiceConnection conn = new ServiceConnection() {

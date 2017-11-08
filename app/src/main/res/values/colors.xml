@@ -37,4 +37,5 @@
     
     <color name="cartype_unselect">#bbdefb</color>
     <color name="cartype_select">#3bbe79</color>
+
 </resources>

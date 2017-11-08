@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -15,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="20dp"
@@ -130,12 +132,24 @@
                 android:gravity="center_vertical"
                 android:id="@+id/cargroup_arrow1"/>
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:src="@mipmap/head"
                 android:id="@+id/renzheng_head"
                 android:layout_toLeftOf="@+id/cargroup_arrow1"
-                android:paddingRight="@dimen/txt_10dp"/>
+                android:layout_marginRight="@dimen/txt_5dp"/>
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                app:roundAsCircle="true"
+                android:visibility="gone"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/renzheng_head"
+                app:placeholderImage="@mipmap/head"
+                android:id="@+id/renzheng_logo"
+                />
+
+
         </RelativeLayout>
 
         <LinearLayout
@@ -190,6 +204,7 @@
                 android:layout_weight="4"
                 android:hint="请输入身份证号码"
                 android:background="@null"
+                android:maxLength="18"
                 android:id="@+id/cargroup_num"
                 android:textColor="#666666"
                 android:textSize="@dimen/txt_14"

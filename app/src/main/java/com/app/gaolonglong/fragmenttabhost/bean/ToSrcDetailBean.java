@@ -7,8 +7,6 @@ import java.io.Serializable;
  */
 
 public class ToSrcDetailBean implements Serializable {
-    private String fromSite;
-    private String toSite;
     private String ownername;
     private String cargotype;
     private String preloadtime;
@@ -17,18 +15,13 @@ public class ToSrcDetailBean implements Serializable {
     private String qty;
     private String unit;
     private String tel;
-    private String driverdeposit;
     private String ownerguid;
     private String billsGUID;
     private String driverGUID;
     private String drivername;
     private String companyGUID;
-    private String company;
     private String truckno;
     private String trucklength;
-    private String caragoGUID;
-    private String load;
-    private String unload;
     private String FromDetailedAddress;
     private String ToDetailedAddress;
     private String trucklengthHZ;
@@ -39,13 +32,15 @@ public class ToSrcDetailBean implements Serializable {
     private String InvoiceType; //是否开发票
     private String UploadReceipt; //上传签收单
     private String PaperReceipt; //纸质回单
+    private String company;
+    private String myPriceStatus;
+    private String ownerbill;
+    private String remark; //货主留言
 
-    public ToSrcDetailBean(String fromSite,String toSite,String ownername,String cargotype,String preloadtime,String avatarAddress,String creditlevel,String qty,String unit,String tel,String driverdeposit,
-                           String ownerguid,String billsGUID,String driverGUID,String drivername,String companyGUID,String company,String truckno,String trucklength,String load,String unload,String FromDetailedAddress,
-                           String ToDetailedAddress,String trucklengthHZ,String trucktypeHZ,String trucktype,String loadaddHZ,String arrivedaddHZ,String InvoiceType,String UploadReceipt,String PaperReceipt)
+
+    public ToSrcDetailBean(String ownername,String cargotype,String preloadtime,String avatarAddress,String creditlevel,String qty,String unit,String tel, String ownerguid,String billsGUID,String driverGUID,String drivername,String companyGUID,String truckno,String trucklength,String FromDetailedAddress,
+                           String ToDetailedAddress,String trucklengthHZ,String trucktypeHZ,String trucktype,String loadaddHZ,String arrivedaddHZ,String InvoiceType,String UploadReceipt,String PaperReceipt,String company,String myPriceStatus,String ownerbill,String remark)
     {
-        this.fromSite = fromSite;
-        this.toSite = toSite;
         this.ownername = ownername;
         this.cargotype = cargotype;
         this.preloadtime = preloadtime;
@@ -59,12 +54,8 @@ public class ToSrcDetailBean implements Serializable {
         this.driverGUID = driverGUID;
         this.drivername = drivername;
         this.companyGUID = companyGUID;
-        this.company = company;
         this.truckno = truckno;
         this.trucklength = trucklength;
-        this.driverdeposit = driverdeposit;
-        this.load = load;
-        this.unload = unload;
         this.FromDetailedAddress = FromDetailedAddress;
         this.ToDetailedAddress = ToDetailedAddress;
         this.trucklengthHZ = trucklengthHZ;
@@ -75,6 +66,26 @@ public class ToSrcDetailBean implements Serializable {
         this.InvoiceType = InvoiceType;
         this.UploadReceipt = UploadReceipt;
         this.PaperReceipt = PaperReceipt;
+        this.company = company;
+        this.myPriceStatus = myPriceStatus;
+        this.ownerbill = ownerbill;
+        this.remark = remark;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public String getOwnerbill() {
+        return ownerbill;
+    }
+
+    public String getMyPriceStatus() {
+        return myPriceStatus;
+    }
+
+    public String getCompany() {
+        return company;
     }
 
     public String getUploadReceipt() {
@@ -109,14 +120,6 @@ public class ToSrcDetailBean implements Serializable {
         return trucklengthHZ;
     }
 
-    public String getFromSite() {
-        return fromSite;
-    }
-
-    public String getToSite() {
-        return toSite;
-    }
-
     public String getOwnername() {
         return ownername;
     }
@@ -149,16 +152,8 @@ public class ToSrcDetailBean implements Serializable {
         return tel;
     }
 
-    public String getDriverdeposit() {
-        return driverdeposit;
-    }
-
     public String getBillsGUID() {
         return billsGUID;
-    }
-
-    public String getCompany() {
-        return company;
     }
 
     public String getCompanyGUID() {
@@ -183,18 +178,6 @@ public class ToSrcDetailBean implements Serializable {
 
     public String getTruckno() {
         return truckno;
-    }
-
-    public String getCaragoGUID() {
-        return caragoGUID;
-    }
-
-    public String getLoad() {
-        return load;
-    }
-
-    public String getUnload() {
-        return unload;
     }
 
     public String getFromDetailedAddress() {

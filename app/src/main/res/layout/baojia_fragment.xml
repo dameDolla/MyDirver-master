@@ -7,38 +7,40 @@
     <include layout="@layout/top_title"/>
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="@dimen/txt_39dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="进行中"
+            android:gravity="center"
+            android:textSize="@dimen/txt_16"
+            android:textColor="@color/shen_blue"
+            android:background="@drawable/buttom_stroke"
+            android:id="@+id/baojia_fragment_doing"/>
+        <FrameLayout
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/color_f2"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="已关闭"
+            android:gravity="center"
+            android:textSize="@dimen/txt_16"
+            android:textColor="@color/black_6d"
+            android:id="@+id/baojia_fragment_cancel"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/baojia_fragment_main"
         android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/txt_39dp"
-            android:background="@color/white"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="进行中"
-                android:gravity="center"
-                android:textSize="@dimen/txt_16"
-                android:textColor="@color/shen_blue"
-                android:background="@drawable/buttom_stroke"
-                android:id="@+id/baojia_fragment_doing"/>
-            <FrameLayout
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/color_f2"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="已关闭"
-                android:gravity="center"
-                android:textSize="@dimen/txt_16"
-                android:textColor="@color/black_6d"
-                android:id="@+id/baojia_fragment_cancel"/>
-        </LinearLayout>
+
+
         <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,16 +52,15 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/txt_39dp"
                     android:orientation="vertical">
+
                     <android.support.v7.widget.RecyclerView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/baojia_fragment_list"
                         />
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@color/color_f2"/>
+
                 </LinearLayout>
             </ScrollView>
         </android.support.v4.widget.SwipeRefreshLayout>

@@ -10,9 +10,8 @@
         android:orientation="vertical"
         android:layout_marginTop="@dimen/txt_20dp"
         android:layout_marginLeft="@dimen/txt_15dp"
-        android:layout_marginRight="@dimen/txt_15dp"
         android:paddingBottom="@dimen/txt_10dp"
-        android:background="@color/white">
+        android:background="@drawable/baojia_edit_bg">
         <!--此处应该是GridView-->
         <RelativeLayout
             android:layout_width="match_parent"
@@ -26,6 +25,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         app:roundAsCircle="true"
+                        android:visibility="gone"
                         android:paddingLeft="@dimen/txt_10dp"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
@@ -73,17 +73,14 @@
                             android:id="@+id/carteam_item_cartype"
                             android:paddingLeft="@dimen/txt_10dp"/>
                     </LinearLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
                         android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="12.5米"
-                            android:id="@+id/carteam_item_carlenth"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/txt_12"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -91,7 +88,33 @@
                             android:textSize="@dimen/txt_12"
                             android:text="22吨"
                             android:id="@+id/carteam_item_weight"
-                            android:paddingLeft="@dimen/txt_10dp"/>
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="12.5米"
+                            android:paddingLeft="@dimen/txt_10dp"
+                            android:id="@+id/carteam_item_carlenth"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_12"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="12.5米"
+                            android:paddingLeft="@dimen/txt_10dp"
+                            android:id="@+id/carteam_item_carkuan"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_12"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="12.5米"
+                            android:paddingLeft="@dimen/txt_10dp"
+                            android:id="@+id/carteam_item_carheight"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_12"/>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -101,26 +124,29 @@
                             android:id="@+id/carteam_item_tiji"
                             android:paddingLeft="@dimen/txt_10dp"/>
                     </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text=""
+                            android:layout_alignParentRight="true"
+                            android:textSize="@dimen/txt_14"
+                            android:id="@+id/carteam_item_status"
+                            android:paddingRight="@dimen/txt_15dp"/>
+                    </RelativeLayout>
+
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_toLeftOf="@+id/carteam_item_ll"
-                    android:layout_centerVertical="true">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:text=""
-                    android:textSize="@dimen/txt_14"
-                    android:id="@+id/carteam_item_status"
-                    android:paddingRight="@dimen/txt_10dp"/>
-                </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/carteam_item_ll"
-                    android:layout_toLeftOf="@+id/carteam_item_bind_ll"
                     android:layout_centerVertical="true">
                     <TextView
                         android:layout_width="match_parent"
@@ -142,12 +168,11 @@
                     android:layout_height="match_parent"
                     android:id="@+id/carteam_item_bind_ll"
                     android:visibility="gone"
-                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="绑定"
+                        android:text="调度"
                         android:id="@+id/carteam_item_bind"
                         android:textColor="@color/shen_blue"
                         android:textSize="@dimen/txt_14"
@@ -159,6 +184,7 @@
                         android:layout_marginRight="@dimen/txt_15dp"
                         android:gravity="center_vertical"/>
                 </LinearLayout>
+            </LinearLayout>
             </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>

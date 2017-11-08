@@ -41,13 +41,17 @@ public class LocationService extends Service {
 
     @Override
     public void onCreate() {
-        super.onCreate();
         new MyThread().start();
+        super.onCreate();
+
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        //this.mLocationClient.stopLocation();
+        this.flag = false;
+
     }
     private boolean flag = true;
     private class MyThread extends Thread{
@@ -72,7 +76,7 @@ public class LocationService extends Service {
     private AMapLocationClient mLocationClient;
 
     private void initLocation() {
-
+        //Log.e("locaitionservice","66666");
         mLocationClient = new AMapLocationClient(this.getApplicationContext());
         //初始化AMapLocationClientOption对象
         mLocationOption = new AMapLocationClientOption();
@@ -89,7 +93,7 @@ public class LocationService extends Service {
         mLocationClient.setLocationListener(new AMapLocationListener() {
             @Override
             public void onLocationChanged(AMapLocation amapLocation) {
-                Log.e("location",amapLocation.getAddress());
+                Log.e("location-service",amapLocation.getAddress());
                 String location = amapLocation.getLatitude()+","+amapLocation.getLongitude();
                 uploadLat(initJsonData(location));
             }
@@ -118,12 +122,12 @@ public class LocationService extends Service {
 
                             @Override
                             public void onError(Throwable e) {
-
+                                Log.e("locationservice",e.getMessage());
                             }
 
                             @Override
                             public void onNext(GetCodeBean getCodeBean) {
-                                Log.e("location",getCodeBean.getErrorMsg());
+                                Log.e("location-service",getCodeBean.getErrorMsg());
                             }
                         });
             }
@@ -141,11 +145,14 @@ public class LocationService extends Service {
     }
     @Override
     public boolean onUnbind(Intent intent) {
+        //mLocationClient.onDestroy();
         return super.onUnbind(intent);
     }
     public class MyBinder extends Binder{
         public LocationService getLocationService(){
             return LocationService.this;
         }
+
+
     }
 }

@@ -51,6 +51,7 @@
         android:theme="@style/AppTheme"
         android:name=".DiverApplication">
 
+
         <service android:name="com.amap.api.location.APSService"></service>
 
         <meta-data android:name="com.amap.api.v2.apikey" android:value="78c28d36875c6b10bd2fa8f3647626e6">//开发者申请的key
@@ -67,6 +68,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
         <service android:name=".service.GetUserInfoService"/>
+        <service android:name=".service.LocationService"/>
         <service
             android:name="cn.jpush.android.service.PushService"
             android:enabled="true"
@@ -87,6 +89,17 @@
             android:theme="@style/AppTheme">
 
         </activity>
+        <!--充值页面-->
+        <activity android:name=".activities.RechargeSelectMoneyActivity"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden">
+
+        </activity>
+        <!--验证银行卡-->
+        <activity android:name=".activities.CheckBankCardActivity"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden">
+
+        </activity>
+
         <!--无网络-->
         <activity android:name=".activities.NoNetWorkActivity"
             android:theme="@style/AppTheme">
@@ -99,7 +112,8 @@
         </activity>
         <!--添加或者修改车辆-->
         <activity android:name=".activities.AddCarActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden">
 
         </activity>
         <!--关于我们界面-->
@@ -195,7 +209,8 @@
 
         <!--个体司机认证2-->
         <activity android:name=".activities.PersonalRenzheng2Activity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden">
 
         </activity>
 
@@ -213,13 +228,15 @@
 
         <!--调度平台认证-->
         <activity android:name=".activities.DiaoduRenzheng3Activity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden">
 
         </activity>
 
         <!--我的钱包页面-->
         <activity android:name=".activities.MyWallteActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden">
 
         </activity>
 
@@ -424,6 +441,19 @@
         <!-- Required SDK核心功能-->
         <receiver android:name="cn.jpush.android.service.AlarmReceiver" android:exported="false"/>
 
+        <receiver
+            android:name=".broadcast.MyPushReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_CLICK_ACTION" />
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
+                <category android:name="com.app.gaolonglong.fragmenttabhost" />
+            </intent-filter>
+        </receiver>
         <!-- Required  . Enable it you can get statistics data with channel -->
         <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
         <meta-data android:name="JPUSH_APPKEY" android:value="a06798ee88e4d7d9967c6c16" /> <!--  </>值来自开发者平台取得的AppKey-->

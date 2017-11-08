@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Driver</string>
+    <string name="app_name">卡车先生</string>
     <string name="action_settings">Settings</string>
 
     <string name="version_text">司机版 v1.0</string>

@@ -1,9 +1,13 @@
 package com.app.gaolonglong.fragmenttabhost.activities;
 
 import android.app.Dialog;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -12,6 +16,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -31,6 +36,7 @@ import com.app.gaolonglong.fragmenttabhost.fragments.BaojiaFragment;
 import com.app.gaolonglong.fragmenttabhost.fragments.FindFragment;
 import com.app.gaolonglong.fragmenttabhost.fragments.MineFragment;
 import com.app.gaolonglong.fragmenttabhost.fragments.MissionFragment;
+import com.app.gaolonglong.fragmenttabhost.service.LocationService;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 import com.app.gaolonglong.fragmenttabhost.view.CommomDialog;
 
@@ -79,6 +85,14 @@ public class MainActivity extends AppCompatActivity {
 
         initEvent();
         checkUpdate();
+        Intent intent = new Intent(MainActivity.this, LocationService.class);
+        bindService(intent,conn, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        //this.unbindService(conn);
+        super.onDestroy();
     }
 
     private void initExit() {
@@ -87,7 +101,17 @@ public class MainActivity extends AppCompatActivity {
         }
         mApplication.addActivity(MainActivity.this);
     }
+    private ServiceConnection conn = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
 
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+
+        }
+    };
     private void initView() {
 
         // EventBus.getDefault().register(MainActivity.this);
@@ -198,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void toFindFragment() {
-        String flag = getIntent().getStringExtra("flag");
+        String flag = TextUtils.isEmpty(getIntent().getStringExtra("flag"))?"splash":getIntent().getStringExtra("flag");
         if (flag.equals("splash")) {
             mTabHost.setCurrentTab(2);
         }

@@ -14,7 +14,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -29,12 +31,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
+import com.app.gaolonglong.fragmenttabhost.bean.CompanyInfoBean;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
 import com.app.gaolonglong.fragmenttabhost.bean.UpdateIdCardBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
+import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.LoadingDialog;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
+import com.app.gaolonglong.fragmenttabhost.utils.ThreadManager;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 import com.luoxudong.app.threadpool.ThreadPoolHelp;
 
@@ -42,8 +48,14 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.BindViews;
@@ -140,6 +152,35 @@ public class DiaoduRenzheng2Activity extends BaseActivity implements View.OnClic
         guid = ToolsUtils.getString(DiaoduRenzheng2Activity.this, Constant.LOGIN_GUID,"");
         key = ToolsUtils.getString(DiaoduRenzheng2Activity.this, Constant.KEY,"");
         mobile = ToolsUtils.getString(DiaoduRenzheng2Activity.this, Constant.MOBILE,"");
+        String companyguid = GetUserInfoUtils.getCompanyGuid(DiaoduRenzheng2Activity.this);
+        if (!TextUtils.isEmpty(companyguid)){
+            getCompanyInfo();
+        }
+        getHttpBitmap(GetUserInfoUtils.getImg(guid,"9"),icon.get(0),0);
+        getHttpBitmap(GetUserInfoUtils.getImg(guid,"19"),icon.get(1),1);
+        getHttpBitmap(GetUserInfoUtils.getImg(guid,"20"),icon.get(2),2);
+        mEdit.get(6).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() == 11){
+                    String tel = mEdit.get(6).getText().toString();
+                    if (!ToolsUtils.isChinaPhoneLegal(tel)){
+                        ToolsUtils.getInstance().toastShowStr(DiaoduRenzheng2Activity.this,"请输入正确格式的手机号");
+                        mEdit.get(6).selectAll();
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -234,8 +275,9 @@ public class DiaoduRenzheng2Activity extends BaseActivity implements View.OnClic
                             String code = s.getErrorCode();
                             if(code.equals("200") )
                             {
-
-                                startActivity(new Intent(DiaoduRenzheng2Activity.this,DiaoduRenzheng3Activity.class));
+                                ToolsUtils.putString(DiaoduRenzheng2Activity.this,Constant.COMPANYGUID,s.getErrorMsg());
+                                startActivity(new Intent(DiaoduRenzheng2Activity.this,CommitSuccessActivity.class));
+                                finish();
                             }
                         }
                     });
@@ -470,5 +512,96 @@ public class DiaoduRenzheng2Activity extends BaseActivity implements View.OnClic
                     }
                 });
     }
+
+    /**
+     * 从服务器取图片
+     *http://bbs.3gstdy.com
+     * @param url
+     * @return
+     */
+    public void getHttpBitmap(final String url, final ImageView iv, final int position) {
+
+        ThreadManager.getNormalPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                URL myFileUrl = null;
+                Bitmap bitmap = null;
+                try {
+                    //Log.d(TAG, url);
+                    myFileUrl = new URL(url);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    HttpURLConnection conn = (HttpURLConnection) myFileUrl.openConnection();
+                    conn.setConnectTimeout(0);
+                    conn.setDoInput(true);
+                    conn.connect();
+                    InputStream is = conn.getInputStream();
+                    bitmap = BitmapFactory.decodeStream(is);
+                    is.close();
+                    final Bitmap finalBitmap = bitmap;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (finalBitmap.getByteCount() != 0){
+                                if (position == 0){
+                                    iv.setImageBitmap(ToolsUtils.zoomImg(finalBitmap,40,40));
+                                }else if (position == 1){
+                                    iv.setImageBitmap(ToolsUtils.zoomImg(finalBitmap,200,200));
+                                }else if (position == 2){
+                                    iv.setImageBitmap(ToolsUtils.zoomImg(finalBitmap,200,200));
+                                }
+                            }else {
+                                iv.setImageResource(R.mipmap.pic);
+                            }
+
+
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+        //return bitmap;
+    }
+    private void getCompanyInfo(){
+        String companyGuid = TextUtils.isEmpty(GetUserInfoUtils.getCompanyGuid(DiaoduRenzheng2Activity.this))?"":GetUserInfoUtils.getCompanyGuid(DiaoduRenzheng2Activity.this);
+            Map<String,String> map = new HashMap<>();
+            map.put("GUID",guid);
+            map.put(Constant.MOBILE,mobile);
+            map.put(Constant.KEY,key);
+            map.put("companyName", "");
+            map.put("companyID", "-1");
+            map.put("companysGUID", companyGuid);
+            RetrofitUtils.getRetrofitService()
+                    .getConpanyInfo("YZ",Config.GET_COMPANYINFO, JsonUtils.getInstance().getJsonStr(map))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<CompanyInfoBean>() {
+                        @Override
+                        public void onCompleted() {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onNext(CompanyInfoBean companyInfoBean) {
+                            if (companyInfoBean.getErrorCode().equals("200")){
+                                CompanyInfoBean.DataBean data = companyInfoBean.getData().get(0);
+                                mEdit.get(2).setText(data.getCompanyName());
+                                mEdit.get(3).setText(data.getCompanycode());
+                                mEdit.get(5).setText(data.getPerson());
+                                mEdit.get(6).setText(data.getPhone());
+                            }
+                        }
+                    });
+        }
 
 }

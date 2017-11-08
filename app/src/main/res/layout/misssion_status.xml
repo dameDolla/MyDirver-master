@@ -587,7 +587,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
-                            android:text="发货人已确认运单完成 "
+                            android:text="等待发货人确认收货 "
                             android:id="@+id/mission_status_seven"
                             android:textColor="@color/gray_87"
                             android:textSize="@dimen/txt_14"/>

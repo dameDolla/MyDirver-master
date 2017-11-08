@@ -111,6 +111,7 @@ public class MissionDoing extends Fragment {
         adapter.setOnMissionItemClick(new MissionListAdapter.OnMissionItemClick() {
             @Override
             public void onMissionItemClick(View view, MissionDetailBean bean) {
+                //ToolsUtils.getInstance().toastShowStr(getContext(),bean.getDriverGUID());
                 toDetail(bean);
             }
         });
@@ -128,6 +129,7 @@ public class MissionDoing extends Fragment {
                             switch (view.getId())
                             {
                                 case R.id.cancel_mission_dialog_cancel:
+                                    cancelDialog.dismiss();
                                     String reason = cancelDialog.reason.getText().toString();
                                     cancel(missionnum,position);
                                     break;
@@ -153,12 +155,12 @@ public class MissionDoing extends Fragment {
             }
         });
 
-        ThreadManager.getNormalPool().execute(new Runnable() {
+       /* ThreadManager.getNormalPool().execute(new Runnable() {
             @Override
-            public void run() {
+            public void run() {*/
                 getList(initJsonData());
-            }
-        });
+          /*  }
+        });*/
 
 
         fresh.setColorSchemeResources(R.color.google_blue,
@@ -184,7 +186,7 @@ public class MissionDoing extends Fragment {
                 map.put(Constant.KEY,key);
                 map.put("billsGUID",billsGUID);
                 RetrofitUtils.getRetrofitService()
-                        .cancelMission("",Config.CANCELMISSION,JsonUtils.getInstance().getJsonStr(map))
+                        .cancelMission(Constant.MYINFO_PAGENAME,Config.CANCELMISSION,JsonUtils.getInstance().getJsonStr(map))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Subscriber<GetCodeBean>() {
@@ -203,6 +205,7 @@ public class MissionDoing extends Fragment {
                                 ToolsUtils.getInstance().toastShowStr(getContext(),getCodeBean.getErrorMsg());
                                 if (getCodeBean.getErrorCode().equals("200")){
                                     list.remove(position);
+                                    onActivityCreated(null);
                                     adapter.notifyDataSetChanged();
                                 }
                             }
@@ -231,7 +234,8 @@ public class MissionDoing extends Fragment {
                             public void onNext(MissionListBean missionListBean) {
                                 list.clear();
                                 list.addAll(missionListBean.getData());
-                                if (missionListBean.getData().size() == 0){
+                                Log.e("missionsize",list.size()+"");
+                                if (list.size() == 0){
                                     empty.setVisibility(View.VISIBLE);
                                     main.setVisibility(View.GONE);
                                     empty.setErrorImag(R.drawable.nomission,"您还没有运单哦");

@@ -5,7 +5,8 @@ package com.app.gaolonglong.fragmenttabhost.config;
  */
 
 public class Constant {
-
+    //没有图片返回的图片的文件大小
+    public static final int NOBYTECOUNT = 65536;
     //bugly  appkey
     public static final String BUGLYAPPKEY = "af7f6682-ab61-4a7a-9ff4-9b630411b57f";
     //微信支付appid

@@ -1,5 +1,6 @@
 package com.app.gaolonglong.fragmenttabhost.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -161,7 +162,7 @@ public class CarGroupRenzheng2Activity extends BaseActivity {
                     @Override
                     public void onError(Throwable e) {
                         dialog.dismiss();
-                        ToolsUtils.getInstance().toastShowStr(CarGroupRenzheng2Activity.this, "cargrouperror:"+e.getMessage());
+                        //ToolsUtils.getInstance().toastShowStr(CarGroupRenzheng2Activity.this, "cargrouperror:"+e.getMessage());
 
                     }
 
@@ -172,7 +173,10 @@ public class CarGroupRenzheng2Activity extends BaseActivity {
                         list.clear();
                         list.addAll(getCodeBean.getData());
                         adapter.notifyDataSetChanged();
-                        ToolsUtils.getInstance().toastShowStr(CarGroupRenzheng2Activity.this,"公司名车："+getCodeBean.getData().get(0).getCompanyName());
+                        if (list.size()==0){
+                            ToolsUtils.getInstance().toastShowStr(CarGroupRenzheng2Activity.this,"无公司信息");
+                        }
+                        //ToolsUtils.getInstance().toastShowStr(CarGroupRenzheng2Activity.this,"公司名车："+getCodeBean.getData().get(0).getCompanyName());
                     }
                 });
     }
@@ -181,9 +185,10 @@ public class CarGroupRenzheng2Activity extends BaseActivity {
      */
     private void submitInfo()
     {
-       Map<Integer,String> map = adapter.getMap();
-        String companyCode = map.get(0);
-        name.setText(companyCode);
+       Map<String,String> map = adapter.getMap();
+        String companyCode = map.get("cguid");
+       // ToolsUtils.getInstance().toastShowStr(CarGroupRenzheng2Activity.this,companyCode);
+        //name.setText(companyCode);
         JSONObject json = new JSONObject();
         try {
             json.put("GUID",guid);
@@ -210,8 +215,9 @@ public class CarGroupRenzheng2Activity extends BaseActivity {
 
                     @Override
                     public void onNext(GetCodeBean response) {
-                        Log.e("cargroutpinfo",response.getErrorMsg());
-                       ToolsUtils.getInstance().toastShowStr(CarGroupRenzheng2Activity.this,response.getErrorMsg());
+                       //ToolsUtils.getInstance().toastShowStr(CarGroupRenzheng2Activity.this,response.getErrorMsg());
+
+                        startActivity(new Intent(CarGroupRenzheng2Activity.this,CommitSuccessActivity.class));
                     }
                 });
     }

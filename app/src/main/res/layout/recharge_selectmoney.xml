@@ -13,6 +13,7 @@
         android:layout_marginLeft="@dimen/txt_15dp"
         android:layout_marginRight="@dimen/txt_15dp"
         android:layout_marginTop="@dimen/txt_39dp"
+        android:id="@+id/select_money_et"
         android:hint="请输入充值金额"
         android:textColor="#666666"
         android:gravity="center"/>
@@ -20,79 +21,111 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="选择充值金额"
+        android:text="选择充值金额(元)"
         android:textColor="@color/black"
         android:textSize="@dimen/txt_18"
          android:paddingLeft="@dimen/txt_15dp"
         android:layout_marginTop="@dimen/txt_20dp"/>
 
-    <LinearLayout
+    <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="30dp"
         android:layout_marginTop="@dimen/txt_20dp"
         android:layout_marginRight="@dimen/txt_15dp"
+        android:id="@+id/selectmoney_one_rg"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
         android:layout_marginLeft="@dimen/txt_15dp"
         android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="￥100"
-            android:layout_marginRight="@dimen/txt_15dp"
-            android:textColor="#fd6835"
-            android:background="@drawable/border_gray"
-            android:gravity="center"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="￥100"
-            android:layout_marginRight="@dimen/txt_15dp"
-            android:textColor="#fd6835"
-            android:background="@drawable/border_gray"
-            android:gravity="center"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="￥100"
-            android:background="@drawable/border_gray"
-            android:textColor="#fd6835"
-            android:gravity="center"/>
-    </LinearLayout>
 
-    <LinearLayout
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="100"
+                android:id="@+id/select_money_one_1"
+                android:button="@null"
+                android:drawableLeft="@drawable/login_bt_"
+                android:layout_marginRight="@dimen/txt_15dp"
+                android:textColor="@color/textcolor_selector"
+                android:background="@drawable/select_money_selector"
+                android:gravity="center"/>
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="300"
+                android:id="@+id/select_money_one_2"
+                android:button="@null"
+                android:layout_marginRight="@dimen/txt_15dp"
+                android:textColor="@color/textcolor_selector"
+                android:background="@drawable/select_money_selector"
+                android:gravity="center"/>
+            <RadioButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="500"
+                android:id="@+id/select_money_one_3"
+                android:background="@drawable/select_money_selector"
+                android:textColor="@color/textcolor_selector"
+                android:gravity="center"/>
+
+    </RadioGroup>
+    <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="30dp"
+        android:id="@+id/selectmoney_two_rg"
         android:layout_marginTop="@dimen/txt_10dp"
-        android:layout_marginRight="@dimen/txt_15dp"
         android:layout_marginLeft="@dimen/txt_15dp"
+        android:layout_marginRight="@dimen/txt_15dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
         android:orientation="horizontal">
-        <TextView
+        <RadioButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="￥100"
+            android:text="1000"
+            android:button="@null"
+            android:id="@+id/select_money_two_1"
             android:layout_marginRight="@dimen/txt_15dp"
-            android:textColor="#fd6835"
-            android:background="@drawable/border_gray"
+            android:textColor="@color/textcolor_selector"
+            android:background="@drawable/select_money_selector"
             android:gravity="center"/>
-        <TextView
+        <RadioButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="￥100"
+            android:text="3000"
+            android:id="@+id/select_money_two_2"
+            android:button="@null"
             android:layout_marginRight="@dimen/txt_15dp"
-            android:textColor="#fd6835"
-            android:background="@drawable/border_gray"
+            android:textColor="@color/textcolor_selector"
+            android:background="@drawable/select_money_selector"
             android:gravity="center"/>
-        <TextView
+        <RadioButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="￥100"
-            android:background="@drawable/border_gray"
-            android:textColor="#fd6835"
+            android:text="5000"
+            android:id="@+id/select_money_two_3"
+            android:button="@null"
+            android:background="@drawable/select_money_selector"
+            android:textColor="@color/textcolor_selector"
             android:gravity="center"/>
-    </LinearLayout>
+    </RadioGroup>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/txt_39dp"
+        android:text="确定充值"
+        android:id="@+id/select_money_bt"
+        android:textSize="@dimen/txt_18"
+        android:textColor="@color/white"
+        android:layout_marginTop="50dp"
+        android:enabled="false"
+        android:layout_marginRight="@dimen/txt_39dp"
+        android:layout_marginLeft="@dimen/txt_39dp"
+        android:background="@drawable/button_enable_bg"/>
 </LinearLayout>

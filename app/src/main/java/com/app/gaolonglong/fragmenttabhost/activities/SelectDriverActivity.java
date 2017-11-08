@@ -100,7 +100,6 @@ public class SelectDriverActivity extends BaseActivity {
 
                 if (flag.equals("driver_select")){
                     Map<String,String> map = new HashMap<String, String>();
-                    ToolsUtils.getInstance().toastShowStr(SelectDriverActivity.this,driverguid);
                     map.put("GUID",GetUserInfoUtils.getGuid(SelectDriverActivity.this));
                     map.put(Constant.MOBILE,GetUserInfoUtils.getMobile(SelectDriverActivity.this));
                     map.put(Constant.KEY,GetUserInfoUtils.getKey(SelectDriverActivity.this));
@@ -108,14 +107,14 @@ public class SelectDriverActivity extends BaseActivity {
                     map.put("driverGUID",driverguid);
                     map.put("drivername",drivername);
                     map.put("driverphone",drivertel);
-                    bindDriver(JsonUtils.getInstance().getJsonStr(map),drivername);
+                    bindDriver(JsonUtils.getInstance().getJsonStr(map),drivername,drivertel);
                 }else if (flag.equals("driver_jb")){
 
                 }
             }
         });
     }
-    private void bindDriver(final String json, final String name)
+    private void bindDriver(final String json, final String name, final String tel)
     {
         ThreadPoolHelp.Builder.cached().builder().execute(new Runnable() {
             @Override
@@ -141,7 +140,7 @@ public class SelectDriverActivity extends BaseActivity {
                                 if (getCodeBean.getErrorCode().equals("200")){
                                     Intent intent = new Intent();
                                     intent.putExtra("drivername",name);
-                                    intent.putExtra("drivertel","159000000");
+                                    intent.putExtra("drivertel",tel);
                                     //startActivity(intent);
                                     setResult(1,intent);
                                     finish();

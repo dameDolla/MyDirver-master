@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 
 public class CompanyInfoAdapters extends RecyclerView.Adapter {
 
-    private Map<Integer,String> ischeck = new HashMap<Integer, String>();
+    private Map<String,String> ischeck = new HashMap<String, String>();
 
     private Context context;
 
@@ -67,6 +67,7 @@ public class CompanyInfoAdapters extends RecyclerView.Adapter {
         holder.lxr.setText(person.getPerson());
         holder.addr.setText(person.getAddress());
         holder.tel.setText(person.getMobile());
+        //holder.id.setText(person.getCompanyID());
        /* );
         holder.id.setText(person.getCompanyID());*/
         holder.is_select.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -74,11 +75,13 @@ public class CompanyInfoAdapters extends RecyclerView.Adapter {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(ischeck.size() == 0)
                 {
-                    ischeck.put(i,person.getCompanysGUID());
+                    ischeck.put("cguid",person.getCompanysGUID());
                 }
                 else
                 {
-                    ToolsUtils.getInstance().toastShowStr(context,"只能绑定一个公司");
+                    ischeck.clear();
+                    ischeck.put("cguid",person.getCompanysGUID());
+                    //ToolsUtils.getInstance().toastShowStr(context,"只能绑定一个公司");
                 }
 
             }
@@ -90,7 +93,7 @@ public class CompanyInfoAdapters extends RecyclerView.Adapter {
         //holder.is_select.setChecked(ischeck.get(i));
         //holder.ageTv.setText(person.getAge() + "岁");
     }
-    public Map<Integer,String> getMap()
+    public Map<String,String> getMap()
     {
         return ischeck;
     }

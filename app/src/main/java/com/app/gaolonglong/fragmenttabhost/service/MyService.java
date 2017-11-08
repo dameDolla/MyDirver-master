@@ -17,6 +17,7 @@ import com.app.gaolonglong.fragmenttabhost.bean.ParametersBean;
 import com.app.gaolonglong.fragmenttabhost.bean.ReleaseBean;
 import com.app.gaolonglong.fragmenttabhost.bean.RouteListBean;
 import com.app.gaolonglong.fragmenttabhost.bean.VersionCodeBean;
+import com.app.gaolonglong.fragmenttabhost.bean.WallteListBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
 
@@ -369,4 +370,28 @@ public interface MyService {
     Observable<GetCodeBean> fapiaoSetting(@Field(Constant.PAGENAME) String page,
                                           @Field(Constant.METHOD) String method,
                                           @Field("JsonValue") String json);
+    /**
+     * 发票设置
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> setBillNewload(@Field(Constant.PAGENAME) String page,
+                                          @Field(Constant.METHOD) String method,
+                                          @Field("JsonValue") String json);
+    /**
+     * 获取账户余额 冻结资金
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> getMoneyInfo(@Field(Constant.PAGENAME) String page,
+                                           @Field(Constant.METHOD) String method,
+                                           @Field("JsonValue") String json);
+    /**
+     * 获取交易记录列表
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<WallteListBean> getJiaoyiList(@Field(Constant.PAGENAME) String page,
+                                             @Field(Constant.METHOD) String method,
+                                             @Field("JsonValue") String json);
 }

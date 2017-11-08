@@ -200,7 +200,7 @@ public class GetSRCBean {
         private String idcard;
         private String creditlevel;
         private int cargocount;
-        private int ownerbill;
+        private String ownerbill;
         private double ownerscore;
         private int driverScoreNumber;
         private double driverTotalScore;
@@ -817,11 +817,11 @@ public class GetSRCBean {
             this.cargocount = cargocount;
         }
 
-        public int getOwnerbill() {
+        public String getOwnerbill() {
             return ownerbill;
         }
 
-        public void setOwnerbill(int ownerbill) {
+        public void setOwnerbill(String ownerbill) {
             this.ownerbill = ownerbill;
         }
 

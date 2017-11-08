@@ -35,7 +35,6 @@ public class MissionDetailBean implements Serializable{
     private String arrivedtime;//司机提交的到达时间
     private String DepartureTime; //司机出发的时间
 
-
     public MissionDetailBean(String billsGUID,String ownername,String ownerphone,String preloadtime,String FromDetailedAddress,
                              String ToDetailedAddress,String billNumber,String dealprice,String loadfee,
                              String unloadfee,String AvatarAddress,String status,String signtime,String signby,String drivername,
@@ -68,6 +67,10 @@ public class MissionDetailBean implements Serializable{
         this.loadtime = loadtime;
         this.arrivedtime = arrivedtime;
         this.DepartureTime = DepartureTime;
+    }
+
+    public void setTruckno(String truckno) {
+        this.truckno = truckno;
     }
 
     public void setDepartureTime(String departureTime) {

@@ -127,6 +127,11 @@ public class LoginBean {
         private String mobilePwd;
         private String SecreKey;
         private String AvatarAddress;
+        private String MInvoiceType;
+
+        public String getMInvoiceType() {
+            return MInvoiceType;
+        }
 
         public int getUserid() {
             return userid;

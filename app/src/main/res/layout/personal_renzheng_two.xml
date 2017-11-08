@@ -446,7 +446,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="身份证正反面照片"
+                    android:text="行驶证，营运证"
                     android:textSize="@dimen/txt_12"
                     android:textColor="@color/red"/>
                 <TextView
@@ -457,7 +457,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="个人手持身份证正面"
+                    android:text="车辆图片"
                     android:textColor="@color/red"
                     android:textSize="@dimen/txt_12"/>
                 <TextView
@@ -645,8 +645,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/txt_39dp"
                 android:background="@drawable/login_bt_"
-                android:text="下一步"
+                android:text="确定提交"
                 android:textSize="@dimen/txt_18"
+                android:layout_marginTop="@dimen/txt_39dp"
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:id="@+id/person2_next"

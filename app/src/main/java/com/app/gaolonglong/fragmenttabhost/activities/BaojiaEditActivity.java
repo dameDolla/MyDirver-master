@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -77,6 +78,7 @@ public class BaojiaEditActivity extends BaseActivity implements AdapterView.OnIt
     private String isFapiao,qianshoudan,huidan;
     private String isFapiao1;
     private String fapiaoType;
+    private String flag;
 
     @OnClick(R.id.title_back)
     public void back() {
@@ -91,6 +93,9 @@ public class BaojiaEditActivity extends BaseActivity implements AdapterView.OnIt
     @BindView(R.id.baojia_edit_parent)
     public LinearLayout parent;
 
+    @BindView(R.id.baojia_submit)
+    public Button submit;
+
     @OnClick(R.id.baojia_submit)
     public void submit() {
         submitBaojia();
@@ -100,10 +105,11 @@ public class BaojiaEditActivity extends BaseActivity implements AdapterView.OnIt
             R.id.baojia_carinfo, R.id.baojia_time, R.id.baojia_otherneed, R.id.baojia_sum_fee})
     public List<TextView> mText;
 
-    @BindViews({R.id.baojia_yunshu_fee, R.id.baojia_other_fee, R.id.baojia_yanshi_fee})
+    @BindViews({R.id.baojia_yunshu_fee, R.id.baojia_other_fee})
     public List<EditText> mEdit;
-    @BindView(R.id.baojia_logo)
-    public SimpleDraweeView logo;
+
+    @BindView(R.id.baojia_yanshi_fee)
+    public TextView yanshifee;
 
     @BindViews({R.id.baojia_yj_fee, R.id.baojia_sj_fee})
     public List<TextView> fee;
@@ -116,6 +122,15 @@ public class BaojiaEditActivity extends BaseActivity implements AdapterView.OnIt
 
     @BindViews({R.id.baojia_edit_sjtxt,R.id.baojia_sj_fee})
     public List<TextView>  sjItem;
+
+    @BindView(R.id.baojia_edit_status_ll)
+    public LinearLayout status_ll;
+
+    @BindView(R.id.baojia_edit_intro)
+    public TextView intro;
+
+    @BindViews({R.id.baojia_edit_baojiastatus,R.id.baojia_edit_reason})
+    public List<TextView> statustxt;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -135,12 +150,13 @@ public class BaojiaEditActivity extends BaseActivity implements AdapterView.OnIt
         title.setText("正在报价");
         usertype = GetUserInfoUtils.getUserType(BaojiaEditActivity.this);
         bean = (ToSrcDetailBean) getIntent().getSerializableExtra("srcdetail");
+        // baojiaFragment
+        flag = TextUtils.isEmpty(getIntent().getStringExtra("flag"))?"detail":getIntent().getStringExtra("flag");
         isFapiao = bean.getInvoiceType();
         huidan = bean.getPaperReceipt();
         qianshoudan = bean.getUploadReceipt();
         fapiaoType = GetUserInfoUtils.getFapiaoType(BaojiaEditActivity.this);
         //Log.e("missiondetail",isFapiao);
-        logo.setImageURI(Uri.parse(bean.getAvatarAddress()));
         mText.get(0).setText(bean.getOwnername());
         mText.get(1).setText("");
         mText.get(2).setText(bean.getFromDetailedAddress());
@@ -153,11 +169,10 @@ public class BaojiaEditActivity extends BaseActivity implements AdapterView.OnIt
             sjItem.get(0).setVisibility(View.GONE);
             sjItem.get(1).setVisibility(View.GONE);
         }else if (isFapiao.equals("1")){
-            need = "需要开发票/";
-
+            need = "开发票/";
         }
         if (huidan.equals("1")){
-            need = need+"需要纸质回单/";
+            need = need+"纸质回单/";
         }
         if (qianshoudan.equals("1")){
             need = need+"上传签收单";
@@ -167,6 +182,29 @@ public class BaojiaEditActivity extends BaseActivity implements AdapterView.OnIt
             carinfo.setEnabled(false);
             getCarTeam(initCarJsonData());
         }
+        if (flag.equals("baojiaFragment")){
+            String s = getIntent().getStringExtra("msg");
+            String status =  getIntent().getStringExtra("baojiastatus");
+            String bidder =  getIntent().getStringExtra("Bidder");
+
+            status_ll.setVisibility(View.VISIBLE);
+            if (status.equals("0")&&bidder.equals("0")){
+                statustxt.get(0).setVisibility(View.VISIBLE);
+            }
+            submit.setText("重新报价");
+            statustxt.get(1).setText(s);
+        }
+        String str = "";
+        if (isFapiao.equals("1")){
+            if (fapiaoType.equals("1")){
+                str = "您委托平台代开发票";
+            }else if (fapiaoType.equals("0")){
+                str = "您自己开具发票";
+            }
+        }else if (isFapiao.equals("0")){
+            str = "客户不要求开发票";
+        }
+        intro.setText(str);
         textWatch();
         carinfo.setOnClickListener(this);
 
@@ -207,9 +245,9 @@ public class BaojiaEditActivity extends BaseActivity implements AdapterView.OnIt
     /**
      * 执行提交报价的动作
      */
-    private void addBaojia(String json) {
+    private void addBaojia(String json,String method) {
         RetrofitUtils.getRetrofitService()
-                .AddBaojia("Prices", Config.ADD_BAOJIA, json)
+                .AddBaojia("Prices", method, json)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<GetSRCBean>() {
@@ -243,7 +281,7 @@ public class BaojiaEditActivity extends BaseActivity implements AdapterView.OnIt
         String s = mText.get(7).getText() + "";
         yunshu = TextUtils.isEmpty(mEdit.get(0).getText().toString()) ? "0" : mEdit.get(0).getText().toString();
         other = TextUtils.isEmpty(mEdit.get(1).getText().toString()) ? "0" : mEdit.get(1).getText().toString();
-        yanshi = TextUtils.isEmpty(mEdit.get(2).getText().toString()) ? "0" : mEdit.get(2).getText().toString();
+        yanshi = TextUtils.isEmpty(yanshifee.getText().toString()) ? "0" : yanshifee.getText().toString();
         shuifee = TextUtils.isEmpty(fee.get(1).getText().toString()) ? "0" : fee.get(1).getText().toString();
         truckno = (carinfo.getText()).equals("选择车辆")?"":carinfo.getText().toString();
         String carinfos = carinfo2.getText() + "";
@@ -276,8 +314,8 @@ public class BaojiaEditActivity extends BaseActivity implements AdapterView.OnIt
             map.put("DelayFee",yanshi);
             map.put("PlatformCommission","55");
             map.put("PlatformTax",shuifee);
-            if (isFapiao.equals(1)){
-                map.put("CInvoiceType",fapiaoType);
+            if (isFapiao.equals("1")){
+                map.put("CInvoiceType","1");
             }else {
                 map.put("CInvoiceType","-1");
             }
@@ -297,24 +335,26 @@ public class BaojiaEditActivity extends BaseActivity implements AdapterView.OnIt
             map.put("feeremark", "");
 
             map.put("truckno", truckno);
+
+            if (flag.equals("baojiaFragment")){
+                map.put("cargopricesGUID",getIntent().getStringExtra("cargopricesGUID")+"");
+                map.put("UpdatePriceTime",getIntent().getStringExtra("UpdatePriceTime"));
+            }
             String str ="";
 
             Log.e("fapiaotype",fapiaoType);
-            if (isFapiao.equals("1")){
-                if (fapiaoType.equals("1")){
-                    str = "您目前选择的是平台代开发票，您确定要对此货源报价吗??";
-                }else if (fapiaoType.equals("0")){
-                    str = "您目前选择的是自己开发票，您确定要对此货源报价吗??";
-                }
-            }else if (isFapiao.equals("0")){
-                str = "您确定要对此货源进行报价吗??";
-            }
-            new CommomDialog(BaojiaEditActivity.this, R.style.dialog, str, new CommomDialog.OnCloseListener() {
+
+            new CommomDialog(BaojiaEditActivity.this, R.style.dialog,"您确定要对此货源进行报价吗", new CommomDialog.OnCloseListener() {
                 @Override
                 public void onClick(Dialog dialog, boolean confirm) {
                     dialog.dismiss();
                     if (confirm) {
-                        addBaojia(JsonUtils.getInstance().getJsonStr(map));
+                        if (flag.equals("baojiaFragment")){
+                            addBaojia(JsonUtils.getInstance().getJsonStr(map),Config.UPDATE_BAOJIA);
+                        }else {
+                            addBaojia(JsonUtils.getInstance().getJsonStr(map),Config.ADD_BAOJIA);
+                        }
+
                         //initJsonData();
                     }
                 }
@@ -380,7 +420,7 @@ public class BaojiaEditActivity extends BaseActivity implements AdapterView.OnIt
                 showTotalPrice();
             }
         });
-        mEdit.get(2).addTextChangedListener(new TextWatcher() {
+        /*mEdit.get(2).addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -393,11 +433,11 @@ public class BaojiaEditActivity extends BaseActivity implements AdapterView.OnIt
 
             @Override
             public void afterTextChanged(Editable editable) {
-               /* String sum = Float.parseFloat(mEdit.get(0).getText() + "") + Float.parseFloat(mEdit.get(1).getText() + "") + "";
-                mText.get(5).setText(sum);*/
+               *//* String sum = Float.parseFloat(mEdit.get(0).getText() + "") + Float.parseFloat(mEdit.get(1).getText() + "") + "";
+                mText.get(5).setText(sum);*//*
                 showTotalPrice();
             }
-        });
+        });*/
        /* mEdit.get(3).addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -441,7 +481,7 @@ public class BaojiaEditActivity extends BaseActivity implements AdapterView.OnIt
     private void showTotalPrice() {
         String price1 = TextUtils.isEmpty(mEdit.get(0).getText()) ? "0" : mEdit.get(0).getText() + "";
         String price2 = TextUtils.isEmpty(mEdit.get(1).getText()) ? "0" : mEdit.get(1).getText() + "";
-        String price3 = TextUtils.isEmpty(mEdit.get(2).getText()) ? "0" : mEdit.get(2).getText() + "";
+        String price3 = TextUtils.isEmpty(yanshifee.getText()) ? "0" : yanshifee.getText() + "";
         String price4 = TextUtils.isEmpty(fee.get(0).getText()) ? "0" : fee.get(0).getText() + "";
         String price5 = TextUtils.isEmpty(fee.get(1).getText()) ? "0" : fee.get(1).getText() + "";
         String sum = "";

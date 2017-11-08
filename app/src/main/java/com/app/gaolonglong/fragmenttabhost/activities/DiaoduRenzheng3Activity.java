@@ -246,7 +246,6 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
                     @Override
                     public void onNext(GetCodeBean getCodeBean) {
                         dialog.dismiss();
-                        Log.e("bindtruck",getCodeBean.getErrorMsg());
                         if (getCodeBean.getErrorCode().equals("200"))
                         {
                             startActivity(new Intent(DiaoduRenzheng3Activity.this,CommitSuccessActivity.class));

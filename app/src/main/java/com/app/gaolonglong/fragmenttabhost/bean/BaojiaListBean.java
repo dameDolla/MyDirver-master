@@ -233,7 +233,7 @@ public class BaojiaListBean {
         private String idcard;
         private String creditlevel;
         private int cargocount;
-        private int  ownerbill;
+        private String  ownerbill;
         private double ownerscore;
         private int driverScoreNumber;
         private double driverTotalScore;
@@ -260,6 +260,46 @@ public class BaojiaListBean {
         private int PageNum;
         private String trucktypeHZ;
         private String trucklengthHZ;
+        private String FromDetailedAddress;
+        private String ToDetailedAddress;
+        private String loadaddHZ;
+        private String arrivedaddHZ;
+        private String InvoiceType; //是否开发票
+        private String UploadReceipt; //上传签收单
+        private String PaperReceipt; //纸质回单
+        private String MyPriceStatus; //纸质回单
+
+        public String getMyPriceStatus() {
+            return MyPriceStatus;
+        }
+
+        public String getPaperReceipt() {
+            return PaperReceipt;
+        }
+
+        public String getUploadReceipt() {
+            return UploadReceipt;
+        }
+
+        public String getArrivedaddHZ() {
+            return arrivedaddHZ;
+        }
+
+        public String getInvoiceType() {
+            return InvoiceType;
+        }
+
+        public String getLoadaddHZ() {
+            return loadaddHZ;
+        }
+
+        public String getToDetailedAddress() {
+            return ToDetailedAddress;
+        }
+
+        public String getFromDetailedAddress() {
+            return FromDetailedAddress;
+        }
 
         public String getTrucklengthHZ() {
             return trucklengthHZ;
@@ -917,11 +957,11 @@ public class BaojiaListBean {
             this.cargocount = cargocount;
         }
 
-        public int getOwnerbill() {
+        public String getOwnerbill() {
             return ownerbill;
         }
 
-        public void setOwnerbill(int ownerbill) {
+        public void setOwnerbill(String ownerbill) {
             this.ownerbill = ownerbill;
         }
 

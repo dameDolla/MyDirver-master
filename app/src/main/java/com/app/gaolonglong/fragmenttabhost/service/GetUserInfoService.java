@@ -90,7 +90,7 @@ public class GetUserInfoService extends Service {
                                         ToolsUtils.putString(context, Constant.HEADLOGO, loginBean.getData().get(0).getAvatarAddress()+"");
                                         ToolsUtils.putString(context,Constant.COUNT,loginBean.getData().get(0).getMoney()+"");
                                         ToolsUtils.putString(context,Constant.VCOMPANY,loginBean.getData().get(0).getVcompany()+"");
-                                        ToolsUtils.putString(context,"idcard",loginBean.getData().get(0).getIdcard()+"");
+                                        ToolsUtils.putString(context,"money",loginBean.getData().get(0).getMoney()+"");
                                         //ToolsUtils.getInstance().toastShowStr(context,loginBean.getData().get(0).getAvatarAddress());
                                     }
                                     //  toMain();
@@ -115,7 +115,7 @@ public class GetUserInfoService extends Service {
                     e.printStackTrace();
                 }
                 //下面写请求服务器的代码
-                getInfo(GetUserInfoService.this);
+                //getInfo(GetUserInfoService.this);
             }
         }
     }

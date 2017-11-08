@@ -29,108 +29,126 @@
             android:layout_marginRight="@dimen/txt_39dp"
             android:paddingLeft="@dimen/txt_15dp"
             android:paddingTop="@dimen/txt_15dp"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/txt_15dp"
-            android:paddingTop="@dimen/txt_39dp"
-            android:id="@+id/rl_personal"
-            android:paddingBottom="@dimen/txt_5dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="个体司机认证"
-                android:id="@+id/renzheng_main_person"
-                android:textSize="@dimen/txt_14"
-                android:textColor="@color/black"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=">"
-                android:gravity="center_vertical"
-                android:textSize="14sp"
-                android:paddingRight="@dimen/txt_15dp"
-                android:layout_alignParentRight="true"
-                android:id="@+id/renzheng_main_arrow1"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/renzheng_personnal_txt"
-                android:gravity="center_vertical"
-                android:layout_toLeftOf="@+id/renzheng_main_arrow1"
-                android:paddingRight="@dimen/txt_10dp"/>
-        </RelativeLayout>
-
-        <include layout="@layout/back_line"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/txt_15dp"
-            android:paddingTop="@dimen/txt_39dp"
-            android:id="@+id/rl_cargroup"
-            android:paddingBottom="@dimen/txt_5dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="车队司机认证"
-                android:id="@+id/renzheng_main_cargroup"
-                android:textSize="@dimen/txt_14"
-                android:textColor="@color/black"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=">"
-                android:gravity="center_vertical"
-                android:textSize="14sp"
-                android:paddingRight="@dimen/txt_15dp"
-                android:layout_alignParentRight="true"
-                android:id="@+id/renzheng_main_arrow2"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/renzheng_personnal_txt"
-                android:gravity="center_vertical"
-                android:layout_toLeftOf="@+id/renzheng_main_arrow2"
-                android:paddingRight="@dimen/txt_10dp"/>
-        </RelativeLayout>
-
-        <include layout="@layout/back_line"/>
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/txt_15dp"
             android:paddingTop="@dimen/txt_39dp"
             android:id="@+id/rl_tiaodu"
+            android:orientation="horizontal"
             android:paddingBottom="@dimen/txt_5dp">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="车队调度认证"
+                android:layout_weight="2"
+                android:text="企业车主认证"
                 android:id="@+id/renzheng_main_diaodu"
                 android:textSize="@dimen/txt_14"
                 android:textColor="@color/black"/>
+
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="5"
                 android:layout_height="wrap_content"
-                android:text=">"
+                android:text="适合企业车队、有两台车以上的个体车主"
                 android:gravity="center_vertical"
+                android:singleLine="true"
+                android:paddingLeft="@dimen/txt_20dp"
+                android:paddingRight="@dimen/txt_10dp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text=">"
+
+                android:gravity="center"
                 android:textSize="14sp"
                 android:paddingRight="@dimen/txt_15dp"
-                android:layout_alignParentRight="true"
                 android:id="@+id/renzheng_main_arrow3"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/renzheng_personnal_txt"
-                android:gravity="center_vertical"
-                android:layout_toLeftOf="@+id/renzheng_main_arrow3"
-                android:paddingRight="@dimen/txt_10dp"/>
-        </RelativeLayout>
+        </LinearLayout>
 
         <include layout="@layout/back_line"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/txt_15dp"
+            android:paddingTop="@dimen/txt_39dp"
+            android:orientation="horizontal"
+            android:id="@+id/rl_cargroup"
+            android:paddingBottom="@dimen/txt_5dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="企业司机注册"
+                android:id="@+id/renzheng_main_cargroup"
+                android:textSize="@dimen/txt_14"
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="适合企业车队的司机，由企业车主接单、调度"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:paddingLeft="@dimen/txt_20dp"
+                android:paddingRight="@dimen/txt_10dp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text=">"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:paddingRight="@dimen/txt_15dp"
+                android:id="@+id/renzheng_main_arrow2"/>
+        </LinearLayout>
+
+        <include layout="@layout/back_line"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/txt_15dp"
+            android:paddingTop="@dimen/txt_39dp"
+            android:orientation="horizontal"
+            android:id="@+id/rl_person"
+            android:paddingBottom="@dimen/txt_5dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="个体车主认证"
+                android:layout_weight="2"
+                android:id="@+id/renzheng_main_person"
+                android:textSize="@dimen/txt_14"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="个体自有一台车辆车主，自主接单"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:paddingLeft="@dimen/txt_20dp"
+                android:paddingRight="@dimen/txt_10dp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text=">"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:paddingRight="@dimen/txt_15dp"
+                android:id="@+id/renzheng_main_arrow1"/>
+        </LinearLayout>
+
+        <include layout="@layout/back_line"/>
+
+
+
+
 
     </LinearLayout>
 </LinearLayout>

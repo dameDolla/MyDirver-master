@@ -114,9 +114,15 @@ public class Config {
     //根据billsGuid查找货源详情
     public static final String GETSRCDETAIL = "SelectCargoXQByCGUID";
     //绑定运单的车辆
-    public static final String BINDCAR = "";
+    public static final String BINDCAR = "UpdateBillInfoByMemberGUID";
     //取消运单
-    public static final String CANCELMISSION  = "";
+    public static final String CANCELMISSION  = "CancellationOfOrder";
     //发票设置
     public static final String FAPIAOSETTING = "UpdateInvoiceTypeByBill";
+    //更新运单的newLoad
+    public static final String SETBILLNEWLOAD = "UpdateBillNewLoad";
+    //更新用户的账户余额
+    public static final String GETMONEY = "SelectMyMoney";
+    //获取用户的交易记录
+    public static final String GETJIAOYILIST = "SelectInfoByGUID";
 }

@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -78,11 +80,12 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onResponse(Call<LoginBean> call, Response<LoginBean> response) {
                 LoginBean login = response.body();
-                ToolsUtils.getInstance().toastShowStr(LoginActivity.this, login.getErrorMsg());
+                //ToolsUtils.getInstance().toastShowStr(LoginActivity.this, login.getErrorMsg());
                 if (login.getData() != null) {
                     //跳转页面并自动登录
                     List<LoginBean.DataBean> data = login.getData();
                     String guid = data.get(0).getGUID();
+                    //ToolsUtils.getInstance().toastShowStr(LoginActivity.this, login.getErrorMsg());
                     try {
                         ToolsUtils.putString(LoginActivity.this, Constant.LOGIN_GUID, guid);
                         ToolsUtils.putString(LoginActivity.this, Constant.USERNAME, data.get(0).getUsername());
@@ -94,7 +97,9 @@ public class LoginActivity extends BaseActivity {
                         ToolsUtils.putString(LoginActivity.this,Constant.COUNT,data.get(0).getMoney()+"");
                         ToolsUtils.putString(LoginActivity.this,Constant.COMPANYGUID,data.get(0).getCompanyGUID()+"");
                         ToolsUtils.putString(LoginActivity.this,Constant.USERNAME,data.get(0).getTruename()+"");
-                        ToolsUtils.putString(LoginActivity.this,Constant.DRIVERBILL,data.get(0).getDriverbill()+"");
+                        ToolsUtils.putString(LoginActivity.this,Constant.DRIVERBILL,data.get(0).getCargocount()+"");
+                        ToolsUtils.putString(LoginActivity.this,"idcard",data.get(0).getIdcard()+"");
+                        ToolsUtils.putString(LoginActivity.this,"money",data.get(0).getMoney()+"");
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -102,6 +107,7 @@ public class LoginActivity extends BaseActivity {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.putExtra("flag","splash");
                     startActivity(intent);
+                    finish();
                 } else {
 
                 }
@@ -109,7 +115,7 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<LoginBean> call, Throwable t) {
-                ToolsUtils.getInstance().toastShowStr(LoginActivity.this, t.getMessage());
+               // ToolsUtils.getInstance().toastShowStr(LoginActivity.this, t.getMessage());
             }
 
 
@@ -169,6 +175,28 @@ public class LoginActivity extends BaseActivity {
 
     private void initView() {
         versionname.setText("司机版 "+ToolsUtils.getVersionName(LoginActivity.this));
+        mEditText.get(0).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() == 11){
+                    String tel = mEditText.get(0).getText().toString();
+                    if (!ToolsUtils.isChinaPhoneLegal(tel)){
+                        ToolsUtils.getInstance().toastShowStr(LoginActivity.this,"请输入正确格式的手机号");
+                        mEditText.get(0).selectAll();
+                    }
+                }
+            }
+        });
     }
 
     private class MyCounDownTimer extends CountDownTimer {

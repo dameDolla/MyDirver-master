@@ -14,7 +14,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -34,14 +36,22 @@ import com.app.gaolonglong.fragmenttabhost.bean.UpdateIdCardBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.service.MyService;
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.LoadingDialog;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
+import com.app.gaolonglong.fragmenttabhost.utils.ThreadManager;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -94,6 +104,9 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
     @BindViews({R.id.top_title,R.id.cargroup_next})
     public List<TextView> mText;
 
+    /*@BindView(R.id.renzheng_head)
+    public SimpleDraweeView head;*/
+
     @BindViews({R.id.cargroup_name,R.id.cargroup_num})
     public List<EditText> mEdit;
     private String guid;
@@ -131,12 +144,53 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
         icon.get(3).setOnClickListener(this);
         icon.get(4).setOnClickListener(this);
         mText.get(1).setOnClickListener(this);
-
+        mEdit.get(0).setText(GetUserInfoUtils.getUserName(CarGroupRenzhengActivity.this));
+        mEdit.get(1).setText(GetUserInfoUtils.getIdCard(CarGroupRenzhengActivity.this));
+        //head.setImageURI(Uri.parse(ToolsUtils.getString(CarGroupRenzhengActivity.this,Constant.HEADLOGO,"")));
         dialog = LoadingDialog.showDialog(CarGroupRenzhengActivity.this);
 
         guid = ToolsUtils.getString(CarGroupRenzhengActivity.this, Constant.LOGIN_GUID,"");
         key = ToolsUtils.getString(CarGroupRenzhengActivity.this, Constant.KEY,"");
         mobile = ToolsUtils.getString(CarGroupRenzhengActivity.this, Constant.MOBILE,"");
+
+        String url = ToolsUtils.getString(CarGroupRenzhengActivity.this,Constant.HEADLOGO,"");
+        if (!GetUserInfoUtils.getVtrueName(CarGroupRenzhengActivity.this).equals("0")){
+            if (!TextUtils.isEmpty(url)){
+                getHttpBitmap(url,icon.get(0),0);
+            }
+            getHttpBitmap(GetUserInfoUtils.getImg(guid,"2"),icon.get(1),1);
+            getHttpBitmap(GetUserInfoUtils.getImg(guid,"3"),icon.get(2),2);
+            getHttpBitmap(GetUserInfoUtils.getImg(guid,"15"),icon.get(3),3);
+            getHttpBitmap(GetUserInfoUtils.getImg(guid,"4"),icon.get(4),4);
+        }
+
+        mEdit.get(1).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() == 18){
+                    String idcard = mEdit.get(1).getText().toString();
+                    try {
+                        String str = ToolsUtils.IDCardValidate(idcard);
+                        if (!TextUtils.isEmpty(str)){
+                            mEdit.get(1).selectAll();
+                            ToolsUtils.getInstance().toastShowStr(CarGroupRenzhengActivity.this,str);
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -189,7 +243,7 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
            try {
                mJson = new JSONObject();
                mJson.put("GUID",guid);
-               mJson.put("mobile","15908690321");
+               mJson.put("mobile",mobile);
                mJson.put("idcard",num);
                mJson.put("truename",name);
                mJson.put(Constant.KEY,key);
@@ -219,11 +273,11 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
                         @Override
                         public void onNext(GetCodeBean s) {
                             //dialog.dismiss();
-                            ToolsUtils.getInstance().toastShowStr(CarGroupRenzhengActivity.this,s.getErrorCode());
+                            ToolsUtils.getInstance().toastShowStr(CarGroupRenzhengActivity.this,s.getErrorMsg());
                             String code = s.getErrorCode();
                             if(code.equals("200") )
                             {
-
+                                ToolsUtils.putString(CarGroupRenzhengActivity.this,Constant.VTRUENAME,"1");
                                 startActivity(new Intent(CarGroupRenzhengActivity.this,CarGroupRenzheng2Activity.class));
                             }
                         }
@@ -460,5 +514,63 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
 
                     }
                 });
+    }
+    /**
+     * 从服务器取图片
+     *http://bbs.3gstdy.com
+     * @param url
+     * @return
+     */
+    public void getHttpBitmap(final String url, final ImageView iv, final int position) {
+
+        ThreadManager.getNormalPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                URL myFileUrl = null;
+                Bitmap bitmap = null;
+                try {
+                    //Log.d(TAG, url);
+                    myFileUrl = new URL(url);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    HttpURLConnection conn = (HttpURLConnection) myFileUrl.openConnection();
+                    conn.setConnectTimeout(0);
+                    conn.setDoInput(true);
+                    conn.connect();
+                    InputStream is = conn.getInputStream();
+                    bitmap = BitmapFactory.decodeStream(is);
+                    is.close();
+                    final Bitmap finalBitmap = bitmap;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (finalBitmap.getByteCount() != 0){
+                                if (position == 0){
+                                    iv.setImageBitmap(ToolsUtils.zoomImg(finalBitmap,40,40));
+                                }else if (position == 1){
+                                    iv.setImageBitmap(ToolsUtils.zoomImg(finalBitmap,200,200));
+                                }else if (position == 2){
+                                    iv.setImageBitmap(ToolsUtils.zoomImg(finalBitmap,200,200));
+                                }else if (position == 3){
+                                    iv.setImageBitmap(ToolsUtils.zoomImg(finalBitmap,200,200));
+                                }else if (position == 4){
+                                    iv.setImageBitmap(ToolsUtils.zoomImg(finalBitmap,200,200));
+                                }
+                            }else {
+                                iv.setImageResource(R.mipmap.pic);
+                            }
+
+
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+        //return bitmap;
     }
 }

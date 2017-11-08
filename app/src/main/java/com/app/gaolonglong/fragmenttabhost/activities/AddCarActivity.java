@@ -160,7 +160,9 @@ public class AddCarActivity extends BaseActivity implements View.OnClickListener
     private void initView()
     {
         title.setText("添加车辆");
-        getGuid();
+        if (TextUtils.isEmpty(ToolsUtils.getString(AddCarActivity.this,NEWGUID,""))){
+            getGuid();
+        }
         flag = getIntent().getStringExtra("flag")+"";
         if (flag.equals("carinfo")){
             title.setText("修改车辆");

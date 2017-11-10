@@ -62,6 +62,7 @@ import java.net.URL;
 import java.security.MessageDigest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
@@ -465,10 +466,27 @@ public class ToolsUtils {
         String mYear = String.valueOf(c.get(Calendar.YEAR));// 获取当前年份
         String mMonth = String.valueOf(c.get(Calendar.MONTH) + 1);// 获取当前月份
         String mDay = String.valueOf(c.get(Calendar.DAY_OF_MONTH)+n);// 获取当前月份的日期号码
+
         /*if(Integer.parseInt(mDay) > MaxDayFromDay_OF_MONTH(Integer.parseInt(mYear),(Integer.parseInt(mMonth)))){
             mDay = String.valueOf(MaxDayFromDay_OF_MONTH(Integer.parseInt(mYear),(Integer.parseInt(mMonth))));
         }*/
-        return mYear + "-" + (mMonth.length()==1?"0"+mMonth:mMonth) + "-" + (mDay.length()==1?"0"+mDay:mDay);
+            return mYear + "-" + (mMonth.length()==1?"0"+mMonth:mMonth) + "-" + (mDay.length()==1?"0"+mDay:mDay);
+    }
+    public static List<String> get7date() {
+        List<String> dates = new ArrayList<String>();
+        final Calendar c = Calendar.getInstance();
+        c.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        java.text.SimpleDateFormat sim = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        String date = sim.format(c.getTime());
+        dates.add(date);
+        for (int i = 0; i < 30; i++) {
+            c.add(java.util.Calendar.DAY_OF_MONTH, 1);
+            date = sim.format(c.getTime());
+            dates.add(date);
+
+
+        }
+        return dates;
     }
 
     /**
@@ -480,7 +498,7 @@ public class ToolsUtils {
         PackageManager manager = context.getPackageManager();
         try {
             PackageInfo info = manager.getPackageInfo(context.getPackageName(),0);
-             versionCode = info.versionCode;
+            versionCode = info.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }

@@ -200,6 +200,7 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
         mButton.get(1).setOnClickListener(this);
         selectCar.setOnClickListener(this);
         phone.setOnClickListener(this);
+        phone.setVisibility(View.GONE);
         SimpleDateFormat mDataFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
         date = mDataFormat.format(Calendar.getInstance().getTime());
         showData();
@@ -327,6 +328,7 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
             mText.get(0).setText(STATUS5);
             mButton.get(0).setText(BUTTONTXT5);
             mButton.get(0).setEnabled(true);
+            status.get(9).setText("司机已到达卸货地");
             methodName = Config.MISSION_STATUS_QIANSHOU;
             vertical.setImageResource(R.drawable.vertical_line_4);
             zcaddr.setText(bean.getFromDetailedAddress());
@@ -349,6 +351,8 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
             mText.get(0).setText(STATUS7);
             mButton.get(0).setText(STATUS7);
             mButton.get(0).setEnabled(false);
+            status.get(9).setText("司机已到达卸货地");
+            status.get(12).setText("货物已签收");
             methodName = Config.MISSION_STATUS_QIANSHOU;
             vertical.setImageResource(R.drawable.vertical_line_4);
             zcaddr.setText(bean.getFromDetailedAddress());
@@ -382,6 +386,9 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
             mText.get(0).setText(STATUS8);
             mButton.get(0).setText(STATUS8);
             mButton.get(0).setEnabled(false);
+            status.get(9).setText("司机已到达卸货地");
+            status.get(12).setText("货物已签收");
+            status.get(14).setText("运单已完成");
             vertical.setImageResource(R.drawable.vertical_line_5);
             zcaddr.setText(bean.getFromDetailedAddress());
             status.get(5).setText(ToolsUtils.getString(MissionDetailActivity.this, Constant.ADDRESS, ""));

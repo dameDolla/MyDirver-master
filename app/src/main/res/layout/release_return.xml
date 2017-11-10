@@ -325,9 +325,29 @@
                 android:gravity="center_vertical"
                 android:layout_toLeftOf="@+id/car_status_arrow"
                 android:text="空车"
+                android:visibility="gone"
                 android:id="@+id/car_status"
                 android:textSize="@dimen/txt_14"
                 android:paddingRight="@dimen/txt_17dp"/>
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/car_status_arrow"
+                android:orientation="horizontal"
+                android:id="@+id/release_return_rg"
+                android:paddingRight="@dimen/txt_17dp">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="空仓"
+                    android:id="@+id/release_rg_kong"
+                    android:paddingRight="@dimen/txt_10dp"/>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/release_rg_yu"
+                    android:text="余仓"/>
+            </RadioGroup>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

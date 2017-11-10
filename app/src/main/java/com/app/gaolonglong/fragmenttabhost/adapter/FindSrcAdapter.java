@@ -81,6 +81,7 @@ public class FindSrcAdapter extends RecyclerView.Adapter implements View.OnClick
         holder1.time.setText(time[0]);
         holder1.icon.setImageURI(Uri.parse(data.getAvatarAddress()));
         holder1.itemView.setTag(position);
+        //holder1.tel.setVisibility(View.GONE);
         //holder1.username.setText(data.getOwnername().toString());
         //holder1.isRenzheng.setText("注册用户");
         if (data.getCreditlevel().toString().equals("0")) {
@@ -90,6 +91,7 @@ public class FindSrcAdapter extends RecyclerView.Adapter implements View.OnClick
         } else if (data.getCreditlevel().toString().equals("2")) {
             holder1.isRenzheng.setText("诚信用户");
         }
+
         holder1.tel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

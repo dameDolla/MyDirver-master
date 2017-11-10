@@ -89,6 +89,11 @@
             android:theme="@style/AppTheme">
 
         </activity>
+        <!--地址选择页面-->
+        <activity android:name=".activities.AddressActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
         <!--充值页面-->
         <activity android:name=".activities.RechargeSelectMoneyActivity"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden">
@@ -440,7 +445,14 @@
 
         <!-- Required SDK核心功能-->
         <receiver android:name="cn.jpush.android.service.AlarmReceiver" android:exported="false"/>
-
+        <!--<receiver android:name=".broadcast.NetworkConnectChangedReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.NET.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.Net.wifi.WIFI_STATE_CHANGED" />
+                <action android:name="android.net.wifi.STATE_CHANGE" />
+            </intent-filter>
+        </receiver>-->
         <receiver
             android:name=".broadcast.MyPushReceiver"
             android:enabled="true">

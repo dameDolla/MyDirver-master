@@ -64,6 +64,7 @@ public class ReleaseAdapter extends RecyclerView.Adapter {
         viewHolder.addr.setText(date.getFromSite()+"-"+date.getToSite());
         viewHolder.price.setText("￥"+date.getTransportOffer());
         viewHolder.date.setText(date.getEmptytime().substring(0,10));
+        viewHolder.fabudate.setText(date.getBacktime().substring(0,10));
        // viewHolder.fabudate.setText(get);
         if(date.getTruckplanStatus().equals("0"))
         {

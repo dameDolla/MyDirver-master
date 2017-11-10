@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
+import com.app.gaolonglong.fragmenttabhost.activities.AddressActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.CarInfoActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.CompanyInfoActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.FaPiaoSettingActivity;
@@ -97,6 +98,12 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+       // init();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         init();
     }
 
@@ -191,6 +198,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.mine_setting: //设置界面
                 intent = new Intent(getActivity(), SettingActivity.class);
+                //intent = new Intent(getActivity(), AddressActivity.class);
                 startActivity(intent);
                 break;
 

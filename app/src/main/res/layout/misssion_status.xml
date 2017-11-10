@@ -488,7 +488,7 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="司机已到达卸货地 "
+                            android:text="司机正在前往卸货地 "
                             android:layout_weight="5"
                             android:id="@+id/mission_status_five"
                             android:textColor="@color/gray_87"
@@ -523,7 +523,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
-                            android:text="货物已签收 "
+                            android:text="货物等待签收 "
                             android:id="@+id/mission_status_six"
                             android:textColor="@color/gray_87"
                             android:textSize="@dimen/txt_14"/>

@@ -92,6 +92,7 @@ public class MissionDoing extends Fragment {
         super.onActivityCreated(savedInstanceState);
         init();
     }
+
     private void init()
     {
         initView();
@@ -170,7 +171,7 @@ public class MissionDoing extends Fragment {
         fresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                onActivityCreated(null);
+                onResume();
                 fresh.setRefreshing(false);
             }
         });
@@ -205,7 +206,7 @@ public class MissionDoing extends Fragment {
                                 ToolsUtils.getInstance().toastShowStr(getContext(),getCodeBean.getErrorMsg());
                                 if (getCodeBean.getErrorCode().equals("200")){
                                     list.remove(position);
-                                    onActivityCreated(null);
+                                    onResume();
                                     adapter.notifyDataSetChanged();
                                 }
                             }
@@ -268,6 +269,6 @@ public class MissionDoing extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        onActivityCreated(null);
+        init();
     }
 }

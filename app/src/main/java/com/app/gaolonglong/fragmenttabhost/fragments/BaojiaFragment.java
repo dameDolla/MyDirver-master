@@ -104,6 +104,12 @@ public class BaojiaFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+       // init();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         init();
     }
 
@@ -212,7 +218,7 @@ public class BaojiaFragment extends Fragment implements View.OnClickListener{
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                onActivityCreated(null);
+                onResume();
                 refresh.setRefreshing(false);
             }
         });
@@ -238,7 +244,7 @@ public class BaojiaFragment extends Fragment implements View.OnClickListener{
                     public void onNext(GetCodeBean getCodeBean) {
                         ToolsUtils.getInstance().toastShowStr(getContext(), getCodeBean.getErrorMsg());
                         if (getCodeBean.getErrorCode().equals("200")) {
-                            onActivityCreated(null);
+                            onResume();
                         }
                     }
                 });
@@ -270,7 +276,7 @@ public class BaojiaFragment extends Fragment implements View.OnClickListener{
                                     //getBaojiaList();
                                     list.get(position).setCargoPriceState("2");
                                     adapter.notifyDataSetChanged();
-                                    onActivityCreated(null);
+                                    onResume();
                                 }
                             }
                         });

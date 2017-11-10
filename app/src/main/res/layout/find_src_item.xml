@@ -230,6 +230,7 @@
                     <ImageView
                         android:id="@+id/find_iv_phone"
                         android:layout_width="25dp"
+                        android:visibility="gone"
                         android:layout_height="25dp"
                         android:src="@mipmap/phone" />
                     <!-- <TextView

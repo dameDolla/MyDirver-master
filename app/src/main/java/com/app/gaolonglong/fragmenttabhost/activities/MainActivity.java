@@ -86,7 +86,8 @@ public class MainActivity extends AppCompatActivity {
         initEvent();
         checkUpdate();
         Intent intent = new Intent(MainActivity.this, LocationService.class);
-        bindService(intent,conn, Context.BIND_AUTO_CREATE);
+        //bindService(intent,conn, Context.BIND_AUTO_CREATE);
+        startService(intent);
     }
 
     @Override

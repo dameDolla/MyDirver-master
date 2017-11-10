@@ -41,6 +41,8 @@
                 android:layout_height="wrap_content"
                 android:text="深圳科技园—俄罗斯贝加尔湖畔"
                 android:textSize="@dimen/txt_14"
+                android:singleLine="true"
+                android:layout_marginRight="50dp"
                 android:id="@+id/release_fabuitem_addr"
                 android:textColor="@color/black"/>
             <LinearLayout
@@ -59,7 +61,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="装货时间"
+                    android:text="空车时间"
                     android:textColor="#666666"
                     android:paddingLeft="@dimen/txt_5dp"
                     android:textSize="@dimen/txt_12"/>
@@ -75,6 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="修改"
+                    android:visibility="gone"
                     android:id="@+id/release_fabuitem_edit"
                     android:paddingLeft="@dimen/txt_5dp"
                     android:textColor="@color/shen_blue"
@@ -89,13 +92,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="发布时间"
+                    android:text="返程时间"
                     android:textSize="@dimen/txt_12"
                     android:textColor="#666666"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="2017-08-08  15:36"
+                    android:text=""
                     android:paddingLeft="@dimen/txt_5dp"
                     android:textSize="@dimen/txt_12"
                     android:id="@+id/release_fabuitem_fabudate"

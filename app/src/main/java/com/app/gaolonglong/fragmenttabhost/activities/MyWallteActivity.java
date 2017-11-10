@@ -1,7 +1,6 @@
 package com.app.gaolonglong.fragmenttabhost.activities;
 
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -25,7 +23,6 @@ import com.app.gaolonglong.fragmenttabhost.service.GetUserInfoService;
 import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
-import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
 
 import java.util.ArrayList;
@@ -62,6 +59,7 @@ public class MyWallteActivity extends BaseActivity implements View.OnClickListen
     @BindView(R.id.my_wallte_recycle)
     public RecyclerView recyclerView;
     private MyWallteAdapter adapter;
+
 
     @OnClick(R.id.title_back)
     public void back()

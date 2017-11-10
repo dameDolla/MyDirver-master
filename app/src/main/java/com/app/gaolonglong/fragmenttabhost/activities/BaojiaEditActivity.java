@@ -652,7 +652,7 @@ public class BaojiaEditActivity extends BaseActivity implements AdapterView.OnIt
 
     private void initPopwindow() {
         //initPopData();
-        contentView = getLayoutInflater().inflate(R.layout.find_poplist, null);
+        contentView = getLayoutInflater().inflate(R.layout.text_listview_item, null);
         popMenu = new PopupWindow(contentView,
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -681,7 +681,7 @@ public class BaojiaEditActivity extends BaseActivity implements AdapterView.OnIt
 
     private void showPop() {
         //list = l;
-        ListView popListView = (ListView) contentView.findViewById(R.id.find_pop_listview);
+        ListView popListView = (ListView) contentView.findViewById(R.id.text_item_listview);
         popListView.setOnItemClickListener(this);
         popadapter = new BaojiaPopAdapter(BaojiaEditActivity.this, carList);
 

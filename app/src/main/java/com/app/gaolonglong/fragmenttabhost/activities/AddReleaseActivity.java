@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -51,6 +54,12 @@ import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import chihane.jdaddressselector.BottomDialog;
+import chihane.jdaddressselector.OnAddressSelectedListener;
+import chihane.jdaddressselector.model.City;
+import chihane.jdaddressselector.model.County;
+import chihane.jdaddressselector.model.Province;
+import chihane.jdaddressselector.model.Street;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -59,7 +68,7 @@ import rx.schedulers.Schedulers;
  * Created by yanqi on 2017/8/7.
  */
 
-public class AddReleaseActivity extends BaseActivity implements View.OnClickListener,AdapterView.OnItemClickListener {
+public class AddReleaseActivity extends BaseActivity implements View.OnClickListener,AdapterView.OnItemClickListener ,OnAddressSelectedListener{
 
     private View contentView;
     private PopupWindow popMenu;
@@ -81,6 +90,17 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
     private View carcontentView;
     private PopupWindow carpopMenu;
     private BaojiaPopAdapter popadapter;
+    private List<Map<String, String>> time1map;
+    private List<Map<String, String>> time2map;
+    private TextView timecancel;
+    private TextView timetxt;
+    private TextView timesure;
+    private ListView timeListview1;
+    private ListView timeListview2;
+    private SimpleAdapter time1adapter;
+    private SimpleAdapter time2adapter;
+    private BottomDialog addrDialog;
+    private BottomDialog addrDialogs;
 
     @OnClick({R.id.title_back})
     public void  back()
@@ -104,6 +124,9 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
     @BindView(R.id.release_parent)
     public LinearLayout parent;
 
+    @BindView(R.id.release_return_rg)
+    public RadioGroup rg;
+
     private String car_num;
     private String carType;
     private String carStatus;
@@ -125,6 +148,7 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
     private String backtime;
     private String emptyTime;
     private String status;
+
     private List<CarTeamBean.DataBean> carList = new ArrayList<>();
 
     @Override
@@ -148,7 +172,6 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
         fabu.setOnClickListener(this);
         mRelat.get(2).setOnClickListener(this);
         mRelat.get(3).setOnClickListener(this);
-        mRelat.get(4).setOnClickListener(this);
         carnumll.setOnClickListener(this);
 
         guid = ToolsUtils.getString(AddReleaseActivity.this, Constant.LOGIN_GUID,"");
@@ -172,6 +195,13 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
 
     private void submit()
     {
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
+                RadioButton rb = (RadioButton) findViewById(rg.getCheckedRadioButtonId());
+                status = rb.getText().toString();
+            }
+        });
         car_num = mText.get(1).getText().toString();
         carType = mText.get(2).getText().toString();
         carStatus = mText.get(3).getText().toString();
@@ -180,7 +210,7 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
         finish = mText.get(7).getText().toString();
         backtime = mText.get(4).getText().toString();
         emptyTime = mText.get(5).getText().toString();
-        status = mText.get(2).getText().toString();
+        //status = mText.get(2).getText().toString();
 
         weight = mEdit.get(0).getText().toString();
         tiji = mEdit.get(1).getText().toString();
@@ -239,6 +269,7 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
     private  void initPopwindow()
     {
         //initPopData();
+
         contentView=  getLayoutInflater().inflate(R.layout.find_poplist,null);
         popMenu = new PopupWindow(contentView,
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -265,12 +296,40 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
     }
     private void showPop(List<Map<String,String>> l,int i)
     {
+
         list = l;
+        List<String> time1 = new ArrayList<>();
+        List<String> time2 = new ArrayList<>();
+
+
+        String[] s = {"上午","01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00",};
+        String[] s2 = {"下午","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00",};
+        for (String x:s){
+            time1.add(x);
+        }
+        for (String y:s2){
+            time2.add(y);
+        }
+        time1map = initPopData(time1);
+        time2map = initPopData(time2);
+        timecancel = (TextView) contentView.findViewById(R.id.find_time_cancel);
+        timetxt = (TextView) contentView.findViewById(R.id.find_time_timetxt);
+        timesure = (TextView) contentView.findViewById(R.id.find_time_sure);
         popListView = (ListView) contentView.findViewById(R.id.find_pop_listview);
+        timeListview1 = (ListView) contentView.findViewById(R.id.find_time_listview1);
+        timeListview2 = (ListView) contentView.findViewById(R.id.find_time_listview2);
         popListView.setOnItemClickListener(this);
+        timeListview1.setOnItemClickListener(this);
+        timeListview2.setOnItemClickListener(this);
         adapter = new SimpleAdapter(AddReleaseActivity.this,list, R.layout.item_listview_popwin,
             new String[]{"name"},new int[]{R.id.listview_popwind_tv});
+        time1adapter = new SimpleAdapter(AddReleaseActivity.this, time1map, R.layout.item_listview_popwin,
+                new String[]{"name"}, new int[]{R.id.listview_popwind_tv});
+        time2adapter = new SimpleAdapter(AddReleaseActivity.this, time2map, R.layout.item_listview_popwin,
+                new String[]{"name"}, new int[]{R.id.listview_popwind_tv});
         popListView.setAdapter(adapter);
+        timeListview1.setAdapter(time1adapter);
+        timeListview2.setAdapter(time2adapter);
         popMenu.showAtLocation(parent, Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0,0);
         params = getWindow().getAttributes();
         //当弹出Popupwindow时，背景变半透明
@@ -285,6 +344,25 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
                 getWindow().setAttributes(params);
             }
         });
+        timesure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String selecttime = timetxt.getText().toString();
+                popMenu.dismiss();
+
+                if(flag == 3)
+                {
+                    mText.get(4).setText(selecttime);
+
+                }else if(flag == 2)
+                {
+                    mText.get(5).setText(selecttime);
+
+                }
+                //getSrcFromside(initJsonData(flag, addrs, "", ""));
+               //ToolsUtils.getInstance().toastShowStr(AddReleaseActivity.this,flag+"");
+            }
+        });
     }
     @Override
     public void onClick(View view) {
@@ -294,12 +372,18 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.release_begin_addr:
-
-                startActivityForResult(new Intent(AddReleaseActivity.this,SearchAddrActivity.class),GETADDR);
+                flag = 4;
+                addrDialog = new BottomDialog(AddReleaseActivity.this);
+                addrDialog.setOnAddressSelectedListener(this);
+                addrDialog.show();
+               // startActivityForResult(new Intent(AddReleaseActivity.this,SearchAddrActivity.class),GETADDR);
                 break;
             case R.id.release_finish_addr:
-
-                startActivityForResult(new Intent(AddReleaseActivity.this,SearchAddrActivity.class),200);
+                flag = 5;
+                addrDialogs = new BottomDialog(AddReleaseActivity.this);
+                addrDialogs.setOnAddressSelectedListener(this);
+                addrDialogs.show();
+                //startActivityForResult(new Intent(AddReleaseActivity.this,SearchAddrActivity.class),200);
                 break;
             case R.id.fabu_now:
                 submit();
@@ -307,35 +391,20 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
             case R.id.release_rl_backtime:
                 flag = 3;
                 strs = new ArrayList<String>();
-                strs.add(ToolsUtils.StringData(0));
-                strs.add(ToolsUtils.StringData(1));
-                strs.add(ToolsUtils.StringData(2));
-                strs.add(ToolsUtils.StringData(3));
-                strs.add(ToolsUtils.StringData(4));
-                strs.add(ToolsUtils.StringData(5));
-                strs.add(ToolsUtils.StringData(6));
+                for (int i=0;i<31;i++){
+                    strs.add(ToolsUtils.StringData(i));
+                }
                 showPop(initPopData(strs),flag);
                 break;
             case R.id.release_rl_emptytime:
                 flag =2;
-                strs = new ArrayList<String>();
-                strs.add(ToolsUtils.StringData(0));
-                strs.add(ToolsUtils.StringData(1));
-                strs.add(ToolsUtils.StringData(2));
-                strs.add(ToolsUtils.StringData(3));
-                strs.add(ToolsUtils.StringData(4));
-                strs.add(ToolsUtils.StringData(5));
-                strs.add(ToolsUtils.StringData(6));
-                showPop(initPopData(strs),flag);
+                /*strs = new ArrayList<String>();
+                for (int i=0;i<31;i++){
+                    strs.add(ToolsUtils.StringData(i));
+                }*/
+                showPop(initPopData(ToolsUtils.get7date()),flag);
                 break;
-            case R.id.release_rl_carstatus:
-                flag = 1;
-                strs = new ArrayList<String>();
-                strs.add("空仓");
-                strs.add("余仓");
 
-                showPop(initPopData(strs),flag);
-                break;
             case R.id.add_release_carnum_ll:
                 showCarPop();
                 break;
@@ -343,23 +412,45 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
         }
        // popMenu.dismiss();
     }
-
+    String time1 = "";
+    String time2 = "";
+    String time3 = "";
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        popMenu.dismiss();
+       // popMenu.dismiss();
         String str = list.get(i).get("name");
-        if(flag == 1)
-        {
-            mText.get(3).setText(str);
 
-        }else if(flag == 2)
-        {
-            mText.get(5).setText(str);
-
-        }else if (flag == 3)
-        {
-            mText.get(4).setText(str);
+        switch (adapterView.getId()){
+            case R.id.find_pop_listview:
+                if (!TextUtils.isEmpty(time1)){
+                    time2 = "";
+                    time3 = "";
+                    time1 = list.get(i).get("name");
+                }else {
+                    time1 = list.get(i).get("name");
+                }
+                break;
+            case R.id.find_time_listview1:
+                if (!TextUtils.isEmpty(time2)||!TextUtils.isEmpty(time3)){
+                    time2 = "";
+                    time3 = "";
+                    time2 = time1map.get(i).get("name");
+                }else{
+                    time2 = time1map.get(i).get("name");
+                }
+                break;
+            case R.id.find_time_listview2:
+                if (!TextUtils.isEmpty(time2)||!TextUtils.isEmpty(time3)){
+                    time2 = "";
+                    time3 = "";
+                    time3= time2map.get(i).get("name");
+                }else {
+                    time3= time2map.get(i).get("name");
+                }
+                break;
         }
+
+        timetxt.setText(time1+" "+time2+" "+time3);
 
     }
 
@@ -440,7 +531,7 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
     }
     private void initCarPopwindow() {
         //initPopData();
-        carcontentView = getLayoutInflater().inflate(R.layout.find_poplist, null);
+        carcontentView = getLayoutInflater().inflate(R.layout.text_listview_item, null);
         carpopMenu = new PopupWindow(carcontentView,
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -457,7 +548,7 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
 
     private void showCarPop() {
         //list = l;
-        ListView popListView = (ListView) carcontentView.findViewById(R.id.find_pop_listview);
+        ListView popListView = (ListView) carcontentView.findViewById(R.id.text_item_listview);
         popListView.setOnItemClickListener(new MyItemclick());
         popadapter = new BaojiaPopAdapter(AddReleaseActivity.this, carList);
 
@@ -484,6 +575,18 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
             mText.get(1).setText(carList.get(i).getTruckno()+"");
             mText.get(2).setText(carList.get(i).getTrucktype()+"/"+carList.get(i).getTrucklength());
             carpopMenu.dismiss();
+        }
+    }
+
+    @Override
+    public void onAddressSelected(Province province, City city, County county, Street street) {
+        String addr = province.name+city.name+county.name;
+        if (flag == 4){
+            addrDialog.dismiss();
+            mText.get(6).setText(addr);
+        }else if (flag == 5){
+            addrDialogs.dismiss();
+            mText.get(7).setText(addr);
         }
     }
 }

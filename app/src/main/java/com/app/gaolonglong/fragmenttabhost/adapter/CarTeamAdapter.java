@@ -66,16 +66,16 @@ public class CarTeamAdapter extends RecyclerView.Adapter{
         mHolder.logo.setImageURI(Uri.parse(data.getTruckImg()));
         if (vtruck.equals("0")) { //未认证
             mHolder.status.setText("未认证");
-            mHolder.status.setTextColor(Color.RED);
+            //mHolder.status.setTextColor(Color.RED);
         }else if (vtruck.equals("1")) {
             mHolder.status.setText("已提交");
-            mHolder.status.setTextColor(Color.YELLOW);
+            //mHolder.status.setTextColor(Color.YELLOW);
         }else if (vtruck.equals("2")){
             mHolder.status.setText("不合格");
-            mHolder.status.setTextColor(Color.RED);
+            //mHolder.status.setTextColor(Color.RED);
         }else if (vtruck.equals("9")){
             mHolder.status.setText("已认证");
-            mHolder.status.setTextColor(Color.GREEN);
+            //mHolder.status.setTextColor(Color.GREEN);
         }
         mHolder.del.setOnClickListener(new View.OnClickListener() {
             @Override

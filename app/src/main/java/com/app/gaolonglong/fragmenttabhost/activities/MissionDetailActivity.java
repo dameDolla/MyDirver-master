@@ -51,6 +51,7 @@ import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 import com.app.gaolonglong.fragmenttabhost.view.CommomDialog;
 import com.app.gaolonglong.fragmenttabhost.view.SetSignByDialog;
+import com.cretin.www.externalmaputilslibrary.OpenExternalMapAppUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.luoxudong.app.threadpool.ThreadPoolHelp;
 
@@ -124,6 +125,7 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
     private int position = 0;
     private String usertype;
     private String addr;
+    private String location;
 
     @OnClick(R.id.title_back_txt)
     public void back() {
@@ -185,6 +187,9 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
     @BindView(R.id.mission_detail_cargotype)
     public TextView cargotype;
 
+    @BindView(R.id.title_right_icon)
+    public ImageView icon;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -209,7 +214,10 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
         date = mDataFormat.format(Calendar.getInstance().getTime());
         showData();
         usertype = GetUserInfoUtils.getUserType(MissionDetailActivity.this);
+        icon.setImageBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.daohang));
+        icon.setVisibility(View.VISIBLE);
 
+        icon.setOnClickListener(this);
         // Intent intentService = new Intent(MissionDetailActivity.this, LocationService.class);
         //bindService(intentService,conn,Context.BIND_AUTO_CREATE);
 
@@ -218,9 +226,9 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void onResume() {
         super.onResume();
-        if (usertype.equals("3") || usertype.equals("2")) {
+       // if (usertype.equals("3") || usertype.equals("2")) {
             initLocation();
-        }
+        //}
     }
 
     private ServiceConnection conn = new ServiceConnection() {
@@ -584,10 +592,27 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
                 intent2.putExtra("missionguid", bean.getBillsGUID());
                 startActivityForResult(intent2, REQUESTCODE_CAR);
                 break;
+            case R.id.title_right_icon:
+                int status = Integer.parseInt(bean.getStatus());
+                if (status > -1 && status <2){
+                    toGaode(location,bean.getLoadaddHZ(),addr,bean.getFromDetailedAddress());
+                }else if (status == 2){
+                    toGaode(bean.getLoadaddHZ(),bean.getArrivedaddHZ(),bean.getFromDetailedAddress(),bean.getToDetailedAddress());
+                }else if (status > 2 && status <9){
+                    toGaode(bean.getLoadaddHZ(),bean.getArrivedaddHZ(),bean.getFromDetailedAddress(),bean.getToDetailedAddress());
+                }else if (status >5){
+                    icon.setVisibility(View.GONE);
+                }
+                break;
         }
 
     }
-
+    private void toGaode(String fromSite,String toSite,String fromAddr,String toAddr){
+        Log.i("mission-addr",fromSite+"-"+toSite);
+        String[] fromSites = fromSite.split(",");
+        String[] toSites = toSite.split(",");
+        OpenExternalMapAppUtils.openMapDirection(this,fromSites[0],fromSites[1],fromAddr,toSites[0],toSites[1],toAddr,"卡车先生");
+    }
     public void showEditDialog(Activity view) {
         setSignByDialog = new SetSignByDialog(this, R.style.dialog, onClickListener);
         setSignByDialog.show();
@@ -862,9 +887,10 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
         mLocationClient.setLocationListener(new AMapLocationListener() {
             @Override
             public void onLocationChanged(AMapLocation amapLocation) {
-                String location = amapLocation.getLatitude() + "," + amapLocation.getLongitude();
+                location = amapLocation.getLongitude() + "," + amapLocation.getLatitude();
                 //setNewLoad(location);
                 addr = amapLocation.getAddress();
+                Log.i("misisondetail-l",location);
                 //ToolsUtils.putString(MissionDetailActivity.this, Constant.CITY, amapLocation.getCity());
                 //ToolsUtils.putString(MissionDetailActivity.this, Constant.ADDRESS, amapLocation.getAddress());
                 //ToolsUtils.getInstance().toastShowStr(SplashActivity.this,amapLocation.getErrorInfo());

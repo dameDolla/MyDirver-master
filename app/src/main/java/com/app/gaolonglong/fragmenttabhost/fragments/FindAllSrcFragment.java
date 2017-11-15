@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.activities.AddressActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.FindDetailActivity;
+import com.app.gaolonglong.fragmenttabhost.activities.SelectTruckTypeActivity;
 import com.app.gaolonglong.fragmenttabhost.adapter.FindSrcAdapter;
 import com.app.gaolonglong.fragmenttabhost.bean.GetSRCBean;
 import com.app.gaolonglong.fragmenttabhost.bean.ToSrcDetailBean;
@@ -352,6 +353,7 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
         });
     }
 
+
     /**
      * @param flag 0(默认定位) 1(选择了终点) 2（选择了车辆类型） 3（选择了装车时间）
      * @return
@@ -472,6 +474,7 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
                 addrDialog.show();*/
                 break;
             case R.id.find_tv_cartype:
+               // startActivity(new Intent(getContext(), SelectTruckTypeActivity.class));
                 showCarPop();
                 break;
             case R.id.find_tv_time:

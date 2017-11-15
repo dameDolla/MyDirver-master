@@ -57,4 +57,5 @@ dependencies {
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     //地址选择
     compile 'com.github.chihane:JDAddressSelector:1.1.4'
+    compile project(':externalmaputilslibrary')
 }

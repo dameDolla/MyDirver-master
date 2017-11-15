@@ -390,7 +390,7 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
                 addrDialogs = new BottomDialog(AddReleaseActivity.this);
                 addrDialogs.setOnAddressSelectedListener(this);
                 addrDialogs.show();
-                //startActivityForResult(new Intent(AddReleaseActivity.this,SearchAddrActivity.class),200);
+               // startActivityForResult(new Intent(AddReleaseActivity.this,SearchAddrActivity.class),200);
                 break;
             case R.id.fabu_now:
                 submit();

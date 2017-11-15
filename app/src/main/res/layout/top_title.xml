@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:paddingRight="@dimen/txt_10dp"
+            android:layout_marginRight="@dimen/txt_10dp"
             android:src="@drawable/jia"
             android:visibility="gone"
             android:id="@+id/title_right_icon"

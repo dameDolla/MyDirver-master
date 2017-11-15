@@ -346,6 +346,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/release_rg_yu"
+                    android:visibility="gone"
                     android:text="余仓"/>
             </RadioGroup>
             <TextView
@@ -369,6 +370,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="47dp"
+            android:visibility="gone"
             android:gravity="center_vertical">
             <ImageView
                 android:layout_width="wrap_content"

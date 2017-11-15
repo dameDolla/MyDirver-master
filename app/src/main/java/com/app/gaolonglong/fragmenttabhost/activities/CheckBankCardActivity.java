@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.utils.BankInfo;
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 
 import java.nio.charset.CharacterCodingException;
@@ -40,6 +41,7 @@ public class CheckBankCardActivity extends BaseActivity implements View.OnClickL
         ImageView title_backs = (ImageView) findViewById(R.id.title_back);
         TextView username = (TextView) findViewById(R.id.check_bank_username);
         tel = (TextView) findViewById(R.id.check_bank_tel);
+        tel.setText(GetUserInfoUtils.getMobile(this));
         final TextView name = (TextView) findViewById(R.id.check_bank_name);
         final EditText num = (EditText) findViewById(R.id.check_bank_num);
         Button  submit = (Button) findViewById(R.id.check_bank_submit);

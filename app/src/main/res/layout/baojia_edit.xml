@@ -181,6 +181,31 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/txt_5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.7"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/txt_10dp"
+                        android:text="卸货时间:"
+                        android:textColor="@color/black_263"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/baojia_xie_time"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4.3"
+                        android:singleLine="true"
+                        android:textColor="@color/black_6d"
+                        android:textSize="@dimen/txt_14" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/txt_5dp"
                     android:layout_marginBottom="@dimen/txt_10dp"
                     android:orientation="horizontal">
 

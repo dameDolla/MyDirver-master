@@ -24,6 +24,7 @@ import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
+import com.app.gaolonglong.fragmenttabhost.view.TiXianDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -128,7 +129,8 @@ public class MyWallteActivity extends BaseActivity implements View.OnClickListen
                 startActivity(new Intent(MyWallteActivity.this,YouHuiQuanActivity.class));
                 break;
             case R.id.wallte_tixian:
-
+                TiXianDialog dialog = new TiXianDialog(this,R.style.dialog);
+                dialog.show();
                 break;
             case R.id.wallte_chongzhi:
                 startActivity(new Intent(MyWallteActivity.this,RechargeSelectMoneyActivity.class));

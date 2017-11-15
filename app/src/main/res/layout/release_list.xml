@@ -66,7 +66,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="邀请的报价"
+                android:text="邀请您报价"
                 android:gravity="center"
                 android:textSize="@dimen/txt_16"
                 android:textColor="@color/black_6d"

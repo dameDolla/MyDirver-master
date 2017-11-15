@@ -89,6 +89,11 @@
             android:theme="@style/AppTheme">
 
         </activity>
+        <!--选择车厢车长-->
+        <activity android:name=".activities.SelectTruckTypeActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
         <!--地址选择页面-->
         <activity android:name=".activities.AddressActivity"
             android:theme="@style/AppTheme">

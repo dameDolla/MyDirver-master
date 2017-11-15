@@ -63,8 +63,9 @@ public class ReleaseAdapter extends RecyclerView.Adapter {
        final ReleaseBean.DataBean date = list.get(position);
         viewHolder.addr.setText(date.getFromSite()+"-"+date.getToSite());
         viewHolder.price.setText("￥"+date.getTransportOffer());
-        viewHolder.date.setText(date.getEmptytime().substring(0,10));
-        viewHolder.fabudate.setText(date.getBacktime().substring(0,10));
+        viewHolder.date.setText(date.getEmptytime());
+        viewHolder.fabudate.setText(date.getBacktime());
+        viewHolder.truckno.setText(date.getTruckno());
        // viewHolder.fabudate.setText(get);
         if(date.getTruckplanStatus().equals("0"))
         {
@@ -123,7 +124,7 @@ public class ReleaseAdapter extends RecyclerView.Adapter {
         private final TextView fabudate;
         private final TextView edit;
         private final TextView cancle;
-        private final TextView del;
+        private final TextView del,truckno;
         private final SimpleDraweeView logo;
 
         public ReleaseViewHolder(View itemView) {
@@ -137,6 +138,7 @@ public class ReleaseAdapter extends RecyclerView.Adapter {
             edit = (TextView) itemView.findViewById(R.id.release_fabuitem_edit);
             cancle = (TextView) itemView.findViewById(R.id.release_fabuitem_cancle);
             del = (TextView) itemView.findViewById(R.id.release_fabuitem_del);
+            truckno = (TextView) itemView.findViewById(R.id.release_fabuitem_truckno);
 
         }
     }

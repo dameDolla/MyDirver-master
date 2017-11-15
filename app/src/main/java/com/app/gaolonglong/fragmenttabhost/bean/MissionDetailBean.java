@@ -35,12 +35,16 @@ public class MissionDetailBean implements Serializable{
     private String arrivedtime;//司机提交的到达时间
     private String DepartureTime; //司机出发的时间
     private String cargotype; //货物详情
+    private String loadaddHZ; //装车地点经纬度
+    private String arrivedaddHZ; //到达地点经纬度
+
 
     public MissionDetailBean(String billsGUID,String ownername,String ownerphone,String preloadtime,String FromDetailedAddress,
                              String ToDetailedAddress,String billNumber,String dealprice,String loadfee,
                              String unloadfee,String AvatarAddress,String status,String signtime,String signby,String drivername,
                              String driverphone,String driverGUID,String truckno,String signPhone,String Consignee,String ConsigneePhone,
-                             String InsertDate,String ArrivalLoadingTime,String loadtime,String arrivedtime,String DepartureTime,String cargotype)
+                             String InsertDate,String ArrivalLoadingTime,String loadtime,String arrivedtime,String DepartureTime,String cargotype,
+                             String loadaddHZ,String arrivedaddHZ)
     {
         this.billsGUID = billsGUID;
         this.ownername = ownername;
@@ -69,6 +73,16 @@ public class MissionDetailBean implements Serializable{
         this.arrivedtime = arrivedtime;
         this.DepartureTime = DepartureTime;
         this.cargotype = cargotype;
+        this.arrivedaddHZ = arrivedaddHZ;
+        this.loadaddHZ = loadaddHZ;
+    }
+
+    public String getArrivedaddHZ() {
+        return arrivedaddHZ;
+    }
+
+    public String getLoadaddHZ() {
+        return loadaddHZ;
     }
 
     public String getCargotype() {

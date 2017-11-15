@@ -21,6 +21,7 @@ import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.cretin.www.externalmaputilslibrary.OpenExternalMapAppUtils;
 import com.luoxudong.app.threadpool.ThreadPoolHelp;
 import com.luoxudong.app.threadpool.ThreadTaskObject;
 
@@ -170,17 +171,20 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
                 }
                 break;
             case R.id.find_detail_fromsitell:
-                Intent intent = new Intent(FindDetailActivity.this,RouteMapActivity.class);
+                /*Intent intent = new Intent(FindDetailActivity.this,RouteMapActivity.class);
                 intent.putExtra("fromsitelatlng",data.getLoadaddHZ());
                 intent.putExtra("tositelatlng",data.getArrivedaddHZ());
-                startActivity(intent);
+                startActivity(intent);*/
+
+                //OpenExternalMapAppUtils.openMapDirection(this,"114.039474","22.556684","虚拟大学园","113.967844","22.654132","羊台山","测试");
                 //Log.e("detail",data.getArrivedaddHZ());
                 break;
             case R.id.find_detail_tositell:
-                Intent intents = new Intent(FindDetailActivity.this,RouteMapActivity.class);
+               /* Intent intents = new Intent(FindDetailActivity.this,RouteMapActivity.class);
                 intents.putExtra("fromsitelatlng",data.getLoadaddHZ());
                 intents.putExtra("tositelatlng",data.getArrivedaddHZ());
-                startActivity(intents);
+                startActivity(intents);*/
+                //OpenExternalMapAppUtils.openMapDirection(this,"114.039474","22.556684","虚拟大学园","113.967844","22.654132","羊台山","测试");
                 break;
         }
 

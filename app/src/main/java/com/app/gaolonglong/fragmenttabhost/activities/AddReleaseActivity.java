@@ -223,21 +223,28 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
             ToolsUtils.getInstance().toastShowStr(AddReleaseActivity.this,"请填写完整的信息");
             return;
         }
+
         JSONObject mJson = new JSONObject();
         try {
             mJson.put("GUID",guid);
             mJson.put(Constant.MOBILE,mobile);
             mJson.put(Constant.KEY,key);
             mJson.put("truckno",car_num);
-            mJson.put("SurplusTon",weight);
-            mJson.put("TransportOffer",baojia);
-            mJson.put("SurplusPower",tiji);
+
+            mJson.put("SurplusTon",weight+"吨");
+            mJson.put("TransportOffer",baojia+"元");
+            mJson.put("SurplusPower",tiji+"方");
             mJson.put("MyMessage",msg);
-            mJson.put("fromSite",start+"市");
-            mJson.put("toSite",finish+"市");
+            mJson.put("fromSite",start);
+            mJson.put("toSite",finish);
             mJson.put("emptytime",emptyTime);//计划返程时间
             mJson.put("backtime",backtime);
             mJson.put("boardingtime",backtime);
+            if (!TextUtils.isEmpty(carType)){
+                String[] cartype = carType.split("/");
+                mJson.put("trucklength",cartype[1]);
+                mJson.put("trucktype",cartype[0]);
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();

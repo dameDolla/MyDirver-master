@@ -353,6 +353,7 @@
                         android:layout_marginRight="@dimen/txt_10dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/src_detail_phone"
+                        android:visibility="gone"
                         android:layout_gravity="center"
                         android:src="@mipmap/phone"/>
 

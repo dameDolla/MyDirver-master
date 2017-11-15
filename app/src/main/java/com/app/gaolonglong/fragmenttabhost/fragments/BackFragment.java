@@ -2,25 +2,34 @@ package com.app.gaolonglong.fragmenttabhost.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.activities.AddReleaseActivity;
+import com.app.gaolonglong.fragmenttabhost.adapter.InvitedSrcAdapter;
 import com.app.gaolonglong.fragmenttabhost.adapter.ReleaseAdapter;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
+import com.app.gaolonglong.fragmenttabhost.bean.GetSRCBean;
+import com.app.gaolonglong.fragmenttabhost.bean.InvitedSrcBean;
 import com.app.gaolonglong.fragmenttabhost.bean.ReleaseBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
+import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.LoadingDialog;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
@@ -33,7 +42,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.BindViews;
@@ -50,14 +61,13 @@ import rx.schedulers.Schedulers;
 public class BackFragment extends Fragment implements View.OnClickListener{
     private View mRootView;
 
-    @BindView(R.id.rl_toaddrelease)
-    public RelativeLayout rl;
+    @BindView(R.id.iv_toaddrelease)
+    public ImageView rl;
 
-    @BindViews({R.id.rcv_have_fabu,R.id.rcv_have_cancle})
-    public List<RecyclerView> rcv;
 
-    @BindView(R.id.back_empty_view)
-    public EmptyLayout emptyLayout;
+
+    @BindViews({R.id.release_list_fabu,R.id.release_list_invited})
+    public List<TextView> top_item;
 
     private String guid;
     private String mobile;
@@ -65,13 +75,21 @@ public class BackFragment extends Fragment implements View.OnClickListener{
     private LoadingDialog dialog;
     private  List<ReleaseBean.DataBean> list = new ArrayList<ReleaseBean.DataBean>();
     private  List<ReleaseBean.DataBean> canclelist = new ArrayList<ReleaseBean.DataBean>();
+
     private ReleaseAdapter adapter;
     private JSONObject mJson;
     private int positon = 0;
     private ReleaseAdapter cancleAdapter;
+    private InvitedSrcAdapter invitedSrcAdapter;
+
+    public static final int ALLSRC = 1;
+    public static final int ROUTESRC = 2;
+    private KCDataFragment  kcFragment;
+    private InvitedSrcFragment  invited;
+    public int currentFragmentType = -1;
 
 
-    @OnClick(R.id.rl_toaddrelease)
+    @OnClick(R.id.iv_toaddrelease)
     public void release()
     {
         String usertype = GetUserInfoUtils.getUserType(getContext());
@@ -126,127 +144,65 @@ public class BackFragment extends Fragment implements View.OnClickListener{
 
     private void init()
     {
-        initView();
-        getData();
-        getCancleData();
-
-    }
-    private void initView()
-    {
-        // rl.setOnClickListener(this);
-        //ReleaseAdapter adapter = new ReleaseAdapter()
-        dialog = LoadingDialog.showDialog(getContext());
-        dialog.show();
-        guid = ToolsUtils.getString(getActivity(), Constant.LOGIN_GUID,"");
-        mobile = ToolsUtils.getString(getActivity(), Constant.MOBILE,"");
-        key = ToolsUtils.getString(getActivity(), Constant.KEY,"");
-        mJson = new JSONObject();
-        try {
-            mJson.put("GUID",guid);
-            mJson.put(Constant.KEY,key);
-            mJson.put(Constant.MOBILE,mobile);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        top_item.get(0).setOnClickListener(this);
+        top_item.get(1).setOnClickListener(this);
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        Fragment mainFragment = fragmentManager.findFragmentByTag("message");
+        if (mainFragment != null) {
+            transaction.replace(R.id.fl_content, mainFragment);
+            transaction.commit();
+        } else {
+            loadFragment(ALLSRC);
         }
-        adapter = new ReleaseAdapter(getContext(),list);
-        cancleAdapter = new ReleaseAdapter(getContext(),canclelist);
-        MyLinearLayoutManager manager = new MyLinearLayoutManager(getContext());
-        //manager.setScrollEnabled(false);
-        rcv.get(0).setNestedScrollingEnabled(false);
-        rcv.get(0).setLayoutManager(manager);
-        rcv.get(0).addItemDecoration(new RecycleViewDivider(getContext(),LinearLayoutManager.VERTICAL));
-        rcv.get(0).setAdapter(adapter);
+    }
 
-        rcv.get(1).setLayoutManager(new LinearLayoutManager(getContext()));
-        rcv.get(1).setAdapter(cancleAdapter);
-        rcv.get(1).addItemDecoration(new RecycleViewDivider(getContext(), LinearLayoutManager.VERTICAL));
-
-        cancleAdapter.TextSetOnclick(new ReleaseAdapter.TextInterface() {
-            @Override
-            public void onclick(int position, String flag, String id, String status) {
-                if(flag.equals(Constant.RELEASE_DEL))
-                {
-                    try {
-                        mJson.put("TruckplansGUID",id);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    del(mJson.toString(),"cancle",position);
-                }
-            }
-        });
-        adapter.TextSetOnclick(new ReleaseAdapter.TextInterface() {
-            @Override
-            public void onclick(int  position, String flag,String id,String status) {
-                //positon = position;
-
-                if(flag.equals(Constant.RELEASE_CANCLE))
-                {
-                    try {
-                        mJson.put("TruckplanStatus","0");
-                        mJson.put("TruckplansGUID",id);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    cancle(mJson.toString());
-                    //ToolsUtils.getInstance().toastShowStr(getContext(),status);
-
-                }else if (flag.equals(Constant.RELEASE_EDIT))
-                {
-
-                    ToolsUtils.getInstance().toastShowStr(getContext(),Constant.RELEASE_EDIT);
-                }else if (flag.equals(Constant.RELEASE_DEL))
-                {
-                    try {
-                        mJson.put("TruckplansGUID",id);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    del(mJson.toString(),"fabu",position);
-                }
-
-            }
-        });
+    private void switchFragment(int type) {
+        switch (type) {
+            case ALLSRC:
+                loadFragment(ALLSRC);
+                break;
+            case ROUTESRC:
+                loadFragment(ROUTESRC);
+                break;
+        }
 
     }
 
-    private void getData()
-    {
+    private void loadFragment(int type) {
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        if (type == ALLSRC) {
+            if (invited != null) {
+                transaction.hide(invited);
+            }
+            if (kcFragment == null) {
+                kcFragment = new KCDataFragment();
 
-        RetrofitUtils.getRetrofitService()
-                .getFabuRelease(Constant.MYINFO_PAGENAME, Config.RELEASE_FABU,mJson.toString())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ReleaseBean>() {
-                    @Override
-                    public void onCompleted() {
-                        dialog.dismiss();
-                    }
+                transaction.add(R.id.release_content, kcFragment, "kc");
+            } else {
+                transaction.show(kcFragment);
+            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        dialog.dismiss();
-                    }
 
-                    @Override
-                    public void onNext(ReleaseBean releaseBean) {
-                       // Log.e("backfragment",releaseBean.getErrorCode());
-                        //ToolsUtils.getInstance().toastShowStr(getContext(),releaseBean.getErrorMsg());
-                        dialog.dismiss();
-                        list.clear();
-                        list.addAll(releaseBean.getData());
-                        adapter.notifyDataSetChanged();
-                        if (list.size() == 0 )
-                        {
-                            emptyLayout.setVisibility(View.VISIBLE);
-                            emptyLayout.setErrorImag(R.drawable.nokongcheng,"您还没有发布空程");
-                        }
-                        else{
-                            emptyLayout.setVisibility(View.GONE);
-                        }
-                    }
-                });
+            currentFragmentType = ALLSRC;
+        } else if (type == ROUTESRC) {
+            if (kcFragment != null) {
+                transaction.hide(kcFragment);
+            }
+
+            if (invited == null) {
+                invited = new InvitedSrcFragment();
+                transaction.add(R.id.release_content, invited, "invited");
+            } else {
+                transaction.show(invited);
+            }
+
+            currentFragmentType = ROUTESRC;
+        }
+        transaction.commitAllowingStateLoss();
     }
+
     private void getCancleData()
     {
         RetrofitUtils.getRetrofitService()
@@ -283,86 +239,32 @@ public class BackFragment extends Fragment implements View.OnClickListener{
                 });
     }
 
-    /**
-     * 删除空程
-     * @param json
-     */
-    private void del(String json, final String flag, final int po)
-    {
-       // ToolsUtils.getInstance().toastShowStr(getContext(),po+"");
-        RetrofitUtils.getRetrofitService()
-                .delRelease(Constant.MYINFO_PAGENAME,Config.RELEASE_DEL,json)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<GetCodeBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(GetCodeBean getCodeBean) {
-                        if(getCodeBean.getErrorCode().equals("200"))
-                        {
-                            if(flag.equals("fabu"))
-                            {
-                                list.remove(po);
-                                adapter.notifyItemRemoved(positon);
-                                getCancleData();
-                            }else if (flag.equals("cancle"))
-                            {
-                                canclelist.remove(po);
-                                cancleAdapter.notifyDataSetChanged();
-                            }
 
 
-                        }
-                    }
-                });
-    }
-
-    /**
-     * 取消空程计划
-     * @param json
-     */
-    private void cancle(String json)
-    {
-        RetrofitUtils.getRetrofitService()
-                .cancleRelease(Constant.MYINFO_PAGENAME,Config.RELEASE_UPDATE,json)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<GetCodeBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(GetCodeBean getCodeBean) {
-                        if(getCodeBean.getErrorCode().equals("200"))
-                        {
-                            list.remove(positon);
-                            adapter.notifyItemRemoved(positon);
-                           getCancleData();
-                        }
-                    }
-                });
-    }
     @Override
     public void onClick(View view) {
         switch (view.getId())
         {
+            case R.id.release_list_fabu:
+                top_item.get(0).setBackgroundResource(R.drawable.buttom_stroke);
+                top_item.get(1).setBackgroundColor(Color.WHITE);
+                top_item.get(0).setTextColor(this.getResources().getColor(R.color.shen_blue));
+                top_item.get(1).setTextColor(this.getResources().getColor(R.color.black_6d));
+                switchFragment(ALLSRC);
+               // rcv.get(0).setAdapter(adapter);
 
+               // adapter.notifyDataSetChanged();
+                break;
+            case R.id.release_list_invited:
+                top_item.get(1).setBackgroundResource(R.drawable.buttom_stroke);
+                top_item.get(0).setBackgroundColor(Color.WHITE);
+                top_item.get(1).setTextColor(this.getResources().getColor(R.color.shen_blue));
+                top_item.get(0).setTextColor(this.getResources().getColor(R.color.black_6d));
+                switchFragment(ROUTESRC);
+                //rcv.get(1).setVisibility(View.VISIBLE);
+                /*rcv.get(0).setAdapter(null);
+                adapter.notifyDataSetChanged();*/
+                break;
         }
     }
 }

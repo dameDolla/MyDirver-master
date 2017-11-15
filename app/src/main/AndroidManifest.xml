@@ -275,10 +275,6 @@
     </activity>
 
         <!--地址选择界面-->
-        <activity android:name=".activities.SearchAddrActivity"
-            android:theme="@style/AppTheme">
-
-        </activity>
         <!--添加订阅路线-->
         <activity android:name=".activities.AddRouteActivity">
 

@@ -100,7 +100,8 @@ public class BaojiaListAdapter extends RecyclerView.Adapter implements View.OnCl
                 data.getCompany(),
                 data.getMyPriceStatus(),
                 data.getOwnerbill(),
-                data.getRemark()
+                data.getRemark(),
+                ""
 
         );
         mHolder.phone.setOnClickListener(new View.OnClickListener() {
@@ -235,7 +236,8 @@ public class BaojiaListAdapter extends RecyclerView.Adapter implements View.OnCl
                     list.get((int) view.getTag()).getCompany(),
                     list.get((int) view.getTag()).getMyPriceStatus(),
                     list.get((int) view.getTag()).getOwnerbill(),
-                    list.get((int) view.getTag()).getRemark()
+                    list.get((int) view.getTag()).getRemark(),
+                    ""
 
             );
             itemClickListener.onItemClick(view, bean,(int)view.getTag());

@@ -104,7 +104,7 @@
         <EditText
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="5"
+            android:layout_weight="2"
             android:hint="请输入最大载重"
             android:background="@null"
             android:id="@+id/carrc_common_zaizhong"
@@ -112,6 +112,14 @@
             android:textSize="@dimen/txt_14"
             android:gravity="center_vertical"
             />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="吨"
+            android:textSize="@dimen/txt_16"
+            android:textColor="@color/black"
+            android:gravity="center_vertical"
+            android:layout_weight="3"/>
     </LinearLayout>
 
     <LinearLayout
@@ -142,6 +150,14 @@
             android:textSize="@dimen/txt_14"
             android:gravity="center_vertical"
             />
+        <!--<TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="吨"
+            android:textSize="@dimen/txt_16"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:layout_weight="0.5"/>-->
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"

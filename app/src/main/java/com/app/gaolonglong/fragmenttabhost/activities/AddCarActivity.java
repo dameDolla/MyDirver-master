@@ -205,19 +205,19 @@ public class AddCarActivity extends BaseActivity implements View.OnClickListener
         String cartype = mEdit.get(3).getText()+"";
         String carlenght = mEdit.get(4).getText()+"";
         String zbh = mCarinfo.get(0).getText()+""; //自编号
-        String carweight = mCarinfo.get(1).getText()+""; //车重
-        String zaizhong = mCarinfo.get(2).getText()+""; //载重
-        String rongji = mCarinfo.get(3).getText()+""; //容积
+        String carweight = mCarinfo.get(1).getText()+"吨"; //车重
+        String zaizhong = mCarinfo.get(2).getText()+"吨"; //载重
+        String rongji = mCarinfo.get(3).getText()+"方"; //容积
         //String chang = mCarinfo.get(4).getText()+""; //长
-        String kuan = mCarinfo.get(4).getText()+""; // 宽
-        String gao = mCarinfo.get(5).getText()+""; //高
+        String kuan = mCarinfo.get(4).getText()+"米"; // 宽
+        String gao = mCarinfo.get(5).getText()+"米"; //高
         String zbgcode = mZbginfo.get(0).getText()+""; //自备柜车牌号
         String hgcode = mZbginfo.get(1).getText()+"";//海关编码
         String zbgnum = mZbginfo.get(2).getText()+"";//柜号
-        String zbgzaizhong = mZbginfo.get(3).getText()+"";//自备柜载重
-        String headweight = mZbginfo.get(4).getText()+"";//自备柜头重
-        String guiweight = mZbginfo.get(5).getText()+"";//自备柜柜重
-        String jiaweight = mZbginfo.get(6).getText()+"";//自备柜架重
+        String zbgzaizhong = mZbginfo.get(3).getText()+"吨";//自备柜载重
+        String headweight = mZbginfo.get(4).getText()+"吨";//自备柜头重
+        String guiweight = mZbginfo.get(5).getText()+"吨";//自备柜柜重
+        String jiaweight = mZbginfo.get(6).getText()+"吨";//自备柜架重
         String companyguid = GetUserInfoUtils.getCompanyGuid(AddCarActivity.this);
         if (TextUtils.isEmpty(carnum) || TextUtils.isEmpty(cartype))
         {

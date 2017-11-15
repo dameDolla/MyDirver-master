@@ -79,8 +79,8 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
     @OnClick(R.id.src_detail_phone)
     public void calls()
     {
-        Intent intent = new Intent(Intent.ACTION_DIAL,Uri.parse("tel:"+bean.getTel()));
-        startActivity(intent);
+       /* Intent intent = new Intent(Intent.ACTION_DIAL,Uri.parse("tel:"+bean.getTel()));
+        startActivity(intent);*/
     }
 
     @BindView(R.id.src_detail_logo)
@@ -137,6 +137,7 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
         mText.get(10).setText(data.getOwnername()+"");
         mText.get(11).setText(data.getOwnerphone()+"");
         mText.get(9).setText(data.getRemark()+"");
+        mText.get(6).setText(data.getQty()+"吨/"+data.getUnit()+"方");
         mText.get(12).setText("已发货"+data.getOwnerbill()+"次");
         if (data.getPaperReceipt().equals("1")){
             need = need+"纸质回单/";

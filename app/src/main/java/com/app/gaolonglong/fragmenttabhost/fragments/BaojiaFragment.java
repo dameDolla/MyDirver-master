@@ -75,7 +75,7 @@ public class BaojiaFragment extends Fragment implements View.OnClickListener{
     @BindView(R.id.baojia_fragment_main)
     public LinearLayout main;
 
-    @BindViews({R.id.baojia_fragment_doing,R.id.baojia_fragment_cancel})
+    @BindViews({R.id.baojia_fragment_doing,R.id.baojia_fragment_cancel,R.id.baojia_fragment_product})
     public List<TextView> select;
 
     private List<BaojiaListBean.DataBean> list = new ArrayList<BaojiaListBean.DataBean>();
@@ -90,7 +90,7 @@ public class BaojiaFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mRootView == null) {
-            Log.e("666", "MineFragment");
+            //Log.e("666", "MineFragment");
             mRootView = inflater.inflate(R.layout.baojia_fragment, container, false);
         }
         ViewGroup parent = (ViewGroup) mRootView.getParent();
@@ -132,6 +132,7 @@ public class BaojiaFragment extends Fragment implements View.OnClickListener{
         mTextView.get(1).setText("报价");
         select.get(0).setOnClickListener(this);
         select.get(1).setOnClickListener(this);
+        select.get(2).setOnClickListener(this);
         json = new JSONObject();
         try {
             json.put("GUID", guid);
@@ -352,18 +353,30 @@ public class BaojiaFragment extends Fragment implements View.OnClickListener{
             case R.id.baojia_fragment_doing:
                 select.get(0).setBackgroundResource(R.drawable.buttom_stroke);
                 select.get(1).setBackgroundColor(Color.WHITE);
+                select.get(2).setBackgroundColor(Color.WHITE);
                 select.get(0).setTextColor(this.getResources().getColor(R.color.shen_blue));
                 select.get(1).setTextColor(this.getResources().getColor(R.color.black_6d));
+                select.get(2).setTextColor(this.getResources().getColor(R.color.black_6d));
                 SELECT = 0;
                 ThreadManager.getNormalPool().execute(new MyRunnabel());
                 break;
             case R.id.baojia_fragment_cancel:
                 select.get(0).setBackgroundColor(Color.WHITE);
+                select.get(2).setBackgroundColor(Color.WHITE);
                 select.get(1).setBackgroundResource(R.drawable.buttom_stroke);
                 select.get(1).setTextColor(this.getResources().getColor(R.color.shen_blue));
                 select.get(0).setTextColor(this.getResources().getColor(R.color.black_6d));
+                select.get(2).setTextColor(this.getResources().getColor(R.color.black_6d));
                 SELECT = 1;
                 ThreadManager.getNormalPool().execute(new MyRunnabel());
+                break;
+            case R.id.baojia_fragment_product:
+                select.get(0).setBackgroundColor(Color.WHITE);
+                select.get(1).setBackgroundColor(Color.WHITE);
+                select.get(2).setBackgroundResource(R.drawable.buttom_stroke);
+                select.get(2).setTextColor(this.getResources().getColor(R.color.shen_blue));
+                select.get(0).setTextColor(this.getResources().getColor(R.color.black_6d));
+                select.get(1).setTextColor(this.getResources().getColor(R.color.black_6d));
                 break;
         }
     }

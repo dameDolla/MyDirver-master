@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.bean.MissionDetailBean;
 import com.app.gaolonglong.fragmenttabhost.bean.MissionListBean;
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 
 import java.util.List;
 
@@ -82,6 +83,7 @@ public class MissionListAdapter extends RecyclerView.Adapter implements View.OnC
                 onMissionClick.onMissionClick(position,list.get(position).getBillsGUID()+"","caozuo");
             }
         });*/
+       String usertype = GetUserInfoUtils.getUserType(context);
         mHolder.phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,9 +96,14 @@ public class MissionListAdapter extends RecyclerView.Adapter implements View.OnC
             mHolder.phone.setVisibility(View.GONE);
         }else if (data.getStatus().equals("0")){
             mHolder.status.setText("已生成");
-            mHolder.cancel.setVisibility(View.VISIBLE);
+            if (!usertype.equals("3")){
+                mHolder.cancel.setVisibility(View.VISIBLE);
+            }
         }else if (data.getStatus().equals("1")){
             mHolder.status.setText("出发接货");
+            if (!usertype.equals("3")){
+                mHolder.cancel.setVisibility(View.VISIBLE);
+            }
         }else if (data.getStatus().equals("2")){
             mHolder.status.setText("到达装货");
         }else if (data.getStatus().equals("3")){
@@ -173,7 +180,8 @@ public class MissionListAdapter extends RecyclerView.Adapter implements View.OnC
                     list.get((int)view.getTag()).getArrivalLoadingTime(),
                     list.get((int)view.getTag()).getLoadtime(),
                     list.get((int)view.getTag()).getArrivedtime(),
-                    list.get((int)view.getTag()).getDepartureTime()
+                    list.get((int)view.getTag()).getDepartureTime(),
+                    list.get((int)view.getTag()).getCargotype()
 
             );
             onMissionItemClick.onMissionItemClick(view,beans);

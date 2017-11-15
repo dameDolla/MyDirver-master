@@ -301,6 +301,11 @@ public class BaojiaEditActivity extends BaseActivity implements AdapterView.OnIt
                 map.put("trucklength", "");
                 map.put("trucktype", "");
             }
+            if (TextUtils.isEmpty(bean.getInvitationID())){
+                map.put("InvitationID","");
+            }else {
+                map.put("InvitationID",bean.getInvitationID());
+            }
             map.put("GUID", userguid);
             map.put(Constant.MOBILE, mobile);
             map.put(Constant.KEY, key);

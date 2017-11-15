@@ -287,6 +287,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == 2) {
+
             getSupportFragmentManager().beginTransaction()
                     .replace(android.R.id.tabcontent, new BackFragment())
                     .commit();

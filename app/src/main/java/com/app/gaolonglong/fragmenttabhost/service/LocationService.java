@@ -102,6 +102,8 @@ public class LocationService extends Service {
             public void onLocationChanged(AMapLocation amapLocation) {
                 Log.e("location-service",amapLocation.getAddress());
                 String location = amapLocation.getLatitude()+","+amapLocation.getLongitude();
+                ToolsUtils.putString(LocationService.this, Constant.CITY, amapLocation.getCity());
+                ToolsUtils.putString(LocationService.this, Constant.ADDRESS, amapLocation.getAddress());
                 uploadLat(initJsonData(location));
             }
         });
@@ -129,7 +131,7 @@ public class LocationService extends Service {
 
                             @Override
                             public void onError(Throwable e) {
-                                Log.e("locationservice",e.getMessage());
+                               // Log.e("locationservice",e.getMessage());
                             }
 
                             @Override

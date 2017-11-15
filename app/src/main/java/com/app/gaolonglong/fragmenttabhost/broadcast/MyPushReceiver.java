@@ -14,6 +14,7 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -143,16 +144,21 @@ public class MyPushReceiver extends BroadcastReceiver {
         // 例如显示一些数字、特定的事件，或者是访问特定的网址的时候，使用extras
         // 例如显示订单信息、特定的商品列表，特定的咨询网址
         String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
+        //获取自定义推送的数据
+        /*try {
+            JSONObject jsonObject = new JSONObject(extras);
 
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }*/
 
         // 使用广播或者通知进行内容的显示
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
                 context);
         builder.setContentText(message).setSmallIcon(R.drawable.app_logo);
         builder.setContentTitle("Message-test");
-        builder.setDefaults(Notification.DEFAULT_SOUND);
-
-
+        //builder.setDefaults(Notification.DEFAULT_SOUND);
+       // builder.setSound(Uri.parse("android.resource://" + context.getPackageName() + "/" +R.raw.test));
         Log.i("Jpush", extras + "~~");
 
         int drawResId=R.drawable.app_logo;
@@ -187,7 +193,6 @@ public class MyPushReceiver extends BroadcastReceiver {
             case 1://推送图标2
                 drawResId=R.drawable.app_logo;
                 break;
-
 
             default:
                 break;

@@ -273,10 +273,10 @@ public class AddRouteActivity extends BaseActivity implements AdapterView.OnItem
         switch (view.getId())
         {
             case R.id.addr_route_rl_start:
-                startActivityForResult(new Intent(AddRouteActivity.this,SearchAddrActivity.class),102);
+                startActivityForResult(new Intent(AddRouteActivity.this,AddressActivity.class),102);
                 break;
             case R.id.add_route_rl_finish:
-                startActivityForResult(new Intent(AddRouteActivity.this,SearchAddrActivity.class),103);
+                startActivityForResult(new Intent(AddRouteActivity.this,AddressActivity.class),103);
                 break;
             case R.id.add_route_type:
                 strs = new ArrayList<String>();

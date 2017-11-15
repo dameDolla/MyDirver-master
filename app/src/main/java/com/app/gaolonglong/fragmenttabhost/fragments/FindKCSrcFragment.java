@@ -285,7 +285,7 @@ public class FindKCSrcFragment extends Fragment implements View.OnClickListener,
      * 初始化popwindow
      */
     private void initPopWindow() {
-        View contentView = getActivity().getLayoutInflater().inflate(R.layout.find_poplist, null);
+        View contentView = getActivity().getLayoutInflater().inflate(R.layout.text_listview_item, null);
         popMenu = new PopupWindow(contentView,
                ViewGroup.LayoutParams.MATCH_PARENT,
                ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -295,7 +295,7 @@ public class FindKCSrcFragment extends Fragment implements View.OnClickListener,
         popMenu.setFocusable(true);
         popMenu.setTouchable(true);
         popMenu.setAnimationStyle(R.style.mypopwindow_anim_style);
-        popListView = (ListView) contentView.findViewById(R.id.find_pop_listview);
+        popListView = (ListView) contentView.findViewById(R.id.text_item_listview);
         popListView.setOnItemClickListener(this);
     }
 

@@ -123,6 +123,7 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
 
     private int position = 0;
     private String usertype;
+    private String addr;
 
     @OnClick(R.id.title_back_txt)
     public void back() {
@@ -181,6 +182,9 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
     @BindView(R.id.mission_detail_selectcar)
     public Button selectCar;
 
+    @BindView(R.id.mission_detail_cargotype)
+    public TextView cargotype;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -200,17 +204,23 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
         mButton.get(1).setOnClickListener(this);
         selectCar.setOnClickListener(this);
         phone.setOnClickListener(this);
-        phone.setVisibility(View.GONE);
+        //phone.setVisibility(View.GONE);
         SimpleDateFormat mDataFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
         date = mDataFormat.format(Calendar.getInstance().getTime());
         showData();
         usertype = GetUserInfoUtils.getUserType(MissionDetailActivity.this);
-        if (usertype.equals("3") || usertype.equals("2")){
-            initLocation();
-        }
-       // Intent intentService = new Intent(MissionDetailActivity.this, LocationService.class);
+
+        // Intent intentService = new Intent(MissionDetailActivity.this, LocationService.class);
         //bindService(intentService,conn,Context.BIND_AUTO_CREATE);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (usertype.equals("3") || usertype.equals("2")) {
+            initLocation();
+        }
     }
 
     private ServiceConnection conn = new ServiceConnection() {
@@ -219,7 +229,7 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
 
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-            service = ((LocationService.MyBinder)iBinder).getLocationService();
+            service = ((LocationService.MyBinder) iBinder).getLocationService();
         }
 
         @Override
@@ -227,6 +237,7 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
 
         }
     };
+
     private void showData() {
         bean = (MissionDetailBean) getIntent().getSerializableExtra("missionDetail");
         mText.get(1).setText("预计装车时间: " + bean.getPreloadtime());
@@ -242,11 +253,11 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
         info.get(2).setText(bean.getToDetailedAddress());
         info.get(3).setText(bean.getDrivername());
         info.get(4).setText(bean.getDriverphone());
+        cargotype.setText(bean.getCargotype());
 
-
-        if (TextUtils.isEmpty(bean.getTruckno())){
+        if (TextUtils.isEmpty(bean.getTruckno())) {
             selectCar.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             info.get(5).setText(bean.getTruckno());
         }
 
@@ -264,7 +275,7 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
         if (bean.getStatus().equals("0")) {  //已生成
             if (usertype.equals("4") && !TextUtils.isEmpty(bean.getDriverGUID())) {
                 mText.get(0).setText("已调度");
-                Log.e("missiond-driverguid",bean.getDriverGUID()+"0");
+                Log.e("missiond-driverguid", bean.getDriverGUID() + "0");
             } else {
                 mText.get(0).setText(STATUS1);
             }
@@ -328,7 +339,7 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
             mText.get(0).setText(STATUS5);
             mButton.get(0).setText(BUTTONTXT5);
             mButton.get(0).setEnabled(true);
-            status.get(9).setText("司机已到达卸货地");
+            status.get(8).setText("司机已到达卸货地");
             methodName = Config.MISSION_STATUS_QIANSHOU;
             vertical.setImageResource(R.drawable.vertical_line_4);
             zcaddr.setText(bean.getFromDetailedAddress());
@@ -351,7 +362,7 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
             mText.get(0).setText(STATUS7);
             mButton.get(0).setText(STATUS7);
             mButton.get(0).setEnabled(false);
-            status.get(9).setText("司机已到达卸货地");
+            status.get(8).setText("司机已到达卸货地");
             status.get(12).setText("货物已签收");
             methodName = Config.MISSION_STATUS_QIANSHOU;
             vertical.setImageResource(R.drawable.vertical_line_4);
@@ -376,17 +387,17 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
             mText.get(3).setTextColor(Color.GRAY);
             pic.setVisibility(View.VISIBLE);
 
-            String url = "http://120.78.77.63:8023/Handler/GetImg.ashx?MemberGUID="+bean.getBillsGUID()+"&ImgType=21";
-            Log.e("mieeisndetail",url);
+            String url = "http://120.78.77.63:8023/Handler/GetImg.ashx?MemberGUID=" + bean.getBillsGUID() + "&ImgType=21";
+            Log.e("mieeisndetail", url);
 
-            pic.setImageURI(Uri.parse(ToolsUtils.getString(MissionDetailActivity.this,Constant.HEADLOGO,"")));
+            pic.setImageURI(Uri.parse(url));
             upload.setVisibility(View.VISIBLE);
             upload.setOnClickListener(onClickListener);
         } else if (bean.getStatus().equals("9")) {  //运单已完成
             mText.get(0).setText(STATUS8);
             mButton.get(0).setText(STATUS8);
             mButton.get(0).setEnabled(false);
-            status.get(9).setText("司机已到达卸货地");
+            status.get(8).setText("司机已到达卸货地");
             status.get(12).setText("货物已签收");
             status.get(14).setText("运单已完成");
             vertical.setImageResource(R.drawable.vertical_line_5);
@@ -413,10 +424,10 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
             status.get(13).setTextColor(Color.RED);
             mText.get(3).setTextColor(Color.GRAY);
             pic.setVisibility(View.VISIBLE);
-            String url = "http://120.78.77.63:8023/Handler/GetImg.ashx?MemberGUID="+bean.getBillsGUID()+"&ImgType=21";
-            Log.e("mieeisndetail",url);
+            String url = "http://120.78.77.63:8023/Handler/GetImg.ashx?MemberGUID=" + bean.getBillsGUID() + "&ImgType=21";
+            Log.e("mieeisndetail", url);
             pic.setImageURI(Uri.parse(url));
-        }else if (bean.getStatus().equals("-2")){
+        } else if (bean.getStatus().equals("-2")) {
             mText.get(0).setText("运单已取消");
             mButton.get(0).setEnabled(false);
             selectCar.setBackgroundResource(R.drawable.button_enable_bg);
@@ -425,7 +436,7 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
             phone.setEnabled(false);
         }
         if (usertype.equals("4")) {
-           // Log.e("misson-driverguid",bean.getDriverGUID());
+            // Log.e("misson-driverguid",bean.getDriverGUID());
             if (TextUtils.isEmpty(bean.getDriverGUID())) {
                 mButton.get(0).setText("选择运输司机");
             } else {
@@ -484,7 +495,7 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
         map.put(Constant.MOBILE, GetUserInfoUtils.getMobile(MissionDetailActivity.this));
         map.put(Constant.KEY, GetUserInfoUtils.getKey(MissionDetailActivity.this));
         map.put("billsGUID", bean.getBillsGUID());
-        String addr = ToolsUtils.getString(MissionDetailActivity.this, Constant.ADDRESS, "");
+        //addr = ToolsUtils.getString(MissionDetailActivity.this, Constant.ADDRESS, "");
         if (method.equals(Config.MISSION_STATUS_YUBAO)) {
             map.put("DeparturePlace", addr);
         } else if (method.equals(Config.MISSION_STATUS_ARRIVED)) {
@@ -535,9 +546,9 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
                 break;
             case R.id.mission_detail_changestatus:
                 if (GetUserInfoUtils.getUserType(MissionDetailActivity.this).equals("4")) {
-                    if (TextUtils.isEmpty(bean.getTruckno())){
-                        ToolsUtils.getInstance().toastShowStr(MissionDetailActivity.this,"您还没有调度车辆，请先调度车辆");
-                    }else {
+                    if (TextUtils.isEmpty(bean.getTruckno())) {
+                        ToolsUtils.getInstance().toastShowStr(MissionDetailActivity.this, "您还没有调度车辆，请先调度车辆");
+                    } else {
                         Intent intent = new Intent(MissionDetailActivity.this, SelectDriverActivity.class);
                         intent.putExtra("missionguid", bean.getBillsGUID());
                         intent.putExtra("flags", Constant.MISSIONFLAGS);
@@ -568,10 +579,10 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
 
                 break;
             case R.id.mission_detail_selectcar:
-                Intent intent2 = new Intent(MissionDetailActivity.this,MyCarTeamActivity.class);
-                intent2.putExtra("flag","missiondetail");
+                Intent intent2 = new Intent(MissionDetailActivity.this, MyCarTeamActivity.class);
+                intent2.putExtra("flag", "missiondetail");
                 intent2.putExtra("missionguid", bean.getBillsGUID());
-                startActivityForResult(intent2,REQUESTCODE_CAR);
+                startActivityForResult(intent2, REQUESTCODE_CAR);
                 break;
         }
 
@@ -756,8 +767,8 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
                 break;
             case REQUESTCODE_DRIVER:
 
-                final String name = TextUtils.isEmpty(intent.getStringExtra("drivername"))?" ":intent.getStringExtra("drivername");
-                final String tel = TextUtils.isEmpty(intent.getStringExtra("drivertel"))?" ":intent.getStringExtra("drivertel");
+                final String name = TextUtils.isEmpty(intent.getStringExtra("drivername")) ? " " : intent.getStringExtra("drivername");
+                final String tel = TextUtils.isEmpty(intent.getStringExtra("drivertel")) ? " " : intent.getStringExtra("drivertel");
 
                 new CommomDialog(MissionDetailActivity.this, R.style.dialog, "您选择的司机为" + name, new CommomDialog.OnCloseListener() {
                     @Override
@@ -773,7 +784,7 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
 
                 break;
             case REQUESTCODE_CAR:
-                String truckno = TextUtils.isEmpty(intent.getStringExtra("truckno"))?" ":intent.getStringExtra("truckno");
+                String truckno = TextUtils.isEmpty(intent.getStringExtra("truckno")) ? " " : intent.getStringExtra("truckno");
                 bean.setTruckno(truckno);
                 info.get(5).setText(truckno);
                 break;
@@ -803,7 +814,7 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
 
                     @Override
                     public void onError(Throwable e) {
-                       // ToolsUtils.getInstance().toastShowStr(MissionDetailActivity.this, e.getMessage());
+                        // ToolsUtils.getInstance().toastShowStr(MissionDetailActivity.this, e.getMessage());
                     }
 
                     @Override
@@ -827,6 +838,7 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
                     }
                 });
     }
+
     //声明AMapLocationClientOption对象
     public AMapLocationClientOption mLocationOption = null;
 
@@ -850,34 +862,36 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
         mLocationClient.setLocationListener(new AMapLocationListener() {
             @Override
             public void onLocationChanged(AMapLocation amapLocation) {
-                String location = amapLocation.getLatitude()+","+amapLocation.getLongitude();
-                setNewLoad(location);
-                ToolsUtils.putString(MissionDetailActivity.this, Constant.CITY, amapLocation.getCity());
-                ToolsUtils.putString(MissionDetailActivity.this, Constant.ADDRESS, amapLocation.getAddress());
+                String location = amapLocation.getLatitude() + "," + amapLocation.getLongitude();
+                //setNewLoad(location);
+                addr = amapLocation.getAddress();
+                //ToolsUtils.putString(MissionDetailActivity.this, Constant.CITY, amapLocation.getCity());
+                //ToolsUtils.putString(MissionDetailActivity.this, Constant.ADDRESS, amapLocation.getAddress());
                 //ToolsUtils.getInstance().toastShowStr(SplashActivity.this,amapLocation.getErrorInfo());
             }
         });
         //启动定位
         mLocationClient.startLocation();
     }
+
     @Override
     protected void onDestroy() {
         //this.unbindService(conn);
         super.onDestroy();
-        if (usertype.equals("3")||usertype.equals("2")){
+        if (usertype.equals("3") || usertype.equals("2")) {
             mLocationClient.stopLocation();
         }
     }
-    private void setNewLoad(String load)
-    {
-        Map<String,String> map = new HashMap<>();
-        map.put("GUID",GetUserInfoUtils.getGuid(MissionDetailActivity.this));
-        map.put(Constant.MOBILE,GetUserInfoUtils.getMobile(MissionDetailActivity.this));
-        map.put(Constant.KEY,GetUserInfoUtils.getKey(MissionDetailActivity.this));
-        map.put("billsGUID",bean.getBillsGUID());
-        map.put("Newload",load);
+
+    private void setNewLoad(String load) {
+        Map<String, String> map = new HashMap<>();
+        map.put("GUID", GetUserInfoUtils.getGuid(MissionDetailActivity.this));
+        map.put(Constant.MOBILE, GetUserInfoUtils.getMobile(MissionDetailActivity.this));
+        map.put(Constant.KEY, GetUserInfoUtils.getKey(MissionDetailActivity.this));
+        map.put("billsGUID", bean.getBillsGUID());
+        map.put("Newload", load);
         RetrofitUtils.getRetrofitService()
-                .setBillNewload(Constant.MYINFO_PAGENAME,Config.SETBILLNEWLOAD,JsonUtils.getInstance().getJsonStr(map))
+                .setBillNewload(Constant.MYINFO_PAGENAME, Config.SETBILLNEWLOAD, JsonUtils.getInstance().getJsonStr(map))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<GetCodeBean>() {
@@ -893,7 +907,7 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
 
                     @Override
                     public void onNext(GetCodeBean getCodeBean) {
-                        Log.e("mission-newload",getCodeBean.getErrorCode()+"--"+getCodeBean.getErrorMsg());
+                        Log.e("mission-newload", getCodeBean.getErrorCode() + "--" + getCodeBean.getErrorMsg());
                     }
                 });
     }

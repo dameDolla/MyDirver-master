@@ -56,6 +56,9 @@ public class MyWallteActivity extends BaseActivity implements View.OnClickListen
     @BindView(R.id.mywallte_fresh)
     public SwipeRefreshLayout refresh;
 
+    @BindView(R.id.my_dongjiecount)
+    public TextView dongjie;
+
     @BindView(R.id.my_wallte_recycle)
     public RecyclerView recyclerView;
     private MyWallteAdapter adapter;
@@ -115,17 +118,7 @@ public class MyWallteActivity extends BaseActivity implements View.OnClickListen
         super.onDestroy();
     }
 
-    private ServiceConnection conn = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-            GetUserInfoService getUserInfoService = ((GetUserInfoService.MyBinder)iBinder).getService();
-        }
 
-        @Override
-        public void onServiceDisconnected(ComponentName componentName) {
-
-        }
-    };
 
     @Override
     public void onClick(View view) {
@@ -168,6 +161,7 @@ public class MyWallteActivity extends BaseActivity implements View.OnClickListen
                         String msg = getCodeBean.getErrorMsg();
                         String[] str = msg.split(",");
                         money.setText(str[0]);
+                        dongjie.setText("冻结金额:"+str[1]+"元");
                     }
                 });
     }
@@ -194,7 +188,7 @@ public class MyWallteActivity extends BaseActivity implements View.OnClickListen
 
                     @Override
                     public void onNext(WallteListBean getCodeBean) {
-                        Log.e("mywallte",getCodeBean.getErrorCode()+"--"+getCodeBean.getErrorMsg());
+                        Log.i("mywallte",getCodeBean.getErrorCode()+"--"+getCodeBean.getErrorMsg());
                         /*if (getCodeBean.getErrorCode().equals("200")){*/
                             list.clear();
                             list.addAll(getCodeBean.getData());

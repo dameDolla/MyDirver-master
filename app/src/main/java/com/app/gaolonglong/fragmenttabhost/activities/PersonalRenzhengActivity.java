@@ -249,7 +249,7 @@ public class PersonalRenzhengActivity extends BaseActivity implements View.OnCli
     private void next()
     {
         dialog.show();
-        String name = mEdit.get(0).getText().toString();
+        final String name = mEdit.get(0).getText().toString();
         String num = mEdit.get(1).getText().toString();
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(num))
         {
@@ -298,6 +298,7 @@ public class PersonalRenzhengActivity extends BaseActivity implements View.OnCli
                             if(code.equals("200") )
                             {
                                 ToolsUtils.putString(PersonalRenzhengActivity.this,Constant.VTRUENAME,"1");
+                                ToolsUtils.putString(PersonalRenzhengActivity.this,Constant.USERNAME,name);
                                 startActivity(new Intent(PersonalRenzhengActivity.this,PersonalRenzheng2Activity.class));
                                 finish();
                             }

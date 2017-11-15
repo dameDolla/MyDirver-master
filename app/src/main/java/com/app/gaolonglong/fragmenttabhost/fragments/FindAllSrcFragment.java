@@ -1,6 +1,5 @@
 package com.app.gaolonglong.fragmenttabhost.fragments;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -10,7 +9,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Xml;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,8 +24,6 @@ import android.widget.TextView;
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.activities.AddressActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.FindDetailActivity;
-import com.app.gaolonglong.fragmenttabhost.activities.RenzhengMainActivity;
-import com.app.gaolonglong.fragmenttabhost.activities.SearchAddrActivity;
 import com.app.gaolonglong.fragmenttabhost.adapter.FindSrcAdapter;
 import com.app.gaolonglong.fragmenttabhost.bean.GetSRCBean;
 import com.app.gaolonglong.fragmenttabhost.bean.ToSrcDetailBean;
@@ -38,11 +34,9 @@ import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ThreadManager;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
-import com.app.gaolonglong.fragmenttabhost.view.CommomDialog;
 import com.app.gaolonglong.fragmenttabhost.view.EmptyLayout;
 import com.app.gaolonglong.fragmenttabhost.view.MyGridView;
 import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
-import com.luoxudong.app.threadpool.ThreadPoolHelp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -433,9 +427,7 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
                             @Override
                             public void onNext(GetSRCBean getSRCBean) {
 
-                                Log.e("allSrc", getSRCBean.getErrorMsg() + "--" + getSRCBean.getErrorCode());
-
-
+                                //Log.e("allSrc", getSRCBean.getErrorMsg() + "--" + getSRCBean.getErrorCode());
 
                                 if (getSRCBean.getErrorCode().equals("203")) {
                                     main.setVisibility(View.GONE);

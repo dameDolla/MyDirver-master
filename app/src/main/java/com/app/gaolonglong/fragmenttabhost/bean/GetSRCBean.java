@@ -236,6 +236,16 @@ public class GetSRCBean {
         private String InvoiceType; //是否需要发票
         private String UploadReceipt; //上传签单
         private String PaperReceipt; //纸质回单
+        private String FromSite1;
+        private String ToSite1;
+
+        public String getFromSite1() {
+            return FromSite1;
+        }
+
+        public String getToSite1() {
+            return ToSite1;
+        }
 
         public String getPaperReceipt() {
             return PaperReceipt;

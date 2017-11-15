@@ -33,7 +33,7 @@ import java.util.Map;
  * Created by yanqi on 2017/11/9.
  */
 
-public class AddressActivity extends BaseActivity implements AdapterView.OnItemClickListener {
+public class AddressActivity extends BaseActivity implements AdapterView.OnItemClickListener,View.OnClickListener {
     String province, city;//最终选择结果放在这两个变量******************************************
     //因为spinner在加载视图的时候会自动调用点击响应事件，这两个变量在那个时候就已经初始化了
 
@@ -55,14 +55,18 @@ public class AddressActivity extends BaseActivity implements AdapterView.OnItemC
     private ListView city1;
     private AddressAdapter adapter;
     private List<Map<String, String>> ci;
+    private TextView back;
+    private ImageView backs;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addr_listview_item);
         TextView title = (TextView) findViewById(R.id.top_title);
-        TextView back = (TextView) findViewById(R.id.title_back_txt);
-        ImageView backs = (ImageView) findViewById(R.id.title_back);
+        back = (TextView) findViewById(R.id.title_back_txt);
+        backs = (ImageView) findViewById(R.id.title_back);
+        back.setOnClickListener(this);
+        backs.setOnClickListener(this);
         title.setText("选择地址");
         ListView province = (ListView) findViewById(R.id.addr_item_province);
         city1 = (ListView) findViewById(R.id.addr_item_city);
@@ -227,4 +231,16 @@ public class AddressActivity extends BaseActivity implements AdapterView.OnItemC
         //ToolsUtils.getInstance().toastShowStr(AddressActivity.this,provinceList.get(i).get("guid"));
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId())
+        {
+            case R.id.title_back:
+                finish();
+                break;
+            case R.id.title_back_txt:
+                finish();
+                break;
+        }
+    }
 }

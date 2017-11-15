@@ -230,7 +230,7 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
     private void next()
     {
         //dialog.show();
-       String name = mEdit.get(0).getText().toString();
+       final String name = mEdit.get(0).getText().toString();
        String num = mEdit.get(1).getText().toString();
        // startActivity(new Intent(CarGroupRenzhengActivity.this,CarGroupRenzheng2Activity.class));
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(num))
@@ -277,7 +277,9 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
                             String code = s.getErrorCode();
                             if(code.equals("200") )
                             {
+
                                 ToolsUtils.putString(CarGroupRenzhengActivity.this,Constant.VTRUENAME,"1");
+                                ToolsUtils.putString(CarGroupRenzhengActivity.this,Constant.USERNAME,name);
                                 startActivity(new Intent(CarGroupRenzhengActivity.this,CarGroupRenzheng2Activity.class));
                             }
                         }

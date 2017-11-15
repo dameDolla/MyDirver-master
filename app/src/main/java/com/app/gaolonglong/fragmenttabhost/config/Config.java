@@ -125,4 +125,8 @@ public class Config {
     public static final String GETMONEY = "SelectMyMoney";
     //获取用户的交易记录
     public static final String GETJIAOYILIST = "SelectInfoByGUID";
+    //查询空程邀请表关联的货源数据
+    public static final String SELECTSRCBYKC = "SelectInfo_Invitation";
+    //拒绝空程货源报价邀请
+    public static final String CANCELSRCBYKC = "UpdateState_Invitation";
 }

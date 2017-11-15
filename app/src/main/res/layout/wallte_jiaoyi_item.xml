@@ -8,13 +8,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/txt_10dp"
+        android:layout_marginLeft="@dimen/txt_15dp"
         android:id="@+id/wallte_item_main"
         android:paddingBottom="@dimen/txt_10dp"
         android:orientation="horizontal">
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:text="2017/09/08 24:00:00"
             android:gravity="center_vertical"
             android:id="@+id/wallte_item_time"/>
@@ -22,6 +23,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:visibility="gone"
             android:gravity="center">
             <TextView
                 android:layout_width="wrap_content"

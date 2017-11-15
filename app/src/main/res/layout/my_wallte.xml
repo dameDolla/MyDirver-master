@@ -39,6 +39,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/txt_12"
             android:text="冻结金额:0.00元"
+            android:id="@+id/my_dongjiecount"
             android:layout_alignParentBottom="true"
             android:gravity="center"
             android:paddingBottom="@dimen/txt_20dp"/>

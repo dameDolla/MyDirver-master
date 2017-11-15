@@ -7,6 +7,7 @@ import rx.Observable;
 import com.app.gaolonglong.fragmenttabhost.bean.CarTeamBean;
 import com.app.gaolonglong.fragmenttabhost.bean.CarinfoBean;
 import com.app.gaolonglong.fragmenttabhost.bean.DriverBean;
+import com.app.gaolonglong.fragmenttabhost.bean.InvitedSrcBean;
 import com.app.gaolonglong.fragmenttabhost.bean.MissionListBean;
 import com.app.gaolonglong.fragmenttabhost.bean.BaojiaListBean;
 import com.app.gaolonglong.fragmenttabhost.bean.CompanyInfoBean;
@@ -394,4 +395,20 @@ public interface MyService {
     Observable<WallteListBean> getJiaoyiList(@Field(Constant.PAGENAME) String page,
                                              @Field(Constant.METHOD) String method,
                                              @Field("JsonValue") String json);
+    /**
+     * 查询空程邀请表关联的货源数据
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<InvitedSrcBean> getSrcByKc(@Field(Constant.PAGENAME) String page,
+                                          @Field(Constant.METHOD) String method,
+                                          @Field("JsonValue") String json);
+    /**
+     * 拒绝空程邀请
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> cancelSRCByKc(@Field(Constant.PAGENAME) String page,
+                                          @Field(Constant.METHOD) String method,
+                                          @Field("JsonValue") String json);
 }

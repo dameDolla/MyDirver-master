@@ -36,10 +36,11 @@ public class ToSrcDetailBean implements Serializable {
     private String myPriceStatus;
     private String ownerbill;
     private String remark; //货主留言
+    private String InvitationID;
 
 
-    public ToSrcDetailBean(String ownername,String cargotype,String preloadtime,String avatarAddress,String creditlevel,String qty,String unit,String tel, String ownerguid,String billsGUID,String driverGUID,String drivername,String companyGUID,String truckno,String trucklength,String FromDetailedAddress,
-                           String ToDetailedAddress,String trucklengthHZ,String trucktypeHZ,String trucktype,String loadaddHZ,String arrivedaddHZ,String InvoiceType,String UploadReceipt,String PaperReceipt,String company,String myPriceStatus,String ownerbill,String remark)
+    public ToSrcDetailBean(String ownername, String cargotype, String preloadtime, String avatarAddress, String creditlevel, String qty, String unit, String tel, String ownerguid, String billsGUID, String driverGUID, String drivername, String companyGUID, String truckno, String trucklength, String FromDetailedAddress,
+                           String ToDetailedAddress, String trucklengthHZ, String trucktypeHZ, String trucktype, String loadaddHZ, String arrivedaddHZ, String InvoiceType, String UploadReceipt, String PaperReceipt, String company, String myPriceStatus, String ownerbill, String remark,String InvitationID)
     {
         this.ownername = ownername;
         this.cargotype = cargotype;
@@ -70,6 +71,11 @@ public class ToSrcDetailBean implements Serializable {
         this.myPriceStatus = myPriceStatus;
         this.ownerbill = ownerbill;
         this.remark = remark;
+        this.InvitationID = InvitationID;
+    }
+
+    public String getInvitationID() {
+        return InvitationID;
     }
 
     public String getRemark() {

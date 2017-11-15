@@ -239,6 +239,7 @@
                             android:paddingLeft="@dimen/txt_5dp"
                             android:id="@+id/mission_detail_drivertel"/>
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -258,6 +259,26 @@
                             android:textSize="@dimen/txt_14"
                             android:paddingLeft="@dimen/txt_5dp"
                             android:id="@+id/mission_detail_truckno"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/txt_10dp"
+                        android:layout_marginLeft="@dimen/txt_10dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="货物类型:"
+                            android:textSize="13sp"
+                            android:textColor="@color/black_6d"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_14"
+                            android:paddingLeft="@dimen/txt_5dp"
+                            android:id="@+id/mission_detail_cargotype"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -386,7 +407,7 @@
                             android:marqueeRepeatLimit="marquee_forever"
                             android:paddingLeft="@dimen/txt_5dp"
                             android:singleLine="true"
-                            android:text="深圳市虚拟大学园R3-b"
+                            android:text=""
                             android:textColor="@color/gray_87"
                             android:textSize="@dimen/txt_12" />
                     </LinearLayout>
@@ -625,6 +646,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 android:layout_marginBottom="@dimen/txt_39dp">
                 <LinearLayout
                     android:layout_width="0dp"

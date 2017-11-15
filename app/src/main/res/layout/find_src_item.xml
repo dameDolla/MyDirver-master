@@ -165,6 +165,7 @@
                         android:paddingBottom="5dp"
                         android:paddingTop="5dp"
                         android:src="@mipmap/small_truck" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -204,7 +205,9 @@
                         android:text="10.0吨  9.6米  高箱车"
                         android:textColor="@color/color_fd4a"
                         android:textSize="@dimen/txt_14" />
+
                 </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -243,7 +246,9 @@
                 </LinearLayout>
 
             </LinearLayout>
+
             </LinearLayout>
+
         </LinearLayout>
 
 </LinearLayout>

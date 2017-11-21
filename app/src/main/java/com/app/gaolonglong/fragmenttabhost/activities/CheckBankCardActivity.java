@@ -1,5 +1,6 @@
 package com.app.gaolonglong.fragmenttabhost.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -13,11 +14,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
+import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
+import com.app.gaolonglong.fragmenttabhost.config.Config;
+import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.BankInfo;
 import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
+import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
+import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 
 import java.nio.charset.CharacterCodingException;
+import java.util.HashMap;
+import java.util.Map;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by yanqi on 2017/11/2.
@@ -27,6 +39,13 @@ public class CheckBankCardActivity extends BaseActivity implements View.OnClickL
 
     private TextView tel;
     private TextView getCode;
+    private String guid;
+    private String mobile;
+    private String key;
+    private TextView bankType;
+    private EditText name;
+    private EditText num;
+    private EditText username,smsCode;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,16 +53,24 @@ public class CheckBankCardActivity extends BaseActivity implements View.OnClickL
         setContentView(R.layout.check_bank_card);
         init();
     }
+
+
+
     private void init()
     {
+        guid = GetUserInfoUtils.getGuid(this);
+        mobile = GetUserInfoUtils.getMobile(this);
+        key = GetUserInfoUtils.getKey(this);
         TextView title = (TextView) findViewById(R.id.top_title);
         TextView title_back = (TextView) findViewById(R.id.title_back_txt);
         ImageView title_backs = (ImageView) findViewById(R.id.title_back);
-        TextView username = (TextView) findViewById(R.id.check_bank_username);
+        username = (EditText) findViewById(R.id.check_bank_username);
+        bankType = (TextView) findViewById(R.id.check_bankcard_type);
         tel = (TextView) findViewById(R.id.check_bank_tel);
         tel.setText(GetUserInfoUtils.getMobile(this));
-        final TextView name = (TextView) findViewById(R.id.check_bank_name);
-        final EditText num = (EditText) findViewById(R.id.check_bank_num);
+        name = (EditText) findViewById(R.id.check_bank_name);
+        num = (EditText) findViewById(R.id.check_bank_num);
+        smsCode = (EditText) findViewById(R.id.check_bank_code);
         Button  submit = (Button) findViewById(R.id.check_bank_submit);
         getCode = (TextView) findViewById(R.id.check_bank_getcode);
         title.setText("验证银行卡");
@@ -68,7 +95,7 @@ public class CheckBankCardActivity extends BaseActivity implements View.OnClickL
                 int size = editable.length();
                 if (size == 6){
                     String cardNum = num.getText().toString();
-                    name.setText(BankInfo.getNameOfBank(CheckBankCardActivity.this,Long.parseLong(cardNum)));
+                    bankType.setText(BankInfo.getNameOfBank(CheckBankCardActivity.this,Long.parseLong(cardNum)));
                 }
             }
         });
@@ -78,6 +105,7 @@ public class CheckBankCardActivity extends BaseActivity implements View.OnClickL
         String mobile = tel.getText().toString();
         if (!TextUtils.isEmpty(mobile)){
             //请求获取验证码的接口
+            getBindCode();
         }
 
     }
@@ -91,7 +119,7 @@ public class CheckBankCardActivity extends BaseActivity implements View.OnClickL
                 timer.start();
                 break;
             case R.id.check_bank_submit:
-
+                addCard();
                 break;
             case R.id.title_back:
                 finish();
@@ -118,5 +146,87 @@ public class CheckBankCardActivity extends BaseActivity implements View.OnClickL
             getCode.setEnabled(true);
             getCode.setText("重新获取验证码");
         }
+    }
+
+    /**
+     * 添加银行卡
+     */
+    private void addCard()
+    {
+        final String usernames = username.getText().toString();
+        final String carNum = num.getText().toString();
+        String code = smsCode.getText().toString();
+        if (TextUtils.isEmpty(usernames)||TextUtils.isEmpty(carNum)||TextUtils.isEmpty(code)){
+            ToolsUtils.getInstance().toastShowStr(CheckBankCardActivity.this,"请输入完整信息");
+        }else {
+            Map<String,String> map = new HashMap<>();
+            map.put("GUID",guid);
+            map.put(Constant.MOBILE,mobile);
+            map.put(Constant.KEY,key);
+            map.put("BankMobile",mobile);
+            map.put("account",usernames);
+            map.put("BankUserName",carNum);
+            map.put("banktype",bankType.getText().toString());
+            map.put("branch",name.getText().toString());
+            map.put("BankSMSCode",code);
+
+            RetrofitUtils.getRetrofitService()
+                    .addBankCard(Constant.MYINFO_PAGENAME, Config.ADDBANKCARD, JsonUtils.getInstance().getJsonStr(map))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<GetCodeBean>() {
+                        @Override
+                        public void onCompleted() {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onNext(GetCodeBean getCodeBean) {
+                            if (getCodeBean.getErrorCode().equals("200")){
+                                ToolsUtils.putString(CheckBankCardActivity.this,Constant.BANKCARDTYPE,bankType.getText().toString());
+                                ToolsUtils.putString(CheckBankCardActivity.this,Constant.BANKCARDNUM,carNum);
+                                ToolsUtils.putString(CheckBankCardActivity.this,Constant.BANKCARDUSERNAME,usernames);
+                                startActivity(new Intent(CheckBankCardActivity.this,MyCardListActivity.class));
+                                finish();
+                            }else {
+                                ToolsUtils.getInstance().toastShowStr(CheckBankCardActivity.this,getCodeBean.getErrorMsg());
+                            }
+                        }
+                    });
+        }
+
+    }
+    private void getBindCode()
+    {
+        Map<String,String> codeMap = new HashMap<>();
+        codeMap.put("BankMobile",mobile);
+        codeMap.put("GUID",guid);
+        codeMap.put(Constant.MOBILE,mobile);
+        codeMap.put(Constant.KEY,key);
+        RetrofitUtils.getRetrofitService()
+                .getBindCardSMSCode(Constant.MYINFO_PAGENAME,Config.GETBINDCARDCODE,JsonUtils.getInstance().getJsonStr(codeMap))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<GetCodeBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(GetCodeBean getCodeBean) {
+                        ToolsUtils.getInstance().toastShowStr(CheckBankCardActivity.this,getCodeBean.getErrorMsg());
+                    }
+                });
     }
 }

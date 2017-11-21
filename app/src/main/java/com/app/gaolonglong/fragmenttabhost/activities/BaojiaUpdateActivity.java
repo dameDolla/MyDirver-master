@@ -64,6 +64,9 @@ public class BaojiaUpdateActivity extends BaseActivity implements View.OnClickLi
         ButterKnife.bind(this);
         init();
     }
+
+
+
     private void init()
     {
         initView();

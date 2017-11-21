@@ -1,9 +1,12 @@
 package com.app.gaolonglong.fragmenttabhost.activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -50,7 +53,20 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_page);
-
+        ViewGroup rootView = (ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content);
+        //rootView.setPadding(0, getStatusBarHeight(), 0, 0);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            //5.0 以上直接设置状态栏颜色
+            getWindow().setStatusBarColor(getResources().getColor(R.color.splashbg_color));
+        } else {
+            //根布局添加占位状态栏
+            ViewGroup decorView = (ViewGroup) getWindow().getDecorView();
+            View statusBarView = new View(this);
+            ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    getStatusBarHeight());
+            statusBarView.setBackgroundColor(getResources().getColor(R.color.splashbg_color));
+            decorView.addView(statusBarView, lp);
+        }
         getVersionConde();
         ToolsUtils.getInstance().requestPermission(SplashActivity.this);
 
@@ -62,9 +78,19 @@ public class SplashActivity extends BaseActivity {
             checkLogin();
 
         }
-
+        ToolsUtils.getInstance().addStatusViewWithColor(this,getResources().getColor(R.color.splashbg_color));
         initLocation();
     }
+    public int getStatusBarHeight() {
+        int result = 0;
+        //获取状态栏高度的资源id
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
 
     private void checkLogin() {
 

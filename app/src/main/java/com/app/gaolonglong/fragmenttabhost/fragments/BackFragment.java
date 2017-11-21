@@ -101,7 +101,11 @@ public class BackFragment extends Fragment implements View.OnClickListener{
             }
             else
             {
-                startActivityForResult(new Intent(getActivity(),AddReleaseActivity.class),1);
+                if (GetUserInfoUtils.isRenzheng(getContext())){
+                    startActivityForResult(new Intent(getActivity(),AddReleaseActivity.class),1);
+                }else {
+                    ToolsUtils.toRenzhengMain(getActivity());
+                }
             }
         }
         else {

@@ -199,6 +199,8 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
     }
 
 
+
+
     private void init() {
         initView();
     }

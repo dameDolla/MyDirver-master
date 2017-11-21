@@ -17,6 +17,7 @@ import com.app.gaolonglong.fragmenttabhost.bean.LoginBean;
 import com.app.gaolonglong.fragmenttabhost.bean.ParametersBean;
 import com.app.gaolonglong.fragmenttabhost.bean.ReleaseBean;
 import com.app.gaolonglong.fragmenttabhost.bean.RouteListBean;
+import com.app.gaolonglong.fragmenttabhost.bean.TruckLengthBean;
 import com.app.gaolonglong.fragmenttabhost.bean.VersionCodeBean;
 import com.app.gaolonglong.fragmenttabhost.bean.WallteListBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
@@ -411,4 +412,43 @@ public interface MyService {
     Observable<GetCodeBean> cancelSRCByKc(@Field(Constant.PAGENAME) String page,
                                           @Field(Constant.METHOD) String method,
                                           @Field("JsonValue") String json);
+    /**
+     * 添加银行卡
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> addBankCard(@Field(Constant.PAGENAME) String page,
+                                          @Field(Constant.METHOD) String method,
+                                          @Field("JsonValue") String json);
+    /**
+     * 提现
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> tiXian(@Field(Constant.PAGENAME) String page,
+                                        @Field(Constant.METHOD) String method,
+                                        @Field("JsonValue") String json);
+    /**
+     * 提现
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<GetCodeBean> getBindCardSMSCode(@Field(Constant.PAGENAME) String page,
+                                   @Field(Constant.METHOD) String method,
+                                   @Field("JsonValue") String json);
+    /**
+     * 提现
+     */
+    @FormUrlEncoded
+    @POST("/WX/WXHD.ashx")
+    Observable<GetCodeBean> chongZhi(@Field("Money") String method, @Field("MD5Key") String json);
+
+    /**
+     * 提现
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<TruckLengthBean> getTruckLength(@Field(Constant.PAGENAME) String page,
+                                               @Field(Constant.METHOD) String method,
+                                               @Field("JsonValue") String json);
 }

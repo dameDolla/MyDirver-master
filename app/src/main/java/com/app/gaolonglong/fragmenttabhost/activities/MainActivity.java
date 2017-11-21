@@ -44,7 +44,7 @@ import com.app.gaolonglong.fragmenttabhost.view.CommomDialog;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private DiverApplication mApplication;
     private FragmentTabHost mTabHost;
@@ -78,11 +78,13 @@ public class MainActivity extends AppCompatActivity {
         toFindFragment();
     }
 
+
     private void init() {
         ToolsUtils.getInstance().requestPermissions(MainActivity.this);
         initExit();
-        initView();
 
+        initView();
+        //ToolsUtils.getInstance().addStatusViewWithColor(this,getResources().getColor(R.color.shen_blue));
         initEvent();
         checkUpdate();
         Intent intent = new Intent(MainActivity.this, LocationService.class);

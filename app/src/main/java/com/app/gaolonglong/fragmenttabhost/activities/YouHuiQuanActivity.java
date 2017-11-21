@@ -15,4 +15,6 @@ public class YouHuiQuanActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.coupon_list);
     }
+
+
 }

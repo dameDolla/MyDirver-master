@@ -53,6 +53,9 @@ public class CompanyInfoActivity extends BaseActivity implements View.OnClickLis
         setContentView(R.layout.company_info);
         init();
     }
+
+
+
     private void init()
     {
         initView();

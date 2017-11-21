@@ -155,6 +155,8 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
         init();
     }
 
+
+
     private void init() {
         initView();
         initCartypePopwindow();

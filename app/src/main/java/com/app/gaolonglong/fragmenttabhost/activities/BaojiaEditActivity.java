@@ -129,6 +129,9 @@ public class BaojiaEditActivity extends BaseActivity implements AdapterView.OnIt
     @BindView(R.id.baojia_edit_intro)
     public TextView intro;
 
+    @BindView(R.id.baojia_xie_time)
+    public TextView xietime;
+
     @BindViews({R.id.baojia_edit_baojiastatus,R.id.baojia_edit_reason})
     public List<TextView> statustxt;
 
@@ -140,6 +143,8 @@ public class BaojiaEditActivity extends BaseActivity implements AdapterView.OnIt
         init();
     }
 
+
+
     private void init() {
         initView();
         initPopwindow();
@@ -148,6 +153,7 @@ public class BaojiaEditActivity extends BaseActivity implements AdapterView.OnIt
     private void initView() {
         String need = "";
         title.setText("正在报价");
+        //ToolsUtils.getInstance().addStatusViewWithColor(this,getResources().getColor(R.color.shen_blue));
         usertype = GetUserInfoUtils.getUserType(BaojiaEditActivity.this);
         bean = (ToSrcDetailBean) getIntent().getSerializableExtra("srcdetail");
         // baojiaFragment
@@ -155,6 +161,7 @@ public class BaojiaEditActivity extends BaseActivity implements AdapterView.OnIt
         isFapiao = bean.getInvoiceType();
         huidan = bean.getPaperReceipt();
         qianshoudan = bean.getUploadReceipt();
+        xietime.setText(TextUtils.isEmpty(bean.getPrearrivetime())?"":bean.getPrearrivetime());
         fapiaoType = GetUserInfoUtils.getFapiaoType(BaojiaEditActivity.this);
         //Log.e("missiondetail",isFapiao);
         mText.get(0).setText(bean.getOwnername());

@@ -121,7 +121,8 @@ public class InvitedSrcAdapter extends RecyclerView.Adapter implements View.OnCl
                     list.get((int) view.getTag()).getMyPriceStatus(),
                     list.get((int) view.getTag()).getOwnerbill()+"",
                     list.get((int) view.getTag()).getRemark(),
-                    list.get((int) view.getTag()).getInvitationID()
+                    list.get((int) view.getTag()).getInvitationID(),
+                    list.get((int) view.getTag()).getPrearrivetime()
             );
             //注意这里使用getTag方法获取position
             onInvitedItemClick.invitedClick(view, bean);

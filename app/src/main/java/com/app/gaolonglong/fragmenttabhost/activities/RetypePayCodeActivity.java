@@ -45,6 +45,9 @@ public class RetypePayCodeActivity extends BaseActivity {
         setContentView(R.layout.retype_input_paycode);
         ButterKnife.bind(this);
     }
+
+
+
     private void submits()
     {
         String retype_password = password.getText().toString();

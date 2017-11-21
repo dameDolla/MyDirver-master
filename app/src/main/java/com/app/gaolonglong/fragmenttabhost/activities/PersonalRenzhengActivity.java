@@ -106,6 +106,9 @@ public class PersonalRenzhengActivity extends BaseActivity implements View.OnCli
     @BindViews({R.id.renzheng_head,R.id.card_face,R.id.card_back,R.id.person_with_card,R.id.personal_jsz})
     public List<ImageView> icon;
 
+    @BindView(R.id.cargroup_renzheng_2txt)
+    public TextView txt;
+
     /*@BindView(R.id.renzheng_head)
     public SimpleDraweeView head;*/
     @BindView(R.id.renzheng_logo)
@@ -136,6 +139,9 @@ public class PersonalRenzhengActivity extends BaseActivity implements View.OnCli
         ButterKnife.bind(this);
         init();
     }
+
+
+
     private void init()
     {
         initView();
@@ -144,6 +150,7 @@ public class PersonalRenzhengActivity extends BaseActivity implements View.OnCli
     private void initView()
     {
         mText.get(0).setText("个体司机认证");
+        txt.setText("提交车辆信息");
         upload_head.setOnClickListener(this);
         icon.get(1).setOnClickListener(this);
         icon.get(2).setOnClickListener(this);

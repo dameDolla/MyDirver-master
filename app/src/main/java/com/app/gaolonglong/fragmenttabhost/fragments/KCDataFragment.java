@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.activities.AddReleaseActivity;
@@ -64,6 +65,9 @@ public class KCDataFragment extends Fragment implements View.OnClickListener{
     public EmptyLayout empty;
     @BindView(R.id.release_refresh)
     public SwipeRefreshLayout refresh;
+
+    @BindView(R.id.release_kc_main)
+    public LinearLayout main;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -202,21 +206,22 @@ public class KCDataFragment extends Fragment implements View.OnClickListener{
 
                     @Override
                     public void onNext(ReleaseBean releaseBean) {
-                        // Log.e("backfragment",releaseBean.getErrorCode());
+
                         //ToolsUtils.getInstance().toastShowStr(getContext(),releaseBean.getErrorMsg());
                         dialog.dismiss();
-
-                        if (releaseBean.getErrorCode().equals("203"))
+                        list.clear();
+                        list.addAll(releaseBean.getData());
+                        Log.i("backfragment",releaseBean.getErrorCode()+"-"+releaseBean.getErrorMsg()+list.size()+"");
+                        if (list.size() == 0)
                         {
                             empty.setVisibility(View.VISIBLE);
-                            rcv.setVisibility(View.GONE);
+                            main.setVisibility(View.GONE);
                             empty.setErrorImag(R.drawable.nokongcheng,"您还没有发布空程");
+                            //empty.setErrorType(EmptyLayout.NODATA);
                         }
                         else{
                             empty.setVisibility(View.GONE);
-                            rcv.setVisibility(View.VISIBLE);
-                            list.clear();
-                            list.addAll(releaseBean.getData());
+                            main.setVisibility(View.VISIBLE);
                             adapter.notifyDataSetChanged();
                         }
                     }

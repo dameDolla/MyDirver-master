@@ -2,6 +2,7 @@ package com.app.gaolonglong.fragmenttabhost.utils;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -27,13 +28,18 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.app.gaolonglong.fragmenttabhost.R;
+import com.app.gaolonglong.fragmenttabhost.activities.RenzhengMainActivity;
 import com.app.gaolonglong.fragmenttabhost.activities.SettingActivity;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.view.CommomDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -126,6 +132,9 @@ public class ToolsUtils {
         ToolsUtils.putString(context,"money","");
         ToolsUtils.putString(context,"newguid","");
         ToolsUtils.putString(context,Constant.FAPIAOTYPE,"");
+        ToolsUtils.putString(context,Constant.BANKCARDUSERNAME,"");
+        ToolsUtils.putString(context,Constant.BANKCARDTYPE,"");
+        ToolsUtils.putString(context,Constant.BANKCARDNUM,"");
     }
 
     /**
@@ -171,7 +180,7 @@ public class ToolsUtils {
      */
     public String getMD5Val(String jsonVal)
     {
-        String data =  jsonVal;
+        String data =  jsonVal+"PYLF";
         return md5(data);
     }
 
@@ -989,5 +998,50 @@ public class ToolsUtils {
         return newbm;
     }
 
+    /**
+     * 添加状态栏占位视图
+     *
+     * @param activity
+     */
+    public void addStatusViewWithColor(Activity activity, int color) {
+        ViewGroup contentView = (ViewGroup) activity.findViewById(android.R.id.content);
+        View statusBarView = new View(activity);
+        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                getStatusBarHeight(activity));
+        statusBarView.setBackgroundColor(color);
+        contentView.addView(statusBarView, lp);
+    }
+
+    /**
+     * 利用反射获取状态栏高度
+     * @return
+     */
+    public int getStatusBarHeight(Activity activity) {
+        int result = 0;
+        //获取状态栏高度的资源id
+        int resourceId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = activity.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
+    public static void toRenzhengMain(final Activity activity)
+    {
+        String s = "注册用户才能使用该功能。\n" +
+                "马上注册，海量货源任你选。\n";
+        CommomDialog dialog = new CommomDialog(activity, R.style.dialog, s, new CommomDialog.OnCloseListener() {
+            @Override
+            public void onClick(Dialog dialog, boolean confirm) {
+                dialog.dismiss();
+                if (confirm){
+                    activity.startActivity(new Intent(activity,RenzhengMainActivity.class));
+                }
+            }
+        });
+        dialog.setPositiveButton("立即注册");
+        dialog.setNegativeButton("取消");
+        dialog.show();
+    }
 
 }

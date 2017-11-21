@@ -165,7 +165,7 @@ public class FindRouteSrcFragment extends Fragment implements View.OnClickListen
                     intent.putExtra("findSrc",bean);
                     startActivity(intent);
                 }else {
-                    ToolsUtils.getInstance().toastShowStr(getContext(),"请先通过认证");
+                    ToolsUtils.toRenzhengMain(getActivity());
                 }
             }
         });
@@ -176,7 +176,7 @@ public class FindRouteSrcFragment extends Fragment implements View.OnClickListen
                     Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+list.get(position).getOwnerphone()));
                     startActivity(intent);
                 }else {
-                    ToolsUtils.getInstance().toastShowStr(getContext(),"请先通过认证");
+                    ToolsUtils.toRenzhengMain(getActivity());
                 }
             }
         });

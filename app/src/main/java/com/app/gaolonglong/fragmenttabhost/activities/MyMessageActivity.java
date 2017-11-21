@@ -45,6 +45,9 @@ public class MyMessageActivity extends BaseActivity {
         ButterKnife.bind(this);
         init();
     }
+
+
+
     private void init()
     {
         initView();

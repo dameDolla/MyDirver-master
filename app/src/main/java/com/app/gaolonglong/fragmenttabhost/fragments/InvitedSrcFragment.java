@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.activities.FindDetailActivity;
@@ -53,6 +54,7 @@ public class InvitedSrcFragment extends Fragment {
     private FindSrcAdapter adapter;
     private EmptyLayout empty;
     private RecyclerView rcv;
+    private LinearLayout main;
 
     @Nullable
     @Override
@@ -84,6 +86,7 @@ public class InvitedSrcFragment extends Fragment {
         final SwipeRefreshLayout refresh = (SwipeRefreshLayout) mRootView.findViewById(R.id.invited_refresh);
         empty = (EmptyLayout) mRootView.findViewById(R.id.invited_empty);
         rcv = (RecyclerView) mRootView.findViewById(R.id.invited_rcvinvited);
+        main = (LinearLayout) mRootView.findViewById(R.id.invited_fragment_main);
         invitedSrcAdapter = new InvitedSrcAdapter(getContext(), invitedlist);
         MyLinearLayoutManager manager = new MyLinearLayoutManager(getContext());
         //manager.setScrollEnabled(false);
@@ -150,13 +153,13 @@ public class InvitedSrcFragment extends Fragment {
 
                         if (getSRCBean.getErrorCode().equals("203")){
                             empty.setVisibility(View.VISIBLE);
-                            rcv.setVisibility(View.GONE);
+                            main.setVisibility(View.GONE);
                             empty.setErrorImag(R.drawable.nosrc,"暂无邀请数据");
                         }else {
                             invitedlist.clear();
                             invitedlist.addAll(getSRCBean.getData());
                             empty.setVisibility(View.GONE);
-                            rcv.setVisibility(View.VISIBLE);
+                            main.setVisibility(View.VISIBLE);
                             invitedSrcAdapter.notifyDataSetChanged();
                         }
 

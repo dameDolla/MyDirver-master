@@ -239,7 +239,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     if (GetUserInfoUtils.getVtrueName(getContext()).equals("9") || GetUserInfoUtils.getVcompany(getContext()).equals("9")) {
                         startActivity(new Intent(getActivity(), MyMessageActivity.class));
                     } else {
-                        ToolsUtils.getInstance().toastShowStr(getActivity(), "请先完成认证");
+                        //ToolsUtils.getInstance().toastShowStr(getActivity(), "请先完成认证");
+                        ToolsUtils.toRenzhengMain(getActivity());
                     }
 
                 } else {
@@ -249,11 +250,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.mine_rl_wallte:
                 if (isLogin) {
-                    if (GetUserInfoUtils.getVtrueName(getContext()).equals("9") || GetUserInfoUtils.getVcompany(getContext()).equals("9")) {
+
                         startActivity(new Intent(getActivity(), MyWallteActivity.class));
-                    } else {
-                        ToolsUtils.getInstance().toastShowStr(getActivity(), "请先完成认证");
-                    }
                 } else {
                     ToolsUtils.getInstance().toastShowStr(getActivity(), login);
                 }
@@ -267,7 +265,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     if (GetUserInfoUtils.getVtrueName(getContext()).equals("9") || GetUserInfoUtils.getVcompany(getContext()).equals("9")) {
                         startActivity(new Intent(getActivity(), MyCardListActivity.class));
                     } else {
-                        ToolsUtils.getInstance().toastShowStr(getActivity(), "请先完成认证");
+                        //ToolsUtils.getInstance().toastShowStr(getActivity(), "请先完成认证");
+                        ToolsUtils.toRenzhengMain(getActivity());
                     }
 
                 } else {
@@ -284,7 +283,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     {
                     startActivity(new Intent(getContext(), CarInfoActivity.class));
                     }else {
-                        ToolsUtils.getInstance().toastShowStr(getActivity(),"请先完成认证");
+                        //ToolsUtils.getInstance().toastShowStr(getActivity(),"请先完成认证");
+                        ToolsUtils.toRenzhengMain(getActivity());
                     }
 
                 } else {
@@ -296,7 +296,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     if (GetUserInfoUtils.getVtrueName(getContext()).equals("9") || GetUserInfoUtils.getVcompany(getContext()).equals("9")) {
                         startActivity(new Intent(getActivity(), MyCarTeamActivity.class));
                     } else {
-                        ToolsUtils.getInstance().toastShowStr(getActivity(), "请先完成认证");
+                        //ToolsUtils.getInstance().toastShowStr(getActivity(), "请先完成认证");
+                        ToolsUtils.toRenzhengMain(getActivity());
                     }
 
                 } else {
@@ -309,7 +310,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     if (GetUserInfoUtils.getVtrueName(getContext()).equals("9") || GetUserInfoUtils.getVcompany(getContext()).equals("9")) {
                         startActivity(new Intent(getActivity(), MyRouteListActivity.class));
                     } else {
-                        ToolsUtils.getInstance().toastShowStr(getActivity(), "请先完成认证");
+                        //ToolsUtils.getInstance().toastShowStr(getActivity(), "请先完成认证");
+                        ToolsUtils.toRenzhengMain(getActivity());
                     }
 
                 } else {
@@ -323,7 +325,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     intent.putExtra("flags", "mineFragment");
                     startActivity(intent);
                 } else {
-                    ToolsUtils.getInstance().toastShowStr(getActivity(), "请先完成认证");
+                    //ToolsUtils.getInstance().toastShowStr(getActivity(), "请先完成认证");
+                    ToolsUtils.toRenzhengMain(getActivity());
                 }
 
                 break;
@@ -331,17 +334,20 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 if (isRenzheng) {
                     startActivity(new Intent(getContext(), CompanyInfoActivity.class));
                 } else {
-                    ToolsUtils.getInstance().toastShowStr(getActivity(), "请先完成认证");
+                    //ToolsUtils.getInstance().toastShowStr(getActivity(), "请先完成认证");
+                    ToolsUtils.toRenzhengMain(getActivity());
                 }
                 break;
             case R.id.mine_rl_fapiao:
                 if (isRenzheng) {
                     startActivity(new Intent(getContext(), FaPiaoSettingActivity.class));
                 } else {
-                    ToolsUtils.getInstance().toastShowStr(getActivity(), "请先完成认证");
+                    //ToolsUtils.getInstance().toastShowStr(getActivity(), "请先完成认证");
+                    ToolsUtils.toRenzhengMain(getActivity());
                 }
                 break;
 
         }
     }
+
 }

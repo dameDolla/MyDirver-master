@@ -7,10 +7,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
+    <include layout="@layout/top_title"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="车长"
+        android:layout_marginTop="@dimen/txt_20"
         android:layout_marginBottom="@dimen/txt_10dp"
         android:paddingLeft="10dp"
         android:textColor="#000000"

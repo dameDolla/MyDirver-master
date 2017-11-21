@@ -23,7 +23,30 @@ public class GetUserInfoUtils {
     {
         return ToolsUtils.getString(context,Constant.USERNAME,"");
     }
-
+    /**
+     * 获取银行卡开户人
+     * @param context
+     * @return
+     */
+    public static String getBankCardUsername(Context context){
+        return ToolsUtils.getString(context,Constant.BANKCARDUSERNAME,"");
+    }
+    /**
+     * 获取银行卡号
+     * @param context
+     * @return
+     */
+    public static String getBankCardNum(Context context){
+        return ToolsUtils.getString(context,Constant.BANKCARDNUM,"");
+    }
+    /**
+     * 获取银行卡类型
+     * @param context
+     * @return
+     */
+    public static String getBankCardType(Context context){
+        return ToolsUtils.getString(context,Constant.BANKCARDTYPE,"");
+    }
     /**
      * 获取身份证号
      * @param context

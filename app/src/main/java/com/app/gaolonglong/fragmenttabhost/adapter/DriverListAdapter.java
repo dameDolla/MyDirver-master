@@ -63,10 +63,10 @@ public class DriverListAdapter extends RecyclerView.Adapter {
         mHolder.count.setText(data.getDriverbill()+"");
         if (data.getVtruename().equals("9")){
             mHolder.jiebang.setText("已认证");
-            mHolder.jiebang.setTextColor(Color.YELLOW);
+            //mHolder.jiebang.setTextColor(Color.YELLOW);
         }else {
             mHolder.jiebang.setText("未认证");
-            mHolder.jiebang.setTextColor(Color.RED);
+            //mHolder.jiebang.setTextColor(Color.RED);
         }
         if (flags.equals(Constant.MISSIONFLAGS)){
             mHolder.select.setVisibility(View.VISIBLE);
@@ -100,7 +100,7 @@ public class DriverListAdapter extends RecyclerView.Adapter {
         private final TextView time;
         private final TextView count;
         private final TextView jiebang;
-        private final TextView select;
+        private final TextView select,allow_cartype;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -110,6 +110,8 @@ public class DriverListAdapter extends RecyclerView.Adapter {
             count = (TextView) itemView.findViewById(R.id.driver_jiedancount);
             jiebang = (TextView) itemView.findViewById(R.id.driver_jiebang);
             select = (TextView) itemView.findViewById(R.id.driver_select);
+            allow_cartype = (TextView) itemView.findViewById(R.id.driver_allow_cartype);
+
         }
     }
 }

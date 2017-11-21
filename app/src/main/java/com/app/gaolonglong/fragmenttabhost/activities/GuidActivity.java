@@ -53,6 +53,9 @@ public class GuidActivity extends BaseActivity implements View.OnClickListener{
         initView();
 
     }
+
+
+
     private void initData()
     {
         indicatorImg = new ImageView[GUID_PAGE_COUNT];

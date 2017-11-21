@@ -1,6 +1,7 @@
 package com.app.gaolonglong.fragmenttabhost.activities;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -81,6 +82,8 @@ public class AddCarActivity extends BaseActivity implements View.OnClickListener
 
     private String NEWGUID = "addcar_newguid";
 
+    private static final int TRUCKTYPE = 105;
+
     private int position = 0;
 
     @BindViews({R.id.add_car_carnum,R.id.add_car_xsznum,R.id.add_car_time,R.id.add_car_cartype,
@@ -149,13 +152,19 @@ public class AddCarActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_car);
+        //ToolsUtils.getInstance().addStatusViewWithColor(AddCarActivity.this,R.color.shen_blue);
+        //设置 paddingTop
+
+
         ButterKnife.bind(this);
         init();
     }
+
+
+
     private void init()
     {
         initView();
-        initCartypePopwindow();
     }
     private void initView()
     {
@@ -163,6 +172,7 @@ public class AddCarActivity extends BaseActivity implements View.OnClickListener
         if (TextUtils.isEmpty(ToolsUtils.getString(AddCarActivity.this,NEWGUID,""))){
             getGuid();
         }
+        //ToolsUtils.getInstance().addStatusViewWithColor(this,getResources().getColor(R.color.shen_blue));
         flag = getIntent().getStringExtra("flag")+"";
         if (flag.equals("carinfo")){
             title.setText("修改车辆");
@@ -343,10 +353,12 @@ public class AddCarActivity extends BaseActivity implements View.OnClickListener
                 uploadImage();
                 break;
             case R.id.add_car_cartype:
-                showCarPop();
+                startActivityForResult(new Intent(AddCarActivity.this,SelectTruckTypeActivity.class),TRUCKTYPE);
+                //showCarPop();
                 break;
             case R.id.add_car_carlength:
-                showCarPop();
+                startActivityForResult(new Intent(AddCarActivity.this,SelectTruckTypeActivity.class),TRUCKTYPE);
+                //showCarPop();
                 break;
         }
     }
@@ -500,6 +512,26 @@ public class AddCarActivity extends BaseActivity implements View.OnClickListener
                     }
                 }
                 break;
+            case TRUCKTYPE:
+                String trucktype = intent.getStringExtra("trucktype");
+                String trucklength = intent.getStringExtra("trucklength");
+                mEdit.get(3).setText(trucktype);
+                mEdit.get(4).setText(trucklength);
+                if (!TextUtils.isEmpty(trucklength)&&!TextUtils.isEmpty(trucktype)){
+                    if (trucktype.equals("自备柜")){
+                        zbgInfo.setVisibility(View.VISIBLE);
+                        carinfo.setVisibility(View.GONE);
+                        mZbg.get(0).setVisibility(View.VISIBLE);
+                        mZbg.get(1).setVisibility(View.VISIBLE);
+                    }else {
+                        zbgInfo.setVisibility(View.GONE);
+                        carinfo.setVisibility(View.VISIBLE);
+                        mZbg.get(0).setVisibility(View.GONE);
+                        mZbg.get(1).setVisibility(View.GONE);
+                    }
+                }
+
+                break;
 
         }
     }
@@ -602,128 +634,8 @@ public class AddCarActivity extends BaseActivity implements View.OnClickListener
             }
         });
     }
-    private void initCartypePopwindow()
-    {
-        popView = getLayoutInflater().inflate(R.layout.find_cartype_gridview,null);
-        typePopmenu = new PopupWindow(popView,
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-        ColorDrawable dw = new ColorDrawable(0xb0000000);
-        typePopmenu.setOutsideTouchable(true);
-        typePopmenu.setBackgroundDrawable(dw);
-        typePopmenu.setFocusable(true);
-        typePopmenu.setTouchable(true);
-        typePopmenu.setAnimationStyle(R.style.mypopwindow_anim_style);
-    }
 
-    String lenStr = null;
-    String typeStr = null;
-    private void showCarPop()
-    {
 
-        List<Map<String,String>> typeList = new ArrayList<Map<String,String>>();
-        List<Map<String,String>> lengthList = new ArrayList<Map<String,String>>();
-        String[] length = { "不限", "4.2米", "4.5米", "5米", "5.2米", "6.2米", "6.8米",
-                "7.2米", "11.7米", "12.5米", "13米", "13.5米","14米","15米","16米","17米" };
 
-        final String[] type = {"不限","冷藏车","平板","高栏","箱式","保温","危险品","高低板","自备柜"};
 
-        for (int j=0;j<type.length;j++)
-        {
-            Map<String,String> maps = new HashMap<String, String>();
-            maps.put("type",type[j]);
-            typeList.add(maps);
-        }
-
-        for (int i= 0;i<length.length;i++)
-        {
-            Map<String,String> map = new HashMap<String,String>();
-            map.put("length",length[i]);
-            lengthList.add(map);
-        }
-        final MyGridView lenthGrid = (MyGridView) popView.findViewById(R.id.gridview);
-        SimpleAdapter lenthAdapter = new SimpleAdapter(AddCarActivity.this,lengthList,R.layout.find_cartype_pop_item,new String[]{"length"},
-                new int[]{R.id.gv_item_text});
-        lenthGrid.setAdapter(lenthAdapter);
-
-        final MyGridView typeGrid = (MyGridView) popView.findViewById(R.id.gridview_2);
-        SimpleAdapter typeAdapter = new SimpleAdapter(AddCarActivity.this,typeList,R.layout.find_cartype_pop_item,new String[]{"type"},
-                new int[]{R.id.gv_item_text});
-        typeGrid.setAdapter(typeAdapter);
-
-        typePopmenu.showAtLocation(parent, Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0,0);
-
-        param = getWindow().getAttributes();
-        param.alpha=0.7f;
-        getWindow().setAttributes(param);
-        typePopmenu.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                param = getWindow().getAttributes();
-                param.alpha=1f;
-                getWindow().setAttributes(param);
-            }
-        });
-        lenthGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                CharSequence len = ((TextView) lenthGrid.getChildAt(i).findViewById(R.id.gv_item_text)).getText();
-                lenStr = len.toString();
-                for(int m=0;m<adapterView.getCount();m++){
-                    TextView item = (TextView) lenthGrid.getChildAt(m).findViewById(R.id.gv_item_text);
-
-                    if (i == m) {//当前选中的Item改变背景颜色
-                        item.setBackgroundResource(R.drawable.cartype_unselect);
-                    } else {
-                        item.setBackgroundResource(R.drawable.cartype_select);
-                    }
-                }
-            }
-        });
-        typeGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                CharSequence type = ((TextView) typeGrid.getChildAt(i).findViewById(R.id.gv_item_text)).getText();
-                typeStr = type.toString();
-                for(int m=0;m<adapterView.getCount();m++){
-                    TextView item = (TextView) typeGrid.getChildAt(m).findViewById(R.id.gv_item_text);
-                    //typeStr = (String)item.getText();
-                    if (i == m) {//当前选中的Item改变背景颜色
-                        item.setBackgroundResource(R.drawable.cartype_unselect);
-                    } else {
-                        item.setBackgroundResource(R.drawable.cartype_select);
-                    }
-                }
-            }
-        });
-        TextView sure = (TextView)popView.findViewById(R.id.cartype_grid_sure);
-        TextView noLimit = (TextView)popView.findViewById(R.id.cartype_grid_nocartype);
-
-        sure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               // flag = 2;
-                mEdit.get(3).setText(typeStr);
-                mEdit.get(4).setText(lenStr);
-                if (typeStr.equals("自备柜")){
-                    zbgInfo.setVisibility(View.VISIBLE);
-                    carinfo.setVisibility(View.GONE);
-                    mZbg.get(0).setVisibility(View.VISIBLE);
-                    mZbg.get(1).setVisibility(View.VISIBLE);
-                }else {
-                    zbgInfo.setVisibility(View.GONE);
-                    carinfo.setVisibility(View.VISIBLE);
-                    mZbg.get(0).setVisibility(View.GONE);
-                    mZbg.get(1).setVisibility(View.GONE);
-                }
-                typePopmenu.dismiss();
-            }
-        });
-        noLimit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-    }
 }

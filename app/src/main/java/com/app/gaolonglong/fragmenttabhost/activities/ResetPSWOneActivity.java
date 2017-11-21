@@ -31,6 +31,8 @@ public class ResetPSWOneActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
+
+
     private void forget()
     {
         startActivity(new Intent(ResetPSWOneActivity.this,ResetPSWForgetTwoActivity.class));

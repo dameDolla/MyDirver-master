@@ -86,6 +86,8 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
     private static final int REQUEST_PICK = 101;
     //请求截图
     private static final int REQUEST_CROP_PHOTO = 102;
+
+    private static final int TRUCKTYPE = 106;
     //请求访问外部存储
     private static final int READ_EXTERNAL_STORAGE_REQUEST_CODE = 103;
     //请求写入外部存储
@@ -214,6 +216,8 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
         ButterKnife.bind(this);
         init();
     }
+
+
 
     private void init() {
         initView();
@@ -472,6 +476,25 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
                     }
                 }
                 break;
+            case TRUCKTYPE:
+                String trucktype = intent.getStringExtra("trucktype");
+                String trucklength = intent.getStringExtra("trucklength");
+                mEdit.get(3).setText(trucktype);
+                mEdit.get(4).setText(trucklength);
+                if (!TextUtils.isEmpty(trucklength)&&!TextUtils.isEmpty(trucktype)){
+                    if (trucktype.equals("自备柜")){
+                        mLinear.get(1).setVisibility(View.VISIBLE);
+                        mLinear.get(0).setVisibility(View.GONE);
+                        mZbgimg.get(0).setVisibility(View.VISIBLE);
+                        mZbgimg.get(1).setVisibility(View.VISIBLE);
+                    }else {
+                        mLinear.get(1).setVisibility(View.GONE);
+                        mLinear.get(0).setVisibility(View.VISIBLE);
+                        mZbgimg.get(0).setVisibility(View.GONE);
+                        mZbgimg.get(1).setVisibility(View.GONE);
+                    }
+                }
+                break;
 
         }
     }
@@ -593,10 +616,12 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
                 uploadImage();
                 break;
             case R.id.person2_cartype:
-                showCarPop();
+                startActivityForResult(new Intent(PersonalRenzheng2Activity.this,SelectTruckTypeActivity.class),TRUCKTYPE);
+                //showCarPop();
                 break;
             case R.id.person2_carlong:
-                showCarPop();
+                startActivityForResult(new Intent(PersonalRenzheng2Activity.this,SelectTruckTypeActivity.class),TRUCKTYPE);
+                //showCarPop();
                 break;
         }
     }

@@ -210,7 +210,7 @@ public class MyPushReceiver extends BroadcastReceiver {
                 .getSystemService(Context.NOTIFICATION_SERVICE);
 
 
-        manager.notify(1, notification);
+        //manager.notify(1, notification);
         // 使用广播或通知进行内容的显示
 
 

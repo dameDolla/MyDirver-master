@@ -5,6 +5,8 @@ package com.app.gaolonglong.fragmenttabhost.config;
  */
 
 public class Constant {
+    //关于我们的url
+    public static final String ABOUTUSURL = "https://mp.weixin.qq.com/s/VOEdSBFLVR7FZ7c-lNrWDw";
     //没有图片返回的图片的文件大小
     public static final int NOBYTECOUNT = 65536;
     //bugly  appkey
@@ -85,5 +87,11 @@ public class Constant {
     public static final String DRIVERBILL = "driverbill";
     //设置的开发票方式
     public static final String FAPIAOTYPE = "fapiaotype";
+    //银行卡号
+    public static final String BANKCARDNUM = "bankcarnum";
+    //银行卡类型
+    public static final String BANKCARDTYPE = "BinkCarType";
+    //银行开户人姓名
+    public static final String BANKCARDUSERNAME = "bankcardusername";
 
 }

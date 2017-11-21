@@ -89,6 +89,11 @@
             android:theme="@style/AppTheme">
 
         </activity>
+        <!--交易详情-->
+        <activity android:name=".activities.JiaoYiDetailActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
         <!--选择车厢车长-->
         <activity android:name=".activities.SelectTruckTypeActivity"
             android:theme="@style/AppTheme">
@@ -106,7 +111,8 @@
         </activity>
         <!--验证银行卡-->
         <activity android:name=".activities.CheckBankCardActivity"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden">
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
+            android:theme="@style/AppTheme">
 
         </activity>
 
@@ -176,7 +182,8 @@
 
         <!--添加回程页面-->
         <activity android:name=".activities.AddReleaseActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden">
 
         </activity>
 

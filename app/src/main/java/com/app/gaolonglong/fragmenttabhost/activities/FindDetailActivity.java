@@ -77,6 +77,9 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
     @BindViews({R.id.find_detail_fromsitell,R.id.find_detail_tositell})
     public List<LinearLayout> mLinear;
 
+    @BindView(R.id.src_detail_xietime)
+    public TextView xietime;
+
     @OnClick(R.id.src_detail_phone)
     public void calls()
     {
@@ -93,6 +96,8 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
         ButterKnife.bind(this);
         init();
     }
+
+
     private void init()
     {
         initView();
@@ -113,6 +118,7 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
             }
         }).start();
         title.setText("货源详情");
+
         submit.setOnClickListener(this);
         mLinear.get(0).setOnClickListener(this);
         mLinear.get(1).setOnClickListener(this);
@@ -138,8 +144,9 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
         mText.get(10).setText(data.getOwnername()+"");
         mText.get(11).setText(data.getOwnerphone()+"");
         mText.get(9).setText(data.getRemark()+"");
+        xietime.setText(TextUtils.isEmpty(data.getPrearrivetime())?"":data.getPrearrivetime());
         mText.get(6).setText(data.getQty()+"吨/"+data.getUnit()+"方");
-        mText.get(12).setText("已发货"+data.getOwnerbill()+"次");
+        mText.get(12).setText("已发货"+data.getCargocount()+"次");
         if (data.getPaperReceipt().equals("1")){
             need = need+"纸质回单/";
         }

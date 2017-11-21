@@ -119,6 +119,11 @@ public class InvitedSrcBean {
         private String ToSite1;
         private String emptytime;
         private String InvitationID;
+        private String prearrivetime;
+
+        public String getPrearrivetime() {
+            return prearrivetime;
+        }
 
         public String getInvitationID() {
             return InvitationID;

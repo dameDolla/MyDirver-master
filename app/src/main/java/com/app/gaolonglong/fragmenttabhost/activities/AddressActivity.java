@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.adapter.AddressAdapter;
+import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -68,6 +69,7 @@ public class AddressActivity extends BaseActivity implements AdapterView.OnItemC
         back.setOnClickListener(this);
         backs.setOnClickListener(this);
         title.setText("选择地址");
+       // ToolsUtils.getInstance().addStatusViewWithColor(this,getResources().getColor(R.color.shen_blue));
         ListView province = (ListView) findViewById(R.id.addr_item_province);
         city1 = (ListView) findViewById(R.id.addr_item_city);
         file = readFile();
@@ -81,6 +83,8 @@ public class AddressActivity extends BaseActivity implements AdapterView.OnItemC
         province.setOnItemClickListener(this);
         setResult(0, new Intent());
     }
+
+
 
     public String readFile() {
 

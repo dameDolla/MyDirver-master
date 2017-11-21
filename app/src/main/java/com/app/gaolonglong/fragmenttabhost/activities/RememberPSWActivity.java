@@ -35,6 +35,9 @@ public class RememberPSWActivity extends BaseActivity {
         ButterKnife.bind(this);
         init();
     }
+
+
+
     private void init()
     {
         title.setText("设置支付密码");

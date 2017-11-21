@@ -52,6 +52,8 @@ public class RouteMapActivity extends BaseActivity implements RouteSearch.OnRout
         init();
     }
 
+
+
     private void init() {
         String fromsite = getIntent().getStringExtra("fromsitelatlng");
         String tosite = getIntent().getStringExtra("tositelatlng");

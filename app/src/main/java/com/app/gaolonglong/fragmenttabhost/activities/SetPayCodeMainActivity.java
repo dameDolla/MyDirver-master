@@ -30,4 +30,6 @@ public class SetPayCodeMainActivity extends BaseActivity {
         setContentView(R.layout.set_paycode);
         ButterKnife.bind(this);
     }
+
+
 }

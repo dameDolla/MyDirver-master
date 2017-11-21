@@ -1,23 +1,27 @@
 package com.app.gaolonglong.fragmenttabhost.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.bean.ParametersBean;
+import com.app.gaolonglong.fragmenttabhost.bean.TruckLengthBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
 import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.view.MyGridView;
+import com.raizlabs.android.dbflow.sql.language.Condition;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,12 +36,16 @@ import rx.schedulers.Schedulers;
  * Created by yanqi on 2017/11/15.
  */
 
-public class SelectTruckTypeActivity extends BaseActivity {
+public class SelectTruckTypeActivity extends BaseActivity implements View.OnClickListener{
 
     private String guid;
     private String mobile;
     private String key;
-    private List<ParametersBean.DataBean> truckLenthList = new ArrayList<>();
+    int resultCode = 101;
+    private String lenStr = "";
+    private String typeStr = "";
+    private List<TruckLengthBean.DataBean> truckLenthList = new ArrayList<>();
+    private List<ParametersBean.DataBean> truckTypeList = new ArrayList<>();
     private String[] len = new String[]{};
 
     @Override
@@ -47,20 +55,35 @@ public class SelectTruckTypeActivity extends BaseActivity {
         guid = GetUserInfoUtils.getGuid(this);
         mobile = GetUserInfoUtils.getMobile(this);
         key = GetUserInfoUtils.getKey(this);
+        TextView title = (TextView) findViewById(R.id.top_title);
+        TextView back_txt = (TextView) findViewById(R.id.title_back_txt);
+        ImageView back = (ImageView) findViewById(R.id.title_back);
+        TextView sure = (TextView) findViewById(R.id.cartype_grid_sure);
+        TextView  cancel = (TextView) findViewById(R.id.cartype_grid_nocartype);
+        title.setText("车型车长");
+        sure.setOnClickListener(this);
+        cancel.setOnClickListener(this);
+        back.setOnClickListener(this);
+        back_txt.setOnClickListener(this);
         getTruckLength();
+        getTruckType();
+        setResult(0, new Intent());
     }
+
+
+
     private void getTruckLength()
     {
         Map<String,String> map = new HashMap<>();
         map.put("GUID",guid);
         map.put(Constant.MOBILE,mobile);
         map.put(Constant.KEY,key);
-        map.put("ParameterType","TruckLength");
+
         RetrofitUtils.getRetrofitService()
-                .getParameters(Constant.PARAMETER_PAGENAME, Config.GET_PARAMETERS, JsonUtils.getInstance().getJsonStr(map))
+                .getTruckLength(Constant.PARAMETER_PAGENAME, Config.GETTRUCKLENGTH, JsonUtils.getInstance().getJsonStr(map))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ParametersBean>() {
+                .subscribe(new Subscriber<TruckLengthBean>() {
                     @Override
                     public void onCompleted() {
 
@@ -72,68 +95,32 @@ public class SelectTruckTypeActivity extends BaseActivity {
                     }
 
                     @Override
-                    public void onNext(ParametersBean parametersBean) {
+                    public void onNext(TruckLengthBean parametersBean) {
                         Log.i("parametersBean",parametersBean.getErrorCode()+"-"+parametersBean.getErrorMsg());
                         truckLenthList.clear();
                         truckLenthList.addAll(parametersBean.getData());
                         //getLengthData(truckLenthList);
+                        Log.i("truck-length",truckLenthList.size()+"");
                         getLengthData();
                     }
                 });
     }
     private void getLengthData()
     {
-
+        List<Map<String, String>> lengthList = new ArrayList<Map<String, String>>();
         String[] len = new String[truckLenthList.size()];
         for (int i = 0;i<truckLenthList.size();i++){
-            len[i] = truckLenthList.get(i).getParameterValue()+"米";
+            len[i] = truckLenthList.get(i).getTruckLengthText();
         }
-
-        showCarPop(len);
-    }
-    private void showCarPop(String[] l) {
-        //initCartypePopwindow();
-
-        List<Map<String, String>> typeList = new ArrayList<Map<String, String>>();
-        List<Map<String, String>> lengthList = new ArrayList<Map<String, String>>();
-        final String[] length = l;
-
-        final String[] type = {"不限", "冷藏车", "平板", "高栏", "箱式", "保温", "危险品", "高低板"};
-
-        for (int j = 0; j < type.length; j++) {
-            Map<String, String> maps = new HashMap<String, String>();
-            maps.put("type", type[j]);
-            typeList.add(maps);
-        }
-
-        for (int i = 0; i < length.length; i++) {
+        for (int i = 0; i < len.length; i++) {
             Map<String, String> map = new HashMap<String, String>();
-            map.put("length", length[i]);
+            map.put("length", len[i]);
             lengthList.add(map);
         }
         final MyGridView lenthGrid = (MyGridView) findViewById(R.id.gridview);
         SimpleAdapter lenthAdapter = new SimpleAdapter(this, lengthList, R.layout.find_cartype_pop_item, new String[]{"length"},
                 new int[]{R.id.gv_item_text});
         lenthGrid.setAdapter(lenthAdapter);
-
-        final MyGridView typeGrid = (MyGridView) findViewById(R.id.gridview_2);
-        SimpleAdapter typeAdapter = new SimpleAdapter(this, typeList, R.layout.find_cartype_pop_item, new String[]{"type"},
-                new int[]{R.id.gv_item_text});
-        typeGrid.setAdapter(typeAdapter);
-
-        /*typePopmenu.showAtLocation(parent, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-
-        param = getActivity().getWindow().getAttributes();
-        param.alpha = 0.7f;
-        getActivity().getWindow().setAttributes(param);
-        typePopmenu.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                param = getActivity().getWindow().getAttributes();
-                param.alpha = 1f;
-                getActivity().getWindow().setAttributes(param);
-            }
-        });
         lenthGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -150,6 +137,57 @@ public class SelectTruckTypeActivity extends BaseActivity {
                 }
             }
         });
+    }
+    private void getTruckType()
+    {
+        Map<String,String> map = new HashMap<>();
+        map.put("GUID",guid);
+        map.put(Constant.MOBILE,mobile);
+        map.put(Constant.KEY,key);
+        map.put("ParameterType","TruckShape");
+        Log.i("truck-type",JsonUtils.getInstance().getJsonStr(map));
+        RetrofitUtils.getRetrofitService()
+                .getParameters(Constant.PARAMETER_PAGENAME,Config.GET_PARAMETERS,JsonUtils.getInstance().getJsonStr(map))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ParametersBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        //Log.i("truck-type",e.getMessage()+"");
+                    }
+
+                    @Override
+                    public void onNext(ParametersBean parametersBean) {
+                        truckTypeList.clear();
+                        truckTypeList.addAll(parametersBean.getData());
+                        //Log.i("truck-type-111111",parametersBean.getErrorMsg()+"-"+parametersBean.getData().get(0).getParameterText());
+                        getTypeData();
+                    }
+                });
+    }
+    private void getTypeData()
+    {
+        List<Map<String, String>> typeList = new ArrayList<Map<String, String>>();
+        String[] type = new String[truckTypeList.size()];
+        for (int i = 0;i<truckTypeList.size();i++){
+            type[i] = truckTypeList.get(i).getParameterText();
+        }
+
+        for (int j = 0; j < type.length; j++) {
+            Map<String, String> maps = new HashMap<String, String>();
+            maps.put("type", type[j]);
+            typeList.add(maps);
+        }
+        final MyGridView typeGrid = (MyGridView) findViewById(R.id.gridview_2);
+        SimpleAdapter typeAdapter = new SimpleAdapter(this, typeList, R.layout.find_cartype_pop_item, new String[]{"type"},
+                new int[]{R.id.gv_item_text});
+        typeGrid.setAdapter(typeAdapter);
+
         typeGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -166,27 +204,32 @@ public class SelectTruckTypeActivity extends BaseActivity {
                 }
             }
         });
-        TextView sure = (TextView) popView.findViewById(R.id.cartype_grid_sure);
-        TextView noLimit = (TextView) popView.findViewById(R.id.cartype_grid_nocartype);
+    }
 
-        sure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                flag = 2;
-                mText.get(2).setText(typeStr + "/" + lenStr);
-                getSrcFromside(initJsonData(flag, addrs, lenStr, typeStr));
-                typePopmenu.dismiss();
-            }
-        });
-        noLimit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                flag = 0;
-                mText.get(2).setText("车型" + "/" + "车长");
-                Log.e("findlog", initJsonData(flag, addrs, "", ""));
-                getSrcFromside(initJsonData(flag, addrs, "", ""));
-                typePopmenu.dismiss();
-            }
-        });*/
+    @Override
+    public void onClick(View view) {
+        switch (view.getId())
+        {
+            case R.id.cartype_grid_nocartype:
+                Intent intent1 = new Intent();
+                intent1.putExtra("trucktype","");
+                intent1.putExtra("trucklength","");
+                setResult(resultCode,intent1);
+                finish();
+                break;
+            case R.id.cartype_grid_sure:
+                Intent intent = new Intent();
+                intent.putExtra("trucktype",typeStr);
+                intent.putExtra("trucklength",lenStr);
+                setResult(resultCode,intent);
+                finish();
+                break;
+            case R.id.title_back:
+                finish();
+                break;
+            case R.id.title_back_txt:
+                finish();
+                break;
+        }
     }
 }

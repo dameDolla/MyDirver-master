@@ -38,4 +38,20 @@
     <color name="cartype_unselect">#bbdefb</color>
     <color name="cartype_select">#3bbe79</color>
 
+    <color name="splashbg_color">#007b76</color>
+
+    <!--交易记录颜色-->
+    .bg_Blue{background-color:#0e88eb;}
+    .bg_green{background-color:#3bbe7a;}
+    .bg_red{background-color:#ec6d71;}
+    .bg_gray{background-color:#b8b8b8;}
+    .bg_orange{background-color:#f08300;}
+    .bg_violet{background-color:#884898;}
+    <color name="bg_Blue">#0e88eb</color>
+    <color name="bg_green">#3bbe7a</color>
+    <color name="bg_red">#ec6d71</color>
+    <color name="bg_gray">#b8b8b8</color>
+    <color name="bg_orange">#f08300</color>
+    <color name="bg_violet">#884898</color>
+
 </resources>

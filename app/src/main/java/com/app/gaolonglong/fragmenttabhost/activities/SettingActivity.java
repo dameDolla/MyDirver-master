@@ -133,6 +133,9 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         Intent intent2 = new Intent(SettingActivity.this, GetUserInfoService.class);
         stopService(intent2);*/
     }
+
+
+
     private void init()
     {
         initView();
@@ -168,9 +171,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         rl_icon.setOnClickListener(this);
         icon.setOnClickListener(this);
 
-        rl.setBackgroundColor(Color.WHITE);
         title.setText("设置");
-        title.setTextColor(Color.parseColor("#000000"));
         guid = GetUserInfoUtils.getGuid(SettingActivity.this);
 
     }

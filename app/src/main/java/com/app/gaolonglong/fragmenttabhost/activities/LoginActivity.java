@@ -168,6 +168,8 @@ public class LoginActivity extends BaseActivity {
         init();
     }
 
+
+
     private void init() {
         ButterKnife.bind(this);
         initView();

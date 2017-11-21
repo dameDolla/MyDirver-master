@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,7 +19,8 @@
             android:textColor="@color/black"
             android:textSize="@dimen/txt_18"
             android:paddingLeft="@dimen/txt_15dp"
-            android:paddingTop="@dimen/txt_39dp"/>
+            android:paddingTop="@dimen/txt_39dp"
+            tools:ignore="RtlSymmetry" />
 
         <TextView
             android:layout_width="match_parent"
@@ -28,23 +30,36 @@
             android:text="@string/renzheng_intro"
             android:layout_marginRight="@dimen/txt_39dp"
             android:paddingLeft="@dimen/txt_15dp"
-            android:paddingTop="@dimen/txt_15dp"/>
+            android:paddingTop="@dimen/txt_15dp"
+            tools:ignore="RtlSymmetry" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/txt_15dp"
             android:paddingTop="@dimen/txt_39dp"
+            android:gravity="center"
             android:id="@+id/rl_tiaodu"
             android:orientation="horizontal"
             android:paddingBottom="@dimen/txt_5dp">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="企业车主认证"
-                android:id="@+id/renzheng_main_diaodu"
-                android:textSize="@dimen/txt_14"
-                android:textColor="@color/black"/>
+           <LinearLayout
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:layout_weight="2"
+               android:gravity="center"
+               android:orientation="vertical">
+               <ImageView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@drawable/rz_carteam"/>
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:text="企业车主认证"
+                   android:gravity="center"
+                   android:id="@+id/renzheng_main_diaodu"
+                   android:textSize="@dimen/txt_14"
+                   android:textColor="@color/black"/>
+           </LinearLayout>
 
             <TextView
                 android:layout_width="0dp"
@@ -52,7 +67,6 @@
                 android:layout_height="wrap_content"
                 android:text="适合企业车队、有两台车以上的个体车主"
                 android:gravity="center_vertical"
-                android:singleLine="true"
                 android:paddingLeft="@dimen/txt_20dp"
                 android:paddingRight="@dimen/txt_10dp"/>
             <TextView
@@ -74,24 +88,34 @@
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/txt_15dp"
             android:paddingTop="@dimen/txt_39dp"
+            android:gravity="center"
             android:orientation="horizontal"
             android:id="@+id/rl_cargroup"
             android:paddingBottom="@dimen/txt_5dp">
-            <TextView
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text="企业司机注册"
-                android:id="@+id/renzheng_main_cargroup"
-                android:textSize="@dimen/txt_14"
-                android:textColor="@color/black"/>
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/rz_teamdriver"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="企业司机注册"
+                    android:id="@+id/renzheng_main_cargroup"
+                    android:textSize="@dimen/txt_14"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
                 android:text="适合企业车队的司机，由企业车主接单、调度"
                 android:gravity="center_vertical"
-                android:singleLine="true"
                 android:paddingLeft="@dimen/txt_20dp"
                 android:paddingRight="@dimen/txt_10dp"/>
             <TextView
@@ -112,17 +136,29 @@
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/txt_15dp"
             android:paddingTop="@dimen/txt_39dp"
+            android:gravity="center"
             android:orientation="horizontal"
             android:id="@+id/rl_person"
             android:paddingBottom="@dimen/txt_5dp">
-            <TextView
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="个体车主认证"
                 android:layout_weight="2"
-                android:id="@+id/renzheng_main_person"
-                android:textSize="@dimen/txt_14"
-                android:textColor="@color/black"/>
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/rz_person"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="个体车主认证"
+                    android:gravity="center"
+                    android:id="@+id/renzheng_main_person"
+                    android:textSize="@dimen/txt_14"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="0dp"
@@ -130,7 +166,6 @@
                 android:layout_weight="5"
                 android:text="个体自有一台车辆车主，自主接单"
                 android:gravity="center_vertical"
-                android:singleLine="true"
                 android:paddingLeft="@dimen/txt_20dp"
                 android:paddingRight="@dimen/txt_10dp"/>
             <TextView

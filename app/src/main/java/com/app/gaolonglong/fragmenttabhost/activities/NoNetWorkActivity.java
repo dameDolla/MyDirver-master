@@ -35,6 +35,8 @@ public class NoNetWorkActivity extends BaseActivity implements View.OnClickListe
         again.setOnClickListener(this);
     }
 
+
+
     private void check()
     {
         if (ToolsUtils.getInstance().isNetworkAvailable(NoNetWorkActivity.this)){

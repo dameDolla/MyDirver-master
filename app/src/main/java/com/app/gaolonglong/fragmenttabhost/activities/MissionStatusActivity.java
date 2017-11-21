@@ -32,6 +32,9 @@ public class MissionStatusActivity extends BaseActivity {
         ButterKnife.bind(this);
         init();
     }
+
+
+
     private void init()
     {
         initView();

@@ -3,6 +3,7 @@ package com.app.gaolonglong.fragmenttabhost.adapter;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,25 +75,24 @@ public class FindSrcAdapter extends RecyclerView.Adapter implements View.OnClick
 
             /*String[] from = (data.getFromDetailedAddress()+"").split("省");
             String[] to = (data.getToDetailedAddress()+"").split("省");*/
-            holder1.zhuang.setText(data.getFromDetailedAddress() + "");
-            holder1.xie.setText(data.getToDetailedAddress() + "");
+            holder1.zhuang.setText(data.getFromSite() + "");
+            holder1.xie.setText(data.getToSite() + "");
         } else {
             holder1.zhuang.setText(data.getFromSite() + "");
             holder1.xie.setText(data.getToSite() + "");
         }
 
         holder1.username.setText(data.getOwnername() + "");
-
-        String cartype = data.getTrucklengthHZ() + "" + data.getTrucktypeHZ() + "";
+        String qty = (data.getQty().equals("0"))?"":(data.getQty()+"吨");
+        String unit = (data.getUnit().equals("0"))?"":(data.getUnit()+"方");
+        String cartype = data.getTrucklengthHZ() + "/" + data.getTrucktypeHZ() + "";
         holder1.carType.setText(cartype);
-        holder1.type.setText(data.getCargotype() + "");
-        String[] time = (data.getPreloadtime() + "").split(" ");
-        holder1.time.setText(time[0]);
+        holder1.type.setText(data.getCargotype() + "/"+qty+unit);
+        holder1.time.setText(data.getPreloadtime());
         holder1.icon.setImageURI(Uri.parse(data.getAvatarAddress()));
+        holder1.xie_time.setText(TextUtils.isEmpty(data.getPrearrivetime())?"":data.getPrearrivetime());
         holder1.itemView.setTag(position);
-        //holder1.tel.setVisibility(View.GONE);
-        //holder1.username.setText(data.getOwnername().toString());
-        //holder1.isRenzheng.setText("注册用户");
+
         if (data.getCreditlevel().toString().equals("0")) {
             holder1.isRenzheng.setText("注册用户");
         } else if (data.getCreditlevel().toString().equals("1")) {
@@ -101,13 +101,6 @@ public class FindSrcAdapter extends RecyclerView.Adapter implements View.OnClick
             holder1.isRenzheng.setText("诚信用户");
         }
 
-        holder1.tel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onFindClickListener.onFindClick(position, list.get(position).getOwnerphone() + "");
-            }
-        });
-        // holder1.status.setText(data.getMyPriceStatus());
         if (data.getMyPriceStatus().equals("1")) {
             holder1.status.setVisibility(View.VISIBLE);
         } else {
@@ -155,7 +148,8 @@ public class FindSrcAdapter extends RecyclerView.Adapter implements View.OnClick
                     list.get((int) view.getTag()).getMyPriceStatus(),
                     list.get((int) view.getTag()).getOwnerbill(),
                     list.get((int) view.getTag()).getRemark(),
-                    ""
+                    "",
+                    list.get((int) view.getTag()).getPrearrivetime()
             );
             //注意这里使用getTag方法获取position
             mOnItemClickListener.onItemClick(view, bean);
@@ -189,9 +183,7 @@ public class FindSrcAdapter extends RecyclerView.Adapter implements View.OnClick
         private final TextView type;
         private final TextView time;
         private final TextView carType;
-        private final ImageView iv_phone;
-        private final LinearLayout tel;
-        private final TextView status;
+        private final TextView status,xie_time;
 
         public SrcViewHolder(View itemView) {
             super(itemView);
@@ -203,9 +195,8 @@ public class FindSrcAdapter extends RecyclerView.Adapter implements View.OnClick
             type = (TextView) itemView.findViewById(R.id.find_type);
             time = (TextView) itemView.findViewById(R.id.find_time);
             carType = (TextView) itemView.findViewById(R.id.find_car_type);
-            iv_phone = (ImageView) itemView.findViewById(R.id.find_iv_phone);
-            tel = (LinearLayout) itemView.findViewById(R.id.find_iv_tel_ll);
             status = (TextView) itemView.findViewById(R.id.find_iv_bjstatus);
+            xie_time = (TextView) itemView.findViewById(R.id.find_xie_time);
         }
     }
 

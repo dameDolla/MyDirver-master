@@ -129,4 +129,12 @@ public class Config {
     public static final String SELECTSRCBYKC = "SelectInfo_Invitation";
     //拒绝空程货源报价邀请
     public static final String CANCELSRCBYKC = "UpdateState_Invitation";
+    //添加银行卡
+    public static final String ADDBANKCARD = "UpdateBank";
+    //提现
+    public static final String TIXIAN = "Withdrawals";
+    //获取绑定银行卡的验证码
+    public static final String GETBINDCARDCODE = "GetBankSMSCode";
+    //获取车长信息
+    public static final String GETTRUCKLENGTH = "GetTruckLengthInfoNull";
 }

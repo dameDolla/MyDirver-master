@@ -8,7 +8,7 @@
         android:background="@drawable/cartype_select"
         android:text="2.3m"
         android:textColor="@color/black_6d"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:id="@+id/gv_item_text"
         android:gravity="center"/>
 </LinearLayout>

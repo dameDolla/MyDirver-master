@@ -161,7 +161,7 @@ public class FindKCSrcFragment extends Fragment implements View.OnClickListener,
                     intent.putExtra("findSrc", bean);
                     startActivity(intent);
                 } else {
-                    ToolsUtils.getInstance().toastShowStr(getContext(), "请先通过认证");
+                    ToolsUtils.toRenzhengMain(getActivity());
                 }
             }
         });

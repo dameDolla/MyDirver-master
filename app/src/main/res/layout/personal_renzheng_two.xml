@@ -59,7 +59,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="进行中"
+                            android:text="已完成"
                             android:gravity="center_horizontal"
                             android:textColor="@color/titleColorSelected"/>
                         <TextView
@@ -94,7 +94,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="待进行"
+                            android:text="进行中"
                             android:gravity="center_horizontal"
                             android:textColor="@color/titleColorSelected"/>
                         <TextView

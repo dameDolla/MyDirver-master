@@ -128,6 +128,9 @@ public class DiaoDuRenzhengActivity extends BaseActivity implements View.OnClick
         ButterKnife.bind(this);
         init();
     }
+
+
+
     private void init()
     {
         initView();

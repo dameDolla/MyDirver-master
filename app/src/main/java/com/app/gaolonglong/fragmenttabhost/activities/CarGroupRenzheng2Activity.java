@@ -130,6 +130,8 @@ public class CarGroupRenzheng2Activity extends BaseActivity {
         init();
     }
 
+
+
     private void init() {
         initView();
     }

@@ -104,6 +104,9 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
     @BindViews({R.id.top_title,R.id.cargroup_next})
     public List<TextView> mText;
 
+    @BindView(R.id.cargroup_renzheng_2txt)
+    public TextView txt;
+
     /*@BindView(R.id.renzheng_head)
     public SimpleDraweeView head;*/
 
@@ -130,6 +133,8 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
         ButterKnife.bind(this);
         init();
     }
+
+
     private void init()
     {
         initView();
@@ -138,6 +143,7 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
     private void initView()
     {
         mText.get(0).setText("车队司机认证");
+        txt.setText("绑定车队");
         upload_head.setOnClickListener(this);
         icon.get(1).setOnClickListener(this);
         icon.get(2).setOnClickListener(this);

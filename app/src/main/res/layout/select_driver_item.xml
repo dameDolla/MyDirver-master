@@ -44,6 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/txt_10dp"
+                android:visibility="gone"
                 android:layout_marginBottom="@dimen/txt_10dp"
                 android:orientation="horizontal">
                 <TextView
@@ -72,7 +73,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/txt_10dp"
+                android:layout_marginTop="@dimen/txt_10dp"
+                android:layout_marginLeft="@dimen/txt_15dp"
                 android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="准驾车型:A2,"
+                    android:id="@+id/driver_allow_cartype"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

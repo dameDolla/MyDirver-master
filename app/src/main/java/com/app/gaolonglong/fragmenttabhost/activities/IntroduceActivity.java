@@ -6,6 +6,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
+import com.app.gaolonglong.fragmenttabhost.config.Constant;
 
 /**
  * Created by yanqi on 2017/10/19.
@@ -18,6 +19,9 @@ public class IntroduceActivity extends BaseActivity {
         setContentView(R.layout.introduce);
         init();
     }
+
+
+
     private void init()
     {
         initView();
@@ -25,7 +29,7 @@ public class IntroduceActivity extends BaseActivity {
     private void initView()
     {
         WebView webView = (WebView) findViewById(R.id.intro_webview);
-        String url = "http://mp.weixin.qq.com/s/3y9jffreSoTgcZv86f2hXg";
+        String url = Constant.ABOUTUSURL;
         WebSettings webSettings = webView.getSettings();
         webSettings.setAllowContentAccess(true);
         webSettings.setJavaScriptEnabled(true);

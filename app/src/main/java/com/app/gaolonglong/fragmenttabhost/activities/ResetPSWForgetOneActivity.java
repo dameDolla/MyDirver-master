@@ -56,6 +56,8 @@ public class ResetPSWForgetOneActivity extends BaseActivity {
         ButterKnife.bind(this);
         init();
     }
+
+
     private void init()
     {
         initView();

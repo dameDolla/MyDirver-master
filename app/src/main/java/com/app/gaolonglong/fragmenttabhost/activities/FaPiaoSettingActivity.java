@@ -52,6 +52,8 @@ public class FaPiaoSettingActivity extends BaseActivity {
         radioGroup.setOnCheckedChangeListener(checkedChangeListener);
     }
 
+
+
     private RadioGroup.OnCheckedChangeListener checkedChangeListener = new RadioGroup.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {

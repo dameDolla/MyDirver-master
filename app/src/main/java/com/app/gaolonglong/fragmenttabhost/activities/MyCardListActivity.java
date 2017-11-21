@@ -3,14 +3,19 @@ package com.app.gaolonglong.fragmenttabhost.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.utils.BankInfo;
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
+import com.app.gaolonglong.fragmenttabhost.view.EmptyLayout;
 
 import java.util.List;
 
@@ -43,6 +48,15 @@ public class MyCardListActivity extends BaseActivity {
         finish();
     }
 
+    @BindViews({R.id.my_card_listname,R.id.my_card_listnum})
+    public List<TextView> carlist;
+
+    @BindView(R.id.my_card_bg)
+    public RelativeLayout bg;
+
+    @BindView(R.id.my_card_listempty)
+    public EmptyLayout empty;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +64,9 @@ public class MyCardListActivity extends BaseActivity {
         ButterKnife.bind(this);
         init();
     }
+
+
+
     private void init()
     {
         initView();
@@ -59,13 +76,25 @@ public class MyCardListActivity extends BaseActivity {
         icon.setVisibility(View.VISIBLE);
         icon.setOnClickListener(onClickListener);
         mText.get(0).setText("我的银行卡");
-
+        String num = GetUserInfoUtils.getBankCardNum(MyCardListActivity.this);
+        String type = GetUserInfoUtils.getBankCardType(MyCardListActivity.this);
+        if (TextUtils.isEmpty(num)){
+            bg.setVisibility(View.GONE);
+            empty.setVisibility(View.VISIBLE);
+            empty.setErrorImag(R.drawable.nokongcheng,"您还没有添加银行卡");
+        }else {
+            empty.setVisibility(View.GONE);
+            bg.setVisibility(View.VISIBLE);
+            carlist.get(0).setText(type);
+            carlist.get(1).setText(num);
+        }
     }
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
 
            startActivity(new Intent(MyCardListActivity.this,CheckBankCardActivity.class));
+            finish();
         }
     };
 }

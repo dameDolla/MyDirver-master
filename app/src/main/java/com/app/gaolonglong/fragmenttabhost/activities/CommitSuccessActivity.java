@@ -40,6 +40,9 @@ public class CommitSuccessActivity extends BaseActivity {
         ButterKnife.bind(this);
         init();
     }
+
+
+
     private void init()
     {
         Timer timers = new Timer();

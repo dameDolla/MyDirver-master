@@ -39,6 +39,9 @@ public class ImportPayCodeActivity extends BaseActivity implements View.OnClickL
         ButterKnife.bind(this);
         initView();
     }
+
+
+
     private void initView()
     {
         title.setText("设置支付密码");

@@ -74,6 +74,9 @@ public class CarInfoActivity extends BaseActivity  implements View.OnClickListen
         ButterKnife.bind(this);
         init();
     }
+
+
+
     private void init()
     {
         initView();

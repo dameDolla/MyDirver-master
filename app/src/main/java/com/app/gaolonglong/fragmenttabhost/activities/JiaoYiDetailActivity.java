@@ -61,11 +61,19 @@ public class JiaoYiDetailActivity extends BaseActivity implements View.OnClickLi
     {
         ToJiaoYiDetailBean bean = (ToJiaoYiDetailBean) getIntent().getSerializableExtra("jiaoyi");
         remark.setText(bean.getRemark());
-        money.setText("+"+bean.getTradeamount()+"元");
+        money.setText(bean.getTradeamount()+"元");
         ordernum.setText(bean.getOrderNumber());
         time.setText(bean.getTradetime());
         intro.setText(bean.getRemark());
         String s = bean.getStates();
+        if (s.equals("0") && bean.getTradetype().equals("1")){
+            status.setVisibility(View.VISIBLE);
+            status.setText("充值失败");
+        }
+        if (s.equals("1") && bean.getTradetype().equals("1")){
+            status.setVisibility(View.VISIBLE);
+            status.setText("充值成功");
+        }
         if (s.equals("0") && bean.getTradetype().equals("9")){
             status.setVisibility(View.VISIBLE);
             status.setText("提现申请已提交");

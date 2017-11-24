@@ -12,10 +12,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="您是否还记得手机 159****0321"
+            android:text=""
             android:textColor="#666666"
             android:textSize="@dimen/txt_14"
             android:gravity="center"
+            android:id="@+id/resetpsw_one_mobile"
             android:layout_centerInParent="true"/>
         <TextView
             android:layout_width="match_parent"

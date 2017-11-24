@@ -183,7 +183,12 @@ public class MissionListAdapter extends RecyclerView.Adapter implements View.OnC
                     list.get((int)view.getTag()).getDepartureTime(),
                     list.get((int)view.getTag()).getCargotype(),
                     list.get((int)view.getTag()).getLoadaddHZ(),
-                    list.get((int)view.getTag()).getArrivedaddHZ()
+                    list.get((int)view.getTag()).getArrivedaddHZ(),
+                    list.get((int)view.getTag()).getDeparturePlace(),
+                    list.get((int)view.getTag()).getArrivalLoadingPlace(),
+                    list.get((int)view.getTag()).getLoadadd(),
+                    list.get((int)view.getTag()).getArrivedadd(),
+                    list.get((int)view.getTag()).getSignadd()
 
             );
             onMissionItemClick.onMissionItemClick(view,beans);

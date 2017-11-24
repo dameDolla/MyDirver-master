@@ -159,6 +159,11 @@ public class CarTeamBean {
         private String TruckWeight;
         private String TruckWidth;
         private String TruckHeight;
+        private String Volume;
+
+        public String getVolume() {
+            return Volume;
+        }
 
         public String getTruckHeight() {
             return TruckHeight;

@@ -68,11 +68,14 @@ public class MyWallteAdapter extends RecyclerView.Adapter implements View.OnClic
             mHolder.type.setText("扣");
             mHolder.type.setBackgroundResource(R.color.bg_red);
         }else if (tradetype.equals("6")){
-            mHolder.type.setText("违");
+            mHolder.type.setText("补");
             mHolder.type.setBackgroundResource(R.color.google_yellow);
-        }else if (tradetype.equals("9")){
+        }else if (tradetype.equals("9")) {
             mHolder.type.setText("提");
             mHolder.type.setBackgroundResource(R.color.bg_green);
+        }else if ((tradetype.equals("7"))){
+            mHolder.type.setText("收");
+            mHolder.type.setBackgroundResource(R.color.bg_orange);
         }
     }
 

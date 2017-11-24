@@ -15,11 +15,16 @@
             android:paddingRight="@dimen/txt_10dp"
             android:paddingLeft="@dimen/txt_10dp"
             android:id="@+id/kong_progress"/>-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/txt_10dp"
+        android:background="@color/color_f2"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:visibility="gone"
+
         android:gravity="center"
         android:id="@+id/draw">
         <com.facebook.drawee.view.SimpleDraweeView
@@ -37,6 +42,7 @@
             android:orientation="vertical"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/txt_10dp"
+            android:layout_marginTop="@dimen/txt_10dp"
             android:layout_toRightOf="@+id/draw">
             <TextView
                 android:layout_width="match_parent"
@@ -129,6 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:layout_centerVertical="true"
             android:orientation="vertical"
 
             android:layout_alignParentRight="true" >
@@ -141,6 +148,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="4dp"
+
                 android:id="@+id/release_fabuitem_cancle"
                 android:textColor="@color/shen_blue"
                 android:background="@drawable/blue_stroke"
@@ -154,6 +162,7 @@
                 android:background="@drawable/blue_stroke"
                 android:textSize="@dimen/txt_10"
                 android:padding="4dp"
+                android:visibility="gone"
                 android:id="@+id/release_fabuitem_del"
                 android:layout_margin="@dimen/txt_10dp"
                 android:gravity="center"

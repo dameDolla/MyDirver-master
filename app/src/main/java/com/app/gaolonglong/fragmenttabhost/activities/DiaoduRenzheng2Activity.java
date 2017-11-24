@@ -234,7 +234,10 @@ public class DiaoduRenzheng2Activity extends BaseActivity implements View.OnClic
         }
         else
         {
-
+            if (errorPosition.size()>0){
+                ToolsUtils.getInstance().toastShowStr(DiaoduRenzheng2Activity.this,"请上传完整的图片信息");
+                return;
+            }
             try {
                 mJson = new JSONObject();
                 mJson.put("GUID",guid);
@@ -460,6 +463,7 @@ public class DiaoduRenzheng2Activity extends BaseActivity implements View.OnClic
     /**
      * 图片上传的方法
      */
+    private List<Integer> errorPosition = new ArrayList<>();
     private void upload()
     {
 
@@ -499,6 +503,10 @@ public class DiaoduRenzheng2Activity extends BaseActivity implements View.OnClic
                             try {
                                 JSONObject json = new JSONObject(info);
                                 String str = json.get("errorMsg").toString();
+                                String code = json.get("errorCode").toString();
+                                if (!code.equals("200")){
+                                    errorPosition.add(position);
+                                }
                                 ToolsUtils.getInstance().toastShowStr(DiaoduRenzheng2Activity.this,str);
                             }
                             catch (Exception e)

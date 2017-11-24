@@ -14,9 +14,16 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
+import com.app.gaolonglong.fragmenttabhost.activities.pay.WXPayConfig;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
+import com.app.gaolonglong.fragmenttabhost.bean.WXPayBean;
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
+import com.app.gaolonglong.fragmenttabhost.utils.PayUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.List;
 
@@ -44,6 +51,7 @@ public class RechargeSelectMoneyActivity extends BaseActivity implements View.On
     @BindView(R.id.select_money_bt)
     public Button bt;
     private String selectMoney;
+    private String guid;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +60,7 @@ public class RechargeSelectMoneyActivity extends BaseActivity implements View.On
         ButterKnife.bind(this);
         title.setText("充值");
         bt.setOnClickListener(this);
+        guid = GetUserInfoUtils.getGuid(RechargeSelectMoneyActivity.this);
         rg.get(0).setOnCheckedChangeListener(new OnMySelectOneChangeListener());
         rg.get(1).setOnCheckedChangeListener(new OnMySelectTwoChangeListener());
         et.addTextChangedListener(new TextWatcher() {
@@ -72,6 +81,7 @@ public class RechargeSelectMoneyActivity extends BaseActivity implements View.On
                 bt.setEnabled(true);
             }
         });
+
     }
 
 
@@ -161,11 +171,12 @@ public class RechargeSelectMoneyActivity extends BaseActivity implements View.On
     private void toPay(String money)
     {
         String md5str  = ToolsUtils.getInstance().getMD5Val(money);
+        Log.i("md5-str",md5str);
         RetrofitUtils.getRetrofitService()
-                .chongZhi(money,md5str)
+                .chongZhi(money,md5str, guid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<GetCodeBean>() {
+                .subscribe(new Subscriber<WXPayBean>() {
                     @Override
                     public void onCompleted() {
 
@@ -173,12 +184,27 @@ public class RechargeSelectMoneyActivity extends BaseActivity implements View.On
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.i("recharge",e.getMessage());
                     }
 
                     @Override
-                    public void onNext(GetCodeBean getCodeBean) {
-
+                    public void onNext(WXPayBean wxPayBean) {
+                    ToolsUtils.getInstance().toastShowStr(RechargeSelectMoneyActivity.this,wxPayBean.getErrorMsg()+"-"+wxPayBean.getErrorCode());
+                        if (wxPayBean.getErrorCode().equals("200")){
+                            WXPayBean.DataBean wxdata = wxPayBean.getData().get(0);
+                            IWXAPI api = WXAPIFactory.createWXAPI(RechargeSelectMoneyActivity.this, WXPayConfig.APP_ID);
+                            api.registerApp(WXPayConfig.APP_ID);
+                            PayReq req = new PayReq();
+                            req.appId = WXPayConfig.APP_ID;
+                            req.partnerId = wxdata.getPartnerid();
+                            req.prepayId = wxdata.getPrepayid();
+                            req.packageValue = wxdata.getPackageX();
+                            req.nonceStr = wxdata.getNoncestr();
+                            req.timeStamp = wxdata.getTimestamp();
+                            req.sign = wxdata.getSign();
+                            boolean a = api.sendReq(req);
+                            ToolsUtils.getInstance().toastShowStr(RechargeSelectMoneyActivity.this,a+"");
+                        }
                     }
                 });
     }
@@ -189,8 +215,7 @@ public class RechargeSelectMoneyActivity extends BaseActivity implements View.On
             case R.id.select_money_bt:
                 String money = et.getText().toString();
 
-
-                //toPay(money);
+                toPay(money);
                 break;
         }
     }

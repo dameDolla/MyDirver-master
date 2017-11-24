@@ -164,8 +164,8 @@ public class CheckBankCardActivity extends BaseActivity implements View.OnClickL
             map.put(Constant.MOBILE,mobile);
             map.put(Constant.KEY,key);
             map.put("BankMobile",mobile);
-            map.put("account",usernames);
-            map.put("BankUserName",carNum);
+            map.put("account",carNum);
+            map.put("BankUserName",usernames);
             map.put("banktype",bankType.getText().toString());
             map.put("branch",name.getText().toString());
             map.put("BankSMSCode",code);

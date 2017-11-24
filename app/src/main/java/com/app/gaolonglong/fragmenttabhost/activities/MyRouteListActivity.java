@@ -26,6 +26,7 @@ import com.app.gaolonglong.fragmenttabhost.bean.GetSRCBean;
 import com.app.gaolonglong.fragmenttabhost.bean.RouteListBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.LoadingDialog;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
@@ -181,6 +182,7 @@ public class MyRouteListActivity extends BaseActivity implements View.OnClickLis
 
                     @Override
                     public void onNext(RouteListBean routeListBean) {
+                        GetUserInfoUtils.checkKeyValue(MyRouteListActivity.this,routeListBean.getErrorCode());
                         if(routeListBean.getData().size() == 0)
                         {
                             emptylayout.setErrorType(EmptyLayout.NODATA);

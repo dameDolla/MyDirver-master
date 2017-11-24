@@ -19,6 +19,7 @@ import com.app.gaolonglong.fragmenttabhost.bean.MissionDetailBean;
 import com.app.gaolonglong.fragmenttabhost.bean.MissionListBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
@@ -140,6 +141,7 @@ public class MissionDone extends Fragment {
 
                     @Override
                     public void onNext(MissionListBean missionListBean) {
+                        GetUserInfoUtils.checkKeyValue(getContext(),missionListBean.getErrorCode());
                         Log.e("missiondone",missionListBean.getErrorMsg());
                         list.clear();
                         list.addAll(missionListBean.getData());

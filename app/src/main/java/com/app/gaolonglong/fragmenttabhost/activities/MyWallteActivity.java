@@ -83,10 +83,15 @@ public class MyWallteActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_wallte);
         ButterKnife.bind(this);
-        init();
+
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        init();
+    }
 
     private void init()
     {
@@ -178,6 +183,7 @@ public class MyWallteActivity extends BaseActivity implements View.OnClickListen
 
                     @Override
                     public void onNext(GetCodeBean getCodeBean) {
+                        GetUserInfoUtils.checkKeyValue(MyWallteActivity.this,getCodeBean.getErrorCode());
                         String msg = getCodeBean.getErrorMsg();
                         String[] str = msg.split(",");
                         money.setText(str[0]);
@@ -208,6 +214,7 @@ public class MyWallteActivity extends BaseActivity implements View.OnClickListen
 
                     @Override
                     public void onNext(WallteListBean getCodeBean) {
+                        GetUserInfoUtils.checkKeyValue(MyWallteActivity.this,getCodeBean.getErrorCode());
                         Log.i("mywallte",getCodeBean.getErrorCode()+"--"+getCodeBean.getErrorMsg());
                         /*if (getCodeBean.getErrorCode().equals("200")){*/
                             list.clear();

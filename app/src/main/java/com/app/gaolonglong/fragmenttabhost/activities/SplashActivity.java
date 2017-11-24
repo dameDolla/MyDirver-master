@@ -138,8 +138,11 @@ public class SplashActivity extends BaseActivity {
                                     ToolsUtils.putString(SplashActivity.this,Constant.VCOMPANY,loginBean.getData().get(0).getVcompany()+"");
                                     ToolsUtils.putString(SplashActivity.this,Constant.USERNAME,loginBean.getData().get(0).getTruename()+"");
                                     ToolsUtils.putString(SplashActivity.this,Constant.COMPANYGUID,loginBean.getData().get(0).getCompanyGUID()+"");
-                                    ToolsUtils.putString(SplashActivity.this,Constant.DRIVERBILL,loginBean.getData().get(0).getCargocount()+"");
+                                    ToolsUtils.putString(SplashActivity.this,Constant.DRIVERBILL,loginBean.getData().get(0).getDriverbill()+"");
                                     ToolsUtils.putString(SplashActivity.this,Constant.FAPIAOTYPE,loginBean.getData().get(0).getMInvoiceType()+"");
+                                    ToolsUtils.putString(SplashActivity.this,Constant.BANKCARDNUM,loginBean.getData().get(0).getAccount()+"");
+                                    ToolsUtils.putString(SplashActivity.this,Constant.BANKCARDUSERNAME,loginBean.getData().get(0).getBankUserName()+"");
+                                    ToolsUtils.putString(SplashActivity.this,Constant.BANKCARDTYPE,loginBean.getData().get(0).getBanktype()+"");
                                     ToolsUtils.putString(SplashActivity.this,"money",loginBean.getData().get(0).getMoney()+"");
                                     ToolsUtils.putString(SplashActivity.this,"idcard",loginBean.getData().get(0).getIdcard()+"");
 

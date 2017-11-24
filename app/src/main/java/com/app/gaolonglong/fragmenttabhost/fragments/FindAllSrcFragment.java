@@ -2,7 +2,6 @@ package com.app.gaolonglong.fragmenttabhost.fragments;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -36,7 +35,6 @@ import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ThreadManager;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 import com.app.gaolonglong.fragmenttabhost.view.EmptyLayout;
-import com.app.gaolonglong.fragmenttabhost.view.MyGridView;
 import com.app.gaolonglong.fragmenttabhost.view.MyLinearLayoutManager;
 
 import java.util.ArrayList;
@@ -47,12 +45,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
-import chihane.jdaddressselector.BottomDialog;
-import chihane.jdaddressselector.OnAddressSelectedListener;
-import chihane.jdaddressselector.model.City;
-import chihane.jdaddressselector.model.County;
-import chihane.jdaddressselector.model.Province;
-import chihane.jdaddressselector.model.Street;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -61,7 +53,7 @@ import rx.schedulers.Schedulers;
  * Created by yanqi on 2017/9/14.
  */
 
-public class FindAllSrcFragment extends ForResultNestedCompatFragment implements View.OnClickListener, AdapterView.OnItemClickListener,OnAddressSelectedListener {
+public class FindAllSrcFragment extends ForResultNestedCompatFragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private View mRootView;
     private List<GetSRCBean.DataBean> list = new ArrayList<GetSRCBean.DataBean>();
@@ -106,7 +98,6 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
     private boolean isRenzheng;
     private String lenStr = null;
     private String typeStr = null;
-    private BottomDialog addrDialog;
     private TextView timecancel,timetxt,timesure;
     private List<Map<String, String>> time1map;
     private List<Map<String, String>> time2map;
@@ -302,10 +293,9 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
 
                             @Override
                             public void onNext(GetSRCBean getSRCBean) {
+                                String code = getSRCBean.getErrorCode();
 
-
-
-                                if (getSRCBean.getErrorCode().equals("203")) {
+                                if (code.equals("203")) {
                                     main.setVisibility(View.GONE);
                                     empty.setVisibility(View.VISIBLE);
                                     empty.setErrorImag(R.drawable.nosrc, "暂无货源信息");
@@ -515,21 +505,5 @@ public class FindAllSrcFragment extends ForResultNestedCompatFragment implements
        // getSrcFromside(initJsonData(flag, addrs, "", ""));
     }
 
-    @Override
-    public void onAddressSelected(Province province, City city, County county, Street street) {
-        String s =
-                (province == null ? "" : province.name) +
-                        (city == null ? "" : "\n" + city.name) +
-                        (county == null ? "" : "\n" + county.name) +
-                        (street == null ? "" : "\n" + street.name);
-            addrDialog.dismiss();
-            addrs = city.name;
-            //ToolsUtils.getInstance().toastShowStr(getContext(),addrs);
-            if (flag ==0){
-                mText.get(0).setText(addrs);
-            }else if (flag == 1){
-                mText.get(1).setText(addrs);
-            }
-        onResume();
-    }
+
 }

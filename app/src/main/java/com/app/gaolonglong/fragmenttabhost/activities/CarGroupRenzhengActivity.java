@@ -245,7 +245,10 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
         }
         else
         {
-
+            if (errorPosition.size()>0){
+                ToolsUtils.getInstance().toastShowStr(CarGroupRenzhengActivity.this,"请上传完整的图片信息");
+                return;
+            }
            try {
                mJson = new JSONObject();
                mJson.put("GUID",guid);
@@ -456,6 +459,7 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
     /**
      * 图片上传的方法
      */
+    private List<Integer> errorPosition = new ArrayList<>();
     private void upload(final int position)
     {
 
@@ -501,6 +505,10 @@ public class CarGroupRenzhengActivity extends BaseActivity implements View.OnCli
                             try {
                                 JSONObject json = new JSONObject(info);
                                 String str = json.get("errorMsg").toString();
+                                String code = json.get("errorCode").toString();
+                                if (!code.equals("200")){
+                                    errorPosition.add(position);
+                                }
                                 if (position == 0)
                                 {
                                     ToolsUtils.getInstance().toastShowStr(CarGroupRenzhengActivity.this,"上传图片成功");

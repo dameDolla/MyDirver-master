@@ -6,11 +6,13 @@ package com.app.gaolonglong.fragmenttabhost.config;
 
 public class Config {
 
-    //服务器根地址
+    //服务器根地址  http://120.78.77.63:8023
     //public static final String baseURL ="http://192.168.1.102:8013";
     public static final String baseURL ="http://120.78.77.63:8023";
     //服务器路径
     public static final String host = "/Handler/App.ashx";
+    //微信支付路径
+    public static final String WXPAYHost = "/WX/WX_APP.ashx";
     //上传图片
     public static  final String UPLOAD_URL = "/Handler/img.ashx";
     //获取图片
@@ -137,4 +139,6 @@ public class Config {
     public static final String GETBINDCARDCODE = "GetBankSMSCode";
     //获取车长信息
     public static final String GETTRUCKLENGTH = "GetTruckLengthInfoNull";
+    //用户获取自己的用户信息
+    public static final String GETUSERINFO = "GetMyInfo";
 }

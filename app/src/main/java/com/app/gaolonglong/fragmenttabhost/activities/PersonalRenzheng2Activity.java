@@ -528,7 +528,6 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
             }
         });
     }
-
     private void upload(String s) {
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         builder.addFormDataPart("MemberGUID", s);
@@ -642,7 +641,7 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
     String lenStr = "";
     String typeStr = "";
 
-    private void showCarPop() {
+    /*private void showCarPop() {
 
         List<Map<String, String>> typeList = new ArrayList<Map<String, String>>();
         List<Map<String, String>> lengthList = new ArrayList<Map<String, String>>();
@@ -752,7 +751,7 @@ public class PersonalRenzheng2Activity extends BaseActivity implements View.OnCl
 
             }
         });
-    }
+    }*/
 
     private void getCarInfo() {
         final Map<String, String> map = new HashMap<>();

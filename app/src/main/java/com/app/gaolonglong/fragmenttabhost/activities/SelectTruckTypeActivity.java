@@ -4,11 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -21,7 +19,6 @@ import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.JsonUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.RetrofitUtils;
 import com.app.gaolonglong.fragmenttabhost.view.MyGridView;
-import com.raizlabs.android.dbflow.sql.language.Condition;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +32,8 @@ public class ResetPSWForgetTwoActivity extends BaseActivity {
     public TextView title;
     @BindView(R.id.reset_forget_shenfenzheng)
     public EditText sfz;
+    @BindView(R.id.reset_forget_username)
+    public TextView username;
     @OnClick(R.id.reset_forget_next)
     public void next()
     {
@@ -56,5 +59,6 @@ public class ResetPSWForgetTwoActivity extends BaseActivity {
     private void initView()
     {
         title.setText("重置密码");
+        username.setText("请输入"+ GetUserInfoUtils.getUserName(ResetPSWForgetTwoActivity.this)+"的身份证号码");
     }
 }

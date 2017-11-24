@@ -34,7 +34,7 @@ import java.util.Map;
  * Created by yanqi on 2017/11/9.
  */
 
-public class AddressActivity extends BaseActivity implements AdapterView.OnItemClickListener,View.OnClickListener {
+public class AddressActivity extends BaseActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
     String province, city;//最终选择结果放在这两个变量******************************************
     //因为spinner在加载视图的时候会自动调用点击响应事件，这两个变量在那个时候就已经初始化了
 
@@ -69,7 +69,7 @@ public class AddressActivity extends BaseActivity implements AdapterView.OnItemC
         back.setOnClickListener(this);
         backs.setOnClickListener(this);
         title.setText("选择地址");
-       // ToolsUtils.getInstance().addStatusViewWithColor(this,getResources().getColor(R.color.shen_blue));
+        // ToolsUtils.getInstance().addStatusViewWithColor(this,getResources().getColor(R.color.shen_blue));
         ListView province = (ListView) findViewById(R.id.addr_item_province);
         city1 = (ListView) findViewById(R.id.addr_item_city);
         file = readFile();
@@ -83,7 +83,6 @@ public class AddressActivity extends BaseActivity implements AdapterView.OnItemC
         province.setOnItemClickListener(this);
         setResult(0, new Intent());
     }
-
 
 
     public String readFile() {
@@ -237,8 +236,7 @@ public class AddressActivity extends BaseActivity implements AdapterView.OnItemC
 
     @Override
     public void onClick(View view) {
-        switch (view.getId())
-        {
+        switch (view.getId()) {
             case R.id.title_back:
                 finish();
                 break;

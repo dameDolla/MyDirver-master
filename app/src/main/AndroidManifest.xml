@@ -23,9 +23,9 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
     <!--允许应用接收JPUSH内部代码发送的广播消息。-->
     <permission
-        android:name="com.app.gaolonglong.fragmenttabhost.permission.JPUSH_MESSAGE"
+        android:name="com.mr.truck.permission.JPUSH_MESSAGE.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
-    <uses-permission android:name="com.app.gaolonglong.fragmenttabhost.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="com.mr.truck.permission.JPUSH_MESSAGE.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
@@ -86,6 +86,11 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".activities.FaPiaoSettingActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
+        <!--三级联动地址选择-->
+        <activity android:name=".activities.AddressThressActivity"
             android:theme="@style/AppTheme">
 
         </activity>
@@ -400,7 +405,7 @@
             <intent-filter>
                 <action android:name="cn.jpush.android.ui.PushActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="com.app.gaolonglong.fragmenttabhost" />
+                <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
 
@@ -425,7 +430,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.DaemonService" />
-                <category android:name="com.app.gaolonglong.fragmenttabhost" />
+                <category android:name="${applicationId}" />
             </intent-filter>
 
         </service>
@@ -436,7 +441,7 @@
             android:exported="false">
             <intent-filter android:priority="1000">
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />   <!--Required  显示通知栏 -->
-                <category android:name="com.app.gaolonglong.fragmenttabhost" />
+                <category android:name="${applicationId}" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT" />
@@ -471,12 +476,12 @@
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_CLICK_ACTION" />
                 <action android:name="cn.jpush.android.intent.CONNECTION" />
-                <category android:name="com.app.gaolonglong.fragmenttabhost" />
+                <category android:name="${applicationId}" />
             </intent-filter>
         </receiver>
         <!-- Required  . Enable it you can get statistics data with channel -->
         <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
-        <meta-data android:name="JPUSH_APPKEY" android:value="a06798ee88e4d7d9967c6c16" /> <!--  </>值来自开发者平台取得的AppKey-->
+        <meta-data android:name="JPUSH_APPKEY" android:value= "24c9e3548c48ad35cac01b34" /> <!--  </>值来自开发者平台取得的AppKey-->
     </application>
 
 </manifest>

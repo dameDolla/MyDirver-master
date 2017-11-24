@@ -217,37 +217,7 @@ public class BaojiaEditActivity extends BaseActivity implements AdapterView.OnIt
 
     }
 
-    private void initJsonData() {
 
-
-
-
-
-            /*if (bean.getLoad().equals("1")) {
-                //ToolsUtils.getInstance().toastShowStr(BaojiaEditActivity.this,"zhuang:"+zhuang);
-                if (zhuang.equals("")){
-                    //ToolsUtils.getInstance().toastShowStr(BaojiaEditActivity.this,"请输入装车费");
-                    map.put("loadfeeM", "0");
-                }else {
-                    map.put("loadfeeM", zhuang);
-                }
-            } else {
-                map.put("loadfeeM", "0");
-            }
-            if (bean.getUnload().equals("1")) {
-                //ToolsUtils.getInstance().toastShowStr(BaojiaEditActivity.this,"xie:"+xie);
-                if (xie.equals("")){
-                    *//*ToolsUtils.getInstance().toastShowStr(BaojiaEditActivity.this,"请输入卸车费");*//*
-                    map.put("unloadfeeM","0");
-                }else {
-                    map.put("unloadfeeM", xie);
-                }
-            } else {
-                map.put("unloadfeeM", "0");
-            }*/
-
-       // return JsonUtils.getInstance().getJsonStr(map);
-    }
 
     /**
      * 执行提交报价的动作
@@ -305,8 +275,14 @@ public class BaojiaEditActivity extends BaseActivity implements AdapterView.OnIt
                 map.put("trucklength", infos[1]);
                 map.put("trucktype", infos[0]);
             } else {
-                map.put("trucklength", "");
-                map.put("trucktype", "");
+                if (GetUserInfoUtils.getUserType(BaojiaEditActivity.this).equals("2")){
+                    ToolsUtils.getInstance().toastShowStr(BaojiaEditActivity.this,"您尚未添加车辆信息");
+                    return;
+                }else {
+                    map.put("trucklength", "");
+                    map.put("trucktype", "");
+                }
+
             }
             if (TextUtils.isEmpty(bean.getInvitationID())){
                 map.put("InvitationID","");
@@ -642,8 +618,11 @@ public class BaojiaEditActivity extends BaseActivity implements AdapterView.OnIt
                     public void onNext(CarTeamBean carTeamBean) {
                         if (usertype.equals("2")) {
                             CarTeamBean.DataBean data = carTeamBean.getData().get(0);
-                            carinfo.setText(data.getTruckno() + "");
-                            carinfo2.setText(data.getTrucktype() + "/" + data.getTrucklength());
+                            if (data.getVtruck().equals("9")){
+                                carinfo.setText(data.getTruckno() + "");
+                                carinfo2.setText(data.getTrucktype() + "/" + data.getTrucklength());
+                            }
+
                         } else {
                             carList.clear();
                             int sizes = carTeamBean.getData().size();

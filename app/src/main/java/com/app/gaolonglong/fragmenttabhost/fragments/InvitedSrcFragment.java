@@ -47,7 +47,7 @@ import rx.schedulers.Schedulers;
 
 
 
-public class InvitedSrcFragment extends Fragment {
+public class InvitedSrcFragment extends Fragment implements View.OnClickListener{
     private List<InvitedSrcBean.DataBean> invitedlist = new ArrayList<InvitedSrcBean.DataBean>();
     private View mRootView;
     private InvitedSrcAdapter invitedSrcAdapter;
@@ -88,6 +88,7 @@ public class InvitedSrcFragment extends Fragment {
         rcv = (RecyclerView) mRootView.findViewById(R.id.invited_rcvinvited);
         main = (LinearLayout) mRootView.findViewById(R.id.invited_fragment_main);
         invitedSrcAdapter = new InvitedSrcAdapter(getContext(), invitedlist);
+        empty.setOnClickListener(this);
         MyLinearLayoutManager manager = new MyLinearLayoutManager(getContext());
         //manager.setScrollEnabled(false);
         rcv.setNestedScrollingEnabled(false);
@@ -126,6 +127,16 @@ public class InvitedSrcFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.invited_empty:
+                init();
+                break;
+        }
+    }
+
     private void getSrcData(){
         Map<String,String> map = new HashMap<>();
         map.put("GUID", GetUserInfoUtils.getGuid(getContext()));
@@ -149,8 +160,8 @@ public class InvitedSrcFragment extends Fragment {
 
                     @Override
                     public void onNext(InvitedSrcBean getSRCBean) {
-                       // Log.i("back-fragment",getSRCBean.getErrorCode()+"-"+getSRCBean.getErrorMsg());
-
+                        Log.i("back-f ragment",getSRCBean.getErrorCode()+"-"+getSRCBean.getErrorMsg());
+                        GetUserInfoUtils.checkKeyValue(getContext(),getSRCBean.getErrorCode());
                         if (getSRCBean.getErrorCode().equals("203")){
                             empty.setVisibility(View.VISIBLE);
                             main.setVisibility(View.GONE);

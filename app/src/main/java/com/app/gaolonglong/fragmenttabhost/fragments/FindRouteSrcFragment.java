@@ -241,6 +241,7 @@ public class FindRouteSrcFragment extends Fragment implements View.OnClickListen
                     public void onNext(GetSRCBean getSRCBean) {
                         // rlv.removeAllViews();
                        //Log.e("route",getSRCBean.getErrorCode());
+                        GetUserInfoUtils.checkKeyValue(getContext(),getSRCBean.getErrorCode());
                         rlv.removeAllViews();
                         list.clear();
                         list.addAll(getSRCBean.getData());
@@ -315,7 +316,7 @@ public class FindRouteSrcFragment extends Fragment implements View.OnClickListen
      * 初始化popwindow
      */
     private void initPopWindow() {
-        contentView = getActivity().getLayoutInflater().inflate(R.layout.find_poplist, null);
+        contentView = getActivity().getLayoutInflater().inflate(R.layout.text_listview_item, null);
         popMenu = new PopupWindow(contentView,
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -325,7 +326,7 @@ public class FindRouteSrcFragment extends Fragment implements View.OnClickListen
         popMenu.setFocusable(true);
         popMenu.setTouchable(true);
         popMenu.setAnimationStyle(R.style.mypopwindow_anim_style);
-        popListView = (ListView) contentView.findViewById(R.id.find_pop_listview);
+        popListView = (ListView) contentView.findViewById(R.id.text_item_listview);
         popListView.setOnItemClickListener(this);
     }
 

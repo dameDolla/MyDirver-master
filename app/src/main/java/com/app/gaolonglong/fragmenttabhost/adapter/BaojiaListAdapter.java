@@ -105,12 +105,12 @@ public class BaojiaListAdapter extends RecyclerView.Adapter implements View.OnCl
                 data.getPrearrivetime()
 
         );
-        mHolder.phone.setOnClickListener(new View.OnClickListener() {
+       /* mHolder.phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listener.onOlick(position, data.getOwnerphone(), "", "", "phone", bean);
             }
-        });
+        });*/
         mHolder.cxbj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

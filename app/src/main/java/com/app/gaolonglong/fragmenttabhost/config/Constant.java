@@ -9,6 +9,8 @@ public class Constant {
     public static final String ABOUTUSURL = "https://mp.weixin.qq.com/s/VOEdSBFLVR7FZ7c-lNrWDw";
     //没有图片返回的图片的文件大小
     public static final int NOBYTECOUNT = 65536;
+    //极光推送apkey
+    public static final String JPAPPKEY = "24c9e3548c48ad35cac01b34";
     //bugly  appkey
     public static final String BUGLYAPPKEY = "af7f6682-ab61-4a7a-9ff4-9b630411b57f";
     //微信支付appid
@@ -17,6 +19,8 @@ public class Constant {
     public static final String HAVEDATAANDSUCCESS = "200";
     //请求成功但是没有数据
     public static final String NODATABUTSUCCESS = "203";
+    //key值不符返回的状态码
+    public static final String KEYISWRONG = "202";
 
     public static final String BUGLYAPPID = "8a61380a74";
 

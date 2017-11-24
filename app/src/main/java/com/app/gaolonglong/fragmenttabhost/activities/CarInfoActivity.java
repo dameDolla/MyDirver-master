@@ -129,6 +129,7 @@ public class CarInfoActivity extends BaseActivity  implements View.OnClickListen
 
                             @Override
                             public void onNext(CarinfoBean carinfoBean) {
+                                GetUserInfoUtils.checkKeyValue(CarInfoActivity.this,carinfoBean.getErrorCode());
                                 Log.e("carinfo",carinfoBean.getErrorCode());
                                 //Log.e("carinfoimg",GetUserInfoUtils.getImg(,"4"));
                                 //Log.e("carinfoimgssss",GetUserInfoUtils.getImg(carinfoBean.getData().get(0).getTrucksGUID(),"4"));

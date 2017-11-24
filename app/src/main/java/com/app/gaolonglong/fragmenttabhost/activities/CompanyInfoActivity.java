@@ -133,6 +133,7 @@ public class CompanyInfoActivity extends BaseActivity implements View.OnClickLis
 
                     @Override
                     public void onNext(CompanyInfoBean companyInfoBean) {
+                        GetUserInfoUtils.checkKeyValue(CompanyInfoActivity.this,companyInfoBean.getErrorCode());
                         Log.e("companyinfo",companyInfoBean.getErrorCode()+"--"+companyInfoBean.getErrorMsg());
                         if (companyInfoBean.getErrorCode().equals("200")){
                             setView(companyInfoBean);

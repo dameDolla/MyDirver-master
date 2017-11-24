@@ -155,8 +155,8 @@ public class BaojiaFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onOlick(int postion, String tel, String caragoGUID, String time, String flag, ToSrcDetailBean bean) {
                 if (flag.equals("phone")) {
-                    Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + list.get(postion).getOwnerphone()));//跳转到拨号界面，同时传递电话号码
-                    startActivity(dialIntent);
+                    /*Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + list.get(postion).getOwnerphone()));//跳转到拨号界面，同时传递电话号码
+                    startActivity(dialIntent);*/
                 } else if (flag.equals("caozuo")) {
                     Map<String, String> map = new HashMap<String, String>();
                     map.put("GUID", guid);
@@ -311,6 +311,7 @@ public class BaojiaFragment extends Fragment implements View.OnClickListener{
 
                         @Override
                         public void onNext(BaojiaListBean baojiaListBean) {
+                            GetUserInfoUtils.checkKeyValue(getContext(),baojiaListBean.getErrorCode());
                             list.clear();
 
                             if (!GetUserInfoUtils.getUserType(getContext()).equals("3")) {

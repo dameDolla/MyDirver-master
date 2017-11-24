@@ -222,6 +222,7 @@ public class FindKCSrcFragment extends Fragment implements View.OnClickListener,
 
                     @Override
                     public void onNext(GetSRCBean getSRCBean) {
+                        GetUserInfoUtils.checkKeyValue(getContext(),getSRCBean.getErrorCode());
                         Log.e("KCSFragment", getSRCBean.getErrorMsg());
                         rlv.removeAllViews();
                         kcSrcList.clear();

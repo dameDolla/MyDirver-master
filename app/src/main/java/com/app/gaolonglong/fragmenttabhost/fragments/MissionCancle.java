@@ -137,6 +137,7 @@ public class MissionCancle extends Fragment {
 
                     @Override
                     public void onNext(MissionListBean missionListBean) {
+                        GetUserInfoUtils.checkKeyValue(getContext(),missionListBean.getErrorCode());
                         list.clear();
                         list.addAll(missionListBean.getData());
                         if (list.size() == 0){

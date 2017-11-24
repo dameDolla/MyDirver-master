@@ -157,8 +157,8 @@ public class MyPushReceiver extends BroadcastReceiver {
                 context);
         builder.setContentText(message).setSmallIcon(R.drawable.app_logo);
         builder.setContentTitle("Message-test");
-        //builder.setDefaults(Notification.DEFAULT_SOUND);
-       // builder.setSound(Uri.parse("android.resource://" + context.getPackageName() + "/" +R.raw.test));
+        builder.setDefaults(Notification.DEFAULT_SOUND);
+        builder.setSound(Uri.parse("android.resource://" + context.getPackageName() + "/" +R.raw.iphone));
         Log.i("Jpush", extras + "~~");
 
         int drawResId=R.drawable.app_logo;
@@ -210,7 +210,7 @@ public class MyPushReceiver extends BroadcastReceiver {
                 .getSystemService(Context.NOTIFICATION_SERVICE);
 
 
-        //manager.notify(1, notification);
+        manager.notify(1, notification);
         // 使用广播或通知进行内容的显示
 
 

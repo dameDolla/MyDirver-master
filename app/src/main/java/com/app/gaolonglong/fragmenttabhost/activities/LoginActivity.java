@@ -8,9 +8,11 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.app.gaolonglong.fragmenttabhost.DiverApplication;
 import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
 import com.app.gaolonglong.fragmenttabhost.bean.LoginBean;
@@ -40,6 +42,7 @@ import retrofit2.Response;
 public class LoginActivity extends BaseActivity {
 
     private String num;
+    private DiverApplication mApplication;
 
     @BindView(R.id.bt_getCode)
     public TextView bt_getCode;
@@ -80,7 +83,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onResponse(Call<LoginBean> call, Response<LoginBean> response) {
                 LoginBean login = response.body();
-                //ToolsUtils.getInstance().toastShowStr(LoginActivity.this, login.getErrorMsg());
+                ToolsUtils.getInstance().toastShowStr(LoginActivity.this, login.getErrorMsg());
                 if (login.getData() != null) {
                     //跳转页面并自动登录
                     List<LoginBean.DataBean> data = login.getData();
@@ -98,6 +101,9 @@ public class LoginActivity extends BaseActivity {
                         ToolsUtils.putString(LoginActivity.this,Constant.COMPANYGUID,data.get(0).getCompanyGUID()+"");
                         ToolsUtils.putString(LoginActivity.this,Constant.USERNAME,data.get(0).getTruename()+"");
                         ToolsUtils.putString(LoginActivity.this,Constant.DRIVERBILL,data.get(0).getCargocount()+"");
+                        ToolsUtils.putString(LoginActivity.this,Constant.BANKCARDNUM,data.get(0).getAccount()+"");
+                        ToolsUtils.putString(LoginActivity.this,Constant.BANKCARDUSERNAME,data.get(0).getBankUserName()+"");
+                        ToolsUtils.putString(LoginActivity.this,Constant.BANKCARDTYPE,data.get(0).getBanktype()+"");
                         ToolsUtils.putString(LoginActivity.this,"idcard",data.get(0).getIdcard()+"");
                         ToolsUtils.putString(LoginActivity.this,"money",data.get(0).getMoney()+"");
 
@@ -173,6 +179,7 @@ public class LoginActivity extends BaseActivity {
     private void init() {
         ButterKnife.bind(this);
         initView();
+        initExit();
     }
 
     private void initView() {
@@ -222,5 +229,31 @@ public class LoginActivity extends BaseActivity {
             //设置可点击
             bt_getCode.setClickable(true);
         }
+    }
+
+    /**
+     * 双击退出
+     */
+    private long time = 0;
+
+    private void exits() {
+        if (System.currentTimeMillis() - time > 2000) {
+            time = System.currentTimeMillis();
+            ToolsUtils.getInstance().toastShowStr(LoginActivity.this, Constant.EXIT_STR);
+        } else {
+            mApplication.removeAllActivity();
+        }
+    }
+    private void initExit() {
+
+        if (mApplication == null) {
+            mApplication = (DiverApplication) getApplication();
+        }
+        mApplication.addActivity(LoginActivity.this);
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == event.KEYCODE_BACK) exits();
+        return true;
     }
 }

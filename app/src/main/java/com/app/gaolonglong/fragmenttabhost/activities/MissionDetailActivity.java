@@ -220,8 +220,6 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
         icon.setVisibility(View.VISIBLE);
 
         icon.setOnClickListener(this);
-        // Intent intentService = new Intent(MissionDetailActivity.this, LocationService.class);
-        //bindService(intentService,conn,Context.BIND_AUTO_CREATE);
 
     }
 
@@ -313,7 +311,7 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
             infos = BUTTONTXT3;
             mText.get(0).setText(STATUS3);
             methodName = Config.MISSION_STATUS_ZHIXING;
-            status.get(1).setText("当前位置:" + ToolsUtils.getString(MissionDetailActivity.this, Constant.ADDRESS, ""));
+            status.get(1).setText("出发位置:" + bean.getDeparturePlace());
             mButton.get(0).setText(BUTTONTXT3);
             vertical.setImageResource(R.drawable.vertical_line_3);
             zcaddr.setText(bean.getFromDetailedAddress());
@@ -330,11 +328,11 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
             infos = BUTTONTXT4;
             mText.get(0).setText(STATUS4);
             methodName = Config.MISSION_STATUS_XIEHUO;
-            status.get(1).setText("当前位置:" + ToolsUtils.getString(MissionDetailActivity.this, Constant.ADDRESS, ""));
+            status.get(1).setText("出发位置:" + bean.getDeparturePlace());
             mButton.get(0).setText(BUTTONTXT4);
             vertical.setImageResource(R.drawable.vertical_line_4);
             zcaddr.setText(bean.getFromDetailedAddress());
-            status.get(5).setText("当前位置:" + ToolsUtils.getString(MissionDetailActivity.this, Constant.ADDRESS, ""));
+            status.get(5).setText("到达装货位置:" + bean.getArrivalLoadingPlace());
             status.get(7).setText("当前位置:" + ToolsUtils.getString(MissionDetailActivity.this, Constant.ADDRESS, ""));
             status.get(0).setTextColor(Color.BLACK);
             status.get(1).setTextColor(Color.GRAY);
@@ -353,10 +351,10 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
             methodName = Config.MISSION_STATUS_QIANSHOU;
             vertical.setImageResource(R.drawable.vertical_line_4);
             zcaddr.setText(bean.getFromDetailedAddress());
-            status.get(5).setText("当前位置:" + ToolsUtils.getString(MissionDetailActivity.this, Constant.ADDRESS, ""));
-            status.get(7).setText("当前位置:" + ToolsUtils.getString(MissionDetailActivity.this, Constant.ADDRESS, ""));
-            status.get(9).setText("当前位置:" + ToolsUtils.getString(MissionDetailActivity.this, Constant.ADDRESS, ""));
-            status.get(1).setText("当前位置:" + ToolsUtils.getString(MissionDetailActivity.this, Constant.ADDRESS, ""));
+            status.get(5).setText("到达装货位置:" + bean.getArrivalLoadingPlace());
+            status.get(7).setText("开始运输的位置:" + bean.getLoadadd());
+            status.get(9).setText("到达卸货地址:" + bean.getArrivedadd());
+            status.get(1).setText("出发位置:" + bean.getDeparturePlace());
             status.get(0).setTextColor(Color.BLACK);
             status.get(1).setTextColor(Color.GRAY);
             status.get(2).setTextColor(Color.BLACK);
@@ -377,11 +375,11 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
             methodName = Config.MISSION_STATUS_QIANSHOU;
             vertical.setImageResource(R.drawable.vertical_line_4);
             zcaddr.setText(bean.getFromDetailedAddress());
-            status.get(5).setText("当前位置:" + ToolsUtils.getString(MissionDetailActivity.this, Constant.ADDRESS, ""));
-            status.get(7).setText("当前位置:" + ToolsUtils.getString(MissionDetailActivity.this, Constant.ADDRESS, ""));
-            status.get(9).setText("当前位置:" + ToolsUtils.getString(MissionDetailActivity.this, Constant.ADDRESS, ""));
+            status.get(5).setText("到达装货位置:" + bean.getArrivalLoadingPlace());
+            status.get(7).setText("开始运输的位置:" + bean.getLoadadd());
+            status.get(9).setText("到达卸货位置:" + bean.getArrivedadd());
             status.get(10).setText("货物已签收,签收人:" + bean.getSignby());
-            status.get(1).setText("当前位置:" + ToolsUtils.getString(MissionDetailActivity.this, Constant.ADDRESS, ""));
+            status.get(1).setText("出发位置:" + bean.getDeparturePlace());
             status.get(0).setTextColor(Color.BLACK);
             status.get(1).setTextColor(Color.GRAY);
             status.get(2).setTextColor(Color.BLACK);
@@ -412,11 +410,11 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
             status.get(14).setText("运单已完成");
             vertical.setImageResource(R.drawable.vertical_line_5);
             zcaddr.setText(bean.getFromDetailedAddress());
-            status.get(5).setText(ToolsUtils.getString(MissionDetailActivity.this, Constant.ADDRESS, ""));
-            status.get(7).setText(ToolsUtils.getString(MissionDetailActivity.this, Constant.ADDRESS, ""));
-            status.get(9).setText(ToolsUtils.getString(MissionDetailActivity.this, Constant.ADDRESS, ""));
+            status.get(5).setText("到达装货位置:" + bean.getArrivalLoadingPlace());
+            status.get(7).setText("开始运输的位置:" + bean.getLoadadd());
+            status.get(9).setText("签收位置:"+bean.getSignadd());
             status.get(10).setText("货物已签收,签收人:" + bean.getSignby());
-            status.get(1).setText(ToolsUtils.getString(MissionDetailActivity.this, Constant.ADDRESS, ""));
+            status.get(1).setText("出发位置:" + bean.getDeparturePlace());
             mText.get(9).setText(bean.getSigntime());
             status.get(0).setTextColor(Color.BLACK);
             status.get(1).setTextColor(Color.GRAY);
@@ -508,16 +506,21 @@ public class MissionDetailActivity extends BaseActivity implements View.OnClickL
         //addr = ToolsUtils.getString(MissionDetailActivity.this, Constant.ADDRESS, "");
         if (method.equals(Config.MISSION_STATUS_YUBAO)) {
             map.put("DeparturePlace", addr);
+            bean.setDeparturePlace(addr);
         } else if (method.equals(Config.MISSION_STATUS_ARRIVED)) {
             map.put("ArrivalLoadingPlace", addr);
+            bean.setArrivalLoadingPlace(addr);
         } else if (method.equals(Config.MISSION_STATUS_ZHIXING)) {
             map.put("loadadd", addr);
+            bean.setLoadadd(addr);
         } else if (method.equals(Config.MISSION_STATUS_XIEHUO)) {
             map.put("arrivedadd", addr);
+            bean.setArrivedadd(addr);
         } else if (method.equals(Config.MISSION_STATUS_QIANSHOU)) {
             map.put("signadd", addr);
             map.put("signby", name);
             map.put("signPhone", mobile);
+            bean.setSignadd(addr);
         }
         Log.e("missionDetail", JsonUtils.getInstance().getJsonStr(map));
         RetrofitUtils.getRetrofitService()

@@ -1,12 +1,17 @@
 package com.app.gaolonglong.fragmenttabhost.utils;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 
+import com.app.gaolonglong.fragmenttabhost.R;
 import com.app.gaolonglong.fragmenttabhost.activities.DiaoduRenzheng3Activity;
+import com.app.gaolonglong.fragmenttabhost.activities.LoginActivity;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
+import com.app.gaolonglong.fragmenttabhost.view.CommomDialog;
 import com.luoxudong.app.threadpool.ThreadPoolHelp;
 
 import rx.Subscriber;
@@ -185,6 +190,26 @@ public class GetUserInfoUtils {
         return url;
     }
 
-
+    public static void checkKeyValue(final Context context, String errorcode)
+    {
+        if (!TextUtils.isEmpty(errorcode)){
+            if (errorcode.equals(Constant.KEYISWRONG)){//key值不符
+                String s = "您的账号已在别处登录,是否本人操作。如非不是本人操作，请尽快处理！";
+                CommomDialog dialog = new CommomDialog(context, R.style.dialog, s, new CommomDialog.OnCloseListener() {
+                    @Override
+                    public void onClick(Dialog dialog, boolean confirm) {
+                        dialog.dismiss();
+                        if (confirm)
+                        {
+                            ToolsUtils.getInstance().loginOut(context);
+                            context.startActivity(new Intent(context, LoginActivity.class));
+                        }
+                    }
+                });
+                dialog.setTitle("警告");
+                dialog.show();
+            }
+        }
+    }
 
 }

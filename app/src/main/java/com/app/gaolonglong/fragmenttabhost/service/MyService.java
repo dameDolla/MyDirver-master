@@ -19,6 +19,7 @@ import com.app.gaolonglong.fragmenttabhost.bean.ReleaseBean;
 import com.app.gaolonglong.fragmenttabhost.bean.RouteListBean;
 import com.app.gaolonglong.fragmenttabhost.bean.TruckLengthBean;
 import com.app.gaolonglong.fragmenttabhost.bean.VersionCodeBean;
+import com.app.gaolonglong.fragmenttabhost.bean.WXPayBean;
 import com.app.gaolonglong.fragmenttabhost.bean.WallteListBean;
 import com.app.gaolonglong.fragmenttabhost.config.Config;
 import com.app.gaolonglong.fragmenttabhost.config.Constant;
@@ -440,8 +441,9 @@ public interface MyService {
      * 提现
      */
     @FormUrlEncoded
-    @POST("/WX/WXHD.ashx")
-    Observable<GetCodeBean> chongZhi(@Field("Money") String method, @Field("MD5Key") String json);
+    @POST(Config.WXPAYHost)
+    Observable<WXPayBean> chongZhi(@Field("Money") String method, @Field("MD5Key") String json,
+                                    @Field("GUID") String guid);
 
     /**
      * 提现
@@ -449,6 +451,14 @@ public interface MyService {
     @FormUrlEncoded
     @POST(Config.host)
     Observable<TruckLengthBean> getTruckLength(@Field(Constant.PAGENAME) String page,
+                                               @Field(Constant.METHOD) String method,
+                                               @Field("JsonValue") String json);
+    /**
+     * 获取用户信息
+     */
+    @FormUrlEncoded
+    @POST(Config.host)
+    Observable<LoginBean> getUserInfo(@Field(Constant.PAGENAME) String page,
                                                @Field(Constant.METHOD) String method,
                                                @Field("JsonValue") String json);
 }

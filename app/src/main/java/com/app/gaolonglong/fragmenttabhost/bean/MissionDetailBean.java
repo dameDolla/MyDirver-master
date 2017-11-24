@@ -37,6 +37,12 @@ public class MissionDetailBean implements Serializable{
     private String cargotype; //货物详情
     private String loadaddHZ; //装车地点经纬度
     private String arrivedaddHZ; //到达地点经纬度
+    private String DeparturePlace; //第一个地点
+    private String ArrivalLoadingPlace; //第二个地点
+    private String loadadd; //第三个地点
+    private String arrivedadd; //第四个地点
+    private String signadd; //第五个地点
+
 
 
     public MissionDetailBean(String billsGUID,String ownername,String ownerphone,String preloadtime,String FromDetailedAddress,
@@ -44,7 +50,8 @@ public class MissionDetailBean implements Serializable{
                              String unloadfee,String AvatarAddress,String status,String signtime,String signby,String drivername,
                              String driverphone,String driverGUID,String truckno,String signPhone,String Consignee,String ConsigneePhone,
                              String InsertDate,String ArrivalLoadingTime,String loadtime,String arrivedtime,String DepartureTime,String cargotype,
-                             String loadaddHZ,String arrivedaddHZ)
+                             String loadaddHZ,String arrivedaddHZ,String DeparturePlace,String ArrivalLoadingPlace,String loadadd,String arrivedadd,
+                             String signadd)
     {
         this.billsGUID = billsGUID;
         this.ownername = ownername;
@@ -74,7 +81,52 @@ public class MissionDetailBean implements Serializable{
         this.DepartureTime = DepartureTime;
         this.cargotype = cargotype;
         this.arrivedaddHZ = arrivedaddHZ;
+        this.DeparturePlace = DeparturePlace;
         this.loadaddHZ = loadaddHZ;
+        this.ArrivalLoadingPlace = ArrivalLoadingPlace;
+        this.loadadd = loadadd;
+        this.arrivedadd = arrivedadd;
+        this.signadd = signadd;
+    }
+
+    public void setDeparturePlace(String departurePlace) {
+        DeparturePlace = departurePlace;
+    }
+
+    public void setLoadadd(String loadadd) {
+        this.loadadd = loadadd;
+    }
+
+    public void setArrivalLoadingPlace(String arrivalLoadingPlace) {
+        ArrivalLoadingPlace = arrivalLoadingPlace;
+    }
+
+    public void setArrivedadd(String arrivedadd) {
+        this.arrivedadd = arrivedadd;
+    }
+
+    public void setSignadd(String signadd) {
+        this.signadd = signadd;
+    }
+
+    public String getArrivalLoadingPlace() {
+        return ArrivalLoadingPlace;
+    }
+
+    public String getArrivedadd() {
+        return arrivedadd;
+    }
+
+    public String getDeparturePlace() {
+        return DeparturePlace;
+    }
+
+    public String getLoadadd() {
+        return loadadd;
+    }
+
+    public String getSignadd() {
+        return signadd;
     }
 
     public String getArrivedaddHZ() {

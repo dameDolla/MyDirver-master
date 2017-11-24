@@ -42,6 +42,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -111,7 +112,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
         ToolsUtils.getInstance().loginOut(SettingActivity.this);
         startActivity(new Intent(SettingActivity.this,LoginActivity.class));
-        //finish();
+        finish();
     }
 
     @OnClick(R.id.setting_set_paycode)
@@ -173,7 +174,12 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
         title.setText("设置");
         guid = GetUserInfoUtils.getGuid(SettingActivity.this);
-
+        try {
+            InputStream data = getResources().getAssets().open("area.txt");
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     private void initIcon()
     {

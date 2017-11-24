@@ -56,7 +56,7 @@ public class KCDataFragment extends Fragment implements View.OnClickListener{
 
     private ReleaseAdapter adapter;
     private JSONObject mJson;
-    private int positon = 0;
+    //private int positon = 0;
     private ReleaseAdapter cancleAdapter;
 
     @BindView(R.id.rcv_have_fabu)
@@ -154,7 +154,7 @@ public class KCDataFragment extends Fragment implements View.OnClickListener{
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    cancle(mJson.toString());
+                    cancle(mJson.toString(),position);
                     //ToolsUtils.getInstance().toastShowStr(getContext(),status);
 
                 }else if (flag.equals(Constant.RELEASE_EDIT))
@@ -206,7 +206,7 @@ public class KCDataFragment extends Fragment implements View.OnClickListener{
 
                     @Override
                     public void onNext(ReleaseBean releaseBean) {
-
+                        GetUserInfoUtils.checkKeyValue(getContext(),releaseBean.getErrorCode());
                         //ToolsUtils.getInstance().toastShowStr(getContext(),releaseBean.getErrorMsg());
                         dialog.dismiss();
                         list.clear();
@@ -256,7 +256,7 @@ public class KCDataFragment extends Fragment implements View.OnClickListener{
                             if(flag.equals("fabu"))
                             {
                                 list.remove(po);
-                                adapter.notifyItemRemoved(positon);
+                                adapter.notifyItemRemoved(po);
                             }else if (flag.equals("cancle"))
                             {
                                 canclelist.remove(po);
@@ -273,7 +273,7 @@ public class KCDataFragment extends Fragment implements View.OnClickListener{
      * 取消空程计划
      * @param json
      */
-    private void cancle(String json)
+    private void cancle(String json, final int positon)
     {
         RetrofitUtils.getRetrofitService()
                 .cancleRelease(Constant.MYINFO_PAGENAME,Config.RELEASE_UPDATE,json)

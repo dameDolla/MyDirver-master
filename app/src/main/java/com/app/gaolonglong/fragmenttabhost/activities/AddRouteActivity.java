@@ -126,8 +126,8 @@ public class AddRouteActivity extends BaseActivity implements AdapterView.OnItem
             map.put("guid",guid);
             map.put("mobile",mobile);
             map.put(Constant.KEY,key);
-            map.put("fromSite",start+"市");
-            map.put("toSite",finish+"市");
+            map.put("fromSite",start);
+            map.put("toSite",finish);
             if (!type.equals(""))
             {
                 String[] carinfo = type.split("/");

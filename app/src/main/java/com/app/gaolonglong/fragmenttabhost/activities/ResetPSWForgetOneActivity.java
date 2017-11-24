@@ -49,6 +49,9 @@ public class ResetPSWForgetOneActivity extends BaseActivity {
     String guid,key,mobile;
     @BindViews({R.id.yzm_one,R.id.yzm_two,R.id.yzm_three,R.id.yzm_four,R.id.yzm_five,R.id.yzm_six})
     public List<EditText> mEdit;
+
+    @BindView(R.id.setpaycode_yzm_tel)
+    public TextView tel;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +70,7 @@ public class ResetPSWForgetOneActivity extends BaseActivity {
         mobile = ToolsUtils.getString(ResetPSWForgetOneActivity.this, Constant.MOBILE,"");
         guid = ToolsUtils.getString(ResetPSWForgetOneActivity.this,Constant.LOGIN_GUID,"");
         key = ToolsUtils.getString(ResetPSWForgetOneActivity.this,Constant.KEY,"");
+        tel.setText(mobile);
         title.setText("重置支付密码");
         mEdit.get(0).addTextChangedListener(tw);
         mEdit.get(1).addTextChangedListener(tw);
@@ -157,8 +161,8 @@ public class ResetPSWForgetOneActivity extends BaseActivity {
 
                     @Override
                     public void onNext(GetCodeBean getCodeBean) {
-                        Log.e("YZM",getCodeBean.getErrorMsg());
-                        //ToolsUtils.getInstance().toastShowStr(PayCodeYZMActivity.this,getCodeBean.getErrorMsg());
+                        //Log.e("YZM",getCodeBean.getErrorMsg());
+                        ToolsUtils.getInstance().toastShowStr(ResetPSWForgetOneActivity.this,getCodeBean.getErrorMsg());
                     }
                 });
 

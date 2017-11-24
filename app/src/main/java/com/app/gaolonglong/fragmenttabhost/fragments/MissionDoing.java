@@ -233,6 +233,7 @@ public class MissionDoing extends Fragment {
 
                             @Override
                             public void onNext(MissionListBean missionListBean) {
+                                GetUserInfoUtils.checkKeyValue(getContext(),missionListBean.getErrorCode());
                                 list.clear();
                                 list.addAll(missionListBean.getData());
                                 Log.e("missionsize",list.size()+"");

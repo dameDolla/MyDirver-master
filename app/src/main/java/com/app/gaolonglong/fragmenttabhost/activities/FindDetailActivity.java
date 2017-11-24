@@ -118,7 +118,6 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
             }
         }).start();
         title.setText("货源详情");
-
         submit.setOnClickListener(this);
         mLinear.get(0).setOnClickListener(this);
         mLinear.get(1).setOnClickListener(this);
@@ -227,6 +226,7 @@ public class FindDetailActivity extends BaseActivity implements View.OnClickList
 
                     @Override
                     public void onNext(GetSRCBean getSRCBean) {
+                        GetUserInfoUtils.checkKeyValue(FindDetailActivity.this,getSRCBean.getErrorCode());
                         Log.e("findDetail",getSRCBean.getErrorCode()+"--"+getSRCBean.getErrorMsg());
                         setViewVal(getSRCBean);
                     }

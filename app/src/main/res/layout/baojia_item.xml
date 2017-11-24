@@ -150,6 +150,7 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:visibility="gone"
                     android:id="@+id/baojia_items_phone"
                     android:layout_marginRight="@dimen/txt_10dp"
                     android:src="@mipmap/phone"/>

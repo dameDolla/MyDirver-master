@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
+import com.app.gaolonglong.fragmenttabhost.utils.GetUserInfoUtils;
 import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 import com.app.gaolonglong.fragmenttabhost.view.PasswordInputView;
 
@@ -28,6 +29,8 @@ public class ResetPSWRemOneActivity extends BaseActivity implements View.OnClick
     public PasswordInputView inputView;
     @BindView(R.id.import_paycode_submit)
     public Button submit;
+    @BindView(R.id.import_paycode_tel)
+    public TextView tel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class ResetPSWRemOneActivity extends BaseActivity implements View.OnClick
         txt.setText("输入原支付密码");
         title.setText("重置支付密码");
         submit.setText("下一步");
+        tel.setText("请为手机号码为 "+ GetUserInfoUtils.getMobile(ResetPSWRemOneActivity.this));
         submit.setOnClickListener(this);
     }
     private void submit()

@@ -78,10 +78,14 @@ public class MyCarTeamActivity extends BaseActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_cargroup);
         ButterKnife.bind(this);
-        init();
+
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        init();
+    }
 
     private void init() {
         initView();
@@ -152,8 +156,8 @@ public class MyCarTeamActivity extends BaseActivity implements View.OnClickListe
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                onCreate(null);
-
+               // onCreate(null);
+                init();
             }
         });
 
@@ -192,6 +196,7 @@ public class MyCarTeamActivity extends BaseActivity implements View.OnClickListe
 
                     @Override
                     public void onNext(CarTeamBean carTeamBean) {
+                        GetUserInfoUtils.checkKeyValue(MyCarTeamActivity.this,carTeamBean.getErrorCode());
                         Log.e("CarTEM", carTeamBean.getErrorCode() + "--" + carTeamBean.getErrorMsg());
                         list.clear();
                         if (flag.equals("missiondetail")) {

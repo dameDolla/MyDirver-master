@@ -1,24 +1,19 @@
 package com.app.gaolonglong.fragmenttabhost.activities;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -29,7 +24,6 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.app.gaolonglong.fragmenttabhost.R;
-import com.app.gaolonglong.fragmenttabhost.adapter.BaojiaListAdapter;
 import com.app.gaolonglong.fragmenttabhost.adapter.BaojiaPopAdapter;
 import com.app.gaolonglong.fragmenttabhost.bean.CarTeamBean;
 import com.app.gaolonglong.fragmenttabhost.bean.GetCodeBean;
@@ -43,24 +37,15 @@ import com.app.gaolonglong.fragmenttabhost.utils.ToolsUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import chihane.jdaddressselector.BottomDialog;
-import chihane.jdaddressselector.OnAddressSelectedListener;
-import chihane.jdaddressselector.model.City;
-import chihane.jdaddressselector.model.County;
-import chihane.jdaddressselector.model.Province;
-import chihane.jdaddressselector.model.Street;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -69,7 +54,7 @@ import rx.schedulers.Schedulers;
  * Created by yanqi on 2017/8/7.
  */
 
-public class AddReleaseActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemClickListener, OnAddressSelectedListener {
+public class AddReleaseActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemClickListener{
 
     private View contentView;
     private PopupWindow popMenu;
@@ -100,8 +85,6 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
     private ListView timeListview2;
     private SimpleAdapter time1adapter;
     private SimpleAdapter time2adapter;
-    private BottomDialog addrDialog;
-    private BottomDialog addrDialogs;
 
     @OnClick({R.id.title_back})
     public void back() {
@@ -223,19 +206,30 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
         baojia = mEdit.get(2).getText().toString();
         msg = mEdit.get(3).getText().toString();
 
-        if (TextUtils.isEmpty(guid) || TextUtils.isEmpty(mobile) ||
-                TextUtils.isEmpty(key) || TextUtils.isEmpty(start) ||
-                TextUtils.isEmpty(finish)) {
-            ToolsUtils.getInstance().toastShowStr(AddReleaseActivity.this, "请填写完整的信息");
+
+        if (TextUtils.isEmpty(carType)){
+            ToolsUtils.getInstance().toastShowStr(AddReleaseActivity.this, "请填写车辆信息");
             return;
         }
-
+        if (TextUtils.isEmpty(finish)){
+            ToolsUtils.getInstance().toastShowStr(AddReleaseActivity.this, "请选择目的地");
+            return;
+        }
+        if (TextUtils.isEmpty(start)){
+            ToolsUtils.getInstance().toastShowStr(AddReleaseActivity.this, "请选择始发地");
+            return;
+        }
+        if (TextUtils.isEmpty(baojia))
+        {
+            ToolsUtils.getInstance().toastShowStr(AddReleaseActivity.this, "请填写您的报价");
+            return;
+        }
         JSONObject mJson = new JSONObject();
         try {
             mJson.put("GUID", guid);
             mJson.put(Constant.MOBILE, mobile);
             mJson.put(Constant.KEY, key);
-            mJson.put("truckno", car_num);
+
 
             mJson.put("SurplusTon", weight + "吨");
             mJson.put("TransportOffer", baojia + "元");
@@ -250,6 +244,7 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
                 String[] cartype = carType.split("/");
                 mJson.put("trucklength", cartype[1]);
                 mJson.put("trucktype", cartype[0]);
+                mJson.put("truckno", car_num);
             }
 
         } catch (JSONException e) {
@@ -383,17 +378,15 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.release_begin_addr:
                 flag = 4;
-                addrDialog = new BottomDialog(AddReleaseActivity.this);
-                addrDialog.setOnAddressSelectedListener(this);
-                addrDialog.show();
-                // startActivityForResult(new Intent(AddReleaseActivity.this,SearchAddrActivity.class),GETADDR);
+
+                 startActivityForResult(new Intent(AddReleaseActivity.this,AddressThressActivity.class),GETADDR);
                 break;
             case R.id.release_finish_addr:
                 flag = 5;
-                addrDialogs = new BottomDialog(AddReleaseActivity.this);
+                /*addrDialogs = new BottomDialog(AddReleaseActivity.this);
                 addrDialogs.setOnAddressSelectedListener(this);
-                addrDialogs.show();
-                // startActivityForResult(new Intent(AddReleaseActivity.this,SearchAddrActivity.class),200);
+                addrDialogs.show();*/
+                 startActivityForResult(new Intent(AddReleaseActivity.this,AddressThressActivity.class),200);
                 break;
             case R.id.fabu_now:
                 submit();
@@ -471,9 +464,10 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
         super.onActivityResult(requestCode, resultCode, data);
         String start = data.getStringExtra("address");
         //String finish = data.getStringExtra("finish");
-        if (requestCode == 100 && resultCode == 4) {
+        if (requestCode == 100 ) {
             mText.get(6).setText(start);
-        } else if (requestCode == 200 && resultCode == 4) {
+            //ToolsUtils.getInstance().toastShowStr(AddReleaseActivity.this,start);
+        } else if (requestCode == 200 ) {
             mText.get(7).setText(start);
         }
 
@@ -589,15 +583,5 @@ public class AddReleaseActivity extends BaseActivity implements View.OnClickList
         }
     }
 
-    @Override
-    public void onAddressSelected(Province province, City city, County county, Street street) {
-        String addr = province.name + city.name + county.name;
-        if (flag == 4) {
-            addrDialog.dismiss();
-            mText.get(6).setText(addr);
-        } else if (flag == 5) {
-            addrDialogs.dismiss();
-            mText.get(7).setText(addr);
-        }
-    }
+
 }

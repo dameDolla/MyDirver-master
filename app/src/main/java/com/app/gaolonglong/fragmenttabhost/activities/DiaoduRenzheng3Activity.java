@@ -417,7 +417,7 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
 
         }
     }
-
+    private List<Integer> errorPosition = new ArrayList<>();
     private void upload(String g) {
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         builder.addFormDataPart("MemberGUID", g);
@@ -461,6 +461,10 @@ public class DiaoduRenzheng3Activity extends BaseActivity implements View.OnClic
                             try {
                                 JSONObject json = new JSONObject(info);
                                 String str = json.get("errorMsg").toString();
+                                String code = json.get("errorCode").toString();
+                                if (!code.equals("200")){
+                                    errorPosition.add(position);
+                                }
                                 ToolsUtils.getInstance().toastShowStr(DiaoduRenzheng3Activity.this, str);
                             } catch (Exception e) {
 

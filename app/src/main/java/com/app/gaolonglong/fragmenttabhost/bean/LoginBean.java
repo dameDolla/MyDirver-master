@@ -128,6 +128,11 @@ public class LoginBean {
         private String SecreKey;
         private String AvatarAddress;
         private String MInvoiceType;
+        private String BankUserName;
+
+        public String getBankUserName() {
+            return BankUserName;
+        }
 
         public String getMInvoiceType() {
             return MInvoiceType;

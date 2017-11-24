@@ -69,8 +69,24 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
                             android:textSize="@dimen/txt_12"
-                            android:text="冷藏车"
+                            android:text=""
                             android:id="@+id/carteam_item_cartype"
+                            android:paddingLeft="@dimen/txt_10dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:paddingLeft="@dimen/txt_10dp"
+                            android:id="@+id/carteam_item_carlenth"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_12"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_12"
+                            android:text=""
+                            android:id="@+id/carteam_item_tiji"
                             android:paddingLeft="@dimen/txt_10dp"/>
                     </LinearLayout>
                     <RelativeLayout
@@ -86,22 +102,15 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
                             android:textSize="@dimen/txt_12"
-                            android:text="22吨"
+                            android:text=""
                             android:id="@+id/carteam_item_weight"
                             />
+
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="12.5米"
-                            android:paddingLeft="@dimen/txt_10dp"
-                            android:id="@+id/carteam_item_carlenth"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/txt_12"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="12.5米"
+                            android:text=""
                             android:paddingLeft="@dimen/txt_10dp"
                             android:id="@+id/carteam_item_carkuan"
                             android:textColor="@color/black"
@@ -109,20 +118,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="12.5米"
+                            android:text=""
                             android:paddingLeft="@dimen/txt_10dp"
                             android:id="@+id/carteam_item_carheight"
                             android:textColor="@color/black"
                             android:textSize="@dimen/txt_12"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/txt_12"
-                            android:text="30方"
-                            android:id="@+id/carteam_item_tiji"
-                            android:paddingLeft="@dimen/txt_10dp"/>
+
                     </LinearLayout>
                         <TextView
                             android:layout_width="wrap_content"

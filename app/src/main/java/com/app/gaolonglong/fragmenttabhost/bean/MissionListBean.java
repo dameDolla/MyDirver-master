@@ -243,6 +243,17 @@ public class MissionListBean {
         private String InsertDate;//运单生成的时间
         private String ArrivalLoadingTime;//到达装货时间
         private String DepartureTime;//出发时间
+        private String DeparturePlace;//出发时间
+        private String ArrivalLoadingPlace;//出发时间
+
+        public String getDeparturePlace() {
+            return DeparturePlace;
+        }
+
+        public String getArrivalLoadingPlace() {
+            return ArrivalLoadingPlace;
+        }
+
 
         public String getDepartureTime() {
             return DepartureTime;

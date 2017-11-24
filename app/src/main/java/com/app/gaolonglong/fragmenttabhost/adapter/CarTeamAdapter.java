@@ -59,11 +59,12 @@ public class CarTeamAdapter extends RecyclerView.Adapter{
         String vtruck = data.getVtruck()+"";
         mHolder.carNum.setText(data.getTruckno());
         mHolder.type.setText(data.getTrucktype());
-        mHolder.length.setText("长"+data.getTrucklength());
-        mHolder.weight.setText("重"+data.getTruckWeight());
-        mHolder.kuan.setText("宽"+data.getTruckWidth());
-        mHolder.gao.setText("高"+data.getTruckHeight());
+        mHolder.length.setText("长: "+data.getTrucklength());
+        mHolder.weight.setText("重: "+data.getTruckWeight());
+        mHolder.kuan.setText("宽: "+data.getTruckWidth());
+        mHolder.gao.setText("高: "+data.getTruckHeight());
         mHolder.logo.setImageURI(Uri.parse(data.getTruckImg()));
+        mHolder.tiji.setText("体积: "+data.getVolume());
         if (vtruck.equals("0")) { //未认证
             mHolder.status.setText("未认证");
             //mHolder.status.setTextColor(Color.RED);

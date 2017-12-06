@@ -17,7 +17,7 @@
         android:paddingLeft="10dp"
         android:textColor="#000000"
         android:textSize="16sp"/>
-    <com.app.gaolonglong.fragmenttabhost.view.MyGridView
+    <com.mr.truck.view.MyGridView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:columnWidth="80dp"
@@ -42,7 +42,7 @@
         android:paddingLeft="10dp"
         android:textColor="#000000"
         android:textSize="16sp"/>
-    <com.app.gaolonglong.fragmenttabhost.view.MyGridView
+    <com.mr.truck.view.MyGridView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:columnWidth="80dp"

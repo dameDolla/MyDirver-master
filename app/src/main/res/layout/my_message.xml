@@ -97,7 +97,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/txt_10dp"/>
     </RelativeLayout>-->
-    <com.app.gaolonglong.fragmenttabhost.view.EmptyLayout
+    <com.mr.truck.view.EmptyLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/my_message_empty"/>

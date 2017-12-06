@@ -63,25 +63,7 @@
             android:textColor="@color/black"
             android:paddingLeft="@dimen/txt_10dp"
             android:gravity="center_vertical"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text=">"
-            android:textSize="@dimen/txt_20"
-            android:layout_alignParentRight="true"
-            android:paddingRight="@dimen/txt_15dp"
-            android:gravity="center_vertical"
-            android:id="@+id/setting_arrow2"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="修改"
-            android:textColor="@color/shen_blue"
-            android:textSize="@dimen/txt_14"
-            android:layout_toLeftOf="@+id/setting_arrow2"
-            android:gravity="center_vertical"
-            android:paddingRight="@dimen/txt_10dp"
-            android:id="@+id/setting_xiugai"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -89,8 +71,8 @@
             android:textSize="@dimen/txt_14"
             android:textColor="#666666"
             android:id="@+id/setting_phone"
-            android:layout_toLeftOf="@+id/setting_xiugai"
-            android:paddingRight="@dimen/txt_10dp"/>
+            android:layout_alignParentRight="true"
+            android:paddingRight="@dimen/txt_15dp"/>
     </RelativeLayout>
 
     <include layout="@layout/back_line"/>

@@ -32,7 +32,7 @@
             android:layout_centerInParent="true"/>
     </RelativeLayout>
 
-    <com.app.gaolonglong.fragmenttabhost.view.PasswordInputView
+    <com.mr.truck.view.PasswordInputView
         android:id="@+id/retype_passwordInputView"
         android:layout_width="match_parent"
         android:layout_height="56dp"

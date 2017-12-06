@@ -20,7 +20,7 @@
             android:layout_marginRight="15dp"
             android:gravity="center"
             android:text="地点"
-            android:textColor="#5a5959"
+            android:textColor="@color/black"
             android:textSize="16dp" />
         <TextView
             android:id="@+id/listview_f2bg"
@@ -30,7 +30,7 @@
             android:layout_marginRight="15dp"
             android:gravity="center"
             android:visibility="gone"
-            android:textColor="#5a5959"
+            android:textColor="@color/black"
             android:textSize="16dp" />
     </LinearLayout>
 

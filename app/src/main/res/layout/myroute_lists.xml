@@ -29,7 +29,7 @@
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
 
-    <com.app.gaolonglong.fragmenttabhost.view.EmptyLayout
+    <com.mr.truck.view.EmptyLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/myroutelist_empty"

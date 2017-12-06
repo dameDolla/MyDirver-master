@@ -156,7 +156,7 @@
             android:layout_height="@dimen/txt_15dp"
             android:background="@color/color_f2" />
         </LinearLayout>
-        <com.app.gaolonglong.fragmenttabhost.view.EmptyLayout
+        <com.mr.truck.view.EmptyLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/find_route_empty"

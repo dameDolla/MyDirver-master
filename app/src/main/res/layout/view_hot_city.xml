@@ -11,7 +11,7 @@
         style="@style/LetterIndexTextViewStyle"
         android:text="@string/hot_city"/>
 
-    <com.app.gaolonglong.fragmenttabhost.view.WrapHeightGridView
+    <com.mr.truck.view.WrapHeightGridView
         android:id="@+id/gridview_hot_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

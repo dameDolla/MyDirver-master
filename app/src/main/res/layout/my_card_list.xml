@@ -43,7 +43,7 @@
 
     </RelativeLayout>
 
-    <com.app.gaolonglong.fragmenttabhost.view.EmptyLayout
+    <com.mr.truck.view.EmptyLayout
         android:id="@+id/my_card_listempty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

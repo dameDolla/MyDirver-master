@@ -5,10 +5,10 @@
     android:layout_height="match_parent">
 
     <include layout="@layout/top_title"/>
-    <android.support.v4.widget.SwipeRefreshLayout
+    <!--<android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/mywallte_fresh">
+        android:id="@+id/mywallte_fresh">-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
+        android:layout_weight="9"
         android:background="@color/shen_blue">
         <TextView
             android:layout_width="wrap_content"
@@ -45,12 +45,12 @@
             android:paddingBottom="@dimen/txt_20dp"/>
     </RelativeLayout>
 
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9"
+        android:layout_weight="4"
         android:orientation="vertical"
-        >
+        >-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
@@ -115,6 +115,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:visibility="gone"
                 android:orientation="vertical"
                 android:gravity="center_vertical">
                 <RelativeLayout
@@ -168,23 +169,8 @@
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:text="本月账单记录"
-            android:background="@color/color_f2"
-            android:textSize="@dimen/txt_12"
-            android:textColor="#666666"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/txt_10dp"/>
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/my_wallte_recycle"/>
-        </android.support.v4.widget.NestedScrollView>
+
+        <!--</android.support.v4.widget.NestedScrollView>-->
 
         <!--<RelativeLayout
             android:layout_width="match_parent"
@@ -236,8 +222,29 @@
 
         </RelativeLayout>-->
 
+    <!--</LinearLayout>-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:text="本月账单记录"
+                android:background="@color/color_f2"
+                android:textSize="@dimen/txt_12"
+                android:textColor="#666666"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/txt_10dp"/>
+            <!--<android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">-->
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/my_wallte_recycle"/>
+        </LinearLayout>
     </LinearLayout>
-    </LinearLayout>
-    </android.support.v4.widget.SwipeRefreshLayout>
+   <!-- </android.support.v4.widget.SwipeRefreshLayout>-->
 
 </LinearLayout>

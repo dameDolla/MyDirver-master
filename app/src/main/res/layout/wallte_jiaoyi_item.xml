@@ -15,14 +15,14 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="2.3"
             android:text="2017/09/08 24:00:00"
             android:gravity="center_vertical"
             android:id="@+id/wallte_item_time"/>
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:gravity="center">
             <TextView
                 android:layout_width="wrap_content"
@@ -38,18 +38,20 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="3.2"
             android:gravity="center"
             android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="250元"
+                android:textColor="@color/black"
                 android:id="@+id/wallte_item_money"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="微信充值金额"
+                android:textColor="@color/black"
                 android:id="@+id/wallte_item_what"
                 android:paddingTop="@dimen/txt_5dp"/>
         </LinearLayout>

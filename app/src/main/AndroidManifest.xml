@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.app.gaolonglong.fragmenttabhost"
+    package="com.mr.truck"
     xmlns:tools="http://schemas.android.com/tools">
 
     <!--用于进行网络定位-->
@@ -23,9 +23,9 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
     <!--允许应用接收JPUSH内部代码发送的广播消息。-->
     <permission
-        android:name="com.mr.truck.permission.JPUSH_MESSAGE.permission.JPUSH_MESSAGE"
+        android:name="com.mr.truck.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
-    <uses-permission android:name="com.mr.truck.permission.JPUSH_MESSAGE.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="com.mr.truck.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
@@ -67,8 +67,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-        <service android:name=".service.GetUserInfoService"/>
-        <service android:name=".service.LocationService"/>
+        <service android:name="com.mr.truck.service.GetUserInfoService"/>
+        <service android:name="com.mr.truck.service.LocationService"/>
         <service
             android:name="cn.jpush.android.service.PushService"
             android:enabled="true"
@@ -81,84 +81,89 @@
             </intent-filter>
         </service>
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.mr.truck.activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".activities.FaPiaoSettingActivity"
+        <activity android:name="com.mr.truck.activities.FaPiaoSettingActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
+        <!--收支明细页面-->
+        <activity android:name=".activities.SZMXActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--三级联动地址选择-->
-        <activity android:name=".activities.AddressThressActivity"
+        <activity android:name="com.mr.truck.activities.AddressThressActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--交易详情-->
-        <activity android:name=".activities.JiaoYiDetailActivity"
+        <activity android:name="com.mr.truck.activities.JiaoYiDetailActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--选择车厢车长-->
-        <activity android:name=".activities.SelectTruckTypeActivity"
+        <activity android:name="com.mr.truck.activities.SelectTruckTypeActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--地址选择页面-->
-        <activity android:name=".activities.AddressActivity"
+        <activity android:name="com.mr.truck.activities.AddressActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--充值页面-->
-        <activity android:name=".activities.RechargeSelectMoneyActivity"
+        <activity android:name="com.mr.truck.activities.RechargeSelectMoneyActivity"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden">
 
         </activity>
         <!--验证银行卡-->
-        <activity android:name=".activities.CheckBankCardActivity"
+        <activity android:name="com.mr.truck.activities.CheckBankCardActivity"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
             android:theme="@style/AppTheme">
 
         </activity>
 
         <!--无网络-->
-        <activity android:name=".activities.NoNetWorkActivity"
+        <activity android:name="com.mr.truck.activities.NoNetWorkActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--公司信息界面-->
-        <activity android:name=".activities.CompanyInfoActivity"
+        <activity android:name="com.mr.truck.activities.CompanyInfoActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--添加或者修改车辆-->
-        <activity android:name=".activities.AddCarActivity"
+        <activity android:name="com.mr.truck.activities.AddCarActivity"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden">
 
         </activity>
         <!--关于我们界面-->
-        <activity android:name=".activities.IntroduceActivity"
+        <activity android:name="com.mr.truck.activities.IntroduceActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--选择司机界面-->
-        <activity android:name=".activities.SelectDriverActivity"
+        <activity android:name="com.mr.truck.activities.SelectDriverActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--路线规划页面-->
-        <activity android:name=".activities.RouteMapActivity"
+        <activity android:name="com.mr.truck.activities.RouteMapActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--认证成功界面-->
-        <activity android:name=".activities.CommitSuccessActivity"
+        <activity android:name="com.mr.truck.activities.CommitSuccessActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--启动页面-->
-        <activity android:name=".activities.SplashActivity"
+        <activity android:name="com.mr.truck.activities.SplashActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -167,7 +172,7 @@
             </intent-filter>
         </activity>
         <!--微信支付回调页面-->
-        <activity android:name=".activities.pay.WXPayEntryActivity"
+        <activity android:name="com.mr.truck.activities.pay.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -175,216 +180,216 @@
         </activity>
 
         <!--欢迎界面-->
-        <activity android:name=".activities.GuidActivity"
+        <activity android:name="com.mr.truck.activities.GuidActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--登录界面-->
-        <activity android:name=".activities.LoginActivity"
+        <activity android:name="com.mr.truck.activities.LoginActivity"
             android:theme="@style/AppTheme">
 
         </activity>
 
         <!--添加回程页面-->
-        <activity android:name=".activities.AddReleaseActivity"
+        <activity android:name="com.mr.truck.activities.AddReleaseActivity"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden">
 
         </activity>
 
         <!--设置界面-->
-        <activity android:name=".activities.SettingActivity"
+        <activity android:name="com.mr.truck.activities.SettingActivity"
             android:theme="@style/AppTheme">
 
         </activity>
 
-        <activity android:name=".activities.DebugApiActivity"
+        <activity android:name="com.mr.truck.activities.DebugApiActivity"
             android:theme="@style/AppTheme">
 
 
         </activity>
-        <activity android:name=".activities.BaseActivity"
+        <activity android:name="com.mr.truck.activities.BaseActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--认证主界面-->
-        <activity android:name=".activities.RenzhengMainActivity"
+        <activity android:name="com.mr.truck.activities.RenzhengMainActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--车队司机认证-->
-        <activity android:name=".activities.CarGroupRenzhengActivity"
+        <activity android:name="com.mr.truck.activities.CarGroupRenzhengActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--车队司机认证2-->
-        <activity android:name=".activities.CarGroupRenzheng2Activity"
+        <activity android:name="com.mr.truck.activities.CarGroupRenzheng2Activity"
             android:theme="@style/AppTheme">
 
         </activity>
 
         <!--个体司机认证-->
-        <activity android:name=".activities.PersonalRenzhengActivity"
+        <activity android:name="com.mr.truck.activities.PersonalRenzhengActivity"
             android:theme="@style/AppTheme">
 
         </activity>
 
         <!--个体司机认证2-->
-        <activity android:name=".activities.PersonalRenzheng2Activity"
+        <activity android:name="com.mr.truck.activities.PersonalRenzheng2Activity"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden">
 
         </activity>
 
         <!--调度平台认证-->
-        <activity android:name=".activities.DiaoDuRenzhengActivity"
+        <activity android:name="com.mr.truck.activities.DiaoDuRenzhengActivity"
             android:theme="@style/AppTheme">
 
         </activity>
 
         <!--调度平台认证-->
-        <activity android:name=".activities.DiaoduRenzheng2Activity"
+        <activity android:name="com.mr.truck.activities.DiaoduRenzheng2Activity"
             android:theme="@style/AppTheme">
 
         </activity>
 
         <!--调度平台认证-->
-        <activity android:name=".activities.DiaoduRenzheng3Activity"
+        <activity android:name="com.mr.truck.activities.DiaoduRenzheng3Activity"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden">
 
         </activity>
 
         <!--我的钱包页面-->
-        <activity android:name=".activities.MyWallteActivity"
+        <activity android:name="com.mr.truck.activities.MyWallteActivity"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden">
 
         </activity>
 
         <!--我的消息界面-->
-        <activity android:name=".activities.MyMessageActivity"
+        <activity android:name="com.mr.truck.activities.MyMessageActivity"
             android:theme="@style/AppTheme">
 
         </activity>
 
         <!--我的车队-->
-        <activity android:name=".activities.MyCarTeamActivity"
+        <activity android:name="com.mr.truck.activities.MyCarTeamActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         
         <!--优惠券-->
-        <activity android:name=".activities.YouHuiQuanActivity"
+        <activity android:name="com.mr.truck.activities.YouHuiQuanActivity"
             android:theme="@style/AppTheme">
 
         </activity>
 
         <!--我的银行卡-->
-        <activity android:name=".activities.MyCardListActivity"
+        <activity android:name="com.mr.truck.activities.MyCardListActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--我的订阅列表-->
-        <activity android:name=".activities.MyRouteListActivity"
+        <activity android:name="com.mr.truck.activities.MyRouteListActivity"
             android:theme="@style/AppTheme">
 
     </activity>
 
         <!--地址选择界面-->
         <!--添加订阅路线-->
-        <activity android:name=".activities.AddRouteActivity">
+        <activity android:name="com.mr.truck.activities.AddRouteActivity">
 
         </activity>
 
         <!--运单状态-->
-        <activity android:name=".activities.MissionStatusActivity"
+        <activity android:name="com.mr.truck.activities.MissionStatusActivity"
             android:theme="@style/AppTheme">
         </activity>
         <!--货源详情-->
-        <activity android:name=".activities.FindDetailActivity"
+        <activity android:name="com.mr.truck.activities.FindDetailActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--填写报价信息表-->
-        <activity android:name=".activities.BaojiaEditActivity"
+        <activity android:name="com.mr.truck.activities.BaojiaEditActivity"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--支付选择界面-->
-        <activity android:name=".activities.PayActivity"
+        <activity android:name="com.mr.truck.activities.PayActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--设置支付密码首页-->
-        <activity android:name=".activities.SetPayCodeMainActivity"
+        <activity android:name="com.mr.truck.activities.SetPayCodeMainActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--输入密码-->
-        <activity android:name=".activities.ImportPayCodeActivity"
+        <activity android:name="com.mr.truck.activities.ImportPayCodeActivity"
             android:theme="@style/AppTheme">
 
         </activity>
 
         <!--再次输入密码-->
-        <activity android:name=".activities.RetypePayCodeActivity"
+        <activity android:name="com.mr.truck.activities.RetypePayCodeActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--是否记得密码-->
-        <activity android:name=".activities.RememberPSWActivity"
+        <activity android:name="com.mr.truck.activities.RememberPSWActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--修改密码获取验证码-->
-        <activity android:name=".activities.PayCodeYZMActivity"
+        <activity android:name="com.mr.truck.activities.PayCodeYZMActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--报价详情-->
-        <activity android:name=".activities.BaojiaDetailActivity"
+        <activity android:name="com.mr.truck.activities.BaojiaDetailActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--修改报价-->
-        <activity android:name=".activities.BaojiaUpdateActivity"
+        <activity android:name="com.mr.truck.activities.BaojiaUpdateActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--重置支付密码-->
-        <activity android:name=".activities.ResetPSWOneActivity"
+        <activity android:name="com.mr.truck.activities.ResetPSWOneActivity"
             android:theme="@style/AppTheme">
 
         </activity>
-        <activity android:name=".activities.ResetPSWRemOneActivity"
+        <activity android:name="com.mr.truck.activities.ResetPSWRemOneActivity"
             android:theme="@style/AppTheme">
 
         </activity>
-        <activity android:name=".activities.ResetPSWRemTwoActivity"
+        <activity android:name="com.mr.truck.activities.ResetPSWRemTwoActivity"
             android:theme="@style/AppTheme">
 
         </activity>
-        <activity android:name=".activities.ResetPSWForgetOneActivity"
+        <activity android:name="com.mr.truck.activities.ResetPSWForgetOneActivity"
             android:theme="@style/AppTheme">
 
         </activity>
-        <activity android:name=".activities.ResetPSWForgetTwoActivity"
+        <activity android:name="com.mr.truck.activities.ResetPSWForgetTwoActivity"
             android:theme="@style/AppTheme">
 
         </activity>
-        <activity android:name=".activities.ResetPSWForgetThreeActivity"
+        <activity android:name="com.mr.truck.activities.ResetPSWForgetThreeActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--运单详情-->
-        <activity android:name=".activities.MissionDetailActivity"
+        <activity android:name="com.mr.truck.activities.MissionDetailActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <!--车辆信息-->
-        <activity android:name=".activities.CarInfoActivity"
+        <activity android:name="com.mr.truck.activities.CarInfoActivity"
             android:theme="@style/AppTheme">
 
         </activity>
@@ -467,7 +472,7 @@
             </intent-filter>
         </receiver>-->
         <receiver
-            android:name=".broadcast.MyPushReceiver"
+            android:name="com.mr.truck.broadcast.MyPushReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.REGISTRATION" />
